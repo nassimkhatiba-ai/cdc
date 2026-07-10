@@ -1,13 +1,13 @@
 ---
 name: cdc-skill-creator
-description: Convert MCP servers (or OpenAPI specs) into Claude Code CDC skills so tools load as a skill instead of a connected MCP. Use when the user wants to convert an MCP, make a CDC skill, turn tools into a skill, stop loading MCP schemas into context, run cdc-skill-creator, or says "make this MCP a skill" / "convert my MCP".
+description: Convert MCP servers (or OpenAPI specs) into CDC Agent Skills for Claude Code and OpenAI Codex so tools load as a skill instead of a connected MCP. Use when the user wants to convert an MCP, make a CDC skill, turn tools into a skill, stop loading MCP schemas into context, run cdc-skill-creator, or says "make this MCP a skill" / "convert my MCP" / "use this in Codex".
 ---
 
 # CDC Skill Creator
 
-Turn an **MCP server** (or OpenAPI spec) into a **Claude Code skill**.
+Turn an **MCP server** (or OpenAPI spec) into an **Agent Skill** for Claude Code and/or OpenAI Codex.
 
-Claude loads the result as a normal skill (`~/.claude/skills/<name>-cdc/`) -
+The result is a normal Agent Skill folder -
 **not** as a connected MCP server. No tool schemas dumped into context. The
 agent greps a one-line-per-tool index and writes a sandboxed script.
 
@@ -17,6 +17,31 @@ MCP tools/list  --this skill-->  ~/.claude/skills/<name>-cdc/
                                    CDC.md     (grep lazily)
                                    mcp-call.js
 ```
+
+
+## Claude Code vs Codex
+
+Same skill format (Agent Skills / `SKILL.md`). Install targets:
+
+| agent | skill directory |
+|---|---|
+| Claude Code | `~/.claude/skills/<name>-cdc/` |
+| OpenAI Codex | `~/.codex/skills/<name>-cdc/` |
+
+Default (`--target auto`) installs into **both** when those roots exist.
+
+```bash
+# both agents (default when both configs exist)
+node scripts/create-cdc-skill.js from-mcp --name github --file tools.json
+
+# Codex only
+node scripts/create-cdc-skill.js from-mcp --name github --file tools.json --target codex
+
+# Claude Code only
+node scripts/create-cdc-skill.js from-mcp --name github --file tools.json --target claude
+```
+
+After installing for Codex, **restart Codex** so it picks up the new skill.
 
 ## When to use
 
@@ -37,7 +62,7 @@ You need:
 | **name** | yes | `github`, `stripe`, `linear` |
 | **source** | yes | tools JSON **or** probe command **or** OpenAPI URL |
 | title | no | `GitHub MCP` |
-| install | no | default **yes** -> `~/.claude/skills/<name>-cdc` |
+| install | no | default **yes** -> Claude + Codex skill dirs |
 
 If the user only says "convert my GitHub MCP", prefer probing a known package
 or ask for the command / tools dump. Do **not** invent tool schemas.
@@ -95,7 +120,8 @@ node skills/cdc-skill-creator/scripts/create-cdc-skill.js from-mcp ...
 Flags:
 
 - `--no-install` - only build under `.cdc-build/`, do not copy to `~/.claude/skills`
-- `--skills-dir DIR` - override install location
+- `--skills-dir DIR` - override install location (single dir)
+- `--target claude|codex|both|auto` - which agent(s) to install for (default auto)
 - `--title "..."` - display title in SKILL.md
 - `--command CMD` / `--arg A` - bake MCP launch into `mcp-manifest.json` (for `mcp-call.js`)
 - `--http-base URL` - generate HTTP-mode skill instead of MCP bridge
@@ -170,7 +196,8 @@ node scripts/create-cdc-skill.js from-mcp \
 ## What the generated skill contains
 
 ```
-~/.claude/skills/<name>-cdc/
+~/.claude/skills/<name>-cdc/   # Claude Code
+~/.codex/skills/<name>-cdc/    # OpenAI Codex (same contents)
   SKILL.md            # short preamble Claude loads first
   CDC.md              # one line per tool (grep; do not load whole file)
   stats.json          # compression numbers
@@ -183,7 +210,7 @@ node scripts/create-cdc-skill.js from-mcp \
 1. **Always run the script** - do not hand-write SKILL.md/CDC.md for large tool lists.
 2. **Never paste full tool schemas** into the chat after conversion. Point at the skill path.
 3. Prefer `--probe` or a file over retyping tools.
-4. Default to **installing** the skill (`~/.claude/skills`).
+4. Default to **installing** the skill for detected agents (Claude Code + Codex).
 5. After install, suggest one example prompt that uses the new skill by name.
 6. If probe fails (timeout, auth), fall back to asking for a tools dump.
 7. Name skills with lowercase letters/digits/hyphens only (`linear`, `gh`, `my-api`).

@@ -1,35 +1,27 @@
 # cdc-skill-creator
 
-Claude Code skill that converts MCP servers (or OpenAPI) into **CDC skills**.
+Agent Skill that converts MCP servers (or OpenAPI) into **CDC skills**.
 
-## Install into Claude Code
+Works in **Claude Code** and **OpenAI Codex** (same Agent Skills format).
 
-From this repo:
-
-```bash
-# copy the skill
-cp -R skills/cdc-skill-creator ~/.claude/skills/cdc-skill-creator
-
-# or via the cdc CLI once linked:
-#   node bin/cdc.js  (not required — this folder is already a skill)
-```
-
-Or one-liner:
+## Install
 
 ```bash
-mkdir -p ~/.claude/skills && \
-cp -R skills/cdc-skill-creator ~/.claude/skills/cdc-skill-creator
+# from the cdc repo
+node bin/cdc.js install-creator --target both
+# -> ~/.claude/skills/cdc-skill-creator
+# -> ~/.codex/skills/cdc-skill-creator
 ```
+
+Restart Codex after install so it picks up the skill.
 
 ## Use
 
-In Claude Code, say things like:
+In Claude Code or Codex:
 
 - "Convert my GitHub MCP into a CDC skill"
 - "Use cdc-skill-creator on this tools.json"
 - "Make a CDC skill from `npx -y @modelcontextprotocol/server-github`"
 
-Claude loads **cdc-skill-creator**, runs `scripts/create-cdc-skill.js`, and
-installs `~/.claude/skills/<name>-cdc/`.
-
-That new skill is what you use for day-to-day work — **not** a connected MCP.
+The creator installs e.g. `github-cdc` into the matching skill dirs.
+That skill is what you use day-to-day — **not** a connected MCP.

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-// create-cdc-skill.js — used by the cdc-skill-creator Claude Code skill.
-// Converts MCP tools (or OpenAPI) into an installed Claude Code skill.
+// create-cdc-skill.js - used by the cdc-skill-creator skill.
+// Converts MCP tools (or OpenAPI) into Agent Skills for Claude Code and Codex.
 //
 // Usage:
 //   node create-cdc-skill.js from-mcp --name <name> [--file tools.json] [--stdin]
@@ -51,19 +51,16 @@ function flag(flags, name, def) {
   return flags[name] === undefined ? def : flags[name];
 }
 
-function defaultSkillsDir() {
-  return (
-    process.env.CDC_SKILLS_DIR ||
-    path.join(process.env.HOME || process.env.USERPROFILE || '.', '.claude', 'skills')
-  );
-}
+const {
+  resolveSkillsDirs,
+  installToDirs,
+  skillFolderName,
+} = require('./lib/install-targets');
 
-function installPackage(srcDir, name, skillsDir) {
-  const destName = name.endsWith('-cdc') ? name : `${name}-cdc`;
-  const dest = path.join(skillsDir, destName);
-  fs.mkdirSync(skillsDir, { recursive: true });
-  fs.cpSync(srcDir, dest, { recursive: true });
-  return dest;
+function installPackage(srcDir, name, { skillsDir, target } = {}) {
+  const dirs = resolveSkillsDirs({ skillsDir, target });
+  const folder = skillFolderName(name);
+  return installToDirs(srcDir, folder, dirs);
 }
 
 function printJson(obj) {
@@ -118,17 +115,20 @@ async function cmdFromMcp(args) {
     mcpArgs,
   });
 
-  let installed = null;
+  let installed = [];
   if (!args.flags['no-install']) {
-    const skillsDir = flag(args.flags, 'skills-dir', defaultSkillsDir());
-    installed = installPackage(outDir, stats.name, skillsDir);
+    installed = installPackage(outDir, stats.name, {
+      skillsDir: flag(args.flags, 'skills-dir'),
+      target: flag(args.flags, 'target'),
+    });
   }
 
+  const skillName = skillFolderName(stats.name);
   printJson({
     ok: true,
     mode: 'mcp',
     name: stats.name,
-    skillName: `${stats.name}-cdc`,
+    skillName,
     tools: stats.tools,
     skillTokens: stats.skillTokens,
     cdcTokens: stats.cdcTokens,
@@ -137,10 +137,10 @@ async function cmdFromMcp(args) {
     definitionSavingsRatio: stats.definitionSavingsRatio,
     outDir,
     installed,
-    howToUse: installed
-      ? `In Claude Code: "Using the ${path.basename(installed)} skill, ..."`
-      : `Install with: cdc install ${stats.name}`,
-    note: 'Installed as a Claude Code skill — not as a connected MCP server.',
+    howToUse: installed.length
+      ? `In Claude Code or Codex: "Using the ${skillName} skill, ..."`
+      : `Install with: cdc install ${stats.name} --target both`,
+    note: 'Installed as an Agent Skill (Claude Code + Codex) — not as a connected MCP server.',
   });
 }
 
@@ -160,17 +160,20 @@ async function cmdFromOpenApi(args) {
     baseUrl: flag(args.flags, 'base-url'),
   });
 
-  let installed = null;
+  let installed = [];
   if (!args.flags['no-install']) {
-    const skillsDir = flag(args.flags, 'skills-dir', defaultSkillsDir());
-    installed = installPackage(outDir, stats.name, skillsDir);
+    installed = installPackage(outDir, stats.name, {
+      skillsDir: flag(args.flags, 'skills-dir'),
+      target: flag(args.flags, 'target'),
+    });
   }
 
+  const skillName = skillFolderName(stats.name);
   printJson({
     ok: true,
     mode: 'openapi',
     name: stats.name,
-    skillName: `${stats.name}-cdc`,
+    skillName,
     tools: stats.endpoints,
     skillTokens: stats.skillTokens,
     cdcTokens: stats.cdcTokens,
@@ -178,15 +181,19 @@ async function cmdFromOpenApi(args) {
     compression: stats.compressionSourceToSkill || stats.compressionSpecToSkill,
     outDir,
     installed,
-    howToUse: installed
-      ? `In Claude Code: "Using the ${path.basename(installed)} skill, ..."`
-      : `Install with: cdc install ${stats.name}`,
-    note: 'Installed as a Claude Code skill — not as a connected MCP server.',
+    howToUse: installed.length
+      ? `In Claude Code or Codex: "Using the ${skillName} skill, ..."`
+      : `Install with: cdc install ${stats.name} --target both`,
+    note: 'Installed as an Agent Skill (Claude Code + Codex) ��� not as a connected MCP server.',
   });
 }
 
 function cmdStats(args) {
-  const skillsDir = flag(args.flags, 'skills-dir', defaultSkillsDir());
+  const dirs = resolveSkillsDirs({
+    skillsDir: flag(args.flags, 'skills-dir'),
+    target: flag(args.flags, 'target'),
+  });
+  const skillsDir = dirs[0];
   const pkg = flag(args.flags, 'package');
   let statsFile;
   let root = flag(args.flags, 'root', skillsDir);
@@ -235,8 +242,9 @@ async function main() {
   node create-cdc-skill.js from-openapi --name X --spec https://.../openapi.json
   node create-cdc-skill.js stats --package X --paper
 
-Default: installs into ~/.claude/skills/<name>-cdc
-Flags: --no-install  --skills-dir DIR  --out DIR  --title T  --http-base URL
+Default: installs into Claude Code + Codex skill dirs (auto-detect).
+Flags: --no-install  --skills-dir DIR  --target claude|codex|both|auto
+       --out DIR  --title T  --http-base URL
 `);
     process.exit(0);
   }

@@ -6,7 +6,7 @@
 
 <p align="center">
   <strong>Code-Call Descriptors</strong> &mdash; stop loading MCPs into context.<br>
-  Convert them into <strong>Claude Code skills</strong> instead.
+  Convert them into <strong>Agent Skills</strong> for Claude Code and Codex instead.
 </p>
 
 <p align="center">
@@ -53,14 +53,15 @@ You install a skill. Claude opens the skill, greps the tool index, writes a scri
 
 ## Quick start — make a CDC skill in Claude Code
 
-**Easiest path:** install the creator skill once, then just ask Claude.
+**Easiest path:** install the creator skill once, then just ask Claude Code **or Codex**.
 
 ```bash
 git clone https://github.com/nassimkhatiba-ai/cdc.git && cd cdc
-cp -R skills/cdc-skill-creator ~/.claude/skills/cdc-skill-creator
+node bin/cdc.js install-creator --target both
+# -> ~/.claude/skills + ~/.codex/skills
 ```
 
-Then in Claude Code:
+Then in Claude Code or Codex (restart Codex after install):
 
 > Convert my GitHub MCP into a CDC skill  
 > (`npx -y @modelcontextprotocol/server-github`)

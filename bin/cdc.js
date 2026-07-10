@@ -1,11 +1,12 @@
 #!/usr/bin/env node
-// cdc — Code-Call Descriptor CLI
+// cdc - Code-Call Descriptor CLI
 //
 //   cdc                            interactive TUI (make a skill)
 //   cdc tui | cdc new              same
-//   cdc make <openapi> --name X    OpenAPI -> Claude Code skill
-//   cdc from-mcp ...               MCP tools/list -> Claude Code skill
-//   cdc install <pkg>              copy into ~/.claude/skills/
+//   cdc make <openapi> --name X    OpenAPI -> Agent Skill
+//   cdc from-mcp ...               MCP tools/list -> Agent Skill
+//   cdc install <pkg>              install into Claude Code and/or Codex
+//   cdc install-creator            install cdc-skill-creator for both agents
 //   cdc --stats                    estimate MCP token/cost savings
 //
 // Zero runtime deps. Node 18+.
@@ -16,20 +17,24 @@ const { compileOpenAPI } = require('../lib/compile-openapi');
 const { compileMCP, probeMcpServer } = require('../lib/compile-mcp');
 const { collectStats } = require('../lib/stats');
 const { runTui } = require('../lib/tui');
+const {
+  resolveSkillsDirs,
+  installToDirs,
+  skillFolderName,
+} = require('../lib/install-targets');
 
 const VERSION = require('../package.json').version;
 
 function usage(code = 0) {
   const text = `
-cdc v${VERSION} — Code-Call Descriptor toolkit
+cdc v${VERSION} - Code-Call Descriptor toolkit
 
-Turn MCP servers / OpenAPI specs into Claude Code *skills*
-(not MCP connections). Claude greps a tiny index and writes scripts;
-schemas and raw payloads never flood the context window.
+Turn MCP servers / OpenAPI specs into Agent Skills for
+Claude Code and OpenAI Codex (not MCP connections).
 
 USAGE
   cdc | cdc tui | cdc new
-      Interactive TUI — pick a source, build + install a skill.
+      Interactive TUI - pick a source, build + install a skill.
 
   cdc from-mcp <tools.json> --name <name> [--out cdc] [--title T]
              [--http-base URL] [--command CMD] [--arg A]...
@@ -41,30 +46,23 @@ USAGE
   cdc make <spec-url-or-path> --name <name> [--out cdc] [--base-url URL]
       Compile an OpenAPI 3.x JSON spec into a skill package.
 
-  cdc install <package-dir-or-name> [--skills-dir DIR]
-      Install as a Claude Code skill (default: ~/.claude/skills/<name>-cdc).
-      Claude loads this as a skill — not as a connected MCP server.
+  cdc install <package> [--target claude|codex|both|auto] [--skills-dir DIR]
+      Install as an Agent Skill.
+      auto (default): ~/.claude/skills and ~/.codex/skills when present.
+
+  cdc install-creator [--target claude|codex|both|auto]
+      Install cdc-skill-creator so you can convert MCPs by chatting
+      in Claude Code or Codex.
 
   cdc stats | cdc --stats [options]
-      Estimate how many tokens/dollars the MCP pattern would have cost.
-
-      --paper  --root <dir>  --package <dir>  --tools <json>
-      --sessions N  --tasks N  --mcp-trips N  --payload-tokens N
-      --price-in N  --price-out N  --json
-
-  cdc install-creator
-      Install the cdc-skill-creator Claude Code skill
-      (so you can convert MCPs by chatting with Claude).
-
   cdc list [--root cdc]
   cdc help | cdc --help
   cdc version | cdc --version
 
 QUICK START
-  cdc                                          # TUI
-  cdc from-mcp tools.json --name myserver
-  cdc install myserver
-  cdc --stats --paper
+  cdc install-creator --target both
+  # then in Claude Code or Codex:
+  #   "Convert my GitHub MCP into a CDC skill"
 
 Docs: README.md · Paper: PAPER.md
 `.trim();
@@ -72,7 +70,6 @@ Docs: README.md · Paper: PAPER.md
   process.exit(code);
 }
 
-// ---------- tiny argv parser ----------
 function parseArgs(argv) {
   const args = { _: [], flags: {} };
   for (let i = 0; i < argv.length; i++) {
@@ -117,7 +114,6 @@ function num(flags, name, def) {
   return n;
 }
 
-// ---------- commands ----------
 async function cmdMake(args) {
   const src = args._[0];
   const name = flag(args.flags, 'name');
@@ -194,22 +190,10 @@ function printCompileResult(outDir, stats) {
       `  compress   source ${stats.sourceTokens.toLocaleString()} tok -> skill ${stats.skillTokens} tok  (${stats.compressionSourceToSkill || stats.compressionSpecToSkill}x)`,
     );
   }
-  if (stats.definitionSavingsRatio) {
-    console.log(
-      `  def tax    MCP schemas ~${stats.definitionTaxMcp} tok vs skill ${stats.definitionTaxCdc} tok  (${stats.definitionSavingsRatio}x)`,
-    );
-  }
-  console.log(`\nThis installs as a Claude Code skill (not an MCP connection).`);
-  console.log(`  cdc install ${stats.name}`);
+  console.log(`\nInstall as an Agent Skill (Claude Code and/or Codex):`);
+  console.log(`  cdc install ${stats.name} --target both`);
   console.log(`  cdc --stats --root ${path.dirname(outDir)}`);
   console.log('');
-}
-
-function defaultSkillsDir() {
-  return (
-    process.env.CDC_SKILLS_DIR ||
-    path.join(process.env.HOME || process.env.USERPROFILE || '.', '.claude', 'skills')
-  );
 }
 
 function resolvePackage(nameOrPath, root = 'cdc') {
@@ -228,7 +212,7 @@ function resolvePackage(nameOrPath, root = 'cdc') {
 function cmdInstall(args) {
   const nameOrPath = args._[0];
   if (!nameOrPath) {
-    console.error('usage: cdc install <package-dir-or-name> [--skills-dir DIR]');
+    console.error('usage: cdc install <package> [--target claude|codex|both|auto] [--skills-dir DIR]');
     process.exit(1);
   }
   const root = flag(args.flags, 'root', 'cdc');
@@ -237,25 +221,51 @@ function cmdInstall(args) {
     console.error(`Package not found: ${nameOrPath}`);
     process.exit(1);
   }
-  const skillsDir = flag(args.flags, 'skills-dir', defaultSkillsDir());
-  const base = path.basename(src);
-  const destName = base.endsWith('-cdc') ? base : `${base}-cdc`;
-  const dest = path.join(skillsDir, destName);
+  const folder = skillFolderName(path.basename(src));
+  const dirs = resolveSkillsDirs({
+    skillsDir: flag(args.flags, 'skills-dir'),
+    target: flag(args.flags, 'target', 'auto'),
+  });
+  const installed = installToDirs(src, folder, dirs);
 
-  fs.mkdirSync(skillsDir, { recursive: true });
-  fs.cpSync(src, dest, { recursive: true });
-
-  console.log(`Installed skill ${src} -> ${dest}`);
-  console.log(`Claude Code loads this as a skill — not as a connected MCP server.`);
-  console.log(`Skill name: ${destName}`);
-  if (fs.existsSync(path.join(dest, 'mcp-manifest.json'))) {
-    const man = JSON.parse(fs.readFileSync(path.join(dest, 'mcp-manifest.json'), 'utf8'));
+  for (const dest of installed) {
+    console.log(`Installed skill ${src} -> ${dest}`);
+  }
+  console.log(`Loads as an Agent Skill (not a connected MCP server).`);
+  console.log(`Skill name: ${folder}`);
+  console.log(`Targets: Claude Code (~/.claude/skills) and/or Codex (~/.codex/skills)`);
+  if (fs.existsSync(path.join(installed[0], 'mcp-manifest.json'))) {
+    const man = JSON.parse(fs.readFileSync(path.join(installed[0], 'mcp-manifest.json'), 'utf8'));
     if (!man.command) {
       console.log(`\nNote: set CDC_MCP_COMMAND so scripts can reach the MCP server, e.g.:`);
       console.log(`  export CDC_MCP_COMMAND=npx`);
       console.log(`  export CDC_MCP_ARGS='["-y","@modelcontextprotocol/server-github"]'`);
     }
   }
+}
+
+function cmdInstallCreator(args = { flags: {} }) {
+  const src = path.join(__dirname, '..', 'skills', 'cdc-skill-creator');
+  if (!fs.existsSync(path.join(src, 'SKILL.md'))) {
+    console.error('cdc-skill-creator not found in this checkout:', src);
+    process.exit(1);
+  }
+  const dirs = resolveSkillsDirs({
+    skillsDir: flag(args.flags || {}, 'skills-dir'),
+    target: flag(args.flags || {}, 'target', 'auto'),
+  });
+  const installed = installToDirs(src, 'cdc-skill-creator', dirs);
+
+  for (const dest of installed) {
+    console.log(`Installed creator skill -> ${dest}`);
+  }
+  console.log('');
+  console.log('In Claude Code or Codex, say:');
+  console.log('  "Convert my GitHub MCP into a CDC skill"');
+  console.log('  "Use cdc-skill-creator on tools.json"');
+  console.log('');
+  console.log('Generated skills load as skills - not as connected MCP servers.');
+  console.log('Restart Codex after install to pick up new skills.');
 }
 
 function cmdStats(args) {
@@ -316,30 +326,9 @@ function cmdList(args) {
   console.log('');
 }
 
-
-function cmdInstallCreator() {
-  const src = path.join(__dirname, '..', 'skills', 'cdc-skill-creator');
-  if (!fs.existsSync(path.join(src, 'SKILL.md'))) {
-    console.error('cdc-skill-creator not found in this checkout:', src);
-    process.exit(1);
-  }
-  const dest = path.join(defaultSkillsDir(), 'cdc-skill-creator');
-  fs.mkdirSync(defaultSkillsDir(), { recursive: true });
-  fs.cpSync(src, dest, { recursive: true });
-  console.log(`Installed creator skill -> ${dest}`);
-  console.log('');
-  console.log('In Claude Code, say:');
-  console.log('  "Convert my GitHub MCP into a CDC skill"');
-  console.log('  "Use cdc-skill-creator on tools.json"');
-  console.log('');
-  console.log('Generated skills load as skills — not as connected MCP servers.');
-}
-
-// ---------- main ----------
 async function main() {
   const argv = process.argv.slice(2);
 
-  // no args + TTY → interactive skill builder
   if (!argv.length) {
     if (process.stdin.isTTY) {
       await runTui({ outRoot: 'cdc' });
@@ -381,7 +370,7 @@ async function main() {
       break;
     case 'install-creator':
     case 'install-skill-creator':
-      cmdInstallCreator();
+      cmdInstallCreator(args);
       break;
     case 'stats':
       cmdStats(args);
