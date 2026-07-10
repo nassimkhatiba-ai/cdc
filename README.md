@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <a href="#make-a-skill-tui">Quick start</a> &middot;
+  <a href="#quick-start--make-a-cdc-skill-in-claude-code">Quick start</a> &middot;
   <a href="#what-changes">Skill vs MCP</a> &middot;
   <a href="#benchmarks">Benchmarks</a> &middot;
   <a href="PAPER.md">Paper</a>
@@ -38,7 +38,7 @@
 ```
   your MCP server
         |
-        |  cdc from-mcp  /  cdc tui
+        |  cdc-skill-creator  /  cdc tui
         v
   ~/.claude/skills/github-cdc/     <-- Claude loads THIS (a skill)
         SKILL.md                   <-- tiny preamble
@@ -51,67 +51,76 @@ You install a skill. Claude opens the skill, greps the tool index, writes a scri
 
 ---
 
-## Make a skill (TUI)
+## Quick start — make a CDC skill in Claude Code
+
+**Easiest path:** install the creator skill once, then just ask Claude.
 
 ```bash
 git clone https://github.com/nassimkhatiba-ai/cdc.git && cd cdc
-node bin/cdc.js            # interactive
-# same as:  node bin/cdc.js tui   |   node bin/cdc.js new
+cp -R skills/cdc-skill-creator ~/.claude/skills/cdc-skill-creator
 ```
 
+Then in Claude Code:
+
+> Convert my GitHub MCP into a CDC skill  
+> (`npx -y @modelcontextprotocol/server-github`)
+
+or:
+
+> Use cdc-skill-creator on this tools.json
+
+Claude runs the bundled converter and installs:
+
 ```
-  +------------------------------------------+
-  |   CDC  ·  make a Claude Code skill       |
-  |   MCP/OpenAPI → skill (not an MCP load)  |
-  +------------------------------------------+
-
-  What are you converting?
-    1. Live MCP server  (probe tools/list)
-    2. MCP tools.json dump
-    3. OpenAPI spec
-    4. Try the sample (no network)
-
-  > choice [1]:
-```
-
-Pick a source &rarr; name it &rarr; install into `~/.claude/skills/` &rarr; optional savings report.
-
-### Or one-liners
-
-```bash
-# live MCP -> skill
-node bin/cdc.js from-mcp \
-  --probe npx --arg -y --arg "@modelcontextprotocol/server-github" \
-  --name github
-node bin/cdc.js install github
-# -> ~/.claude/skills/github-cdc/
-
-# tools dump -> skill
-node bin/cdc.js from-mcp my-tools.json --name myserver
-node bin/cdc.js install myserver
-
-# OpenAPI -> skill
-node bin/cdc.js make https://petstore3.swagger.io/api/v3/openapi.json --name petstore
-node bin/cdc.js install petstore
-
-# sample (offline)
-node bin/cdc.js from-mcp examples/sample-mcp-tools.json --name demo
-node bin/cdc.js install demo
+~/.claude/skills/github-cdc/     <-- loads as a SKILL, not an MCP connection
 ```
 
-Optional: `npm link` then just run `cdc`.
-
-### In Claude Code
+Next message:
 
 > Using the github-cdc skill, how many stars does torvalds/linux have?
 
-Claude loads **github-cdc as a skill** (progressive disclosure). It does **not** attach the GitHub MCP server or inject all its tool schemas.
-
-<details>
-<summary><b>What does the skill package look like?</b></summary>
+### What just happened
 
 ```
-cdc/demo/
+  MCP server / tools dump
+           |
+           |  cdc-skill-creator  (Claude Code skill)
+           v
+  ~/.claude/skills/<name>-cdc/
+        SKILL.md      tiny preamble Claude loads first
+        CDC.md        one line per tool (grep lazily)
+        mcp-call.js   optional bridge back to the MCP process
+```
+
+You are **not** connecting an MCP in Claude Code. You installed a skill.
+Schemas and raw JSON never flood the window.
+
+<details>
+<summary><b>Alternative: TUI / CLI (no Claude needed)</b></summary>
+
+```bash
+node bin/cdc.js            # interactive TUI
+# or
+node bin/cdc.js from-mcp --probe npx --arg -y --arg "@modelcontextprotocol/server-github" --name github
+node bin/cdc.js install github
+```
+
+```bash
+# tools dump
+node bin/cdc.js from-mcp my-tools.json --name myserver && node bin/cdc.js install myserver
+
+# OpenAPI
+node bin/cdc.js make https://petstore3.swagger.io/api/v3/openapi.json --name petstore
+node bin/cdc.js install petstore
+```
+
+</details>
+
+<details>
+<summary><b>What does a generated skill look like?</b></summary>
+
+```
+~/.claude/skills/demo-cdc/
   SKILL.md            # Claude Code skill (~definition tax only)
   CDC.md              # one line per tool, grouped by tag
   stats.json          # compression numbers
@@ -197,6 +206,8 @@ node bin/cdc.js --stats --paper
 ---
 
 ## CLI
+
+Preferred for most people: the **cdc-skill-creator** Claude Code skill above.
 
 ```bash
 cdc | cdc tui | cdc new                    # interactive skill builder

@@ -52,6 +52,10 @@ USAGE
       --sessions N  --tasks N  --mcp-trips N  --payload-tokens N
       --price-in N  --price-out N  --json
 
+  cdc install-creator
+      Install the cdc-skill-creator Claude Code skill
+      (so you can convert MCPs by chatting with Claude).
+
   cdc list [--root cdc]
   cdc help | cdc --help
   cdc version | cdc --version
@@ -312,6 +316,25 @@ function cmdList(args) {
   console.log('');
 }
 
+
+function cmdInstallCreator() {
+  const src = path.join(__dirname, '..', 'skills', 'cdc-skill-creator');
+  if (!fs.existsSync(path.join(src, 'SKILL.md'))) {
+    console.error('cdc-skill-creator not found in this checkout:', src);
+    process.exit(1);
+  }
+  const dest = path.join(defaultSkillsDir(), 'cdc-skill-creator');
+  fs.mkdirSync(defaultSkillsDir(), { recursive: true });
+  fs.cpSync(src, dest, { recursive: true });
+  console.log(`Installed creator skill -> ${dest}`);
+  console.log('');
+  console.log('In Claude Code, say:');
+  console.log('  "Convert my GitHub MCP into a CDC skill"');
+  console.log('  "Use cdc-skill-creator on tools.json"');
+  console.log('');
+  console.log('Generated skills load as skills — not as connected MCP servers.');
+}
+
 // ---------- main ----------
 async function main() {
   const argv = process.argv.slice(2);
@@ -355,6 +378,10 @@ async function main() {
       break;
     case 'install':
       cmdInstall(args);
+      break;
+    case 'install-creator':
+    case 'install-skill-creator':
+      cmdInstallCreator();
       break;
     case 'stats':
       cmdStats(args);

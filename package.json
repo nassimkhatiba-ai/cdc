@@ -1,7 +1,7 @@
 {
   "name": "cdc-toolkit",
   "version": "0.1.0",
-  "description": "Code-Call Descriptors — convert MCP servers into Claude Code skills (not MCP connections). Agents write sandboxed scripts instead of loading schemas into context.",
+  "description": "Code-Call Descriptors ��� convert MCP servers into Claude Code skills (not MCP connections). Agents write sandboxed scripts instead of loading schemas into context.",
   "bin": {
     "cdc": "bin/cdc.js"
   },
@@ -16,6 +16,7 @@
   "files": [
     "bin/",
     "lib/",
+    "skills/",
     "examples/",
     "README.md",
     "PAPER.md",
@@ -29,7 +30,8 @@
     "stats": "node bin/cdc.js --stats --paper",
     "test": "node test/smoke.js",
     "benchmark": "node benchmark.js",
-    "benchmark:scale": "node benchmark-scale.js"
+    "benchmark:scale": "node benchmark-scale.js",
+    "install-creator": "node bin/cdc.js install-creator"
   },
   "keywords": [
     "cdc",
