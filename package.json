@@ -1,7 +1,7 @@
 {
   "name": "cdc-toolkit",
   "version": "0.1.0",
-  "description": "Code-Call Descriptor toolkit — convert OpenAPI specs and MCP servers into token-minimal Claude Code skills. Agents write sandboxed scripts instead of loading MCP schemas into context.",
+  "description": "Code-Call Descriptors — convert MCP servers into Claude Code skills (not MCP connections). Agents write sandboxed scripts instead of loading schemas into context.",
   "bin": {
     "cdc": "bin/cdc.js"
   },

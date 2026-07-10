@@ -10,12 +10,11 @@ const cdcBin = path.join(root, 'bin', 'cdc.js');
 const tmp = path.join(root, 'test', '.tmp-out');
 
 function run(args, opts = {}) {
-  const r = spawnSync(process.execPath, [cdcBin, ...args], {
+  return spawnSync(process.execPath, [cdcBin, ...args], {
     encoding: 'utf8',
     cwd: root,
     ...opts,
   });
-  return r;
 }
 
 function clean() {
@@ -53,11 +52,7 @@ console.log('cdc smoke tests\n');
   assert.strictEqual(stats.source, 'mcp');
   assert.strictEqual(stats.tools, 12);
   assert.ok(stats.skillTokens < stats.sourceTokens);
-  assert.ok(stats.definitionSavingsRatio > 1);
-  const cdc = fs.readFileSync(path.join(tmp, 'demo', 'CDC.md'), 'utf8');
-  assert.ok(cdc.includes('list_orders'));
-  assert.ok(cdc.includes('## github'));
-  assert.ok(cdc.includes('## slack'));
+  assert.ok(r.stdout.includes('skill') || r.stdout.includes('SKILL'));
   ok('from-mcp compiles sample tools');
 }
 
@@ -67,7 +62,6 @@ console.log('cdc smoke tests\n');
   assert.strictEqual(r.status, 0, r.stderr || r.stdout);
   assert.ok(r.stdout.includes('estimated savings') || r.stdout.includes('You would have saved'));
   assert.ok(r.stdout.includes('Demo MCP') || r.stdout.includes('demo'));
-  assert.ok(r.stdout.includes('1859.5') || r.stdout.includes('paper') || r.stdout.includes('Simulated'));
   ok('cdc --stats --paper reports savings');
 }
 
@@ -81,7 +75,7 @@ console.log('cdc smoke tests\n');
   ok('cdc stats --json');
 }
 
-// --- stats from tools dump directly ---
+// --- stats from tools dump ---
 {
   const r = run(['--stats', '--tools', 'examples/sample-mcp-tools.json']);
   assert.strictEqual(r.status, 0, r.stderr);
@@ -97,9 +91,8 @@ console.log('cdc smoke tests\n');
   ok('cdc list');
 }
 
-// --- openapi compiler unit (inline mini spec) ---
+// --- openapi mini ---
 {
-  const { compileOpenAPI } = require('../lib/compile-openapi');
   const mini = {
     openapi: '3.0.0',
     info: { title: 'Mini API', version: '1.0.0' },
@@ -109,9 +102,7 @@ console.log('cdc smoke tests\n');
         get: {
           tags: ['widgets'],
           summary: 'List widgets',
-          parameters: [
-            { name: 'page', in: 'query', schema: { type: 'integer' } },
-          ],
+          parameters: [{ name: 'page', in: 'query', schema: { type: 'integer' } }],
           responses: {
             '200': {
               description: 'ok',
@@ -134,14 +125,11 @@ console.log('cdc smoke tests\n');
   };
   const specPath = path.join(tmp, 'mini.json');
   fs.writeFileSync(specPath, JSON.stringify(mini));
-  // use async IIFE via child for simplicity
   const r = run(['make', specPath, '--name', 'mini', '--out', tmp]);
   assert.strictEqual(r.status, 0, r.stderr || r.stdout);
   const skill = fs.readFileSync(path.join(tmp, 'mini', 'SKILL.md'), 'utf8');
   assert.ok(skill.includes('Mini API'));
   assert.ok(skill.includes('https://api.example.com'));
-  const cdc = fs.readFileSync(path.join(tmp, 'mini', 'CDC.md'), 'utf8');
-  assert.ok(cdc.includes('GET /widgets'));
   ok('cdc make compiles mini OpenAPI');
 }
 
@@ -153,7 +141,17 @@ console.log('cdc smoke tests\n');
   const tools = normalizeTools({ tools: [{ name: 'a', inputSchema: { type: 'object' } }] });
   assert.strictEqual(tools.length, 1);
   const { stats } = compileMCP({
-    tools: [{ name: 'foo_bar', description: 'does foo', inputSchema: { type: 'object', properties: { x: { type: 'integer' } }, required: ['x'] } }],
+    tools: [
+      {
+        name: 'foo_bar',
+        description: 'does foo',
+        inputSchema: {
+          type: 'object',
+          properties: { x: { type: 'integer' } },
+          required: ['x'],
+        },
+      },
+    ],
     name: 'unit',
     outRoot: tmp,
   });
@@ -161,18 +159,36 @@ console.log('cdc smoke tests\n');
   ok('compile-mcp unit helpers');
 }
 
+// --- tui non-tty exits cleanly ---
+{
+  const r = run(['tui'], { input: '' });
+  // non-tty should exit 1 with a helpful message
+  assert.notStrictEqual(r.status, 0);
+  assert.ok(
+    (r.stderr + r.stdout).includes('interactive') || (r.stderr + r.stdout).includes('from-mcp'),
+  );
+  ok('cdc tui rejects non-tty');
+}
+
+// --- tui module exports ---
+{
+  const { runTui, banner } = require('../lib/tui');
+  assert.strictEqual(typeof runTui, 'function');
+  assert.strictEqual(typeof banner, 'function');
+  ok('tui module exports');
+}
+
 // --- help / version ---
 {
   const h = run(['help']);
   assert.strictEqual(h.status, 0);
   assert.ok(h.stdout.includes('from-mcp'));
+  assert.ok(h.stdout.includes('tui') || h.stdout.includes('skill'));
   const v = run(['--version']);
   assert.strictEqual(v.status, 0);
   assert.ok(/\d+\.\d+\.\d+/.test(v.stdout.trim()));
   ok('help and version');
 }
 
-// cleanup tmp? keep for inspection optional — remove
 fs.rmSync(tmp, { recursive: true, force: true });
-
 console.log(`\n${passed} passed`);

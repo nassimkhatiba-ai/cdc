@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 // cdc — Code-Call Descriptor CLI
 //
-//   cdc make <openapi> --name <name>       OpenAPI -> CDC skill
-//   cdc from-mcp <tools.json> --name <n>   MCP tools/list -> CDC skill
-//   cdc from-mcp --probe <cmd> --name <n>  probe live stdio MCP server
-//   cdc install <pkg>                      copy package into Claude Code skills
-//   cdc --stats | cdc stats                estimate MCP token/cost savings
-//   cdc list                               list local CDC packages
+//   cdc                            interactive TUI (make a skill)
+//   cdc tui | cdc new              same
+//   cdc make <openapi> --name X    OpenAPI -> Claude Code skill
+//   cdc from-mcp ...               MCP tools/list -> Claude Code skill
+//   cdc install <pkg>              copy into ~/.claude/skills/
+//   cdc --stats                    estimate MCP token/cost savings
 //
 // Zero runtime deps. Node 18+.
 
@@ -15,6 +15,7 @@ const path = require('path');
 const { compileOpenAPI } = require('../lib/compile-openapi');
 const { compileMCP, probeMcpServer } = require('../lib/compile-mcp');
 const { collectStats } = require('../lib/stats');
+const { runTui } = require('../lib/tui');
 
 const VERSION = require('../package.json').version;
 
@@ -22,64 +23,46 @@ function usage(code = 0) {
   const text = `
 cdc v${VERSION} — Code-Call Descriptor toolkit
 
-Turn APIs and MCP servers into token-minimal Claude Code skills.
-Agents write sandboxed scripts instead of loading MCP schemas into context.
+Turn MCP servers / OpenAPI specs into Claude Code *skills*
+(not MCP connections). Claude greps a tiny index and writes scripts;
+schemas and raw payloads never flood the context window.
 
 USAGE
-  cdc make <spec-url-or-path> --name <name> [--out cdc] [--base-url URL]
-      Compile an OpenAPI 3.x JSON spec into a CDC package.
+  cdc | cdc tui | cdc new
+      Interactive TUI — pick a source, build + install a skill.
 
   cdc from-mcp <tools.json> --name <name> [--out cdc] [--title T]
              [--http-base URL] [--command CMD] [--arg A]...
-      Convert an MCP tools/list dump into a CDC package.
+      Convert an MCP tools/list dump into a skill package.
 
   cdc from-mcp --probe <command> [--arg A]... --name <name> [--out cdc]
-      Spawn a stdio MCP server, call tools/list, convert to CDC.
+      Spawn a stdio MCP server, call tools/list, convert to a skill.
+
+  cdc make <spec-url-or-path> --name <name> [--out cdc] [--base-url URL]
+      Compile an OpenAPI 3.x JSON spec into a skill package.
 
   cdc install <package-dir-or-name> [--skills-dir DIR]
-      Install a CDC package as a Claude Code skill
-      (default: ~/.claude/skills/<name>-cdc).
+      Install as a Claude Code skill (default: ~/.claude/skills/<name>-cdc).
+      Claude loads this as a skill — not as a connected MCP server.
 
   cdc stats | cdc --stats [options]
-      Estimate how many tokens/dollars MCP would have cost vs CDC.
+      Estimate how many tokens/dollars the MCP pattern would have cost.
 
-      --paper                 also print headline numbers from the CDC paper
-      --root <dir>            scan this dir for packages (default: ./cdc)
-      --package <dir>         single package (must contain stats.json)
-      --tools <tools.json>    estimate from a raw MCP tools dump (no compile)
-      --sessions N            sessions to model (default 1)
-      --tasks N               tasks per session (default 5)
-      --mcp-trips N           MCP round trips per task (default 15)
-      --payload-tokens N      avg MCP payload tokens per trip (default 2800)
-      --price-in N            $/MTok input (default 3)
-      --price-out N           $/MTok output (default 15)
-      --json                  machine-readable output
+      --paper  --root <dir>  --package <dir>  --tools <json>
+      --sessions N  --tasks N  --mcp-trips N  --payload-tokens N
+      --price-in N  --price-out N  --json
 
   cdc list [--root cdc]
-      List compiled CDC packages and their compression stats.
-
   cdc help | cdc --help
   cdc version | cdc --version
 
-QUICK START — convert an MCP server
-  # 1. Dump tools (or probe live):
-  cdc from-mcp --probe npx --arg -y --arg "@modelcontextprotocol/server-github" \\
-    --name github-mcp
+QUICK START
+  cdc                                          # TUI
+  cdc from-mcp tools.json --name myserver
+  cdc install myserver
+  cdc --stats --paper
 
-  # 2. See estimated savings:
-  cdc --stats --root cdc --paper
-
-  # 3. Install for Claude Code:
-  cdc install github-mcp
-
-  # 4. In Claude Code, ask questions — the agent greps CDC.md and writes scripts.
-
-QUICK START — from OpenAPI
-  cdc make https://petstore3.swagger.io/api/v3/openapi.json --name petstore
-  cdc install petstore
-  cdc --stats
-
-Docs: README.md · Paper: PAPER.md · Pattern: SKILL.md preamble + lazy CDC.md
+Docs: README.md · Paper: PAPER.md
 `.trim();
   console.log(text);
   process.exit(code);
@@ -198,7 +181,7 @@ async function cmdFromMcp(args) {
 }
 
 function printCompileResult(outDir, stats) {
-  console.log(`\nWrote CDC package -> ${outDir}/`);
+  console.log(`\nWrote CDC skill package -> ${outDir}/`);
   console.log(`  SKILL.md   ${stats.skillTokens} tokens (upfront context)`);
   console.log(`  CDC.md     ${stats.cdcTokens} tokens (grep lazily)`);
   console.log(`  tools      ${stats.tools || stats.endpoints}`);
@@ -209,12 +192,12 @@ function printCompileResult(outDir, stats) {
   }
   if (stats.definitionSavingsRatio) {
     console.log(
-      `  def tax    MCP schemas ~${stats.definitionTaxMcp} tok vs CDC skill ${stats.definitionTaxCdc} tok  (${stats.definitionSavingsRatio}x)`,
+      `  def tax    MCP schemas ~${stats.definitionTaxMcp} tok vs skill ${stats.definitionTaxCdc} tok  (${stats.definitionSavingsRatio}x)`,
     );
   }
-  console.log(`\nNext:`);
-  console.log(`  cdc --stats --root ${path.dirname(outDir)}`);
+  console.log(`\nThis installs as a Claude Code skill (not an MCP connection).`);
   console.log(`  cdc install ${stats.name}`);
+  console.log(`  cdc --stats --root ${path.dirname(outDir)}`);
   console.log('');
 }
 
@@ -258,8 +241,8 @@ function cmdInstall(args) {
   fs.mkdirSync(skillsDir, { recursive: true });
   fs.cpSync(src, dest, { recursive: true });
 
-  console.log(`Installed ${src} -> ${dest}`);
-  console.log(`Claude Code will pick up the skill on next session.`);
+  console.log(`Installed skill ${src} -> ${dest}`);
+  console.log(`Claude Code loads this as a skill — not as a connected MCP server.`);
   console.log(`Skill name: ${destName}`);
   if (fs.existsSync(path.join(dest, 'mcp-manifest.json'))) {
     const man = JSON.parse(fs.readFileSync(path.join(dest, 'mcp-manifest.json'), 'utf8'));
@@ -318,7 +301,7 @@ function cmdList(args) {
     console.log(`No CDC packages under ${path.resolve(root)}`);
     return;
   }
-  console.log(`CDC packages in ${path.resolve(root)}:\n`);
+  console.log(`CDC skill packages in ${path.resolve(root)}:\n`);
   for (const p of pkgs) {
     const s = JSON.parse(fs.readFileSync(path.join(p, 'stats.json'), 'utf8'));
     const comp = s.compressionSourceToSkill || s.compressionSpecToSkill || '?';
@@ -332,7 +315,15 @@ function cmdList(args) {
 // ---------- main ----------
 async function main() {
   const argv = process.argv.slice(2);
-  if (!argv.length) usage(0);
+
+  // no args + TTY → interactive skill builder
+  if (!argv.length) {
+    if (process.stdin.isTTY) {
+      await runTui({ outRoot: 'cdc' });
+      return;
+    }
+    usage(0);
+  }
 
   const args = parseArgs(argv);
 
@@ -348,6 +339,12 @@ async function main() {
 
   const cmd = args._.shift();
   switch (cmd) {
+    case 'tui':
+    case 'new':
+    case 'init':
+    case 'wizard':
+      await runTui({ outRoot: flag(args.flags, 'out', 'cdc') });
+      break;
     case 'make':
       await cmdMake(args);
       break;
