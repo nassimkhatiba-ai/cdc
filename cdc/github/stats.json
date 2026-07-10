@@ -1,0 +1,19 @@
+{
+  "name": "github",
+  "title": "GitHub v3 REST API",
+  "endpoints": 1196,
+  "tags": 47,
+  "specBytes": 12734947,
+  "specTokens": 3183737,
+  "cdcBytes": 205869,
+  "cdcTokens": 82577,
+  "skillBytes": 2526,
+  "skillTokens": 909,
+  "compressionSpecToCdc": 38.6,
+  "compressionSpecToSkill": 3502.5,
+  "source": "openapi",
+  "tools": 1196,
+  "sourceTokens": 3183737,
+  "compressionSourceToSkill": 3502.5,
+  "compressionSourceToCdc": 38.6
+}

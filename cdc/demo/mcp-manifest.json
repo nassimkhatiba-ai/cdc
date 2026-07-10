@@ -1,0 +1,8 @@
+{
+  "name": "demo",
+  "mode": "mcp",
+  "command": null,
+  "args": [],
+  "envToken": "CDC_DEMO_TOKEN",
+  "tools": 12
+}

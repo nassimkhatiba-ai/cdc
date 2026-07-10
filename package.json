@@ -1,0 +1,54 @@
+{
+  "name": "cdc-toolkit",
+  "version": "0.1.0",
+  "description": "Code-Call Descriptor toolkit — convert OpenAPI specs and MCP servers into token-minimal Claude Code skills. Agents write sandboxed scripts instead of loading MCP schemas into context.",
+  "bin": {
+    "cdc": "bin/cdc.js"
+  },
+  "main": "lib/compile-openapi.js",
+  "exports": {
+    ".": "./lib/compile-openapi.js",
+    "./openapi": "./lib/compile-openapi.js",
+    "./mcp": "./lib/compile-mcp.js",
+    "./stats": "./lib/stats.js",
+    "./tokens": "./lib/tokens.js"
+  },
+  "files": [
+    "bin/",
+    "lib/",
+    "examples/",
+    "README.md",
+    "PAPER.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "cdc": "node bin/cdc.js",
+    "stats": "node bin/cdc.js --stats --paper",
+    "test": "node test/smoke.js",
+    "benchmark": "node benchmark.js",
+    "benchmark:scale": "node benchmark-scale.js"
+  },
+  "keywords": [
+    "cdc",
+    "mcp",
+    "claude-code",
+    "openai",
+    "openapi",
+    "agent",
+    "skills",
+    "token-efficiency",
+    "code-execution"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nassimkhatiba-ai/cdc.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nassimkhatiba-ai/cdc/issues"
+  },
+  "homepage": "https://github.com/nassimkhatiba-ai/cdc#readme"
+}

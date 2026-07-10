@@ -1,0 +1,24 @@
+<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="codecall logo">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#22D3EE"/>
+      <stop offset="1" stop-color="#A78BFA"/>
+    </linearGradient>
+    <linearGradient id="bolt" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FDE047"/>
+      <stop offset="1" stop-color="#F59E0B"/>
+    </linearGradient>
+  </defs>
+  <!-- tile -->
+  <rect x="8" y="8" width="240" height="240" rx="56" fill="#0B0F19"/>
+  <rect x="8" y="8" width="240" height="240" rx="56" fill="none" stroke="url(#g)" stroke-width="4" opacity="0.55"/>
+  <!-- left brace -->
+  <path d="M96 60 q-26 0 -26 26 v22 q0 20 -18 20 q18 0 18 20 v22 q0 26 26 26"
+        fill="none" stroke="url(#g)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- right brace -->
+  <path d="M160 60 q26 0 26 26 v22 q0 20 18 20 q-18 0 -18 20 v22 q0 26 -26 26"
+        fill="none" stroke="url(#g)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- bolt: the call happens inside the code -->
+  <path d="M137 74 L110 134 L128 134 L119 182 L150 118 L131 118 L142 74 Z"
+        fill="url(#bolt)" stroke="#0B0F19" stroke-width="3" stroke-linejoin="round"/>
+</svg>

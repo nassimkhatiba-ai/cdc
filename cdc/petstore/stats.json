@@ -1,0 +1,19 @@
+{
+  "name": "petstore",
+  "title": "Swagger Petstore - OpenAPI 3.0",
+  "endpoints": 19,
+  "tags": 3,
+  "specBytes": 17106,
+  "specTokens": 8614,
+  "cdcBytes": 2687,
+  "cdcTokens": 994,
+  "skillBytes": 1327,
+  "skillTokens": 438,
+  "compressionSpecToCdc": 8.7,
+  "compressionSpecToSkill": 19.7,
+  "source": "openapi",
+  "tools": 19,
+  "sourceTokens": 8614,
+  "compressionSourceToSkill": 19.7,
+  "compressionSourceToCdc": 8.7
+}

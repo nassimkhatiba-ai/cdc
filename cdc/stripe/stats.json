@@ -1,0 +1,19 @@
+{
+  "name": "stripe",
+  "title": "Stripe API",
+  "endpoints": 587,
+  "tags": 1,
+  "specBytes": 7866225,
+  "specTokens": 1966556,
+  "cdcBytes": 109705,
+  "cdcTokens": 43650,
+  "skillBytes": 1261,
+  "skillTokens": 420,
+  "compressionSpecToCdc": 45.1,
+  "compressionSpecToSkill": 4682.3,
+  "source": "openapi",
+  "tools": 587,
+  "sourceTokens": 1966556,
+  "compressionSourceToSkill": 4682.3,
+  "compressionSourceToCdc": 45.1
+}

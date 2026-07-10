@@ -1,0 +1,22 @@
+{
+  "name": "demo",
+  "title": "demo MCP",
+  "source": "mcp",
+  "mode": "mcp",
+  "tools": 12,
+  "endpoints": 12,
+  "tags": 5,
+  "sourceBytes": 6241,
+  "sourceTokens": 1863,
+  "mcpSchemaTokens": 1863,
+  "cdcBytes": 2987,
+  "cdcTokens": 1032,
+  "skillBytes": 2094,
+  "skillTokens": 680,
+  "generatedAt": "2026-07-10T23:29:00.992Z",
+  "compressionSourceToCdc": 1.8,
+  "compressionSourceToSkill": 2.7,
+  "definitionTaxMcp": 1863,
+  "definitionTaxCdc": 680,
+  "definitionSavingsRatio": 2.7
+}

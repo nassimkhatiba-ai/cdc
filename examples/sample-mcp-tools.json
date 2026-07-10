@@ -1,0 +1,154 @@
+[
+  {
+    "name": "list_users",
+    "description": "List customer accounts registered in the store. Returns a paginated collection of user objects including their unique identifier, full display name, primary email address, ISO country code, and account creation timestamp. Use the page parameter to iterate through all result pages; check total_pages in the response to know when to stop.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "page": { "type": "integer", "description": "Page number to retrieve, starting from 1. Defaults to 1." },
+        "per_page": { "type": "integer", "description": "Number of results per page, between 1 and 100. Defaults to 100." }
+      },
+      "required": []
+    }
+  },
+  {
+    "name": "get_user",
+    "description": "Retrieve a single customer account by its unique numeric identifier. Returns the full user object with id, name, email, country and created_at fields.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "user_id": { "type": "integer", "description": "The unique numeric identifier of the user to retrieve." }
+      },
+      "required": ["user_id"]
+    }
+  },
+  {
+    "name": "list_orders",
+    "description": "List orders placed in the store for reporting and analytics. Returns paginated order objects with user id, product id, quantity, unit price, total, status and created_at. Supports filtering by user_id and status.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "page": { "type": "integer", "description": "Page number, starting from 1." },
+        "per_page": { "type": "integer", "description": "Results per page, 1-100." },
+        "user_id": { "type": "integer", "description": "Only return orders placed by this user id." },
+        "status": {
+          "type": "string",
+          "enum": ["delivered", "shipped", "pending", "cancelled", "refunded"],
+          "description": "Only return orders in this fulfillment status."
+        }
+      },
+      "required": []
+    }
+  },
+  {
+    "name": "get_order",
+    "description": "Retrieve a single order by its unique numeric identifier.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "order_id": { "type": "integer", "description": "The unique numeric identifier of the order." }
+      },
+      "required": ["order_id"]
+    }
+  },
+  {
+    "name": "list_products",
+    "description": "List products available in the store catalog. Returns paginated product objects with id, name, category and price.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "page": { "type": "integer" },
+        "per_page": { "type": "integer" }
+      }
+    }
+  },
+  {
+    "name": "get_product",
+    "description": "Retrieve a single product from the catalog by id.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "product_id": { "type": "integer", "description": "Product id." }
+      },
+      "required": ["product_id"]
+    }
+  },
+  {
+    "name": "github_list_repos",
+    "description": "List repositories for a GitHub user or organization.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "owner": { "type": "string", "description": "User or org login." },
+        "type": { "type": "string", "enum": ["all", "public", "private"] },
+        "per_page": { "type": "integer" },
+        "page": { "type": "integer" }
+      },
+      "required": ["owner"]
+    }
+  },
+  {
+    "name": "github_get_repo",
+    "description": "Get a single GitHub repository by owner and name.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "owner": { "type": "string" },
+        "repo": { "type": "string" }
+      },
+      "required": ["owner", "repo"]
+    }
+  },
+  {
+    "name": "github_list_issues",
+    "description": "List issues in a repository with optional state filter.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "owner": { "type": "string" },
+        "repo": { "type": "string" },
+        "state": { "type": "string", "enum": ["open", "closed", "all"] },
+        "labels": { "type": "string" },
+        "per_page": { "type": "integer" },
+        "page": { "type": "integer" }
+      },
+      "required": ["owner", "repo"]
+    }
+  },
+  {
+    "name": "slack_post_message",
+    "description": "Post a message to a Slack channel.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "channel": { "type": "string", "description": "Channel ID or name." },
+        "text": { "type": "string", "description": "Message body." },
+        "thread_ts": { "type": "string" }
+      },
+      "required": ["channel", "text"]
+    }
+  },
+  {
+    "name": "slack_list_channels",
+    "description": "List Slack channels the bot can see.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "limit": { "type": "integer" },
+        "cursor": { "type": "string" }
+      }
+    }
+  },
+  {
+    "name": "search_docs",
+    "description": "Full-text search across the documentation corpus. Returns ranked snippets.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "query": { "type": "string" },
+        "limit": { "type": "integer" }
+      },
+      "required": ["query"]
+    }
+  }
+]
