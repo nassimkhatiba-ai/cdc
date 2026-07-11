@@ -26,3 +26,6 @@ concept/**/out/
 implementer/**/skills/.system/
 implementer/mega20/fixtures/gitrepo/
 concept/image-skill/out/
+concept/image-skill/packages/
+concept/image-skill/bench/
+concept/image-skill/logs/

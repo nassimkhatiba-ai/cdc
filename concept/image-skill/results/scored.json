@@ -1,0 +1,270 @@
+{
+  "when": "2026-07-11T14:13:04.275Z",
+  "model": "gpt-5.6-sol",
+  "truth": {
+    "open_p1_count": 12,
+    "breach_count": 9,
+    "arr_at_risk": 1354494,
+    "top_account_at_risk": "Aperture"
+  },
+  "pack": {
+    "pages": 1,
+    "chars": 7838,
+    "approxTextTokens": 1960,
+    "approxVisionTokens": 3570
+  },
+  "fat": {
+    "pages": 3,
+    "chars": 34529,
+    "approxTextTokens": 8633,
+    "approxVisionTokens": 10200
+  },
+  "task": {
+    "mcp": {
+      "tokens": 22578,
+      "wall_s": 42,
+      "score": "7/7",
+      "ok": 7,
+      "total": 7,
+      "detail": {
+        "open_p1_count": true,
+        "breach_count": true,
+        "arr_at_risk": true,
+        "top_account_at_risk": true,
+        "top_account_arr": true,
+        "breach_subjects_sorted": true,
+        "accounts_in_breach_sorted": true
+      },
+      "purity": {
+        "mcp_tool_calls": 74,
+        "openSession": 0,
+        "callPaged": 0,
+        "mcp_call_js": 0,
+        "batch": 0,
+        "image_attach": 0,
+        "read_source": 0
+      },
+      "exit": 0,
+      "ans": {
+        "open_p1_count": 12,
+        "breach_count": 9,
+        "arr_at_risk": 1354494,
+        "top_account_at_risk": "Aperture",
+        "top_account_arr": 209659,
+        "breach_subjects_sorted": [
+          "P1 API cascade Wayne",
+          "P1 API latency Cyberdyne",
+          "P1 Auth flapping Initech",
+          "P1 Billing halt Stark",
+          "P1 Ingest stalled Globex",
+          "P1 Invoice stuck Aperture",
+          "P1 Pipeline backpressure Tyrell",
+          "P1 Search blackhole Northwind",
+          "P1 SSO outage Vantara"
+        ],
+        "accounts_in_breach_sorted": [
+          "Aperture",
+          "Cyberdyne",
+          "Globex",
+          "Initech",
+          "Northwind",
+          "Stark Industries",
+          "Tyrell",
+          "Vantara",
+          "Wayne Enterprises"
+        ]
+      }
+    },
+    "text": {
+      "tokens": 17395,
+      "wall_s": 32,
+      "score": "7/7",
+      "ok": 7,
+      "total": 7,
+      "detail": {
+        "open_p1_count": true,
+        "breach_count": true,
+        "arr_at_risk": true,
+        "top_account_at_risk": true,
+        "top_account_arr": true,
+        "breach_subjects_sorted": true,
+        "accounts_in_breach_sorted": true
+      },
+      "purity": {
+        "mcp_tool_calls": 0,
+        "openSession": 6,
+        "callPaged": 9,
+        "mcp_call_js": 6,
+        "batch": 4,
+        "image_attach": 0,
+        "read_source": 0
+      },
+      "exit": 0,
+      "ans": {
+        "open_p1_count": 12,
+        "breach_count": 9,
+        "arr_at_risk": 1354494,
+        "top_account_at_risk": "Aperture",
+        "top_account_arr": 209659,
+        "breach_subjects_sorted": [
+          "P1 API cascade Wayne",
+          "P1 API latency Cyberdyne",
+          "P1 Auth flapping Initech",
+          "P1 Billing halt Stark",
+          "P1 Ingest stalled Globex",
+          "P1 Invoice stuck Aperture",
+          "P1 Pipeline backpressure Tyrell",
+          "P1 SSO outage Vantara",
+          "P1 Search blackhole Northwind"
+        ],
+        "accounts_in_breach_sorted": [
+          "Aperture",
+          "Cyberdyne",
+          "Globex",
+          "Initech",
+          "Northwind",
+          "Stark Industries",
+          "Tyrell",
+          "Vantara",
+          "Wayne Enterprises"
+        ]
+      }
+    },
+    "image": {
+      "tokens": 13432,
+      "wall_s": 29,
+      "score": "7/7",
+      "ok": 7,
+      "total": 7,
+      "detail": {
+        "open_p1_count": true,
+        "breach_count": true,
+        "arr_at_risk": true,
+        "top_account_at_risk": true,
+        "top_account_arr": true,
+        "breach_subjects_sorted": true,
+        "accounts_in_breach_sorted": true
+      },
+      "purity": {
+        "mcp_tool_calls": 0,
+        "openSession": 3,
+        "callPaged": 7,
+        "mcp_call_js": 3,
+        "batch": 1,
+        "image_attach": 4,
+        "read_source": 1
+      },
+      "exit": 0,
+      "ans": {
+        "open_p1_count": 12,
+        "breach_count": 9,
+        "arr_at_risk": 1354494,
+        "top_account_at_risk": "Aperture",
+        "top_account_arr": 209659,
+        "breach_subjects_sorted": [
+          "P1 API cascade Wayne",
+          "P1 API latency Cyberdyne",
+          "P1 Auth flapping Initech",
+          "P1 Billing halt Stark",
+          "P1 Ingest stalled Globex",
+          "P1 Invoice stuck Aperture",
+          "P1 Pipeline backpressure Tyrell",
+          "P1 SSO outage Vantara",
+          "P1 Search blackhole Northwind"
+        ],
+        "accounts_in_breach_sorted": [
+          "Aperture",
+          "Cyberdyne",
+          "Globex",
+          "Initech",
+          "Northwind",
+          "Stark Industries",
+          "Tyrell",
+          "Vantara",
+          "Wayne Enterprises"
+        ]
+      }
+    }
+  },
+  "load": {
+    "load-text": {
+      "tokens": 12331,
+      "wall_s": 22,
+      "score": "4/4",
+      "detail": {
+        "has_evaluate_ticket_sla": true,
+        "has_list_open_p1_tickets": true,
+        "bridge_mentions_batch": true,
+        "tool_count_reasonable": true
+      },
+      "purity": {
+        "mcp_tool_calls": 0,
+        "openSession": 5,
+        "callPaged": 5,
+        "mcp_call_js": 8,
+        "batch": 5,
+        "image_attach": 1,
+        "read_source": 4
+      },
+      "exit": 0,
+      "ans": {
+        "tool_count_estimate": 127,
+        "has_evaluate_ticket_sla": true,
+        "has_list_open_p1_tickets": true,
+        "first_five_tools": [
+          "server_info",
+          "list_tool_categories",
+          "describe_data_model",
+          "list_accounts",
+          "get_account"
+        ],
+        "bridge_mentions_batch": true
+      }
+    },
+    "load-image": {
+      "tokens": 9984,
+      "wall_s": 11,
+      "score": "4/4",
+      "detail": {
+        "has_evaluate_ticket_sla": true,
+        "has_list_open_p1_tickets": true,
+        "bridge_mentions_batch": true,
+        "tool_count_reasonable": true
+      },
+      "purity": {
+        "mcp_tool_calls": 0,
+        "openSession": 0,
+        "callPaged": 0,
+        "mcp_call_js": 0,
+        "batch": 0,
+        "image_attach": 1,
+        "read_source": 1
+      },
+      "exit": 0,
+      "ans": {
+        "tool_count_estimate": 124,
+        "has_evaluate_ticket_sla": true,
+        "has_list_open_p1_tickets": true,
+        "first_five_tools": [
+          "server_info",
+          "list_tool_categories",
+          "describe_data_model",
+          "list_accounts",
+          "get_account"
+        ],
+        "bridge_mentions_batch": true
+      }
+    }
+  },
+  "ratios": {
+    "mcp_over_text_tokens": 1.3,
+    "mcp_over_image_tokens": 1.68,
+    "text_over_image_tokens": 1.3,
+    "image_vs_text_savings_pct": 22.8,
+    "mcp_over_image_wall": 1.45,
+    "text_over_image_wall": 1.1,
+    "load_text_over_image_tokens": 1.24,
+    "load_savings_pct": 19,
+    "load_text_over_image_wall": 2
+  }
+}
