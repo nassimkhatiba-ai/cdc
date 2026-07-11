@@ -1,18 +1,29 @@
 #!/usr/bin/env node
 // mcp-call.js --- stdio MCP bridge for CDC scripts (package: demo).
 //
-// KEY PROPERTY: one Session = ONE server process for any number of tool calls.
-// Never open a session per call — server cold start (especially `npx -y`)
-// costs seconds each and was the dominant CDC latency cost before this design.
+// KEY PROPERTIES:
+//   1. One Session = ONE server process for any number of tool calls.
+//   2. DAEMON (default): the server is kept warm in a detached background
+//      process behind a unix socket. Repeat scripts skip cold start entirely
+//      and SERVER STATE (browser pages, auth sessions) persists across
+//      scripts — essential for stateful MCPs like playwright. Any daemon
+//      failure falls back to a direct spawn, never breaks the call.
 //
 // API:    const { openSession, callTool, callTools } = require('.../mcp-call.js');
 //         const s = await openSession(); await s.call(name, args); s.close();
+//         (close() detaches; the warm daemon stays for the next script)
 // CLI:    node mcp-call.js                        # list tool names
 //         node mcp-call.js <tool> '<json-args>'   # single call
 //         node mcp-call.js --batch '<json array>' # many calls, one session
+//         node mcp-call.js daemon-stop | daemon-status
+// Env:    CDC_MCP_DAEMON=0 (disable daemon)  CDC_MCP_TIMEOUT_MS
+//         CDC_MCP_DAEMON_IDLE_MS (default 600000: daemon exits when idle)
 const { spawn } = require('child_process');
 const fs = require('fs');
 const path = require('path');
+const net = require('net');
+const os = require('os');
+const crypto = require('crypto');
 
 const CALL_TIMEOUT_MS = parseInt(process.env.CDC_MCP_TIMEOUT_MS || '60000', 10);
 
@@ -143,7 +154,130 @@ class Session {
   }
 }
 
+// ---------- daemon: warm server + cross-script state behind a unix socket ----------
+
+function socketPath() {
+  const { command, args } = resolveServer();
+  const h = crypto.createHash('sha1').update([command, ...args].join('\u0000')).digest('hex').slice(0, 10);
+  return path.join(os.tmpdir(), 'cdc-demo-' + h + '.sock');
+}
+
+function tryConnect(sock, timeoutMs = 300) {
+  return new Promise((resolve) => {
+    const conn = net.createConnection(sock);
+    const timer = setTimeout(() => { conn.destroy(); resolve(null); }, timeoutMs);
+    conn.once('connect', () => { clearTimeout(timer); resolve(conn); });
+    conn.once('error', () => { clearTimeout(timer); resolve(null); });
+  });
+}
+
+/** Socket-backed session: same interface as Session; close() leaves the daemon warm. */
+function socketSession(conn) {
+  let buf = '', nextId = 1;
+  const pending = new Map();
+  conn.setEncoding('utf8');
+  conn.on('data', (chunk) => {
+    buf += chunk;
+    let idx;
+    while ((idx = buf.indexOf('\n')) !== -1) {
+      const line = buf.slice(0, idx); buf = buf.slice(idx + 1);
+      if (!line.trim()) continue;
+      let msg; try { msg = JSON.parse(line); } catch { continue; }
+      const p = pending.get(msg.id);
+      if (!p) continue;
+      pending.delete(msg.id);
+      clearTimeout(p.timer);
+      msg.ok ? p.res(msg.result) : p.rej(new Error(msg.error));
+    }
+  });
+  conn.on('close', () => {
+    for (const { rej, timer } of pending.values()) { clearTimeout(timer); rej(new Error('daemon connection closed')); }
+    pending.clear();
+  });
+  const request = (payload) => new Promise((res, rej) => {
+    const id = nextId++;
+    const timer = setTimeout(() => { pending.delete(id); rej(new Error('daemon call timed out')); }, CALL_TIMEOUT_MS);
+    pending.set(id, { res, rej, timer });
+    conn.write(JSON.stringify({ id, ...payload }) + '\n');
+  });
+  return {
+    call: (name, args = {}) => request({ method: 'call', tool: name, args }),
+    list: () => request({ method: 'list' }),
+    stop: () => request({ method: 'stop' }),
+    close: () => { try { conn.end(); } catch {} },
+    viaDaemon: true,
+  };
+}
+
+async function runDaemon() {
+  const { command, args } = resolveServer();
+  const session = await new Session(command, args).start();
+  const sock = socketPath();
+  try { fs.unlinkSync(sock); } catch {}
+  const idleMs = parseInt(process.env.CDC_MCP_DAEMON_IDLE_MS || '600000', 10);
+  let idleTimer;
+  const bumpIdle = () => {
+    clearTimeout(idleTimer);
+    idleTimer = setTimeout(() => { try { session.close(); } catch {} process.exit(0); }, idleMs);
+  };
+  bumpIdle();
+  const server = net.createServer((conn) => {
+    let buf = '';
+    conn.setEncoding('utf8');
+    conn.on('data', (chunk) => {
+      buf += chunk;
+      let idx;
+      while ((idx = buf.indexOf('\n')) !== -1) {
+        const line = buf.slice(0, idx); buf = buf.slice(idx + 1);
+        if (!line.trim()) continue;
+        bumpIdle();
+        let req; try { req = JSON.parse(line); } catch { continue; }
+        (async () => {
+          try {
+            if (req.method === 'stop') {
+              conn.write(JSON.stringify({ id: req.id, ok: true, result: 'stopping' }) + '\n');
+              try { session.close(); } catch {}
+              server.close();
+              setTimeout(() => process.exit(0), 100);
+              return;
+            }
+            const result = req.method === 'list'
+              ? await session.list()
+              : await session.call(req.tool, req.args || {});
+            conn.write(JSON.stringify({ id: req.id, ok: true, result }) + '\n');
+          } catch (e) {
+            try { conn.write(JSON.stringify({ id: req.id, ok: false, error: String(e.message || e) }) + '\n'); } catch {}
+          }
+        })();
+      }
+    });
+    conn.on('error', () => {});
+  });
+  server.listen(sock);
+}
+
 async function openSession() {
+  if (process.env.CDC_MCP_DAEMON === '0') {
+    const { command, args } = resolveServer();
+    return new Session(command, args).start();
+  }
+  const sock = socketPath();
+  let conn = await tryConnect(sock);
+  if (!conn) {
+    const child = spawn(process.execPath, [__filename, '__daemon__'], {
+      detached: true,
+      stdio: 'ignore',
+      env: process.env,
+    });
+    child.unref();
+    // server cold start (npx resolve + init) can take a while the first time
+    for (let i = 0; i < 60 && !conn; i++) {
+      await new Promise((r) => setTimeout(r, 250));
+      conn = await tryConnect(sock);
+    }
+  }
+  if (conn) return socketSession(conn);
+  // daemon unavailable for any reason: degrade gracefully to direct spawn
   const { command, args } = resolveServer();
   return new Session(command, args).start();
 }
@@ -171,7 +305,21 @@ if (require.main === module) {
   (async () => {
     const argv = process.argv.slice(2);
     try {
-      if (!argv.length) {
+      if (argv[0] === '__daemon__') {
+        await runDaemon();
+      } else if (argv[0] === 'daemon-stop') {
+        const conn = await tryConnect(socketPath());
+        if (!conn) { console.log('no daemon running'); return; }
+        const s = socketSession(conn);
+        await s.stop().catch(() => {});
+        s.close();
+        console.log('daemon stopped');
+      } else if (argv[0] === 'daemon-status') {
+        const conn = await tryConnect(socketPath());
+        if (!conn) { console.log('no daemon running'); return; }
+        conn.end();
+        console.log('daemon running: ' + socketPath());
+      } else if (!argv.length) {
         const s = await openSession();
         const tools = await s.list();
         s.close();

@@ -268,6 +268,27 @@ function buildMcpBridgePackage({ name, title, tools }) {
   const firstTag = tags[0] || 'misc';
   const tagDir = tags.map((t) => `- ${t} (${byTag.get(t).length})`).join('\n');
 
+  // Small/medium servers: inline the full signature index in SKILL.md.
+  // Grep-into-CDC.md indirection saved tokens on 1000-endpoint APIs but COST
+  // whole turns on a 24-tool server (see playwright A/B) — a few hundred
+  // inline tokens are cheaper than one grep round trip.
+  const indexBody = tags
+    .map((t) => `### ${t}\n` + byTag.get(t).join('\n'))
+    .join('\n');
+  // Threshold calibrated from the playwright A/B: one grep round trip costs
+  // more input tokens than a ~1k inline index, and inline can't thrash.
+  const inlineIndex = estimateTokens(indexBody) <= 1000;
+
+  const toolSection = inlineIndex
+    ? ['## Tools', '', indexBody]
+    : [
+        'Tool signatures: grep CDC.md — do not read the whole file:',
+        `\`grep -A 20 "^## ${firstTag}" __SKILL_DIR__/CDC.md\``,
+        '',
+        'Groups:',
+        tagDir,
+      ];
+
   const skill = [
     '---',
     `name: ${name}-cdc`,
@@ -276,33 +297,31 @@ function buildMcpBridgePackage({ name, title, tools }) {
     '',
     `# ${title}`,
     '',
-    'Compose tools IN CODE via the bundled bridge. One session, one script, print only the answer.',
+    'Plain calls need NO script: `node __SKILL_DIR__/mcp-call.js <tool> \'<json-args>\'` · batch: `--batch \'[{"tool":"t","args":{}},...]\'`',
     '',
-    '```js',
+    'Multi-step / aggregation — ONE inline script (bash heredoc, never a script file):',
+    '',
+    '```bash',
+    "node - <<'EOF'",
     "const { openSession } = require('__SKILL_DIR__/mcp-call.js');",
     '(async () => {',
-    '  const s = await openSession();          // ONE server process for ALL calls',
+    '  const s = await openSession();',
     "  const data = await s.call('tool_name', { /* args */ });",
-    '  // join/filter/aggregate here — do ALL math in code',
-    '  console.log(JSON.stringify(answer));',
+    '  console.log(JSON.stringify(answer)); // aggregate in code first',
     '  s.close();',
     '})();',
+    'EOF',
     '```',
     '',
-    "Run scripts inline via bash heredoc (`node - <<'EOF' … EOF`) — do not create script files.",
-    'Simple reads need no script at all:',
-    '`node __SKILL_DIR__/mcp-call.js <tool> \'<json-args>\'`  ·  batch (one session): `--batch \'[{"tool":"t","args":{}},...]\'`',
+    'A background daemon keeps the server warm: repeat calls skip cold start and server STATE (browser pages, auth sessions) persists across scripts. `daemon-stop` ends it; env `CDC_MCP_DAEMON=0` disables.',
     '',
     'Rules:',
-    disciplineRules([
-      'ONE session per script (`openSession`). Never open a session per call.',
-    ]),
+    '1. ONE session per script — never one per call.',
+    '2. Aggregate/filter in code; print ONLY the final compact JSON. Never paste raw payloads into chat.',
+    '3. Empty/zero result = bug until proven: re-check tool name + args against the signatures.',
+    '4. Max 2 runs.',
     '',
-    'Tool signatures: grep CDC.md — do not read the whole file:',
-    `\`grep -A 20 "^## ${firstTag}" __SKILL_DIR__/CDC.md\``,
-    '',
-    'Groups:',
-    tagDir,
+    ...toolSection,
     '',
   ].join('\n');
 
@@ -326,18 +345,29 @@ function buildMcpCallHelper({ mcpCommand, mcpArgs, name }) {
   return `#!/usr/bin/env node
 // mcp-call.js --- stdio MCP bridge for CDC scripts (package: ${name}).
 //
-// KEY PROPERTY: one Session = ONE server process for any number of tool calls.
-// Never open a session per call — server cold start (especially \`npx -y\`)
-// costs seconds each and was the dominant CDC latency cost before this design.
+// KEY PROPERTIES:
+//   1. One Session = ONE server process for any number of tool calls.
+//   2. DAEMON (default): the server is kept warm in a detached background
+//      process behind a unix socket. Repeat scripts skip cold start entirely
+//      and SERVER STATE (browser pages, auth sessions) persists across
+//      scripts — essential for stateful MCPs like playwright. Any daemon
+//      failure falls back to a direct spawn, never breaks the call.
 //
 // API:    const { openSession, callTool, callTools } = require('.../mcp-call.js');
 //         const s = await openSession(); await s.call(name, args); s.close();
+//         (close() detaches; the warm daemon stays for the next script)
 // CLI:    node mcp-call.js                        # list tool names
 //         node mcp-call.js <tool> '<json-args>'   # single call
 //         node mcp-call.js --batch '<json array>' # many calls, one session
+//         node mcp-call.js daemon-stop | daemon-status
+// Env:    CDC_MCP_DAEMON=0 (disable daemon)  CDC_MCP_TIMEOUT_MS
+//         CDC_MCP_DAEMON_IDLE_MS (default 600000: daemon exits when idle)
 const { spawn } = require('child_process');
 const fs = require('fs');
 const path = require('path');
+const net = require('net');
+const os = require('os');
+const crypto = require('crypto');
 
 const CALL_TIMEOUT_MS = parseInt(process.env.CDC_MCP_TIMEOUT_MS || '60000', 10);
 
@@ -468,7 +498,130 @@ class Session {
   }
 }
 
+// ---------- daemon: warm server + cross-script state behind a unix socket ----------
+
+function socketPath() {
+  const { command, args } = resolveServer();
+  const h = crypto.createHash('sha1').update([command, ...args].join('\\u0000')).digest('hex').slice(0, 10);
+  return path.join(os.tmpdir(), 'cdc-${name}-' + h + '.sock');
+}
+
+function tryConnect(sock, timeoutMs = 300) {
+  return new Promise((resolve) => {
+    const conn = net.createConnection(sock);
+    const timer = setTimeout(() => { conn.destroy(); resolve(null); }, timeoutMs);
+    conn.once('connect', () => { clearTimeout(timer); resolve(conn); });
+    conn.once('error', () => { clearTimeout(timer); resolve(null); });
+  });
+}
+
+/** Socket-backed session: same interface as Session; close() leaves the daemon warm. */
+function socketSession(conn) {
+  let buf = '', nextId = 1;
+  const pending = new Map();
+  conn.setEncoding('utf8');
+  conn.on('data', (chunk) => {
+    buf += chunk;
+    let idx;
+    while ((idx = buf.indexOf('\\n')) !== -1) {
+      const line = buf.slice(0, idx); buf = buf.slice(idx + 1);
+      if (!line.trim()) continue;
+      let msg; try { msg = JSON.parse(line); } catch { continue; }
+      const p = pending.get(msg.id);
+      if (!p) continue;
+      pending.delete(msg.id);
+      clearTimeout(p.timer);
+      msg.ok ? p.res(msg.result) : p.rej(new Error(msg.error));
+    }
+  });
+  conn.on('close', () => {
+    for (const { rej, timer } of pending.values()) { clearTimeout(timer); rej(new Error('daemon connection closed')); }
+    pending.clear();
+  });
+  const request = (payload) => new Promise((res, rej) => {
+    const id = nextId++;
+    const timer = setTimeout(() => { pending.delete(id); rej(new Error('daemon call timed out')); }, CALL_TIMEOUT_MS);
+    pending.set(id, { res, rej, timer });
+    conn.write(JSON.stringify({ id, ...payload }) + '\\n');
+  });
+  return {
+    call: (name, args = {}) => request({ method: 'call', tool: name, args }),
+    list: () => request({ method: 'list' }),
+    stop: () => request({ method: 'stop' }),
+    close: () => { try { conn.end(); } catch {} },
+    viaDaemon: true,
+  };
+}
+
+async function runDaemon() {
+  const { command, args } = resolveServer();
+  const session = await new Session(command, args).start();
+  const sock = socketPath();
+  try { fs.unlinkSync(sock); } catch {}
+  const idleMs = parseInt(process.env.CDC_MCP_DAEMON_IDLE_MS || '600000', 10);
+  let idleTimer;
+  const bumpIdle = () => {
+    clearTimeout(idleTimer);
+    idleTimer = setTimeout(() => { try { session.close(); } catch {} process.exit(0); }, idleMs);
+  };
+  bumpIdle();
+  const server = net.createServer((conn) => {
+    let buf = '';
+    conn.setEncoding('utf8');
+    conn.on('data', (chunk) => {
+      buf += chunk;
+      let idx;
+      while ((idx = buf.indexOf('\\n')) !== -1) {
+        const line = buf.slice(0, idx); buf = buf.slice(idx + 1);
+        if (!line.trim()) continue;
+        bumpIdle();
+        let req; try { req = JSON.parse(line); } catch { continue; }
+        (async () => {
+          try {
+            if (req.method === 'stop') {
+              conn.write(JSON.stringify({ id: req.id, ok: true, result: 'stopping' }) + '\\n');
+              try { session.close(); } catch {}
+              server.close();
+              setTimeout(() => process.exit(0), 100);
+              return;
+            }
+            const result = req.method === 'list'
+              ? await session.list()
+              : await session.call(req.tool, req.args || {});
+            conn.write(JSON.stringify({ id: req.id, ok: true, result }) + '\\n');
+          } catch (e) {
+            try { conn.write(JSON.stringify({ id: req.id, ok: false, error: String(e.message || e) }) + '\\n'); } catch {}
+          }
+        })();
+      }
+    });
+    conn.on('error', () => {});
+  });
+  server.listen(sock);
+}
+
 async function openSession() {
+  if (process.env.CDC_MCP_DAEMON === '0') {
+    const { command, args } = resolveServer();
+    return new Session(command, args).start();
+  }
+  const sock = socketPath();
+  let conn = await tryConnect(sock);
+  if (!conn) {
+    const child = spawn(process.execPath, [__filename, '__daemon__'], {
+      detached: true,
+      stdio: 'ignore',
+      env: process.env,
+    });
+    child.unref();
+    // server cold start (npx resolve + init) can take a while the first time
+    for (let i = 0; i < 60 && !conn; i++) {
+      await new Promise((r) => setTimeout(r, 250));
+      conn = await tryConnect(sock);
+    }
+  }
+  if (conn) return socketSession(conn);
+  // daemon unavailable for any reason: degrade gracefully to direct spawn
   const { command, args } = resolveServer();
   return new Session(command, args).start();
 }
@@ -496,7 +649,21 @@ if (require.main === module) {
   (async () => {
     const argv = process.argv.slice(2);
     try {
-      if (!argv.length) {
+      if (argv[0] === '__daemon__') {
+        await runDaemon();
+      } else if (argv[0] === 'daemon-stop') {
+        const conn = await tryConnect(socketPath());
+        if (!conn) { console.log('no daemon running'); return; }
+        const s = socketSession(conn);
+        await s.stop().catch(() => {});
+        s.close();
+        console.log('daemon stopped');
+      } else if (argv[0] === 'daemon-status') {
+        const conn = await tryConnect(socketPath());
+        if (!conn) { console.log('no daemon running'); return; }
+        conn.end();
+        console.log('daemon running: ' + socketPath());
+      } else if (!argv.length) {
         const s = await openSession();
         const tools = await s.list();
         s.close();

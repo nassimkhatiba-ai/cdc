@@ -61,7 +61,7 @@ If it exits non-zero it prints the configured server names — pick and retry.
 Only fall back to explicit forms when the server is not configured anywhere:
 
 ```bash
-# live stdio MCP by command
+# live stdio MCP by command (values starting with -- are fine: --arg --headless)
 node scripts/create-cdc-skill.js from-mcp --name <name> --probe <cmd> --arg <a> ...
 # tools dump
 node scripts/create-cdc-skill.js from-mcp --name <name> --file /path/to/tools.json

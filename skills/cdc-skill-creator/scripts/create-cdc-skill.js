@@ -22,23 +22,45 @@ const { compileMCP, probeMcpServer } = require('./lib/compile-mcp');
 const { compileOpenAPI } = require('./lib/compile-openapi');
 const { collectStats } = require('./lib/stats');
 
+// Flags that ALWAYS take a value — their value is consumed verbatim even when
+// it starts with "--" (e.g. `--arg --headless` for probing @playwright/mcp).
+const VALUE_FLAGS = new Set([
+  'arg', 'probe', 'name', 'file', 'spec', 'out', 'title', 'http-base',
+  'skills-dir', 'target', 'command', 'base-url', 'skill-name', 'package',
+  'root', 'tools',
+]);
+
 function parseArgs(argv) {
   const args = { _: [], flags: {} };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     if (a.startsWith('--')) {
-      const key = a.slice(2);
-      const next = argv[i + 1];
-      if (next === undefined || next.startsWith('--')) {
-        args.flags[key] = true;
-      } else {
-        if (key === 'arg') {
-          if (!Array.isArray(args.flags.arg)) args.flags.arg = [];
-          args.flags.arg.push(next);
-        } else {
-          args.flags[key] = next;
+      let key = a.slice(2);
+      let val;
+      const eq = key.indexOf('=');
+      if (eq !== -1) {
+        val = key.slice(eq + 1);
+        key = key.slice(0, eq);
+      } else if (VALUE_FLAGS.has(key)) {
+        val = argv[++i];
+        if (val === undefined) {
+          console.error(`--${key} requires a value`);
+          process.exit(1);
         }
-        i++;
+      } else {
+        const next = argv[i + 1];
+        if (next !== undefined && !next.startsWith('--')) {
+          val = next;
+          i++;
+        }
+      }
+      if (val === undefined) {
+        args.flags[key] = true;
+      } else if (key === 'arg') {
+        if (!Array.isArray(args.flags.arg)) args.flags.arg = [];
+        args.flags.arg.push(val);
+      } else {
+        args.flags[key] = val;
       }
     } else {
       args._.push(a);

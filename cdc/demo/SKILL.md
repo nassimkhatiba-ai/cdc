@@ -5,36 +5,46 @@ description: Call Demo MCP via short Node scripts (CDC). Compact tool index; no 
 
 # Demo MCP
 
-Compose tools IN CODE via the bundled bridge. One session, one script, print only the answer.
+Plain calls need NO script: `node __SKILL_DIR__/mcp-call.js <tool> '<json-args>'` · batch: `--batch '[{"tool":"t","args":{}},...]'`
 
-```js
+Multi-step / aggregation — ONE inline script (bash heredoc, never a script file):
+
+```bash
+node - <<'EOF'
 const { openSession } = require('__SKILL_DIR__/mcp-call.js');
 (async () => {
-  const s = await openSession();          // ONE server process for ALL calls
+  const s = await openSession();
   const data = await s.call('tool_name', { /* args */ });
-  // join/filter/aggregate here — do ALL math in code
-  console.log(JSON.stringify(answer));
+  console.log(JSON.stringify(answer)); // aggregate in code first
   s.close();
 })();
+EOF
 ```
 
-Run scripts inline via bash heredoc (`node - <<'EOF' … EOF`) — do not create script files.
-Simple reads need no script at all:
-`node __SKILL_DIR__/mcp-call.js <tool> '<json-args>'`  ·  batch (one session): `--batch '[{"tool":"t","args":{}},...]'`
+A background daemon keeps the server warm: repeat calls skip cold start and server STATE (browser pages, auth sessions) persists across scripts. `daemon-stop` ends it; env `CDC_MCP_DAEMON=0` disables.
 
 Rules:
-1. ONE session per script (`openSession`). Never open a session per call.
-2. Unknown data layout? Run ONE tiny recon first (names/counts/sizes only, print ≤15 lines), THEN one compute script. Max 2 runs total.
-3. If several sources can contain the SAME records (full dump + page shards, raw + rollup, daily + monthly), pick ONE canonical source. NEVER aggregate overlapping sources.
-4. Sanity-check before printing: counts consistent with recon, no double counting, magnitudes plausible.
-5. Print ONLY the final answer as compact JSON. Never echo raw payloads into chat.
+1. ONE session per script — never one per call.
+2. Aggregate/filter in code; print ONLY the final compact JSON. Never paste raw payloads into chat.
+3. Empty/zero result = bug until proven: re-check tool name + args against the signatures.
+4. Max 2 runs.
 
-Tool signatures: grep CDC.md — do not read the whole file:
-`grep -A 20 "^## get" __SKILL_DIR__/CDC.md`
+## Tools
 
-Groups:
-- get (3)
-- github (3)
-- list (3)
-- search (1)
-- slack (2)
+### get
+get_user(user_id*:integer) — Retrieve a single customer account by its unique numeric identifier
+get_order(order_id*:integer) — Retrieve a single order by its unique numeric identifier
+get_product(product_id*:integer) — Retrieve a single product from the catalog by id
+### github
+github_list_repos(owner*, type:"all"|"public"|"private", per_page:integer, page:integer) — List repositories for a GitHub user or organization
+github_get_repo(owner*, repo*) — Get a single GitHub repository by owner and name
+github_list_issues(owner*, repo*, state:"open"|"closed"|"all", labels, per_page:integer, page:integer) — List issues in a repository with optional state filter
+### list
+list_users(page:integer, per_page:integer) — List customer accounts registered in the store
+list_orders(page:integer, per_page:integer, user_id:integer, status:"delivered"|"shipped"|"pending"|"cancelled"|"refunded") — List orders placed in the store for reporting and analytics
+list_products(page:integer, per_page:integer) — List products available in the store catalog
+### search
+search_docs(query*, limit:integer) — Full-text search across the documentation corpus
+### slack
+slack_post_message(channel*, text*, thread_ts) — Post a message to a Slack channel
+slack_list_channels(limit:integer, cursor) — List Slack channels the bot can see
