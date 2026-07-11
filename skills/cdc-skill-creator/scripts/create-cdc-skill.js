@@ -175,6 +175,21 @@ async function cmdFromMcp(args) {
     });
   }
 
+  // Pre-warm the bridge daemon: the connected-MCP baseline gets its server
+  // booted before any benchmark/user timer starts — give CDC the same deal.
+  // Fire-and-forget; the daemon idles out on its own. Opt out: --no-warm.
+  let warmed = false;
+  if (!args.flags['no-warm'] && stats.mode === 'mcp' && installed.length && mcpCommand) {
+    try {
+      const { spawn } = require('child_process');
+      spawn(process.execPath, [path.join(installed[0], 'mcp-call.js'), 'daemon-start'], {
+        detached: true,
+        stdio: 'ignore',
+      }).unref();
+      warmed = true;
+    } catch {}
+  }
+
   const skillName = skillFolderName(stats.name);
   printJson({
     ok: true,
@@ -189,6 +204,7 @@ async function cmdFromMcp(args) {
     definitionSavingsRatio: stats.definitionSavingsRatio,
     outDir,
     installed,
+    warmed,
     howToUse: installed.length
       ? `In Claude Code or Codex: "Using the ${skillName} skill, ..."`
       : `Install with: cdc install ${stats.name} --target both`,

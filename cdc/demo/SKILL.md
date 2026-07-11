@@ -11,10 +11,11 @@ Multi-step / aggregation — ONE inline script (bash heredoc, never a script fil
 
 ```bash
 node - <<'EOF'
-const { openSession } = require('__SKILL_DIR__/mcp-call.js');
+const { openSession, callPaged } = require('__SKILL_DIR__/mcp-call.js');
 (async () => {
   const s = await openSession();
-  const data = await s.call('tool_name', { /* args */ });
+  const rows = await callPaged(s, 'list_tool', { /* filters */ }); // fetches ALL pages
+  const one = await s.call('tool_name', { /* args */ });
   console.log(JSON.stringify(answer)); // aggregate in code first
   s.close();
 })();
@@ -25,9 +26,9 @@ A background daemon keeps the server warm: repeat calls skip cold start and serv
 
 Rules:
 1. ONE session per script — never one per call.
-2. Aggregate/filter in code; print ONLY the final compact JSON. Never paste raw payloads into chat.
-3. Empty/zero result = bug until proven: re-check tool name + args against the signatures.
-4. Max 2 runs.
+2. List tools paginate — use callPaged, never just page 1. Aggregate in code; print ONLY the final compact JSON in the EXACT requested shape.
+3. Tool prose is not an answer — extract the value. Named resource (id, owner/name)? Direct lookup, never global search.
+4. Empty/zero/implausible result = bug: re-check args against the signatures. Max 2 runs.
 
 ## Tools
 

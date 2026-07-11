@@ -299,7 +299,37 @@ async function callTools(calls) {
   } finally { s.close(); }
 }
 
-module.exports = { openSession, callTool, callTools, Session };
+/** Fetch ALL pages of a list-style tool. Handles bare arrays and
+ *  {data|items|results:[...]} wrappers with total_pages; stops on empty page,
+ *  duplicate page (server ignored the page param), or maxPages.
+ *  Fetching only page 1 of a paginated tool was a live A/B failure mode. */
+async function callPaged(session, tool, args = {}, opts = {}) {
+  const pageParam = opts.pageParam || 'page';
+  const maxPages = opts.maxPages || 500;
+  const out = [];
+  let page = Number(args[pageParam] || 1);
+  let prevFirst;
+  for (let i = 0; i < maxPages; i++) {
+    const res = await session.call(tool, Object.assign({}, args, { [pageParam]: page }));
+    const arr = Array.isArray(res) ? res
+      : res && Array.isArray(res.data) ? res.data
+      : res && Array.isArray(res.items) ? res.items
+      : res && Array.isArray(res.results) ? res.results
+      : null;
+    if (!arr) return i === 0 ? res : out; // not a paginated list shape
+    if (arr.length === 0) break;
+    const first = JSON.stringify(arr[0]);
+    if (first === prevFirst) break; // same page again: server ignored the page param
+    prevFirst = first;
+    out.push(...arr);
+    const total = res && !Array.isArray(res) ? (res.total_pages != null ? res.total_pages : res.totalPages) : null;
+    if (total != null && page >= Number(total)) break;
+    page += 1;
+  }
+  return out;
+}
+
+module.exports = { openSession, callTool, callTools, callPaged, Session };
 
 if (require.main === module) {
   (async () => {
@@ -307,6 +337,11 @@ if (require.main === module) {
     try {
       if (argv[0] === '__daemon__') {
         await runDaemon();
+      } else if (argv[0] === 'daemon-start') {
+        const s = await openSession(); // spawns the daemon if not running
+        const warm = s.viaDaemon === true;
+        s.close();
+        console.log(warm ? 'daemon warm: ' + socketPath() : 'daemon unavailable (ran direct)');
       } else if (argv[0] === 'daemon-stop') {
         const conn = await tryConnect(socketPath());
         if (!conn) { console.log('no daemon running'); return; }

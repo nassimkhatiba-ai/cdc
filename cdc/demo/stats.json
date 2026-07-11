@@ -10,12 +10,12 @@
   "mcpSchemaTokens": 1863,
   "cdcBytes": 1647,
   "cdcTokens": 580,
-  "skillBytes": 2487,
-  "skillTokens": 906,
-  "generatedAt": "2026-07-11T10:34:00.210Z",
+  "skillBytes": 2736,
+  "skillTokens": 995,
+  "generatedAt": "2026-07-11T11:11:07.838Z",
   "compressionSourceToCdc": 3.2,
-  "compressionSourceToSkill": 2.1,
+  "compressionSourceToSkill": 1.9,
   "definitionTaxMcp": 1863,
-  "definitionTaxCdc": 906,
-  "definitionSavingsRatio": 2.1
+  "definitionTaxCdc": 995,
+  "definitionSavingsRatio": 1.9
 }

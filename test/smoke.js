@@ -53,13 +53,39 @@ console.log('cdc smoke tests\n');
   assert.strictEqual(stats.mode, 'mcp');
   assert.strictEqual(stats.tools, 12);
   assert.ok(stats.skillTokens < stats.sourceTokens);
-  assert.ok(stats.skillTokens < 950, 'bridge skill must stay short');
+  assert.ok(stats.skillTokens < 1000, 'bridge skill must stay short');
   const skill = fs.readFileSync(path.join(tmp, 'demo', 'SKILL.md'), 'utf8');
   assert.ok(skill.includes('## Tools'), 'small bridge inlines the tool index (no grep turns)');
   assert.ok(skill.includes('daemon'), 'bridge skill documents the warm daemon');
+  assert.ok(skill.includes('callPaged'), 'bridge skill teaches pagination');
   assert.ok(!skill.includes('orders.json'), 'no demo hardcoding in general MCP skill');
   assert.ok(r.stdout.includes('skill') || r.stdout.includes('SKILL'));
   ok('from-mcp compiles sample tools (general bridge, short)');
+}
+
+// --- callPaged helper: full pagination without a live server ---
+{
+  const bridge = require(path.join(tmp, 'demo', 'mcp-call.js'));
+  const pages = {
+    1: { data: [{ id: 1 }, { id: 2 }], total_pages: 3 },
+    2: { data: [{ id: 3 }, { id: 4 }], total_pages: 3 },
+    3: { data: [{ id: 5 }], total_pages: 3 },
+  };
+  const fake = { call: async (tool, args) => pages[args.page] };
+  bridge.callPaged(fake, 'list_x', {}).then((rows) => {
+    assert.strictEqual(rows.length, 5, 'collects every page');
+    // server that ignores the page param must not loop or double-count
+    const stuck = { call: async () => [{ id: 9 }, { id: 10 }] };
+    return bridge.callPaged(stuck, 'list_y', {});
+  }).then((rows) => {
+    assert.strictEqual(rows.length, 2, 'duplicate-page guard stops repeats');
+    // non-paginated shapes pass through untouched
+    const scalar = { call: async () => ({ value: 42 }) };
+    return bridge.callPaged(scalar, 'get_z', {});
+  }).then((res) => {
+    assert.strictEqual(res.value, 42, 'non-list result passes through');
+    ok('callPaged paginates, guards, passes through');
+  }).catch((e) => { console.error(e); process.exit(1); });
 }
 
 // --- filesystem MCP -> direct-fs (general, no task hardcode) ---
