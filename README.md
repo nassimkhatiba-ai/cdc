@@ -148,7 +148,21 @@ The compiler picks a **mode** automatically from the MCP (general rules — not 
 
 Generated skills are **general**: no example-specific files, paths, or task recipes baked into the template. Root paths come from the probe command args only.
 
-**Image skill is the default (main) path.** Convert emits `.cdc.png` pages and a short `SKILL.md` pointer; the full tool index lives in the image for vision loading (lower definition tax on fat tool surfaces). Opt out with `CDC_IMAGE=0` / `--text` to keep full text `SKILL.md` primary (images still emitted).
+**Optical skills are auto-routed** (`--mode auto`, the default). The packer
+builds a tile-budgeted, content-compressed `.cdc.png` and the router makes it
+primary **only when its estimated vision cost beats the text-equivalent cost**
+(fat multi-hop surfaces, ≥ ~8 tools). Tiny skills stay text and render no
+pages — they never pay the vision floor. Decision + pack metrics are logged
+in `stats.json` / `image-meta.json`.
+
+| | |
+|---|---|
+| force text | `--mode text` (or `CDC_IMAGE_MODE=text`, legacy `CDC_IMAGE=0`) |
+| force image | `--mode image` (or `CDC_IMAGE_MODE=image`, legacy `CDC_IMAGE=1`) |
+| image helps | fat tool surfaces: complex −23% vs text, playwright −50% tokens at equal accuracy |
+| image hurts | tiny surfaces (vision floor ~6–8k), filesystem data skills (never packed) |
+
+Live numbers: [results-optical-v2.md](results-optical-v2.md).
 
 Example <code>CDC.md</code> line:
 

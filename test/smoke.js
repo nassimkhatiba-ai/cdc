@@ -49,6 +49,8 @@ console.log('cdc smoke tests\n');
     tmp,
     '--title',
     'Demo MCP',
+    '--mode',
+    'text', // these assertions test the text template; router tested separately
   ]);
   assert.strictEqual(r.status, 0, r.stderr || r.stdout);
   assert.ok(fs.existsSync(path.join(tmp, 'demo', 'SKILL.md')));
@@ -89,6 +91,45 @@ console.log('cdc smoke tests\n');
     'convert output tells user about MCP disable',
   );
   ok('from-mcp compiles sample tools (general bridge, short)');
+}
+
+// --- optical packer + auto router ---
+{
+  const { compileMCP } = require('../lib/compile-mcp');
+  const mkTool = (n, desc) => ({
+    name: n,
+    description: desc || 'Does a thing with several parameters and options.',
+    inputSchema: { type: 'object', properties: { a: { type: 'string' }, b: { type: 'integer' } }, required: ['a'] },
+  });
+
+  // tiny surface -> text primary, no image files rendered
+  const tiny = compileMCP({
+    tools: [mkTool('t_one'), mkTool('t_two'), mkTool('t_three')],
+    name: 'optiny', outRoot: tmp, imageMode: 'auto',
+  });
+  assert.strictEqual(tiny.stats.skillMode, 'text', 'tiny surface routes text: ' + tiny.stats.skillModeReason);
+  assert.ok(!fs.existsSync(path.join(tmp, 'optiny', 'optiny.cdc.png')), 'no vision floor paid for tiny skills');
+  const tinySkill = fs.readFileSync(path.join(tmp, 'optiny', 'SKILL.md'), 'utf8');
+  assert.ok(tinySkill.includes('t_one'), 'tiny keeps normal text skill');
+
+  // fat surface -> image primary under auto, pointer + pages + text fallback
+  const fatTools = [];
+  for (let i = 0; i < 40; i++) fatTools.push(mkTool('svc_tool_' + i, 'Tool number ' + i + ' retrieves operational records and joins them against reference data for reporting purposes.'));
+  const fat = compileMCP({ tools: fatTools, name: 'opfat', outRoot: tmp, imageMode: 'auto' });
+  assert.strictEqual(fat.stats.skillMode, 'image', 'fat surface routes image: ' + fat.stats.skillModeReason);
+  assert.ok(fs.existsSync(path.join(tmp, 'opfat', 'opfat.cdc.png')), 'image pages written');
+  assert.ok(fs.existsSync(path.join(tmp, 'opfat', 'SKILL.text.md')), 'text fallback kept');
+  const meta = JSON.parse(fs.readFileSync(path.join(tmp, 'opfat', 'image-meta.json'), 'utf8'));
+  assert.ok(meta.tiles >= 1 && meta.estVisionTokens >= 255, 'pack metrics present');
+  assert.ok(meta.estVisionTokens < meta.textEquivalentTokens, 'image must beat text-equiv when routed image');
+  assert.ok(meta.pageDims.every((p) => !p.downscaled), 'pages must survive provider resize untouched');
+  const ptr = fs.readFileSync(path.join(tmp, 'opfat', 'SKILL.md'), 'utf8');
+  assert.ok(ptr.includes('.cdc.png') && ptr.includes('mcp-call.js'), 'pointer hot path present');
+
+  // forced modes override the router
+  const forced = compileMCP({ tools: fatTools, name: 'opforce', outRoot: tmp, imageMode: 'text' });
+  assert.strictEqual(forced.stats.skillMode, 'text');
+  ok('optical packer + auto router (tiny->text, fat->image, forced modes)');
 }
 
 // --- callPaged helper: full pagination without a live server ---
@@ -300,7 +341,10 @@ console.log('cdc smoke tests\n');
   assert.ok(!skill.includes('callPaged'), 'cli tier must not teach callPaged');
   assert.ok(!skill.includes('## Multi-step'), 'cli tier omits multi-step openSession block');
   assert.ok(stats.skillTokens < 700, 'cli skill stays tiny: ' + stats.skillTokens);
-  assert.ok(stats.imagePrimary === true || stats.imagePages >= 1, 'image skill emitted by default');
+  // v2 optical semantics: a 1-tool surface must route TEXT under auto —
+  // tiny skills never pay the vision floor (was: image emitted by default).
+  assert.strictEqual(stats.skillMode, 'text', 'tiny surface stays text under auto');
+  assert.ok(!stats.imagePrimary, 'no image primary for tiny surface');
 
   // bare limit is NOT pagination
   assert.strictEqual(

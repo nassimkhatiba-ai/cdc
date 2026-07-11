@@ -1,0 +1,718 @@
+{
+  "generated": "2026-07-11T17:02:38.638Z",
+  "model": "gpt-5.6-sol",
+  "packer": "optical-v2",
+  "passBars": {
+    "hardComplex": true,
+    "hardNova": true,
+    "tinyNoVisionFloor": true,
+    "autoAggregateBeatsTextOnly": true,
+    "testsGreen": true
+  },
+  "slice": {
+    "playwright": {
+      "target": "playwright",
+      "auth": false,
+      "arms": {
+        "mcp": {
+          "tokens": 18208,
+          "wall": 29,
+          "score": "7/7",
+          "ok": 7,
+          "total": 7,
+          "detail": {
+            "page_title": true,
+            "shop_name": true,
+            "tagline": true,
+            "product_count": true,
+            "promo_code": true,
+            "contact_email": true,
+            "total_price": true
+          },
+          "exit": 0,
+          "purity": {
+            "curl": 0,
+            "mcp_calls": 6,
+            "openSession": 0,
+            "callPaged": 0,
+            "mcp_call_js": 0,
+            "image_attach": 0
+          },
+          "images": [],
+          "ans": {
+            "page_title": "CDC Test Shop",
+            "shop_name": "Nebula Outfitters",
+            "tagline": "Gear for night hikers",
+            "product_count": 4,
+            "product_names": [
+              "Trail Lamp",
+              "Summit Pack",
+              "Glow Stick 2-pack",
+              "Night Boots"
+            ],
+            "promo_code": "SUMMER25",
+            "contact_email": "shop@nebula.test",
+            "total_price": 175.75
+          }
+        },
+        "text": {
+          "tokens": 22243,
+          "wall": 75,
+          "score": "7/7",
+          "ok": 7,
+          "total": 7,
+          "detail": {
+            "page_title": true,
+            "shop_name": true,
+            "tagline": true,
+            "product_count": true,
+            "promo_code": true,
+            "contact_email": true,
+            "total_price": true
+          },
+          "exit": 0,
+          "purity": {
+            "curl": 0,
+            "mcp_calls": 0,
+            "openSession": 7,
+            "callPaged": 0,
+            "mcp_call_js": 8,
+            "image_attach": 0
+          },
+          "images": [],
+          "ans": {
+            "page_title": "CDC Test Shop",
+            "shop_name": "Nebula Outfitters",
+            "tagline": "Gear for night hikers",
+            "product_count": 4,
+            "product_names": [
+              "Trail Lamp",
+              "Summit Pack",
+              "Glow Stick 2-pack",
+              "Night Boots"
+            ],
+            "promo_code": "SUMMER25",
+            "contact_email": "shop@nebula.test",
+            "total_price": 175.75
+          }
+        },
+        "image": {
+          "tokens": 11173,
+          "wall": 34,
+          "score": "7/7",
+          "ok": 7,
+          "total": 7,
+          "detail": {
+            "page_title": true,
+            "shop_name": true,
+            "tagline": true,
+            "product_count": true,
+            "promo_code": true,
+            "contact_email": true,
+            "total_price": true
+          },
+          "exit": 0,
+          "purity": {
+            "curl": 0,
+            "mcp_calls": 0,
+            "openSession": 1,
+            "callPaged": 1,
+            "mcp_call_js": 6,
+            "image_attach": 5
+          },
+          "images": [
+            "playwright.cdc.png"
+          ],
+          "ans": {
+            "page_title": "CDC Test Shop",
+            "shop_name": "Nebula Outfitters",
+            "tagline": "Gear for night hikers",
+            "product_count": 4,
+            "product_names": [
+              "Trail Lamp",
+              "Summit Pack",
+              "Glow Stick 2-pack",
+              "Night Boots"
+            ],
+            "promo_code": "SUMMER25",
+            "contact_email": "shop@nebula.test",
+            "total_price": 175.75
+          }
+        }
+      },
+      "ratios": {
+        "mcp_over_text": 0.82,
+        "mcp_over_image": 1.63,
+        "text_over_image": 1.99,
+        "image_vs_text_pct": 49.8
+      }
+    },
+    "github": {
+      "target": "github",
+      "auth": true,
+      "arms": {
+        "mcp": {
+          "tokens": 18804,
+          "wall": 11,
+          "score": "5/5",
+          "ok": 5,
+          "total": 5,
+          "detail": {
+            "me_login": true,
+            "me_public_repos": true,
+            "cdc_full_name": true,
+            "cdc_private": true,
+            "cdc_default_branch": true
+          },
+          "exit": 0,
+          "purity": {
+            "curl": 1,
+            "mcp_calls": 6,
+            "openSession": 0,
+            "callPaged": 0,
+            "mcp_call_js": 0,
+            "image_attach": 0
+          },
+          "images": [],
+          "ans": {
+            "me_login": "nassimkhatiba-ai",
+            "me_public_repos": 1,
+            "torvalds_followers": 311297,
+            "torvalds_public_repos": 12,
+            "cdc_full_name": "nassimkhatiba-ai/cdc",
+            "cdc_private": false,
+            "cdc_default_branch": "main"
+          }
+        },
+        "text": {
+          "tokens": 12080,
+          "wall": 16,
+          "score": "5/5",
+          "ok": 5,
+          "total": 5,
+          "detail": {
+            "me_login": true,
+            "me_public_repos": true,
+            "cdc_full_name": true,
+            "cdc_private": true,
+            "cdc_default_branch": true
+          },
+          "exit": 0,
+          "purity": {
+            "curl": 0,
+            "mcp_calls": 0,
+            "openSession": 3,
+            "callPaged": 3,
+            "mcp_call_js": 5,
+            "image_attach": 0
+          },
+          "images": [],
+          "ans": {
+            "me_login": "nassimkhatiba-ai",
+            "me_public_repos": 1,
+            "torvalds_followers": 311297,
+            "torvalds_public_repos": 12,
+            "cdc_full_name": "nassimkhatiba-ai/cdc",
+            "cdc_private": false,
+            "cdc_default_branch": "main"
+          }
+        },
+        "image": {
+          "tokens": 8357,
+          "wall": 16,
+          "score": "5/5",
+          "ok": 5,
+          "total": 5,
+          "detail": {
+            "me_login": true,
+            "me_public_repos": true,
+            "cdc_full_name": true,
+            "cdc_private": true,
+            "cdc_default_branch": true
+          },
+          "exit": 0,
+          "purity": {
+            "curl": 0,
+            "mcp_calls": 0,
+            "openSession": 1,
+            "callPaged": 1,
+            "mcp_call_js": 3,
+            "image_attach": 5
+          },
+          "images": [
+            "github.cdc.png"
+          ],
+          "ans": {
+            "me_login": "nassimkhatiba-ai",
+            "me_public_repos": 1,
+            "torvalds_followers": 311313,
+            "torvalds_public_repos": 12,
+            "cdc_full_name": "nassimkhatiba-ai/cdc",
+            "cdc_private": false,
+            "cdc_default_branch": "main"
+          }
+        }
+      },
+      "ratios": {
+        "mcp_over_text": 1.56,
+        "mcp_over_image": 2.25,
+        "text_over_image": 1.45,
+        "image_vs_text_pct": 30.8
+      }
+    },
+    "mockapi": {
+      "target": "mockapi",
+      "auth": false,
+      "arms": {
+        "mcp": {
+          "tokens": 23950,
+          "wall": 23,
+          "score": "5/5",
+          "ok": 5,
+          "total": 5,
+          "detail": {
+            "product_count": true,
+            "order_count": true,
+            "delivered_count": true,
+            "delivered_revenue": true,
+            "category_count": true
+          },
+          "exit": 0,
+          "purity": {
+            "curl": 1,
+            "mcp_calls": 12,
+            "openSession": 0,
+            "callPaged": 0,
+            "mcp_call_js": 0,
+            "image_attach": 0
+          },
+          "images": [],
+          "ans": {
+            "product_count": 30,
+            "order_count": 200,
+            "delivered_count": 92,
+            "delivered_revenue": 82576.08,
+            "category_count": 6
+          }
+        },
+        "text": {
+          "tokens": 9406,
+          "wall": 16,
+          "score": "5/5",
+          "ok": 5,
+          "total": 5,
+          "detail": {
+            "product_count": true,
+            "order_count": true,
+            "delivered_count": true,
+            "delivered_revenue": true,
+            "category_count": true
+          },
+          "exit": 0,
+          "purity": {
+            "curl": 0,
+            "mcp_calls": 0,
+            "openSession": 5,
+            "callPaged": 7,
+            "mcp_call_js": 5,
+            "image_attach": 0
+          },
+          "images": [],
+          "ans": {
+            "product_count": 30,
+            "order_count": 200,
+            "delivered_count": 92,
+            "delivered_revenue": 82576.08,
+            "category_count": 6
+          }
+        },
+        "image": {
+          "tokens": 18918,
+          "wall": 48,
+          "score": "5/5",
+          "ok": 5,
+          "total": 5,
+          "detail": {
+            "product_count": true,
+            "order_count": true,
+            "delivered_count": true,
+            "delivered_revenue": true,
+            "category_count": true
+          },
+          "exit": 0,
+          "purity": {
+            "curl": 0,
+            "mcp_calls": 0,
+            "openSession": 1,
+            "callPaged": 7,
+            "mcp_call_js": 7,
+            "image_attach": 5
+          },
+          "images": [
+            "mockapi.cdc.png"
+          ],
+          "ans": {
+            "product_count": 30,
+            "order_count": 200,
+            "delivered_count": 92,
+            "delivered_revenue": 82576.08,
+            "category_count": 6
+          }
+        }
+      },
+      "ratios": {
+        "mcp_over_text": 2.55,
+        "mcp_over_image": 1.27,
+        "text_over_image": 0.5,
+        "image_vs_text_pct": -101.1
+      }
+    },
+    "complex": {
+      "target": "complex",
+      "auth": false,
+      "arms": {
+        "mcp": {
+          "tokens": 27022,
+          "wall": 46,
+          "score": "7/7",
+          "ok": 7,
+          "total": 7,
+          "detail": {
+            "open_p1_count": true,
+            "breach_count": true,
+            "arr_at_risk": true,
+            "top_account_at_risk": true,
+            "top_account_arr": true,
+            "breach_subjects_sorted": true,
+            "accounts_in_breach_sorted": true
+          },
+          "exit": 0,
+          "purity": {
+            "curl": 0,
+            "mcp_calls": 84,
+            "openSession": 0,
+            "callPaged": 0,
+            "mcp_call_js": 0,
+            "image_attach": 0
+          },
+          "images": [],
+          "ans": {
+            "open_p1_count": 12,
+            "breach_count": 9,
+            "arr_at_risk": 1354494,
+            "top_account_at_risk": "Aperture",
+            "top_account_arr": 209659,
+            "breach_subjects_sorted": [
+              "P1 API cascade Wayne",
+              "P1 API latency Cyberdyne",
+              "P1 Auth flapping Initech",
+              "P1 Billing halt Stark",
+              "P1 Ingest stalled Globex",
+              "P1 Invoice stuck Aperture",
+              "P1 Pipeline backpressure Tyrell",
+              "P1 SSO outage Vantara",
+              "P1 Search blackhole Northwind"
+            ],
+            "accounts_in_breach_sorted": [
+              "Aperture",
+              "Cyberdyne",
+              "Globex",
+              "Initech",
+              "Northwind",
+              "Stark Industries",
+              "Tyrell",
+              "Vantara",
+              "Wayne Enterprises"
+            ]
+          }
+        },
+        "text": {
+          "tokens": 19434,
+          "wall": 33,
+          "score": "7/7",
+          "ok": 7,
+          "total": 7,
+          "detail": {
+            "open_p1_count": true,
+            "breach_count": true,
+            "arr_at_risk": true,
+            "top_account_at_risk": true,
+            "top_account_arr": true,
+            "breach_subjects_sorted": true,
+            "accounts_in_breach_sorted": true
+          },
+          "exit": 0,
+          "purity": {
+            "curl": 0,
+            "mcp_calls": 0,
+            "openSession": 5,
+            "callPaged": 5,
+            "mcp_call_js": 5,
+            "image_attach": 0
+          },
+          "images": [],
+          "ans": {
+            "open_p1_count": 12,
+            "breach_count": 9,
+            "arr_at_risk": 1354494,
+            "top_account_at_risk": "Aperture",
+            "top_account_arr": 209659,
+            "breach_subjects_sorted": [
+              "P1 API cascade Wayne",
+              "P1 API latency Cyberdyne",
+              "P1 Auth flapping Initech",
+              "P1 Billing halt Stark",
+              "P1 Ingest stalled Globex",
+              "P1 Invoice stuck Aperture",
+              "P1 Pipeline backpressure Tyrell",
+              "P1 SSO outage Vantara",
+              "P1 Search blackhole Northwind"
+            ],
+            "accounts_in_breach_sorted": [
+              "Aperture",
+              "Cyberdyne",
+              "Globex",
+              "Initech",
+              "Northwind",
+              "Stark Industries",
+              "Tyrell",
+              "Vantara",
+              "Wayne Enterprises"
+            ]
+          }
+        },
+        "image": {
+          "tokens": 15040,
+          "wall": 30,
+          "score": "7/7",
+          "ok": 7,
+          "total": 7,
+          "detail": {
+            "open_p1_count": true,
+            "breach_count": true,
+            "arr_at_risk": true,
+            "top_account_at_risk": true,
+            "top_account_arr": true,
+            "breach_subjects_sorted": true,
+            "accounts_in_breach_sorted": true
+          },
+          "exit": 0,
+          "purity": {
+            "curl": 0,
+            "mcp_calls": 0,
+            "openSession": 0,
+            "callPaged": 0,
+            "mcp_call_js": 4,
+            "image_attach": 6
+          },
+          "images": [
+            "complex.cdc.png",
+            "complex.page-002.cdc.png"
+          ],
+          "ans": {
+            "open_p1_count": 12,
+            "breach_count": 9,
+            "arr_at_risk": 1354494,
+            "top_account_at_risk": "Aperture",
+            "top_account_arr": 209659,
+            "breach_subjects_sorted": [
+              "P1 API cascade Wayne",
+              "P1 API latency Cyberdyne",
+              "P1 Auth flapping Initech",
+              "P1 Billing halt Stark",
+              "P1 Ingest stalled Globex",
+              "P1 Invoice stuck Aperture",
+              "P1 Pipeline backpressure Tyrell",
+              "P1 SSO outage Vantara",
+              "P1 Search blackhole Northwind"
+            ],
+            "accounts_in_breach_sorted": [
+              "Aperture",
+              "Cyberdyne",
+              "Globex",
+              "Initech",
+              "Northwind",
+              "Stark Industries",
+              "Tyrell",
+              "Vantara",
+              "Wayne Enterprises"
+            ]
+          }
+        }
+      },
+      "ratios": {
+        "mcp_over_text": 1.39,
+        "mcp_over_image": 1.8,
+        "text_over_image": 1.29,
+        "image_vs_text_pct": 22.6
+      }
+    },
+    "nova": {
+      "target": "nova",
+      "auth": false,
+      "arms": {
+        "mcp": {
+          "tokens": 18643,
+          "wall": 22,
+          "score": "7/7",
+          "ok": 7,
+          "total": 7,
+          "detail": {
+            "open_sev1_count": true,
+            "breach_count": true,
+            "mrr_at_risk": true,
+            "top_account_at_risk": true,
+            "top_account_mrr": true,
+            "breach_titles_sorted": true,
+            "accounts_in_breach_sorted": true
+          },
+          "exit": 0,
+          "purity": {
+            "curl": 0,
+            "mcp_calls": 24,
+            "openSession": 2,
+            "callPaged": 3,
+            "mcp_call_js": 2,
+            "image_attach": 0
+          },
+          "images": [],
+          "ans": {
+            "open_sev1_count": 10,
+            "breach_count": 7,
+            "mrr_at_risk": 395955,
+            "top_account_at_risk": "Orbit Retail",
+            "top_account_mrr": 122228,
+            "breach_titles_sorted": [
+              "SEV1 Edge Gateway Granite Soft",
+              "SEV1 Edge Gateway Nimbus Pay",
+              "SEV1 Fraud ML Delta Logistics",
+              "SEV1 Notify Hub Atlas Freight",
+              "SEV1 Payments Core Helios Bank",
+              "SEV1 Risk Engine Orbit Retail",
+              "SEV1 Search Echo Media"
+            ],
+            "accounts_in_breach_sorted": [
+              "Atlas Freight",
+              "Delta Logistics",
+              "Echo Media",
+              "Granite Soft",
+              "Helios Bank",
+              "Nimbus Pay",
+              "Orbit Retail"
+            ]
+          }
+        },
+        "text": {
+          "tokens": 8686,
+          "wall": 50,
+          "score": "7/7",
+          "ok": 7,
+          "total": 7,
+          "detail": {
+            "open_sev1_count": true,
+            "breach_count": true,
+            "mrr_at_risk": true,
+            "top_account_at_risk": true,
+            "top_account_mrr": true,
+            "breach_titles_sorted": true,
+            "accounts_in_breach_sorted": true
+          },
+          "exit": 0,
+          "purity": {
+            "curl": 0,
+            "mcp_calls": 0,
+            "openSession": 7,
+            "callPaged": 7,
+            "mcp_call_js": 6,
+            "image_attach": 0
+          },
+          "images": [],
+          "ans": {
+            "open_sev1_count": 10,
+            "breach_count": 7,
+            "mrr_at_risk": 395955,
+            "top_account_at_risk": "Orbit Retail",
+            "top_account_mrr": 122228,
+            "breach_titles_sorted": [
+              "SEV1 Edge Gateway Granite Soft",
+              "SEV1 Edge Gateway Nimbus Pay",
+              "SEV1 Fraud ML Delta Logistics",
+              "SEV1 Notify Hub Atlas Freight",
+              "SEV1 Payments Core Helios Bank",
+              "SEV1 Risk Engine Orbit Retail",
+              "SEV1 Search Echo Media"
+            ],
+            "accounts_in_breach_sorted": [
+              "Atlas Freight",
+              "Delta Logistics",
+              "Echo Media",
+              "Granite Soft",
+              "Helios Bank",
+              "Nimbus Pay",
+              "Orbit Retail"
+            ]
+          }
+        },
+        "image": {
+          "tokens": 15262,
+          "wall": 50,
+          "score": "7/7",
+          "ok": 7,
+          "total": 7,
+          "detail": {
+            "open_sev1_count": true,
+            "breach_count": true,
+            "mrr_at_risk": true,
+            "top_account_at_risk": true,
+            "top_account_mrr": true,
+            "breach_titles_sorted": true,
+            "accounts_in_breach_sorted": true
+          },
+          "exit": 0,
+          "purity": {
+            "curl": 0,
+            "mcp_calls": 0,
+            "openSession": 0,
+            "callPaged": 0,
+            "mcp_call_js": 8,
+            "image_attach": 6
+          },
+          "images": [
+            "nova.cdc.png"
+          ],
+          "ans": {
+            "open_sev1_count": 10,
+            "breach_count": 7,
+            "mrr_at_risk": 395955,
+            "top_account_at_risk": "Orbit Retail",
+            "top_account_mrr": 122228,
+            "breach_titles_sorted": [
+              "SEV1 Edge Gateway Granite Soft",
+              "SEV1 Edge Gateway Nimbus Pay",
+              "SEV1 Fraud ML Delta Logistics",
+              "SEV1 Notify Hub Atlas Freight",
+              "SEV1 Payments Core Helios Bank",
+              "SEV1 Risk Engine Orbit Retail",
+              "SEV1 Search Echo Media"
+            ],
+            "accounts_in_breach_sorted": [
+              "Atlas Freight",
+              "Delta Logistics",
+              "Echo Media",
+              "Granite Soft",
+              "Helios Bank",
+              "Nimbus Pay",
+              "Orbit Retail"
+            ]
+          }
+        }
+      },
+      "ratios": {
+        "mcp_over_text": 2.15,
+        "mcp_over_image": 1.22,
+        "text_over_image": 0.57,
+        "image_vs_text_pct": -75.7
+      }
+    }
+  }
+}

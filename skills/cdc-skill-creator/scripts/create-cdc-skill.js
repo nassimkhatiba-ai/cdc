@@ -28,7 +28,7 @@ const { buildConvertWin } = require('./lib/convert-win');
 const VALUE_FLAGS = new Set([
   'arg', 'probe', 'name', 'file', 'spec', 'out', 'title', 'http-base',
   'skills-dir', 'target', 'command', 'base-url', 'skill-name', 'package',
-  'root', 'tools',
+  'root', 'tools', 'mode',
 ]);
 
 function parseArgs(argv) {
@@ -90,7 +90,11 @@ function prewarmDaemon(skillDir) {
   try {
     const bridge = path.join(skillDir, 'mcp-call.js');
     if (!fs.existsSync(bridge)) return false;
-    const { spawn } = require('child_process');
+    const { spawn, spawnSync } = require('child_process');
+    // RESTART, don't reuse: the socket is keyed on command+args, so a warm
+    // daemon can outlive a rebuild that changed the server's content/env
+    // and keep serving the old broken server (bit us live).
+    spawnSync(process.execPath, [bridge, 'daemon-stop'], { timeout: 10000, stdio: 'ignore' });
     spawn(process.execPath, [bridge, 'daemon-start'], {
       detached: true,
       stdio: 'ignore',
@@ -173,12 +177,11 @@ async function cmdFromMcp(args) {
     process.exit(1);
   }
 
-  // Image skill is MAIN by default. --text / --no-image keeps text SKILL.md primary.
-  if (args.flags.text || args.flags['no-image'] || args.flags['text-primary']) {
-    process.env.CDC_IMAGE = '0';
-  } else if (args.flags.image || args.flags['image-primary']) {
-    process.env.CDC_IMAGE = '1';
-  }
+  // Skill mode: --mode auto|text|image (default auto — the router decides).
+  // Legacy flags map onto it; CDC_IMAGE / CDC_IMAGE_MODE env still honored.
+  let imageMode = (flag(args.flags, 'mode') || '').toLowerCase() || undefined;
+  if (args.flags.text || args.flags['no-image'] || args.flags['text-primary']) imageMode = 'text';
+  else if (args.flags.image || args.flags['image-primary']) imageMode = 'image';
   const { outDir, stats } = compileMCP({
     tools,
     name,
@@ -187,6 +190,7 @@ async function cmdFromMcp(args) {
     httpBase,
     mcpCommand,
     mcpArgs,
+    imageMode,
   });
 
   let installed = [];

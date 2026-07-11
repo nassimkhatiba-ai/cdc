@@ -1,4 +1,8 @@
 #!/bin/bash
+# Mini GitHub auth MCP. Local bin (no temp-dir dependency) + CA chain fix:
+# this machine's Node lacks the Sectigo root api.github.com serves.
 export GITHUB_TOKEN="${GITHUB_TOKEN:-$(gh auth token 2>/dev/null)}"
 export GITHUB_PERSONAL_ACCESS_TOKEN="$GITHUB_TOKEN"
-exec node "/var/folders/q0/rtbq6mhj2tn1r5p5jk4ks4dr0000gn/T/grok-goal-e3b430f0d9e1/implementer/mega20/bin/github-auth-mcp.js" "$@"
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+export NODE_EXTRA_CA_CERTS="$DIR/../fixtures/github-chain.pem"
+exec node "$DIR/github-auth-mcp.js" "$@"

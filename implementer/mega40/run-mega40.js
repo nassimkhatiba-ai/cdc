@@ -254,12 +254,20 @@ function extractJson(text) {
       if (depth === 0 && start >= 0) { matches.push(text.slice(start, i + 1)); start = -1; }
     }
   }
+  // Prefer the last parseable object that actually has keys — brace-depth
+  // gets unbalanced by braces inside shell-quoted scripts in the log, and a
+  // bare {} fragment must not shadow the real final answer.
+  let empty = null;
   for (let i = matches.length - 1; i >= 0; i--) {
-    try { return JSON.parse(matches[i]); } catch {}
+    try {
+      const j = JSON.parse(matches[i]);
+      if (j && typeof j === 'object' && Object.keys(j).length) return j;
+      if (empty === null) empty = j;
+    } catch {}
   }
   const m = text.match(/```(?:json)?\s*([\s\S]*?)```/i);
   if (m) { try { return JSON.parse(m[1].trim()); } catch {} }
-  return null;
+  return empty;
 }
 
 function extractTokens(text) {

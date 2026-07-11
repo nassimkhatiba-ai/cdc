@@ -77,7 +77,7 @@ Docs: README.md · Paper: PAPER.md
 const VALUE_FLAGS = new Set([
   'arg', 'probe', 'name', 'file', 'spec', 'out', 'title', 'http-base',
   'skills-dir', 'target', 'command', 'base-url', 'skill-name', 'package',
-  'root', 'tools',
+  'root', 'tools', 'mode',
 ]);
 
 function parseArgs(argv) {
@@ -203,6 +203,10 @@ async function cmdFromMcp(args) {
 
   if (!mcpCommand && args.flags.command) mcpCommand = args.flags.command;
 
+  let imageMode = (flag(args.flags, 'mode') || '').toLowerCase() || undefined;
+  if (args.flags.text || args.flags['no-image'] || args.flags['text-primary']) imageMode = 'text';
+  else if (args.flags.image || args.flags['image-primary']) imageMode = 'image';
+
   const { outDir, stats } = compileMCP({
     tools,
     name,
@@ -211,6 +215,7 @@ async function cmdFromMcp(args) {
     httpBase,
     mcpCommand,
     mcpArgs,
+    imageMode,
   });
   printCompileResult(outDir, stats);
 }

@@ -1,37 +1,37 @@
 {
-  "when": "2026-07-11T14:47:58.650Z",
+  "when": "2026-07-11T17:01:32.854Z",
   "model": "gpt-5.6-sol",
   "sums": {
     "mcp": {
-      "n": 40,
-      "n_tok": 40,
-      "tokens_sum": 532959,
-      "tokens_avg": 13324,
-      "wall_sum": 713,
-      "wall_avg": 17.8,
-      "accuracy": "152/155",
-      "accuracy_pct": 98.1
+      "n": 5,
+      "n_tok": 5,
+      "tokens_sum": 106627,
+      "tokens_avg": 21325,
+      "wall_sum": 131,
+      "wall_avg": 26.2,
+      "accuracy": "31/31",
+      "accuracy_pct": 100
     },
     "text": {
-      "n": 40,
-      "n_tok": 40,
-      "tokens_sum": 336909,
-      "tokens_avg": 8423,
-      "wall_sum": 856,
-      "wall_avg": 21.4,
-      "accuracy": "137/155",
-      "accuracy_pct": 88.4
+      "n": 5,
+      "n_tok": 5,
+      "tokens_sum": 71849,
+      "tokens_avg": 14370,
+      "wall_sum": 190,
+      "wall_avg": 38,
+      "accuracy": "31/31",
+      "accuracy_pct": 100
     },
     "image": {
-      "n": 40,
-      "n_tok": 40,
-      "tokens_sum": 406679,
-      "tokens_avg": 10167,
-      "wall_sum": 724,
-      "wall_avg": 18.1,
-      "accuracy": "127/155",
-      "accuracy_pct": 81.9
+      "n": 5,
+      "n_tok": 5,
+      "tokens_sum": 68750,
+      "tokens_avg": 13750,
+      "wall_sum": 178,
+      "wall_avg": 35.6,
+      "accuracy": "31/31",
+      "accuracy_pct": 100
     }
   },
-  "n": 40
+  "n": 5
 }
