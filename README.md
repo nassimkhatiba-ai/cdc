@@ -43,8 +43,9 @@
   ~/.claude/skills/github-cdc/     <-- Claude loads THIS (a skill)
         SKILL.md                   <-- tiny preamble
         CDC.md                     <-- one line per tool
-        mcp-call.js                <-- optional bridge back to MCP
+        mcp-call.js                <-- bridge mode only (not for filesystem MCPs)
 ```
+
 
 **You are not "connecting an MCP" in Claude Code.**  
 You install a skill. Claude opens the skill, greps the tool index, writes a script, prints the answer. Schemas and raw JSON never flood the window.
@@ -120,19 +121,29 @@ node bin/cdc.js install petstore
 <details>
 <summary><b>What does a generated skill look like?</b></summary>
 
+The compiler picks a **mode** automatically from the MCP (general rules — not per-demo hacks):
+
+| mode | when | package |
+|---|---|---|
+| **direct-fs** | filesystem-like MCP (e.g. `@modelcontextprotocol/server-filesystem`) | short Node `fs` skill, **no** `mcp-call.js` |
+| **http** | `--http-base` / OpenAPI | short `fetch` skill |
+| **mcp** | everything else | short skill + `mcp-call.js` bridge |
+
 ```
-~/.claude/skills/demo-cdc/
-  SKILL.md            # Claude Code skill (~definition tax only)
+~/.claude/skills/<name>-cdc/
+  SKILL.md            # short preamble (~definition tax only)
   CDC.md              # one line per tool, grouped by tag
   stats.json          # compression numbers
-  mcp-call.js         # tiny client scripts can require()
-  mcp-manifest.json   # how to reach the original MCP server (if needed)
+  mcp-call.js         # bridge mode only
+  mcp-manifest.json   # root path (direct-fs) or MCP launch (bridge)
 ```
+
+Generated skills are **general**: no example-specific files, paths, or task recipes baked into the template. Root paths come from the probe command args only.
 
 Example <code>CDC.md</code> line:
 
 ```
-list_orders(page:integer, per_page:integer, user_id:integer, status:...) - List orders...
+list_orders(page:integer, per_page:integer, user_id:integer, status:...)
 ```
 
 </details>
@@ -243,7 +254,7 @@ MCP still wins for credential brokering, non-HTTP/stateful tools, and org allowl
 | **[results.md](results.md)** | Per-task simulated tables |
 | **[results-live.md](results-live.md)** | Live frontier-model run |
 | **[results-scale.md](results-scale.md)** | Scaling sweep 250 &rarr; 4,000 orders |
-| **`cdc/`** | Prebuilt skill packages: github, stripe, petstore, demo |
+| **`cdc/`** | Prebuilt skill packages: github, stripe, petstore, demo, filesystem |
 
 ```bash
 npm test                 # smoke tests, no network

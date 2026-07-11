@@ -50,10 +50,89 @@ console.log('cdc smoke tests\n');
   assert.ok(fs.existsSync(path.join(tmp, 'demo', 'mcp-call.js')));
   const stats = JSON.parse(fs.readFileSync(path.join(tmp, 'demo', 'stats.json'), 'utf8'));
   assert.strictEqual(stats.source, 'mcp');
+  assert.strictEqual(stats.mode, 'mcp');
   assert.strictEqual(stats.tools, 12);
   assert.ok(stats.skillTokens < stats.sourceTokens);
+  assert.ok(stats.skillTokens < 600, 'bridge skill must stay short');
+  const skill = fs.readFileSync(path.join(tmp, 'demo', 'SKILL.md'), 'utf8');
+  assert.ok(!skill.includes('orders.json'), 'no demo hardcoding in general MCP skill');
   assert.ok(r.stdout.includes('skill') || r.stdout.includes('SKILL'));
-  ok('from-mcp compiles sample tools');
+  ok('from-mcp compiles sample tools (general bridge, short)');
+}
+
+// --- filesystem MCP -> direct-fs (general, no task hardcode) ---
+{
+  const { compileMCP, detectFilesystemRoot } = require('../lib/compile-mcp');
+  const tools = [
+    {
+      name: 'list_directory',
+      inputSchema: { type: 'object', properties: { path: { type: 'string' } } },
+    },
+    {
+      name: 'list_allowed_directories',
+      inputSchema: { type: 'object', properties: {} },
+    },
+    {
+      name: 'read_text_file',
+      inputSchema: { type: 'object', properties: { path: { type: 'string' } } },
+    },
+    {
+      name: 'write_file',
+      inputSchema: {
+        type: 'object',
+        properties: { path: { type: 'string' }, content: { type: 'string' } },
+      },
+    },
+  ];
+  const det = detectFilesystemRoot(
+    'npx',
+    ['-y', '@modelcontextprotocol/server-filesystem', '/any/user/root'],
+    'filesystem',
+    tools,
+  );
+  assert.strictEqual(det.isFs, true);
+  assert.strictEqual(det.root, '/any/user/root');
+
+  const { outDir, stats } = compileMCP({
+    tools,
+    name: 'filesystem',
+    outRoot: tmp,
+    mcpCommand: 'npx',
+    mcpArgs: ['-y', '@modelcontextprotocol/server-filesystem', '/any/user/root'],
+  });
+  assert.strictEqual(stats.mode, 'direct-fs');
+  assert.ok(stats.skillTokens < 450, 'direct-fs skill must be short: ' + stats.skillTokens);
+  assert.ok(!fs.existsSync(path.join(outDir, 'mcp-call.js')), 'direct-fs must not ship mcp-call.js');
+  const skill = fs.readFileSync(path.join(outDir, 'SKILL.md'), 'utf8');
+  assert.ok(skill.includes('/any/user/root'));
+  assert.ok(skill.includes('require(\'fs\')') || skill.includes('require("fs")') || skill.includes("require('fs')"));
+  assert.ok(!skill.includes('orders.json'));
+  assert.ok(!skill.includes('orders/'));
+  assert.ok(!skill.includes('deliverd'));
+  assert.ok(!skill.includes('totalRevenue'));
+  assert.ok(!/npx -y/.test(skill));
+  // non-fs name with fs tools still detected by tool set
+  const det2 = detectFilesystemRoot(null, [], 'myfiles', tools);
+  assert.strictEqual(det2.isFs, true);
+  ok('filesystem MCP -> direct-fs general template (no hardcode, no bridge)');
+}
+
+// --- install replaces dest (no stale mcp-call.js) ---
+{
+  const skillDir = path.join(tmp, 'skills-home');
+  const pkg = path.join(tmp, 'filesystem');
+  // poison previous install
+  const poison = path.join(skillDir, 'filesystem-cdc');
+  fs.mkdirSync(poison, { recursive: true });
+  fs.writeFileSync(path.join(poison, 'mcp-call.js'), 'STALE');
+  fs.writeFileSync(path.join(poison, 'SKILL.md'), 'old');
+  const r = run(['install', 'filesystem', '--root', tmp, '--skills-dir', skillDir]);
+  assert.strictEqual(r.status, 0, r.stderr || r.stdout);
+  assert.ok(!fs.existsSync(path.join(skillDir, 'filesystem-cdc', 'mcp-call.js')), 'stale mcp-call removed');
+  assert.ok(fs.existsSync(path.join(skillDir, 'filesystem-cdc', 'SKILL.md')));
+  const skill = fs.readFileSync(path.join(skillDir, 'filesystem-cdc', 'SKILL.md'), 'utf8');
+  assert.ok(skill.includes('direct') || skill.includes('fs'));
+  ok('install clean-replaces skill dir');
 }
 
 // --- stats ---
@@ -156,6 +235,7 @@ console.log('cdc smoke tests\n');
     outRoot: tmp,
   });
   assert.strictEqual(stats.tools, 1);
+  assert.strictEqual(stats.mode, 'mcp');
   ok('compile-mcp unit helpers');
 }
 

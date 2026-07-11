@@ -1,224 +1,110 @@
 ---
 name: cdc-skill-creator
-description: Convert MCP servers (or OpenAPI specs) into CDC Agent Skills for Claude Code and OpenAI Codex so tools load as a skill instead of a connected MCP. Use when the user wants to convert an MCP, make a CDC skill, turn tools into a skill, stop loading MCP schemas into context, run cdc-skill-creator, or says "make this MCP a skill" / "convert my MCP" / "use this in Codex".
+description: Convert any MCP server or OpenAPI spec into a short CDC Agent Skill for Claude Code and Codex. Use when the user wants to convert an MCP, make a CDC skill, turn tools into a skill, stop loading MCP schemas, or says "make this MCP a skill" / "convert my MCP".
 ---
 
 # CDC Skill Creator
 
-Turn an **MCP server** (or OpenAPI spec) into an **Agent Skill** for Claude Code and/or OpenAI Codex.
+Convert **any** MCP (or OpenAPI) into a short **Agent Skill** - not a connected MCP.
 
-The result is a normal Agent Skill folder -
-**not** as a connected MCP server. No tool schemas dumped into context. The
-agent greps a one-line-per-tool index and writes a sandboxed script.
+Generator rules (product quality for every user):
+
+1. **Always run the script** - never hand-write SKILL.md for real tool lists.
+2. **General templates only** - no example files, demo paths, or task-specific code in generated skills.
+3. Filesystem MCPs → **direct Node fs** (no MCP/npx re-entry). Other MCPs → short bridge + mcp-call.js.
+4. Skills stay **short**: one script, print answer only, no thrash instructions.
 
 ```
-MCP tools/list  --this skill-->  ~/.claude/skills/<name>-cdc/
-                                   SKILL.md   (~400-900 tokens)
-                                   CDC.md     (grep lazily)
-                                   mcp-call.js
+MCP tools/list  -->  ~/.claude/skills/<name>-cdc/
+                       SKILL.md   (short preamble)
+                       CDC.md     (grep lazily)
+                       mcp-call.js  (bridge mode only)
 ```
 
-
-## Claude Code vs Codex
-
-Same skill format (Agent Skills / `SKILL.md`). Install targets:
+## Install targets
 
 | agent | skill directory |
 |---|---|
 | Claude Code | `~/.claude/skills/<name>-cdc/` |
 | OpenAI Codex | `~/.codex/skills/<name>-cdc/` |
 
-Default (`--target auto`) installs into **both** when those roots exist.
+Default `--target auto` installs into **both** when present.
 
-```bash
-# both agents (default when both configs exist)
-node scripts/create-cdc-skill.js from-mcp --name github --file tools.json
+## Workflow
 
-# Codex only
-node scripts/create-cdc-skill.js from-mcp --name github --file tools.json --target codex
+### 1. Inputs
 
-# Claude Code only
-node scripts/create-cdc-skill.js from-mcp --name github --file tools.json --target claude
-```
-
-After installing for Codex, **restart Codex** so it picks up the new skill.
-
-## When to use
-
-- User: "convert this MCP into a CDC skill"
-- User: "make a skill for my GitHub / Stripe / other MCP"
-- User: "stop loading X as MCP, use CDC"
-- User pastes a `tools/list` JSON dump
-- User gives an MCP launch command (`npx -y @...`) or OpenAPI URL
-
-## Workflow (do this every time)
-
-### 1. Collect inputs
-
-You need:
-
-| field | required | example |
+| field | required | notes |
 |---|---|---|
-| **name** | yes | `github`, `stripe`, `linear` |
-| **source** | yes | tools JSON **or** probe command **or** OpenAPI URL |
-| title | no | `GitHub MCP` |
-| install | no | default **yes** -> Claude + Codex skill dirs |
+| **name** | yes | lowercase, e.g. `github`, `stripe` |
+| **source** | yes | tools JSON, `--probe` command, or OpenAPI URL |
 
-If the user only says "convert my GitHub MCP", prefer probing a known package
-or ask for the command / tools dump. Do **not** invent tool schemas.
+Do **not** invent tool schemas.
 
-### 2. Run the converter script
+### 2. Run converter
 
-Script path (relative to this skill folder):
+From this skill folder (or absolute path):
 
 ```bash
-node scripts/create-cdc-skill.js from-mcp --name <name> [options]
+# tools dump
+node scripts/create-cdc-skill.js from-mcp --name <name> --file /path/to/tools.json
+
+# live stdio MCP (preferred - captures command/args for mode detect + bridge)
+node scripts/create-cdc-skill.js from-mcp \
+  --name <name> \
+  --probe <command> \
+  --arg <arg> ...
+
+# OpenAPI
+node scripts/create-cdc-skill.js from-openapi --name <name> --spec <url-or-path>
 ```
 
-**Option A - tools dump file**
+Examples:
 
 ```bash
+# filesystem MCP (becomes direct-fs skill; root from last path arg)
+node scripts/create-cdc-skill.js from-mcp \
+  --name filesystem \
+  --probe npx --arg -y --arg @modelcontextprotocol/server-filesystem \
+  --arg /path/to/allowed/root
+
+# generic MCP bridge
 node scripts/create-cdc-skill.js from-mcp \
   --name github \
-  --file /path/to/tools.json
+  --probe npx --arg -y --arg @modelcontextprotocol/server-github
 ```
 
-**Option B - stdin (tools.json in the workspace)**
+Flags: `--no-install` · `--target claude|codex|both|auto` · `--skills-dir DIR` · `--title "..."` · `--http-base URL` · `--out DIR`
 
-```bash
-node scripts/create-cdc-skill.js from-mcp --name github --stdin < tools.json
-```
+### 3. Report result
 
-**Option C - probe a live stdio MCP server**
+Stdout is JSON (`ok`, `skillName`, `tools`, `skillTokens`, `installed`, `howToUse`).
 
-```bash
-node scripts/create-cdc-skill.js from-mcp \
-  --name github \
-  --probe npx \
-  --arg -y \
-  --arg "@modelcontextprotocol/server-github"
-```
+Tell the user:
 
-**Option D - OpenAPI -> skill**
+1. Skill name + install path(s)
+2. Tool count + skill tokens (definition tax vs full MCP schemas)
+3. Loads as a **skill**, not an MCP connection
+4. Example: `Using the <name>-cdc skill, ...`
 
-```bash
-node scripts/create-cdc-skill.js from-openapi \
-  --name petstore \
-  --spec https://petstore3.swagger.io/api/v3/openapi.json
-```
+## What gets generated
 
-Always run from the skill directory, or use an absolute path:
+| mode | when | contents |
+|---|---|---|
+| **direct-fs** | filesystem-like tools + optional root path | short SKILL (Node fs), CDC.md map, **no** mcp-call.js |
+| **http** | `--http-base` | short fetch skill + CDC.md |
+| **mcp** | everything else | short skill + CDC.md + mcp-call.js + manifest |
 
-```bash
-# if skill is installed:
-node ~/.claude/skills/cdc-skill-creator/scripts/create-cdc-skill.js from-mcp ...
+Generated skills must **never** contain:
 
-# if working inside this repo:
-node skills/cdc-skill-creator/scripts/create-cdc-skill.js from-mcp ...
-```
+- Hardcoded demo files (`orders.json`, sandbox paths from other users, etc.)
+- Long multi-step thrash recipes
+- Instructions to re-enter MCP when direct-fs applies
 
-Flags:
+## Rules for you (agent)
 
-- `--no-install` - only build under `.cdc-build/`, do not copy to `~/.claude/skills`
-- `--skills-dir DIR` - override install location (single dir)
-- `--target claude|codex|both|auto` - which agent(s) to install for (default auto)
-- `--title "..."` - display title in SKILL.md
-- `--command CMD` / `--arg A` - bake MCP launch into `mcp-manifest.json` (for `mcp-call.js`)
-- `--http-base URL` - generate HTTP-mode skill instead of MCP bridge
-- `--out DIR` - build directory (default `.cdc-build`)
-
-### 3. Read the JSON result
-
-Stdout is JSON:
-
-```json
-{
-  "ok": true,
-  "skillName": "github-cdc",
-  "tools": 42,
-  "skillTokens": 680,
-  "installed": "/Users/.../.claude/skills/github-cdc",
-  "howToUse": "In Claude Code: \"Using the github-cdc skill, ...\"",
-  "note": "Installed as a Claude Code skill - not as a connected MCP server."
-}
-```
-
-On failure: `{ "ok": false, "error": "..." }` - fix and retry.
-
-### 4. Tell the user what happened
-
-Report:
-
-1. Skill name and install path
-2. Tool count + upfront skill tokens (vs full MCP schema size if present)
-3. That it loads as a **skill**, not an MCP connection
-4. How to use it next session, e.g.:
-
-> Using the github-cdc skill, list my open PRs.
-
-Optional savings estimate:
-
-```bash
-node scripts/create-cdc-skill.js stats --package github --paper
-```
-
-## Getting a tools dump when the user has MCP already
-
-If tools are already connected in the current session, you can:
-
-1. Call the MCP server's tool list if available, **or**
-2. Ask the user to paste / save a `tools/list` response as JSON, **or**
-3. Use `--probe` with their start command from Claude Desktop / Cursor config.
-
-Claude Desktop config often looks like:
-
-```json
-{
-  "mcpServers": {
-    "github": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-github"]
-    }
-  }
-}
-```
-
-Map that to:
-
-```bash
-node scripts/create-cdc-skill.js from-mcp \
-  --name github \
-  --probe npx \
-  --arg -y \
-  --arg "@modelcontextprotocol/server-github"
-```
-
-## What the generated skill contains
-
-```
-~/.claude/skills/<name>-cdc/   # Claude Code
-~/.codex/skills/<name>-cdc/    # OpenAI Codex (same contents)
-  SKILL.md            # short preamble Claude loads first
-  CDC.md              # one line per tool (grep; do not load whole file)
-  stats.json          # compression numbers
-  mcp-call.js         # optional bridge to call the original MCP from scripts
-  mcp-manifest.json   # command/args for mcp-call.js
-```
-
-## Rules for you (the agent using this creator)
-
-1. **Always run the script** - do not hand-write SKILL.md/CDC.md for large tool lists.
-2. **Never paste full tool schemas** into the chat after conversion. Point at the skill path.
-3. Prefer `--probe` or a file over retyping tools.
-4. Default to **installing** the skill for detected agents (Claude Code + Codex).
-5. After install, suggest one example prompt that uses the new skill by name.
-6. If probe fails (timeout, auth), fall back to asking for a tools dump.
-7. Name skills with lowercase letters/digits/hyphens only (`linear`, `gh`, `my-api`).
-
-## Why this exists
-
-MCP-as-tool-bus loads every schema and routes every payload through the model.
-CDC skills keep a tiny preamble in context; aggregation runs in code. Same
-capabilities, far fewer tokens - and arithmetic stays exact.
-
-Deep dive: repo `PAPER.md` / `cdc --stats --paper` if the toolkit is checked out.
+1. Always run the script --- do not hand-edit large generated packages.
+2. Prefer `--probe` with full command + args (needed for filesystem root + bridge).
+3. Never paste full tool schemas into chat after conversion.
+4. Default: install for detected agents.
+5. Name: lowercase letters/digits/hyphens only.

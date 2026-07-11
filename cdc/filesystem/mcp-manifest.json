@@ -1,0 +1,7 @@
+{
+  "name": "filesystem",
+  "mode": "direct-fs",
+  "root": "/path/to/allowed/root",
+  "tools": 14,
+  "note": "Use Node fs under root. Do not spawn MCP for normal queries."
+}

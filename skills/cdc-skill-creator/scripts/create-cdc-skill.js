@@ -126,7 +126,7 @@ async function cmdFromMcp(args) {
   const skillName = skillFolderName(stats.name);
   printJson({
     ok: true,
-    mode: 'mcp',
+    mode: stats.mode || 'mcp',
     name: stats.name,
     skillName,
     tools: stats.tools,
@@ -140,7 +140,7 @@ async function cmdFromMcp(args) {
     howToUse: installed.length
       ? `In Claude Code or Codex: "Using the ${skillName} skill, ..."`
       : `Install with: cdc install ${stats.name} --target both`,
-    note: 'Installed as an Agent Skill (Claude Code + Codex) — not as a connected MCP server.',
+    note: 'Installed as an Agent Skill (Claude Code + Codex) - not as a connected MCP server.',
   });
 }
 
@@ -184,7 +184,7 @@ async function cmdFromOpenApi(args) {
     howToUse: installed.length
       ? `In Claude Code or Codex: "Using the ${skillName} skill, ..."`
       : `Install with: cdc install ${stats.name} --target both`,
-    note: 'Installed as an Agent Skill (Claude Code + Codex) ��� not as a connected MCP server.',
+    note: 'Installed as an Agent Skill (Claude Code + Codex) - not as a connected MCP server.',
   });
 }
 

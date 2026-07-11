@@ -236,10 +236,14 @@ function cmdInstall(args) {
   console.log(`Targets: Claude Code (~/.claude/skills) and/or Codex (~/.codex/skills)`);
   if (fs.existsSync(path.join(installed[0], 'mcp-manifest.json'))) {
     const man = JSON.parse(fs.readFileSync(path.join(installed[0], 'mcp-manifest.json'), 'utf8'));
-    if (!man.command) {
+    if (man.mode === 'direct-fs') {
+      console.log(`\nMode: direct-fs — use Node fs under ${man.root || 'ROOT'} (no MCP spawn).`);
+    } else if (man.mode === 'mcp' && !man.command) {
       console.log(`\nNote: set CDC_MCP_COMMAND so scripts can reach the MCP server, e.g.:`);
       console.log(`  export CDC_MCP_COMMAND=npx`);
       console.log(`  export CDC_MCP_ARGS='["-y","@modelcontextprotocol/server-github"]'`);
+    } else if (man.mode === 'mcp' && man.command) {
+      console.log(`\nMode: mcp bridge — mcp-call.js uses ${man.command} ${(man.args || []).join(' ')}`.trim());
     }
   }
 }
