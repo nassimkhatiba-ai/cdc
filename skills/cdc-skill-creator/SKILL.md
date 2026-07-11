@@ -47,51 +47,38 @@ Default `--target auto` installs into **both** when present.
 
 Do **not** invent tool schemas.
 
-### 2. Run converter
+### 2. Run converter — ONE command, no exploration
 
-From this skill folder (or absolute path):
+**When the user says "convert my X MCP", X is almost always already in their
+config. Try `from-config` FIRST** — it finds command/args in `~/.claude.json`,
+`.mcp.json`, or `~/.codex/config.toml` and probes automatically:
 
 ```bash
+node scripts/create-cdc-skill.js from-config --name <configured-server-name>
+```
+
+If it exits non-zero it prints the configured server names — pick and retry.
+Only fall back to explicit forms when the server is not configured anywhere:
+
+```bash
+# live stdio MCP by command
+node scripts/create-cdc-skill.js from-mcp --name <name> --probe <cmd> --arg <a> ...
 # tools dump
 node scripts/create-cdc-skill.js from-mcp --name <name> --file /path/to/tools.json
-
-# live stdio MCP (preferred - captures command/args for mode detect + bridge)
-node scripts/create-cdc-skill.js from-mcp \
-  --name <name> \
-  --probe <command> \
-  --arg <arg> ...
-
 # OpenAPI
 node scripts/create-cdc-skill.js from-openapi --name <name> --spec <url-or-path>
 ```
 
-Examples:
+Flags: `--no-install` · `--target claude|codex|both|auto` · `--skills-dir DIR` · `--title "..."` · `--http-base URL` · `--out DIR` · `--verbose`
 
-```bash
-# filesystem MCP (becomes direct-fs skill; root from last path arg)
-node scripts/create-cdc-skill.js from-mcp \
-  --name filesystem \
-  --probe npx --arg -y --arg @modelcontextprotocol/server-filesystem \
-  --arg /path/to/allowed/root
+### 3. Report result — 3 lines, nothing more
 
-# generic MCP bridge
-node scripts/create-cdc-skill.js from-mcp \
-  --name github \
-  --probe npx --arg -y --arg @modelcontextprotocol/server-github
-```
+Stdout is ONE compact JSON line. Do **not** read/cat any generated file, do
+not re-open SKILL.md/CDC.md to "verify" — trust the JSON. Report exactly:
 
-Flags: `--no-install` · `--target claude|codex|both|auto` · `--skills-dir DIR` · `--title "..."` · `--http-base URL` · `--out DIR`
-
-### 3. Report result
-
-Stdout is JSON (`ok`, `skillName`, `tools`, `skillTokens`, `installed`, `howToUse`).
-
-Tell the user:
-
-1. Skill name + install path(s)
-2. Tool count + skill tokens (definition tax vs full MCP schemas)
-3. Loads as a **skill**, not an MCP connection
-4. Example: `Using the <name>-cdc skill, ...`
+1. `<skillName>` installed → `<installed paths>`
+2. `<tools>` tools, `<skillTokens>` skill tokens (vs full MCP schemas)
+3. Try: `Using the <skillName> skill, ...`
 
 ## What gets generated
 

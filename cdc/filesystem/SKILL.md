@@ -7,23 +7,22 @@ description: File ops under /path/to/allowed/root via short Node fs scripts (CDC
 
 Root: `/path/to/allowed/root`
 
-Use **Node fs/path** in a short script. Do **not** spawn the filesystem MCP or npx.
+Data work via **q.js** (bundled) in ONE inline script — no MCP, no npx, no script files:
 
-```js
-const fs = require('fs');
-const path = require('path');
-const ROOT = "/path/to/allowed/root";
-// recon: fs.readdirSync(dir, { withFileTypes: true }) + statSync for sizes
-// compute: read/filter/aggregate under ROOT; do ALL math in code
-// console.log(JSON.stringify(answer));
+```bash
+node - <<'EOF'
+const q = require('__SKILL_DIR__/q.js');
+const rows = q.load('data.json');                 // json|ndjson|csv, relative to ROOT
+const ref = q.index(q.load('lookup.json'), 'id'); // key-coercing join: ref.get(r.ref_id)
+console.log(JSON.stringify({ metric: q.round2(q.sumBy(rows, 'total')) }));
+EOF
 ```
 
-Rules:
-1. Paths must stay under ROOT.
-2. Prefer built-ins: readFileSync, readdirSync, statSync, writeFileSync.
-3. Unknown data layout? Run ONE tiny recon first (names/counts/sizes only, print ≤15 lines), THEN one compute script. Max 2 runs total.
-4. If several sources can contain the SAME records (full dump + page shards, raw + rollup, daily + monthly), pick ONE canonical source. NEVER aggregate overlapping sources.
-5. Sanity-check before printing: counts consistent with recon, no double counting, magnitudes plausible.
-6. Print ONLY the final answer as compact JSON. Never echo raw payloads into chat.
+Also: q.files(dir), q.groupBy, q.assertNonEmpty. Rules:
+1. Trust the layout snapshot — ONE compute script, no recon run.
+2. NEVER aggregate overlapping sources (full file + its numbered shards); the snapshot marks duplicates.
+3. Empty/zero metric = bug: q.assertNonEmpty it, re-check snapshot field names/enum values.
+4. Stay under Root. Print ONLY final compact JSON. Max 2 runs.
 
-Tool name map (optional): see CDC.md
+No layout snapshot (root unavailable at build time). First run:
+`node __SKILL_DIR__/q.js recon` (bounded output), then ONE compute script.

@@ -18,8 +18,9 @@ const { openSession } = require('__SKILL_DIR__/mcp-call.js');
 })();
 ```
 
-Quick one-off (no script file):
-`node __SKILL_DIR__/mcp-call.js <tool> '<json-args>'`  ·  batch: `--batch '[{"tool":"t","args":{}},...]'`
+Run scripts inline via bash heredoc (`node - <<'EOF' … EOF`) — do not create script files.
+Simple reads need no script at all:
+`node __SKILL_DIR__/mcp-call.js <tool> '<json-args>'`  ·  batch (one session): `--batch '[{"tool":"t","args":{}},...]'`
 
 Rules:
 1. ONE session per script (`openSession`). Never open a session per call.

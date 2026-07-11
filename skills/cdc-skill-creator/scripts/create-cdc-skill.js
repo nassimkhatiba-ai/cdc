@@ -63,8 +63,38 @@ function installPackage(srcDir, name, { skillsDir, target } = {}) {
   return installToDirs(srcDir, folder, dirs);
 }
 
+// Compact single line by default: this output lands in an agent's context on
+// every conversion — pretty-printing it just burns the caller's tokens.
+let VERBOSE = false;
 function printJson(obj) {
-  console.log(JSON.stringify(obj, null, 2));
+  console.log(VERBOSE ? JSON.stringify(obj, null, 2) : JSON.stringify(obj));
+}
+
+// "Convert my <name> MCP" with zero exploration: pull command/args from the
+// user's existing Claude Code / Codex MCP config and probe it.
+async function cmdFromConfig(args) {
+  const { findMcpServers } = require('./lib/mcp-config');
+  const query = flag(args.flags, 'name') || args._[0];
+  const servers = findMcpServers(query);
+  if (!query || !servers.length || servers.length > 1) {
+    const all = findMcpServers();
+    printJson({
+      ok: false,
+      error: !query
+        ? 'pass --name <configured-server-name>'
+        : servers.length
+          ? `ambiguous name "${query}" — pass the exact name`
+          : `no configured MCP server matches "${query}"`,
+      configured: all.map((s) => ({ name: s.name, source: s.source })),
+    });
+    process.exit(query && !servers.length ? 1 : 2);
+  }
+  const s = servers[0];
+  process.stderr.write(`found "${s.name}" in ${s.source}: ${s.command} ${s.args.join(' ')}\n`);
+  args.flags.name = flag(args.flags, 'skill-name', s.name);
+  args.flags.probe = s.command;
+  args.flags.arg = s.args;
+  await cmdFromMcp(args);
 }
 
 async function cmdFromMcp(args) {
@@ -236,6 +266,8 @@ async function main() {
   if (!argv.length || argv[0] === 'help' || argv[0] === '--help') {
     console.log(`create-cdc-skill - convert MCP/OpenAPI into a Claude Code skill
 
+  node create-cdc-skill.js from-config --name X        # X = server name in
+      ~/.claude.json, .mcp.json, or ~/.codex/config.toml (PREFERRED)
   node create-cdc-skill.js from-mcp --name X --file tools.json
   node create-cdc-skill.js from-mcp --name X --stdin < tools.json
   node create-cdc-skill.js from-mcp --name X --probe npx --arg -y --arg "@scope/pkg"
@@ -243,16 +275,19 @@ async function main() {
   node create-cdc-skill.js stats --package X --paper
 
 Default: installs into Claude Code + Codex skill dirs (auto-detect).
+Output: one JSON line (add --verbose for pretty).
 Flags: --no-install  --skills-dir DIR  --target claude|codex|both|auto
-       --out DIR  --title T  --http-base URL
+       --out DIR  --title T  --http-base URL  --skill-name N (from-config)
 `);
     process.exit(0);
   }
 
   const args = parseArgs(argv);
+  VERBOSE = !!args.flags.verbose;
   const cmd = args._.shift();
 
-  if (cmd === 'from-mcp' || cmd === 'mcp') await cmdFromMcp(args);
+  if (cmd === 'from-config' || cmd === 'config') await cmdFromConfig(args);
+  else if (cmd === 'from-mcp' || cmd === 'mcp') await cmdFromMcp(args);
   else if (cmd === 'from-openapi' || cmd === 'openapi' || cmd === 'make') await cmdFromOpenApi(args);
   else if (cmd === 'stats') cmdStats(args);
   else {

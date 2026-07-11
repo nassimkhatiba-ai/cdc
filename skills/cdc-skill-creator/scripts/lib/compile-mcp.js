@@ -21,6 +21,8 @@ const path = require('path');
 const fs = require('fs');
 const { estimateTokens } = require('./tokens');
 const { paramsOf, envVarName, writePackage } = require('./schema-util');
+const { snapshotFs } = require('./fs-snapshot');
+const { buildQjs } = require('./q-template');
 
 function normalizeTools(input) {
   if (!input) throw new Error('empty MCP tools input');
@@ -150,11 +152,26 @@ function disciplineRules(extra = []) {
  * General template: ROOT from probe path or CDC_FS_ROOT only.
  * No example files, no task-specific code, no MCP bridge.
  */
-function buildDirectFsPackage({ name, root, tools }) {
+function buildDirectFsPackage({ name, root, tools, snapshot }) {
   const hasRoot = Boolean(root);
-  const rootExpr = hasRoot ? JSON.stringify(root) : 'process.env.CDC_FS_ROOT';
   const rootDisplay = hasRoot ? root : '$CDC_FS_ROOT';
   const { byTag, tags } = groupTools(tools);
+  const hasSnap = Boolean(snapshot?.ok);
+
+  const layoutSection = hasSnap
+    ? [
+        '## Data layout (captured at skill-build time)',
+        '',
+        '```',
+        snapshot.skillBlock,
+        '```',
+        '',
+        'If reality differs from this snapshot: `node __SKILL_DIR__/q.js recon`.',
+      ]
+    : [
+        'No layout snapshot (root unavailable at build time). First run:',
+        '`node __SKILL_DIR__/q.js recon` (bounded output), then ONE compute script.',
+      ];
 
   const skill = [
     '---',
@@ -166,37 +183,41 @@ function buildDirectFsPackage({ name, root, tools }) {
     '',
     `Root: \`${rootDisplay}\`${hasRoot ? '' : ' (set env CDC_FS_ROOT if empty)'}`,
     '',
-    'Use **Node fs/path** in a short script. Do **not** spawn the filesystem MCP or npx.',
+    'Data work via **q.js** (bundled) in ONE inline script — no MCP, no npx, no script files:',
     '',
-    '```js',
-    "const fs = require('fs');",
-    "const path = require('path');",
-    `const ROOT = ${rootExpr};`,
-    '// recon: fs.readdirSync(dir, { withFileTypes: true }) + statSync for sizes',
-    '// compute: read/filter/aggregate under ROOT; do ALL math in code',
-    '// console.log(JSON.stringify(answer));',
+    '```bash',
+    "node - <<'EOF'",
+    "const q = require('__SKILL_DIR__/q.js');",
+    "const rows = q.load('data.json');                 // json|ndjson|csv, relative to ROOT",
+    "const ref = q.index(q.load('lookup.json'), 'id'); // key-coercing join: ref.get(r.ref_id)",
+    "console.log(JSON.stringify({ metric: q.round2(q.sumBy(rows, 'total')) }));",
+    'EOF',
     '```',
     '',
-    'Rules:',
-    disciplineRules([
-      'Paths must stay under ROOT.',
-      'Prefer built-ins: readFileSync, readdirSync, statSync, writeFileSync.',
-    ]),
+    'Also: q.files(dir), q.groupBy, q.assertNonEmpty. Rules:',
+    '1. Trust the layout snapshot — ONE compute script, no recon run.',
+    '2. NEVER aggregate overlapping sources (full file + its numbered shards); the snapshot marks duplicates.',
+    '3. Empty/zero metric = bug: q.assertNonEmpty it, re-check snapshot field names/enum values.',
+    '4. Stay under Root. Print ONLY final compact JSON. Max 2 runs.',
     '',
-    'Tool name map (optional): see CDC.md',
+    ...layoutSection,
     '',
   ].join('\n');
 
+  const cdcHeader = [
+    `Root: ${rootDisplay}`,
+    'Mode: direct Node fs via q.js (not MCP).',
+    'MCP tool names below are a map only --- implement with q.js/fs.',
+  ];
+  if (hasSnap) {
+    cdcHeader.push('', '## Data layout (full snapshot, build time)', '```', snapshot.cdcBlock, '```');
+  }
   const cdc = renderCdcIndex({
     title: `${name}-cdc (direct fs)`,
     tools,
     byTag,
     tags,
-    headerLines: [
-      `Root: ${rootDisplay}`,
-      'Mode: direct Node fs (not MCP).',
-      'MCP tool names below are a map only --- implement with fs.',
-    ],
+    headerLines: cdcHeader,
   });
 
   return { skill, cdc, mode: 'direct-fs', root: rootDisplay };
@@ -268,8 +289,9 @@ function buildMcpBridgePackage({ name, title, tools }) {
     '})();',
     '```',
     '',
-    'Quick one-off (no script file):',
-    '`node __SKILL_DIR__/mcp-call.js <tool> \'<json-args>\'`  ·  batch: `--batch \'[{"tool":"t","args":{}},...]\'`',
+    "Run scripts inline via bash heredoc (`node - <<'EOF' … EOF`) — do not create script files.",
+    'Simple reads need no script at all:',
+    '`node __SKILL_DIR__/mcp-call.js <tool> \'<json-args>\'`  ·  batch (one session): `--batch \'[{"tool":"t","args":{}},...]\'`',
     '',
     'Rules:',
     disciplineRules([
@@ -548,10 +570,15 @@ function compileMCP({
       tools,
     }));
   } else if (isFs) {
+    // Build-time layout snapshot: removes the recon turn at use time and
+    // bakes in the field names / enum values / duplicate-shard warnings that
+    // agents otherwise guess at (and get wrong).
+    const snapshot = detectedRoot && fs.existsSync(detectedRoot) ? snapshotFs(detectedRoot) : null;
     ({ skill, cdc, mode, root: rootOut } = buildDirectFsPackage({
       name,
       root: detectedRoot,
       tools,
+      snapshot,
     }));
   } else {
     ({ skill, cdc, mode } = buildMcpBridgePackage({
@@ -612,6 +639,9 @@ function compileMCP({
     );
   } else if (mode === 'direct-fs') {
     // No mcp-call.js - agents must use Node fs, not re-enter MCP.
+    // Ship the query kit + live-recon tool instead.
+    fs.writeFileSync(path.join(outDir, 'q.js'), buildQjs(detectedRoot));
+    fs.copyFileSync(require.resolve('./fs-snapshot'), path.join(outDir, 'snapshot.js'));
     fs.writeFileSync(
       path.join(outDir, 'mcp-manifest.json'),
       JSON.stringify(

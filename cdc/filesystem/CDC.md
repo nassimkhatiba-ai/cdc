@@ -1,8 +1,8 @@
 # filesystem-cdc (direct fs)
 
 Root: /path/to/allowed/root
-Mode: direct Node fs (not MCP).
-MCP tool names below are a map only --- implement with fs.
+Mode: direct Node fs via q.js (not MCP).
+MCP tool names below are a map only --- implement with q.js/fs.
 
 ## create
 create_directory(path*) — Create a new directory or ensure a directory exists
