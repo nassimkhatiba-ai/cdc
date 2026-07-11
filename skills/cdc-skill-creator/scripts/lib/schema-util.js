@@ -97,6 +97,87 @@ function writePackage(outDir, { cdc, skill, stats }) {
   return outDir;
 }
 
+/**
+ * Emit image-skill artifacts (.cdc PNG pages) next to SKILL.md.
+ * Always writes SOURCE.md, name.cdc.png, IMAGE.md, image-meta.json.
+ * Image is primary by default (SKILL.md becomes pointer; full text in SKILL.text.md).
+ * Opt out: CDC_IMAGE=0 / CDC_IMAGE=false / opts.replaceSkillMd === false.
+ */
+function writeImageSkill(outDir, { name, skill, cdc, replaceSkillMd, maxPageHeight = 3600 } = {}) {
+  const fs = require('fs');
+  const path = require('path');
+  let writeCdc;
+  try {
+    writeCdc = require('./cdc-image').writeCdc;
+  } catch {
+    return null;
+  }
+  const skillName = name || path.basename(outDir);
+  const body = [
+    `# CDC IMAGE SKILL: ${skillName}`,
+    '# Entire skill body is this image. Prefer tools listed below.',
+    `# Bridge: node ${path.join(outDir, 'mcp-call.js')}`,
+    '',
+    '===== SKILL.md =====',
+    String(skill || '').trim(),
+    cdc ? '\n===== CDC.md =====\n' + String(cdc).trim() : '',
+  ].join('\n');
+
+  fs.writeFileSync(path.join(outDir, 'SOURCE.md'), body);
+  const cdcFile = path.join(outDir, `${skillName}.cdc`);
+  const rendered = writeCdc(cdcFile, body, {
+    scale: 2,
+    maxCols: 100,
+    maxPageHeight,
+    pad: 14,
+    lineGap: 1,
+  });
+
+  const pages = (rendered.pngPaths || []).map((p) => `- \`${path.basename(p)}\``).join('\n');
+  const bridge = path.join(outDir, 'mcp-call.js');
+  const pointer = `---
+name: ${skillName}-cdc
+description: Image CDC skill for ${skillName}. Body is vision-only in ${skillName}.cdc.png — open image; call via mcp-call.js.
+---
+
+# ${skillName} (image skill)
+
+**Skill body is the image**, not this text file.
+
+Images:
+${pages}
+
+Bridge:
+
+\`\`\`bash
+node ${JSON.stringify(bridge)} --batch '[{"tool":"server_info","args":{}}]'
+\`\`\`
+
+Open the .cdc.png image(s), then call tools. MCP off.
+`;
+
+  fs.writeFileSync(path.join(outDir, 'IMAGE.md'), pointer);
+  // Main path: image is primary unless explicitly disabled
+  const env = process.env.CDC_IMAGE;
+  const forceImage =
+    replaceSkillMd === true ||
+    env === '1' ||
+    env === 'true' ||
+    (replaceSkillMd !== false && env !== '0' && env !== 'false' && env !== 'text');
+  if (forceImage) {
+    fs.writeFileSync(path.join(outDir, 'SKILL.text.md'), skill || '');
+    fs.writeFileSync(path.join(outDir, 'SKILL.md'), pointer);
+  }
+  const meta = {
+    ...rendered.meta,
+    skillName,
+    replaceSkillMd: !!forceImage,
+    imagePrimary: !!forceImage,
+  };
+  fs.writeFileSync(path.join(outDir, 'image-meta.json'), JSON.stringify(meta, null, 2));
+  return meta;
+}
+
 module.exports = {
   makeResolver,
   shapeOf,
@@ -104,4 +185,5 @@ module.exports = {
   envVarName,
   scriptRulesBlock,
   writePackage,
+  writeImageSkill,
 };

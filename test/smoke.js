@@ -22,6 +22,13 @@ function clean() {
   fs.mkdirSync(tmp, { recursive: true });
 }
 
+/** Full skill body: SKILL.text.md when image-primary, else SKILL.md */
+function skillBody(dir) {
+  const text = path.join(dir, 'SKILL.text.md');
+  if (fs.existsSync(text)) return fs.readFileSync(text, 'utf8');
+  return fs.readFileSync(path.join(dir, 'SKILL.md'), 'utf8');
+}
+
 let passed = 0;
 function ok(label) {
   passed += 1;
@@ -48,13 +55,22 @@ console.log('cdc smoke tests\n');
   assert.ok(fs.existsSync(path.join(tmp, 'demo', 'CDC.md')));
   assert.ok(fs.existsSync(path.join(tmp, 'demo', 'stats.json')));
   assert.ok(fs.existsSync(path.join(tmp, 'demo', 'mcp-call.js')));
+  // image skill is MAIN: emit .cdc.png + pointer SKILL.md
+  assert.ok(
+    fs.existsSync(path.join(tmp, 'demo', 'demo.cdc.png')) ||
+      fs.existsSync(path.join(tmp, 'demo', 'image-meta.json')),
+    'image skill artifacts',
+  );
   const stats = JSON.parse(fs.readFileSync(path.join(tmp, 'demo', 'stats.json'), 'utf8'));
   assert.strictEqual(stats.source, 'mcp');
   assert.strictEqual(stats.mode, 'mcp');
   assert.strictEqual(stats.tools, 12);
   assert.ok(stats.skillTokens < stats.sourceTokens);
   assert.ok(stats.skillTokens < 1100, 'bridge skill must stay short');
-  const skill = fs.readFileSync(path.join(tmp, 'demo', 'SKILL.md'), 'utf8');
+  if (stats.imagePrimary) {
+    assert.ok(fs.existsSync(path.join(tmp, 'demo', 'SKILL.text.md')), 'image primary keeps text body');
+  }
+  const skill = skillBody(path.join(tmp, 'demo'));
   assert.ok(skill.includes('## Tools') || skill.includes('grep CDC.md'), 'tool index available');
   assert.ok(skill.includes('daemon') || skill.includes('Daemon') || skill.includes('Warm daemon'), 'bridge skill documents the warm daemon');
   assert.ok(
@@ -143,7 +159,7 @@ console.log('cdc smoke tests\n');
   assert.strictEqual(stats.mode, 'direct-fs');
   assert.ok(stats.skillTokens < 800, 'direct-fs skill must be short: ' + stats.skillTokens);
   assert.ok(!fs.existsSync(path.join(outDir, 'mcp-call.js')), 'direct-fs must not ship mcp-call.js');
-  const skill = fs.readFileSync(path.join(outDir, 'SKILL.md'), 'utf8');
+  const skill = skillBody(outDir);
   assert.ok(skill.includes('/any/user/root'));
   assert.ok(skill.includes('q.js'), 'direct-fs skill ships the q.js query kit');
   assert.ok(fs.existsSync(path.join(outDir, 'q.js')), 'q.js written');
@@ -172,7 +188,7 @@ console.log('cdc smoke tests\n');
   assert.strictEqual(r.status, 0, r.stderr || r.stdout);
   assert.ok(!fs.existsSync(path.join(skillDir, 'filesystem-cdc', 'mcp-call.js')), 'stale mcp-call removed');
   assert.ok(fs.existsSync(path.join(skillDir, 'filesystem-cdc', 'SKILL.md')));
-  const skill = fs.readFileSync(path.join(skillDir, 'filesystem-cdc', 'SKILL.md'), 'utf8');
+  const skill = skillBody(path.join(skillDir, 'filesystem-cdc'));
   assert.ok(skill.includes('direct') || skill.includes('fs'));
   ok('install clean-replaces skill dir');
 }
@@ -248,7 +264,7 @@ console.log('cdc smoke tests\n');
   fs.writeFileSync(specPath, JSON.stringify(mini));
   const r = run(['make', specPath, '--name', 'mini', '--out', tmp]);
   assert.strictEqual(r.status, 0, r.stderr || r.stdout);
-  const skill = fs.readFileSync(path.join(tmp, 'mini', 'SKILL.md'), 'utf8');
+  const skill = skillBody(path.join(tmp, 'mini'));
   assert.ok(skill.includes('Mini API'));
   assert.ok(skill.includes('https://api.example.com'));
   ok('cdc make compiles mini OpenAPI');
@@ -279,11 +295,12 @@ console.log('cdc smoke tests\n');
   assert.strictEqual(stats.tools, 1);
   assert.strictEqual(stats.mode, 'mcp');
   assert.strictEqual(stats.skillTier, 'cli', 'tiny surface is CLI tier');
-  const skill = fs.readFileSync(path.join(tmp, 'unit', 'SKILL.md'), 'utf8');
+  const skill = skillBody(path.join(tmp, 'unit'));
   assert.ok(skill.includes('Fast path') || skill.includes('Call (do this first)') || skill.includes('--batch'));
   assert.ok(!skill.includes('callPaged'), 'cli tier must not teach callPaged');
   assert.ok(!skill.includes('## Multi-step'), 'cli tier omits multi-step openSession block');
   assert.ok(stats.skillTokens < 700, 'cli skill stays tiny: ' + stats.skillTokens);
+  assert.ok(stats.imagePrimary === true || stats.imagePages >= 1, 'image skill emitted by default');
 
   // bare limit is NOT pagination
   assert.strictEqual(

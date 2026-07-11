@@ -137,7 +137,9 @@ The compiler picks a **mode** automatically from the MCP (general rules — not 
 
 ```
 ~/.claude/skills/<name>-cdc/
-  SKILL.md            # short preamble (~definition tax only)
+  SKILL.md            # short pointer (image primary) or full text preamble
+  SKILL.text.md       # full text body when image is primary
+  name.cdc.png        # image skill body (MAIN) — open with vision
   CDC.md              # one line per tool, grouped by tag
   stats.json          # compression numbers
   mcp-call.js         # bridge mode only
@@ -145,6 +147,8 @@ The compiler picks a **mode** automatically from the MCP (general rules — not 
 ```
 
 Generated skills are **general**: no example-specific files, paths, or task recipes baked into the template. Root paths come from the probe command args only.
+
+**Image skill is the default (main) path.** Convert emits `.cdc.png` pages and a short `SKILL.md` pointer; the full tool index lives in the image for vision loading (lower definition tax on fat tool surfaces). Opt out with `CDC_IMAGE=0` / `--text` to keep full text `SKILL.md` primary (images still emitted).
 
 Example <code>CDC.md</code> line:
 
@@ -198,6 +202,19 @@ MCP got <code>total_revenue</code> **wrong** (&minus;$1,045). It paged 356 float
 | Stripe | 7.9 MB | 587 | 420 | **4,682&times;** |
 | GitHub | 12.7 MB | 1,196 | 909 | **3,502&times;** |
 
+### Three-arm live suite (MCP vs text CDC vs image .cdc)
+
+~40 MCP servers, Codex `gpt-5.6-sol`, same tasks, scored keys. Includes hard multi-system servers:
+
+- **complex** (acme-ops ~47 tools) ��� open P1 SLA breaches + ARR at risk  
+- **nova** (nova-fleet ~48 tools) — open SEV1 SLO breaches + MRR at risk  
+
+```bash
+CODEX_MODEL=gpt-5.6-sol PHASE=all PARALLEL=2 node implementer/mega40/run-mega40.js
+```
+
+Report: [results-mega40.md](results-mega40.md) (written after score phase).
+
 Full tables &rarr; [results.md](results.md) &middot; [results-live.md](results-live.md) &middot; [results-scale.md](results-scale.md)  
 Reproduce &rarr; <code>node benchmark.js</code>
 
@@ -236,6 +253,15 @@ cdc --stats [--paper] [--package name]
 cdc list
 ```
 
+Image skill (default main):
+
+```bash
+# image primary (default)
+node skills/cdc-skill-creator/scripts/create-cdc-skill.js from-mcp --name X --probe ...
+# text SKILL.md primary (still emits .cdc.png)
+node skills/cdc-skill-creator/scripts/create-cdc-skill.js from-mcp --name X --probe ... --text
+```
+
 ---
 
 ## Why this works (short)
@@ -247,6 +273,8 @@ MCP-as-tool-bus charges three taxes every session:
 3. **Round-trip** &mdash; each tool call re-reads the growing conversation
 
 A **CDC skill** compiles definitions into a greppable index and moves fetch / filter / aggregate into a sandbox. Context cost becomes **O(answer)**, not **O(data)**. Arithmetic runs on a CPU &mdash; which is why the live run was both cheaper *and* more accurate.
+
+**Image .cdc** packs the skill body into PNG pages for vision loading — on mid/fat tool surfaces this often beats text skill definition tax (see mega40 / concept image-skill benches).
 
 MCP still wins for credential brokering, non-HTTP/stateful tools, and org allowlists. Hybrid is fine: keep MCP as transport behind `mcp-call.js`, but **consume it as a skill**.
 
@@ -260,6 +288,7 @@ MCP still wins for credential brokering, non-HTTP/stateful tools, and org allowl
 | **[results.md](results.md)** | Per-task simulated tables |
 | **[results-live.md](results-live.md)** | Live frontier-model run |
 | **[results-scale.md](results-scale.md)** | Scaling sweep 250 &rarr; 4,000 orders |
+| **[results-mega40.md](results-mega40.md)** | ~40 MCP three-arm live suite (MCP / text / image) |
 | **`cdc/`** | Prebuilt skill packages: github, stripe, petstore, demo, filesystem |
 
 ```bash

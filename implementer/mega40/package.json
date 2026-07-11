@@ -1,0 +1,7 @@
+{
+  "name": "mega40-bench",
+  "private": true,
+  "dependencies": {
+    "better-sqlite3": "^11.7.0"
+  }
+}

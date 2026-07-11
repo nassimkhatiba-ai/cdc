@@ -1,0 +1,1047 @@
+[
+  {
+    "id": "everything",
+    "auth": false,
+    "command": [
+      "npx",
+      "-y",
+      "@modelcontextprotocol/server-everything"
+    ],
+    "skill": "everything-cdc",
+    "truth": {
+      "echo_result": "cdc-bench-ok",
+      "add_sum": 42,
+      "has_echo": true,
+      "has_add": true,
+      "tool_count_min": 5
+    },
+    "score_keys": [
+      "echo_result",
+      "add_sum",
+      "has_echo",
+      "has_add",
+      "tool_count_min"
+    ],
+    "prompt_mcp": "hey use the everything MCP. call echo with message cdc-bench-ok, call add/get-sum with a=20 b=22, list tools. return json only: echo_result (string content only, no Echo: prefix), add_sum (number), tool_count (number), has_echo (bool), has_add (bool true if add or get-sum exists). use MCP tools not shell.",
+    "prompt_use": "hey use the everything-cdc skill: echo message cdc-bench-ok, add/get-sum 20+22, count tools. json exact: echo_result (string), add_sum (number), tool_count (number), has_echo (bool), has_add (bool). extract values; skill bridge only.",
+    "prompt_image": "IMAGE SKILL MODE. Attached image(s) are the full everything-cdc skill body. MCP is disabled. Call tools via bridge: node mcp-call.js (openSession/callPaged/--batch). Do not cat SOURCE.md.\n\nhey use the everything-cdc skill: echo message cdc-bench-ok, add/get-sum 20+22, count tools. json exact: echo_result (string), add_sum (number), tool_count (number), has_echo (bool), has_add (bool). extract values; skill bridge only."
+  },
+  {
+    "id": "memory",
+    "auth": false,
+    "command": [
+      "npx",
+      "-y",
+      "@modelcontextprotocol/server-memory"
+    ],
+    "env": {
+      "MEMORY_FILE_PATH": "FIXTURES/mem.jsonl"
+    },
+    "skill": "memory-cdc",
+    "truth": {
+      "entity_count": 35,
+      "relation_count": 56,
+      "person_count": 20,
+      "company_count": 5,
+      "highest_salary_person": "Hana Sol",
+      "highest_salary": 220000,
+      "largest_company_by_employees": "Cedar Health"
+    },
+    "score_keys": [
+      "entity_count",
+      "relation_count",
+      "person_count",
+      "company_count",
+      "highest_salary_person",
+      "highest_salary",
+      "largest_company_by_employees"
+    ],
+    "prompt_mcp": "hey use the memory MCP knowledge graph. return json only: entity_count, relation_count, person_count, company_count, highest_salary_person, highest_salary (number), largest_company_by_employees. use MCP tools not shell.",
+    "prompt_use": "hey use the memory-cdc skill. return json exact: entity_count, relation_count, person_count, company_count, highest_salary_person, highest_salary, largest_company_by_employees. skill bridge only; aggregate in code.",
+    "prompt_image": "IMAGE SKILL MODE. Attached image(s) are the full memory-cdc skill body. MCP is disabled. Call tools via bridge: node mcp-call.js (openSession/callPaged/--batch). Do not cat SOURCE.md.\n\nhey use the memory-cdc skill. return json exact: entity_count, relation_count, person_count, company_count, highest_salary_person, highest_salary, largest_company_by_employees. skill bridge only; aggregate in code."
+  },
+  {
+    "id": "filesystem",
+    "auth": false,
+    "command": [
+      "npx",
+      "-y",
+      "@modelcontextprotocol/server-filesystem",
+      "FIXTURES/fsroot"
+    ],
+    "skill": "filesystem-cdc",
+    "truth": {
+      "readme_content": "cdc-fs-readme",
+      "note_has_token": true,
+      "search_hit": "needle-findme",
+      "has_subdir": true,
+      "allowed_count_min": 1
+    },
+    "score_keys": [
+      "readme_content",
+      "note_has_token",
+      "search_hit",
+      "has_subdir",
+      "allowed_count_min"
+    ],
+    "prompt_mcp": "hey use the filesystem MCP on the allowed root. return json: readme_content (contents of readme.txt trimmed), note_has_token (bool true if subdir/note.txt contains XYZ), search_hit (the line containing needle-findme from data.csv), has_subdir (bool), allowed_count (number of allowed dirs). use MCP tools not shell cat.",
+    "prompt_use": "hey use the filesystem-cdc skill. return json exact: readme_content, note_has_token, search_hit, has_subdir, allowed_count. skill bridge only.",
+    "prompt_image": "IMAGE SKILL MODE. Attached image(s) are the full filesystem-cdc skill body. MCP is disabled. Call tools via bridge: node mcp-call.js (openSession/callPaged/--batch). Do not cat SOURCE.md.\n\nhey use the filesystem-cdc skill. return json exact: readme_content, note_has_token, search_hit, has_subdir, allowed_count. skill bridge only."
+  },
+  {
+    "id": "sequential",
+    "auth": false,
+    "command": [
+      "npx",
+      "-y",
+      "@modelcontextprotocol/server-sequential-thinking"
+    ],
+    "skill": "sequential-cdc",
+    "truth": {
+      "used_tool": true,
+      "thought_steps_min": 1,
+      "has_answer": true
+    },
+    "score_keys": [
+      "used_tool",
+      "thought_steps_min",
+      "has_answer"
+    ],
+    "prompt_mcp": "hey use the sequentialthinking MCP tool to reason: what is 17*19? return json: used_tool (bool), thought_steps (number of thoughts/steps), answer (number 323), has_answer (bool). use MCP not mental-only.",
+    "prompt_use": "hey use the sequential-cdc skill sequentialthinking tool for 17*19. json: used_tool, thought_steps, answer, has_answer. skill bridge only.",
+    "prompt_image": "IMAGE SKILL MODE. Attached image(s) are the full sequential-cdc skill body. MCP is disabled. Call tools via bridge: node mcp-call.js (openSession/callPaged/--batch). Do not cat SOURCE.md.\n\nhey use the sequential-cdc skill sequentialthinking tool for 17*19. json: used_tool, thought_steps, answer, has_answer. skill bridge only."
+  },
+  {
+    "id": "sqlite",
+    "auth": false,
+    "command": [
+      "node",
+      "BIN/sqlite-mcp.js",
+      "/tmp/mega20-shop.db"
+    ],
+    "skill": "sqlite-cdc",
+    "truth": {
+      "product_count": 6,
+      "order_count": 8,
+      "delivered_revenue": 264.5,
+      "top_delivered_product_by_qty": "Novel A",
+      "categories": [
+        "books",
+        "gear"
+      ]
+    },
+    "score_keys": [
+      "product_count",
+      "order_count",
+      "delivered_revenue",
+      "top_delivered_product_by_qty",
+      "categories"
+    ],
+    "prompt_mcp": "hey use the sqlite MCP on the shop database. return json: product_count, order_count, delivered_revenue (sum qty*price for delivered, 2 decimals), top_delivered_product_by_qty (product NAME string), categories (sorted unique string array). MCP SQL tools only, not shell sqlite3.",
+    "prompt_use": "hey use the sqlite-cdc skill. json exact: product_count, order_count, delivered_revenue, top_delivered_product_by_qty (string name only), categories (sorted array). aggregate in code.",
+    "env": {
+      "SQLITE_DB_PATH": "/tmp/mega20-shop.db"
+    },
+    "prompt_image": "IMAGE SKILL MODE. Attached image(s) are the full sqlite-cdc skill body. MCP is disabled. Call tools via bridge: node mcp-call.js (openSession/callPaged/--batch). Do not cat SOURCE.md.\n\nhey use the sqlite-cdc skill. json exact: product_count, order_count, delivered_revenue, top_delivered_product_by_qty (string name only), categories (sorted array). aggregate in code."
+  },
+  {
+    "id": "playwright",
+    "auth": false,
+    "command": [
+      "npx",
+      "-y",
+      "@playwright/mcp",
+      "--headless"
+    ],
+    "skill": "playwright-cdc",
+    "needs_http": true,
+    "truth": {
+      "page_title": "CDC Test Shop",
+      "shop_name": "Nebula Outfitters",
+      "tagline": "Gear for night hikers",
+      "product_count": 4,
+      "promo_code": "SUMMER25",
+      "contact_email": "shop@nebula.test",
+      "total_price": 175.75
+    },
+    "score_keys": [
+      "page_title",
+      "shop_name",
+      "tagline",
+      "product_count",
+      "promo_code",
+      "contact_email",
+      "total_price"
+    ],
+    "prompt_mcp": "hey use the playwright MCP headless. open http://127.0.0.1:8766/store.html and return json: page_title, shop_name, tagline, product_count, product_names, promo_code, contact_email, total_price (sum of data-price). MCP browser tools only.",
+    "prompt_use": "hey use the playwright-cdc skill. open http://127.0.0.1:8766/store.html. json: page_title, shop_name, tagline, product_count, product_names, promo_code, contact_email, total_price. skill bridge only.",
+    "prompt_image": "IMAGE SKILL MODE. Attached image(s) are the full playwright-cdc skill body. MCP is disabled. Call tools via bridge: node mcp-call.js (openSession/callPaged/--batch). Do not cat SOURCE.md.\n\nhey use the playwright-cdc skill. open http://127.0.0.1:8766/store.html. json: page_title, shop_name, tagline, product_count, product_names, promo_code, contact_email, total_price. skill bridge only."
+  },
+  {
+    "id": "puppeteer",
+    "auth": false,
+    "command": [
+      "npx",
+      "-y",
+      "@modelcontextprotocol/server-puppeteer"
+    ],
+    "skill": "puppeteer-cdc",
+    "needs_http": true,
+    "truth": {
+      "page_title": "CDC Test Shop",
+      "shop_name": "Nebula Outfitters",
+      "product_count": 4,
+      "promo_code": "SUMMER25",
+      "total_price": 175.75
+    },
+    "score_keys": [
+      "page_title",
+      "shop_name",
+      "product_count",
+      "promo_code",
+      "total_price"
+    ],
+    "prompt_mcp": "hey use the puppeteer MCP. navigate to http://127.0.0.1:8766/store.html and return json: page_title, shop_name (h1 text), product_count, promo_code, total_price (sum data-price). MCP tools only.",
+    "prompt_use": "hey use the puppeteer-cdc skill. navigate to http://127.0.0.1:8766/store.html. json: page_title, shop_name, product_count, promo_code, total_price. skill bridge only.",
+    "prompt_image": "IMAGE SKILL MODE. Attached image(s) are the full puppeteer-cdc skill body. MCP is disabled. Call tools via bridge: node mcp-call.js (openSession/callPaged/--batch). Do not cat SOURCE.md.\n\nhey use the puppeteer-cdc skill. navigate to http://127.0.0.1:8766/store.html. json: page_title, shop_name, product_count, promo_code, total_price. skill bridge only."
+  },
+  {
+    "id": "context7",
+    "auth": false,
+    "command": [
+      "npx",
+      "-y",
+      "@upstash/context7-mcp"
+    ],
+    "skill": "context7-cdc",
+    "truth": {
+      "resolved": true,
+      "library_id_has_slash": true,
+      "docs_nonempty": true
+    },
+    "score_keys": [
+      "resolved",
+      "library_id_has_slash",
+      "docs_nonempty"
+    ],
+    "prompt_mcp": "hey use the context7 MCP. resolve library id for react, then query docs about useState. return json: resolved (bool), library_id (string), library_id_has_slash (bool), docs_nonempty (bool), snippet (short string from docs). MCP tools only.",
+    "prompt_use": "hey use the context7-cdc skill. resolve react library id then query useState docs. json: resolved, library_id, library_id_has_slash, docs_nonempty, snippet. skill bridge only.",
+    "prompt_image": "IMAGE SKILL MODE. Attached image(s) are the full context7-cdc skill body. MCP is disabled. Call tools via bridge: node mcp-call.js (openSession/callPaged/--batch). Do not cat SOURCE.md.\n\nhey use the context7-cdc skill. resolve react library id then query useState docs. json: resolved, library_id, library_id_has_slash, docs_nonempty, snippet. skill bridge only."
+  },
+  {
+    "id": "git",
+    "auth": false,
+    "command": [
+      "uvx",
+      "mcp-server-git",
+      "--repository",
+      "FIXTURES/gitrepo"
+    ],
+    "skill": "git-cdc",
+    "truth": {
+      "has_readme": true,
+      "branch_main_or_master": true,
+      "has_unstaged_change": true,
+      "log_nonempty": true
+    },
+    "score_keys": [
+      "has_readme",
+      "branch_main_or_master",
+      "has_unstaged_change",
+      "log_nonempty"
+    ],
+    "prompt_mcp": "hey use the git MCP on the fixture repo. return json: has_readme (bool if README.md tracked), branch (current branch name), branch_main_or_master (bool), has_unstaged_change (bool), log_nonempty (bool if git log has commits), latest_subject (latest commit subject). MCP tools only not shell git.",
+    "prompt_use": "hey use the git-cdc skill. json: has_readme, branch, branch_main_or_master, has_unstaged_change, log_nonempty, latest_subject. skill bridge only.",
+    "prompt_image": "IMAGE SKILL MODE. Attached image(s) are the full git-cdc skill body. MCP is disabled. Call tools via bridge: node mcp-call.js (openSession/callPaged/--batch). Do not cat SOURCE.md.\n\nhey use the git-cdc skill. json: has_readme, branch, branch_main_or_master, has_unstaged_change, log_nonempty, latest_subject. skill bridge only."
+  },
+  {
+    "id": "time",
+    "auth": false,
+    "command": [
+      "uvx",
+      "mcp-server-time"
+    ],
+    "skill": "time-cdc",
+    "truth": {
+      "has_utc": true,
+      "has_ny": true,
+      "converted": true
+    },
+    "score_keys": [
+      "has_utc",
+      "has_ny",
+      "converted"
+    ],
+    "prompt_mcp": "hey use the time MCP. get current time in UTC and America/New_York, and convert a fixed time. return json: utc_iso (string), ny_time (string), has_utc (bool), has_ny (bool), converted (bool true if convert_time worked), convert_result (string). MCP tools only.",
+    "prompt_use": "hey use the time-cdc skill. get UTC and America/New_York times and convert. json: utc_iso, ny_time, has_utc, has_ny, converted, convert_result. skill bridge only.",
+    "prompt_image": "IMAGE SKILL MODE. Attached image(s) are the full time-cdc skill body. MCP is disabled. Call tools via bridge: node mcp-call.js (openSession/callPaged/--batch). Do not cat SOURCE.md.\n\nhey use the time-cdc skill. get UTC and America/New_York times and convert. json: utc_iso, ny_time, has_utc, has_ny, converted, convert_result. skill bridge only."
+  },
+  {
+    "id": "fetch",
+    "auth": false,
+    "command": [
+      "uvx",
+      "mcp-server-fetch"
+    ],
+    "skill": "fetch-cdc",
+    "needs_http": true,
+    "truth": {
+      "status_ok": true,
+      "has_shop_name": true,
+      "has_promo": true
+    },
+    "score_keys": [
+      "status_ok",
+      "has_shop_name",
+      "has_promo"
+    ],
+    "prompt_mcp": "hey use the fetch MCP to fetch http://127.0.0.1:8766/store.html. return json: status_ok (bool), has_shop_name (bool if body has Nebula Outfitters), has_promo (bool if SUMMER25 present), title_guess (string). MCP fetch tool only not curl.",
+    "prompt_use": "hey use the fetch-cdc skill to fetch http://127.0.0.1:8766/store.html. json: status_ok, has_shop_name, has_promo, title_guess. skill bridge only.",
+    "prompt_image": "IMAGE SKILL MODE. Attached image(s) are the full fetch-cdc skill body. MCP is disabled. Call tools via bridge: node mcp-call.js (openSession/callPaged/--batch). Do not cat SOURCE.md.\n\nhey use the fetch-cdc skill to fetch http://127.0.0.1:8766/store.html. json: status_ok, has_shop_name, has_promo, title_guess. skill bridge only."
+  },
+  {
+    "id": "tradingview",
+    "auth": true,
+    "command": [
+      "tradingview-mcp"
+    ],
+    "skill": "tradingview-cdc",
+    "truth": {
+      "tool_count": 27,
+      "has_top_gainers": true,
+      "has_market_sentiment": true,
+      "has_coin_analysis": true,
+      "gainers_nonempty": true
+    },
+    "score_keys": [
+      "tool_count",
+      "has_top_gainers",
+      "has_market_sentiment",
+      "has_coin_analysis",
+      "gainers_nonempty"
+    ],
+    "prompt_mcp": "hey use the tradingview MCP (read-only). return json: tool_count, has_top_gainers, has_market_sentiment, has_coin_analysis, gainers_nonempty (true if top_gainers returned non-empty data). MCP tools only.",
+    "prompt_use": "hey use the tradingview-cdc skill. json: tool_count, has_top_gainers, has_market_sentiment, has_coin_analysis, gainers_nonempty. skill bridge only; extract values.",
+    "prompt_image": "IMAGE SKILL MODE. Attached image(s) are the full tradingview-cdc skill body. MCP is disabled. Call tools via bridge: node mcp-call.js (openSession/callPaged/--batch). Do not cat SOURCE.md.\n\nhey use the tradingview-cdc skill. json: tool_count, has_top_gainers, has_market_sentiment, has_coin_analysis, gainers_nonempty. skill bridge only; extract values."
+  },
+  {
+    "id": "github",
+    "auth": true,
+    "command": [
+      "node",
+      "BIN/github-auth-mcp.js"
+    ],
+    "env": {
+      "GITHUB_TOKEN": "FROM_GH"
+    },
+    "skill": "github-cdc",
+    "truth": {
+      "me_login": "nassimkhatiba-ai",
+      "me_public_repos": 1,
+      "cdc_full_name": "nassimkhatiba-ai/cdc",
+      "cdc_private": false,
+      "cdc_default_branch": "main"
+    },
+    "score_keys": [
+      "me_login",
+      "me_public_repos",
+      "cdc_full_name",
+      "cdc_private",
+      "cdc_default_branch"
+    ],
+    "prompt_mcp": "hey use the github MCP. return json: me_login, me_public_repos, torvalds_followers, torvalds_public_repos, cdc_full_name, cdc_private, cdc_default_branch for nassimkhatiba-ai/cdc. MCP tools only not curl/gh.",
+    "prompt_use": "hey use the github-cdc skill. json: me_login, me_public_repos, torvalds_followers, torvalds_public_repos, cdc_full_name, cdc_private, cdc_default_branch. direct get_repo for nassimkhatiba-ai/cdc. skill bridge only.",
+    "prompt_image": "IMAGE SKILL MODE. Attached image(s) are the full github-cdc skill body. MCP is disabled. Call tools via bridge: node mcp-call.js (openSession/callPaged/--batch). Do not cat SOURCE.md.\n\nhey use the github-cdc skill. json: me_login, me_public_repos, torvalds_followers, torvalds_public_repos, cdc_full_name, cdc_private, cdc_default_branch. direct get_repo for nassimkhatiba-ai/cdc. skill bridge only."
+  },
+  {
+    "id": "calc",
+    "auth": false,
+    "command": [
+      "node",
+      "BIN/calc-mcp.js"
+    ],
+    "skill": "calc-cdc",
+    "truth": {
+      "add": 42,
+      "mul": 56,
+      "pow": 81,
+      "mean": 5,
+      "min": 1,
+      "max": 9
+    },
+    "score_keys": [
+      "add",
+      "mul",
+      "pow",
+      "mean",
+      "min",
+      "max"
+    ],
+    "prompt_mcp": "hey use the calc MCP. return json numbers: add (20+22), mul (7*8), pow (3**4), mean/min/max of [1,5,9]. MCP tools only.",
+    "prompt_use": "hey use the calc-cdc skill. json: add, mul, pow, mean, min, max for 20+22, 7*8, 3**4, stats [1,5,9]. skill bridge only.",
+    "prompt_image": "IMAGE SKILL MODE. Attached image(s) are the full calc-cdc skill body. MCP is disabled. Call tools via bridge: node mcp-call.js (openSession/callPaged/--batch). Do not cat SOURCE.md.\n\nhey use the calc-cdc skill. json: add, mul, pow, mean, min, max for 20+22, 7*8, 3**4, stats [1,5,9]. skill bridge only."
+  },
+  {
+    "id": "weather",
+    "auth": false,
+    "command": [
+      "node",
+      "BIN/weather-mcp.js"
+    ],
+    "skill": "weather-cdc",
+    "truth": {
+      "city_count": 4,
+      "seattle_temp_c": 12,
+      "austin_cond": "sunny",
+      "warmer": "Austin"
+    },
+    "score_keys": [
+      "city_count",
+      "seattle_temp_c",
+      "austin_cond",
+      "warmer"
+    ],
+    "prompt_mcp": "hey use the weather MCP. return json: cities (sorted), city_count, seattle_temp_c, austin_cond, warmer (from compare Seattle vs Austin). MCP tools only.",
+    "prompt_use": "hey use the weather-cdc skill. json: cities, city_count, seattle_temp_c, austin_cond, warmer (Seattle vs Austin). skill bridge only.",
+    "prompt_image": "IMAGE SKILL MODE. Attached image(s) are the full weather-cdc skill body. MCP is disabled. Call tools via bridge: node mcp-call.js (openSession/callPaged/--batch). Do not cat SOURCE.md.\n\nhey use the weather-cdc skill. json: cities, city_count, seattle_temp_c, austin_cond, warmer (Seattle vs Austin). skill bridge only."
+  },
+  {
+    "id": "jsonstore",
+    "auth": false,
+    "command": [
+      "node",
+      "BIN/jsonstore-mcp.js"
+    ],
+    "env": {
+      "JSONSTORE_PATH": "FIXTURES/jsonstore.json"
+    },
+    "skill": "jsonstore-cdc",
+    "truth": {
+      "seed": true,
+      "counter": 7,
+      "name": "cdc",
+      "key_count": 3
+    },
+    "score_keys": [
+      "seed",
+      "counter",
+      "name",
+      "key_count"
+    ],
+    "prompt_mcp": "hey use the jsonstore MCP. read seed keys and return json: seed (bool from key seed), counter (number), name (string), keys (sorted), key_count. MCP tools only.",
+    "prompt_use": "hey use the jsonstore-cdc skill. json: seed, counter, name, keys, key_count from the store. skill bridge only.",
+    "prompt_image": "IMAGE SKILL MODE. Attached image(s) are the full jsonstore-cdc skill body. MCP is disabled. Call tools via bridge: node mcp-call.js (openSession/callPaged/--batch). Do not cat SOURCE.md.\n\nhey use the jsonstore-cdc skill. json: seed, counter, name, keys, key_count from the store. skill bridge only."
+  },
+  {
+    "id": "todo",
+    "auth": false,
+    "command": [
+      "node",
+      "BIN/todo-mcp.js"
+    ],
+    "skill": "todo-cdc",
+    "truth": {
+      "total": 3,
+      "open": 2,
+      "done": 1
+    },
+    "score_keys": [
+      "total",
+      "open",
+      "done"
+    ],
+    "prompt_mcp": "hey use the todo MCP. add three todos: Buy milk (high), Write report (med), Ship feature (low). complete the Write report one. return json: total, open, done, open_titles (sorted). MCP tools only.",
+    "prompt_use": "hey use the todo-cdc skill. add Buy milk high, Write report med, Ship feature low; complete Write report. json: total, open, done, open_titles (sorted). skill bridge only.",
+    "prompt_image": "IMAGE SKILL MODE. Attached image(s) are the full todo-cdc skill body. MCP is disabled. Call tools via bridge: node mcp-call.js (openSession/callPaged/--batch). Do not cat SOURCE.md.\n\nhey use the todo-cdc skill. add Buy milk high, Write report med, Ship feature low; complete Write report. json: total, open, done, open_titles (sorted). skill bridge only."
+  },
+  {
+    "id": "mockapi",
+    "auth": false,
+    "command": [
+      "node",
+      "BIN/mock-api-mcp.js"
+    ],
+    "env": {
+      "MOCK_API_BASE": "http://127.0.0.1:8791"
+    },
+    "skill": "mockapi-cdc",
+    "needs_mockapi": true,
+    "truth": {
+      "product_count": 30,
+      "order_count": 200,
+      "delivered_count": 92,
+      "delivered_revenue": 82576.08,
+      "category_count": 6
+    },
+    "score_keys": [
+      "product_count",
+      "order_count",
+      "delivered_count",
+      "delivered_revenue",
+      "category_count"
+    ],
+    "prompt_mcp": "hey use the mockapi MCP (local e-commerce). return json: product_count, order_count, delivered_count, delivered_revenue (sum total for delivered), category_count. page ALL pages with MCP tools not curl.",
+    "prompt_use": "hey use the mockapi-cdc skill with callPaged for lists. json: product_count, order_count, delivered_count, delivered_revenue, category_count. exact shape; aggregate all pages.",
+    "prompt_image": "IMAGE SKILL MODE. Attached image(s) are the full mockapi-cdc skill body. MCP is disabled. Call tools via bridge: node mcp-call.js (openSession/callPaged/--batch). Do not cat SOURCE.md.\n\nhey use the mockapi-cdc skill with callPaged for lists. json: product_count, order_count, delivered_count, delivered_revenue, category_count. exact shape; aggregate all pages."
+  },
+  {
+    "id": "chromedevtools",
+    "auth": false,
+    "command": [
+      "npx",
+      "-y",
+      "chrome-devtools-mcp",
+      "--headless"
+    ],
+    "skill": "chromedevtools-cdc",
+    "needs_http": true,
+    "truth": {
+      "page_title": "CDC Test Shop",
+      "has_shop": true,
+      "product_count": 4
+    },
+    "score_keys": [
+      "page_title",
+      "has_shop",
+      "product_count"
+    ],
+    "prompt_mcp": "hey use the chrome-devtools MCP. open http://127.0.0.1:8766/store.html and return json: page_title, has_shop (bool if Nebula Outfitters visible), product_count. MCP tools only.",
+    "prompt_use": "hey use the chromedevtools-cdc skill. open store page. json: page_title, has_shop, product_count. skill bridge only.",
+    "prompt_image": "IMAGE SKILL MODE. Attached image(s) are the full chromedevtools-cdc skill body. MCP is disabled. Call tools via bridge: node mcp-call.js (openSession/callPaged/--batch). Do not cat SOURCE.md.\n\nhey use the chromedevtools-cdc skill. open store page. json: page_title, has_shop, product_count. skill bridge only."
+  },
+  {
+    "id": "filesystem_large",
+    "auth": false,
+    "alias_note": "second fs workload: directory tree + multi-file",
+    "command": [
+      "npx",
+      "-y",
+      "@modelcontextprotocol/server-filesystem",
+      "FIXTURES/fsroot"
+    ],
+    "skill": "filesystem-large-cdc",
+    "truth": {
+      "tree_has_subdir": true,
+      "file_count_min": 3,
+      "data_csv_lines": 4
+    },
+    "score_keys": [
+      "tree_has_subdir",
+      "file_count_min",
+      "data_csv_lines"
+    ],
+    "prompt_mcp": "hey use the filesystem MCP. get directory_tree of root, count files, read data.csv line count. return json: tree_has_subdir (bool), file_count (number of files under root recursive), file_count_min true if >=3, data_csv_lines (number). MCP only.",
+    "prompt_use": "hey use the filesystem-large-cdc skill. json: tree_has_subdir, file_count, data_csv_lines. skill bridge only.",
+    "prompt_image": "IMAGE SKILL MODE. Attached image(s) are the full filesystem-large-cdc skill body. MCP is disabled. Call tools via bridge: node mcp-call.js (openSession/callPaged/--batch). Do not cat SOURCE.md.\n\nhey use the filesystem-large-cdc skill. json: tree_has_subdir, file_count, data_csv_lines. skill bridge only."
+  },
+  {
+    "id": "complex",
+    "auth": false,
+    "command": [
+      "node",
+      "BIN/complex-mcp.js"
+    ],
+    "skill": "complex-cdc",
+    "env": {
+      "COMPLEX_PAGE_SIZE": "8",
+      "COMPLEX_SEED": "42"
+    },
+    "truth": {
+      "open_p1_count": 12,
+      "breach_count": 9,
+      "arr_at_risk": 1354494,
+      "top_account_at_risk": "Aperture",
+      "top_account_arr": 209659,
+      "breach_subjects_sorted": [
+        "P1 API cascade Wayne",
+        "P1 API latency Cyberdyne",
+        "P1 Auth flapping Initech",
+        "P1 Billing halt Stark",
+        "P1 Ingest stalled Globex",
+        "P1 Invoice stuck Aperture",
+        "P1 Pipeline backpressure Tyrell",
+        "P1 Search blackhole Northwind",
+        "P1 SSO outage Vantara"
+      ],
+      "accounts_in_breach_sorted": [
+        "Aperture",
+        "Cyberdyne",
+        "Globex",
+        "Initech",
+        "Northwind",
+        "Stark Industries",
+        "Tyrell",
+        "Vantara",
+        "Wayne Enterprises"
+      ]
+    },
+    "score_keys": [
+      "open_p1_count",
+      "breach_count",
+      "arr_at_risk",
+      "top_account_at_risk",
+      "top_account_arr",
+      "breach_subjects_sorted",
+      "accounts_in_breach_sorted"
+    ],
+    "prompt_mcp": "You are connected to the acme-ops-complex MCP. HARD multi-hop SLA task. Use ONLY MCP tools.\n1) get_reference_now. 2) page ALL open P1 tickets. 3) join ticket→account→tier→SLA. Starter=no SLA. Enterprise 30m Growth 120m. Prefer evaluate_ticket_sla. Join related open eng issues by component_id only (not title heuristics). arr_at_risk=unique account ARR sum among breaches.\nReturn ONE JSON: open_p1_count, breach_count, arr_at_risk, top_account_at_risk, top_account_arr, breach_subjects_sorted, accounts_in_breach_sorted.",
+    "prompt_use": "Use complex-cdc skill (text CDC). MCP off. Bridge only. Same HARD SLA task as multi-system ops. JSON: open_p1_count, breach_count, arr_at_risk, top_account_at_risk, top_account_arr, breach_subjects_sorted, accounts_in_breach_sorted.",
+    "prompt_image": "IMAGE SKILL MODE. Skill body is ATTACHED .cdc.png image(s). MCP off. Call tools via bridge node mcp-call.js. Same HARD SLA task. JSON: open_p1_count, breach_count, arr_at_risk, top_account_at_risk, top_account_arr, breach_subjects_sorted, accounts_in_breach_sorted."
+  },
+  {
+    "id": "nova",
+    "auth": false,
+    "command": [
+      "node",
+      "BIN/nova-complex-mcp.js"
+    ],
+    "skill": "nova-cdc",
+    "env": {
+      "NOVA_PAGE_SIZE": "6",
+      "NOVA_SEED": "7"
+    },
+    "truth": {
+      "open_sev1_count": 10,
+      "breach_count": 7,
+      "mrr_at_risk": 395955,
+      "top_account_at_risk": "Orbit Retail",
+      "top_account_mrr": 122228,
+      "breach_titles_sorted": [
+        "SEV1 Edge Gateway Granite Soft",
+        "SEV1 Edge Gateway Nimbus Pay",
+        "SEV1 Fraud ML Delta Logistics",
+        "SEV1 Notify Hub Atlas Freight",
+        "SEV1 Payments Core Helios Bank",
+        "SEV1 Risk Engine Orbit Retail",
+        "SEV1 Search Echo Media"
+      ],
+      "accounts_in_breach_sorted": [
+        "Atlas Freight",
+        "Delta Logistics",
+        "Echo Media",
+        "Granite Soft",
+        "Helios Bank",
+        "Nimbus Pay",
+        "Orbit Retail"
+      ],
+      "tool_count": 48
+    },
+    "score_keys": [
+      "open_sev1_count",
+      "breach_count",
+      "mrr_at_risk",
+      "top_account_at_risk",
+      "top_account_mrr",
+      "breach_titles_sorted",
+      "accounts_in_breach_sorted"
+    ],
+    "prompt_mcp": "You are connected to nova-fleet-complex MCP (~48 tools: incidents, billing, SLO, changes).\nHARD multi-hop: open SEV1 SLO breaches.\nRules:\n1) get_reference_now for clock (not wall clock).\n2) Page ALL open SEV1 incidents (list_open_sev1_incidents; respect has_more).\n3) For each: evaluate_incident_slo OR join region SLO (list_slo_policies / get_slo_for_region) and age vs sev1_ack_minutes; unacked + age>threshold = breach.\n4) mrr_at_risk = sum UNIQUE account MRR among breach accounts (do not double-count).\n5) Prefer service_id joins for changes; avoid suggest_related_changes_by_title (trap).\nReturn ONE JSON only:\nopen_sev1_count, breach_count, mrr_at_risk, top_account_at_risk, top_account_mrr, breach_titles_sorted, accounts_in_breach_sorted.",
+    "prompt_use": "Use nova-cdc skill (text). MCP off. Bridge only. Same HARD SEV1 SLO breach task. JSON: open_sev1_count, breach_count, mrr_at_risk, top_account_at_risk, top_account_mrr, breach_titles_sorted, accounts_in_breach_sorted.",
+    "prompt_image": "IMAGE SKILL MODE. Attached .cdc.png is full skill body. MCP off. Bridge: node mcp-call.js. HARD SEV1 SLO breach task. JSON: open_sev1_count, breach_count, mrr_at_risk, top_account_at_risk, top_account_mrr, breach_titles_sorted, accounts_in_breach_sorted."
+  },
+  {
+    "id": "stringops",
+    "auth": false,
+    "command": [
+      "node",
+      "BIN/stringops-mcp.js"
+    ],
+    "skill": "stringops-cdc",
+    "truth": {
+      "upper": "HELLO WORLD",
+      "reverse": "dlrow olleh",
+      "len": 11,
+      "words": 2
+    },
+    "score_keys": [
+      "upper",
+      "reverse",
+      "len",
+      "words"
+    ],
+    "prompt_mcp": "Use stringops: upper \"Hello World\", reverse \"hello world\", len of \"Hello World\", words of \"Hello World\". JSON: upper, reverse, len, words. Use MCP tools only.",
+    "prompt_use": "Use the stringops-cdc skill: upper \"Hello World\", reverse \"hello world\", len of \"Hello World\", words of \"Hello World\". JSON: upper, reverse, len, words. Skill bridge only; MCP off.",
+    "prompt_image": "IMAGE SKILL MODE. Attached .cdc.png is the full skill. MCP off. Bridge node mcp-call.js. Use stringops: upper \"Hello World\", reverse \"hello world\", len of \"Hello World\", words of \"Hello World\". JSON: upper, reverse, len, words."
+  },
+  {
+    "id": "unitconvert",
+    "auth": false,
+    "command": [
+      "node",
+      "BIN/unitconvert-mcp.js"
+    ],
+    "skill": "unitconvert-cdc",
+    "truth": {
+      "c_to_f": 212,
+      "f_to_c": 0,
+      "km_to_mi": 6.21371,
+      "kg_to_lb": 22.0462
+    },
+    "score_keys": [
+      "c_to_f",
+      "f_to_c",
+      "km_to_mi",
+      "kg_to_lb"
+    ],
+    "prompt_mcp": "Use unitconvert: c_to_f 100, f_to_c 32, km_to_mi 10, kg_to_lb 10. JSON numbers: c_to_f, f_to_c, km_to_mi, kg_to_lb (use returned result fields). Use MCP tools only.",
+    "prompt_use": "Use the unitconvert-cdc skill: c_to_f 100, f_to_c 32, km_to_mi 10, kg_to_lb 10. JSON numbers: c_to_f, f_to_c, km_to_mi, kg_to_lb (use returned result fields). Skill bridge only; MCP off.",
+    "prompt_image": "IMAGE SKILL MODE. Attached .cdc.png is the full skill. MCP off. Bridge node mcp-call.js. Use unitconvert: c_to_f 100, f_to_c 32, km_to_mi 10, kg_to_lb 10. JSON numbers: c_to_f, f_to_c, km_to_mi, kg_to_lb (use returned result fields)."
+  },
+  {
+    "id": "graph",
+    "auth": false,
+    "command": [
+      "node",
+      "BIN/graph-mcp.js"
+    ],
+    "skill": "graph-cdc",
+    "truth": {
+      "node_count": 5,
+      "edge_count": 5,
+      "degree_A": 2,
+      "has_path_A_D": true
+    },
+    "score_keys": [
+      "node_count",
+      "edge_count",
+      "degree_A",
+      "has_path_A_D"
+    ],
+    "prompt_mcp": "Use graph MCP. JSON: node_count (list_nodes length), edge_count, degree_A (degree of A), has_path_A_D (has_path A to D bool). Use MCP tools only.",
+    "prompt_use": "Use the graph-cdc skill MCP. JSON: node_count (list_nodes length), edge_count, degree_A (degree of A), has_path_A_D (has_path A to D bool). Skill bridge only; MCP off.",
+    "prompt_image": "IMAGE SKILL MODE. Attached .cdc.png is the full skill. MCP off. Bridge node mcp-call.js. Use graph MCP. JSON: node_count (list_nodes length), edge_count, degree_A (degree of A), has_path_A_D (has_path A to D bool)."
+  },
+  {
+    "id": "kv",
+    "auth": false,
+    "command": [
+      "node",
+      "BIN/kv-mcp.js"
+    ],
+    "skill": "kv-cdc",
+    "truth": {
+      "key_count": 3,
+      "alpha": "1",
+      "has_beta": true
+    },
+    "score_keys": [
+      "key_count",
+      "alpha",
+      "has_beta"
+    ],
+    "prompt_mcp": "Use kv: list_keys/count/get alpha and beta. JSON: key_count, alpha (value string), has_beta (bool true if beta exists). Use MCP tools only.",
+    "prompt_use": "Use the kv-cdc skill: list_keys/count/get alpha and beta. JSON: key_count, alpha (value string), has_beta (bool true if beta exists). Skill bridge only; MCP off.",
+    "prompt_image": "IMAGE SKILL MODE. Attached .cdc.png is the full skill. MCP off. Bridge node mcp-call.js. Use kv: list_keys/count/get alpha and beta. JSON: key_count, alpha (value string), has_beta (bool true if beta exists)."
+  },
+  {
+    "id": "counter",
+    "auth": false,
+    "command": [
+      "node",
+      "BIN/counter-mcp.js"
+    ],
+    "skill": "counter-cdc",
+    "truth": {
+      "hits": 12,
+      "misses": 3,
+      "hits_after_inc": 12
+    },
+    "score_keys": [
+      "hits",
+      "misses"
+    ],
+    "prompt_mcp": "Use counter: get hits and misses, then inc hits by 2, get hits again. JSON: hits (final after +2), misses (original). Use MCP tools only.",
+    "prompt_use": "Use the counter-cdc skill: get hits and misses, then inc hits by 2, get hits again. JSON: hits (final after +2), misses (original). Skill bridge only; MCP off.",
+    "prompt_image": "IMAGE SKILL MODE. Attached .cdc.png is the full skill. MCP off. Bridge node mcp-call.js. Use counter: get hits and misses, then inc hits by 2, get hits again. JSON: hits (final after +2), misses (original)."
+  },
+  {
+    "id": "hash",
+    "auth": false,
+    "command": [
+      "node",
+      "BIN/hash-mcp.js"
+    ],
+    "skill": "hash-cdc",
+    "truth": {
+      "md5": "5d41402abc4b2a76b9719d911017c592",
+      "b64": "aGVsbG8=",
+      "decoded": "hello"
+    },
+    "score_keys": [
+      "md5",
+      "b64",
+      "decoded"
+    ],
+    "prompt_mcp": "Use hash: md5 of \"hello\", b64_encode \"hello\", b64_decode that result. JSON: md5, b64, decoded. Use MCP tools only.",
+    "prompt_use": "Use the hash-cdc skill: md5 of \"hello\", b64_encode \"hello\", b64_decode that result. JSON: md5, b64, decoded. Skill bridge only; MCP off.",
+    "prompt_image": "IMAGE SKILL MODE. Attached .cdc.png is the full skill. MCP off. Bridge node mcp-call.js. Use hash: md5 of \"hello\", b64_encode \"hello\", b64_decode that result. JSON: md5, b64, decoded."
+  },
+  {
+    "id": "books",
+    "auth": false,
+    "command": [
+      "node",
+      "BIN/books-mcp.js"
+    ],
+    "skill": "books-cdc",
+    "truth": {
+      "book_count": 5,
+      "top_title": "Sapiens",
+      "scifi_count": 3
+    },
+    "score_keys": [
+      "book_count",
+      "top_title",
+      "scifi_count"
+    ],
+    "prompt_mcp": "Use books: list_books, top_price, count_by_genre. JSON: book_count, top_title (top_price.title), scifi_count (count_by_genre.scifi). Use MCP tools only.",
+    "prompt_use": "Use the books-cdc skill: list_books, top_price, count_by_genre. JSON: book_count, top_title (top_price.title), scifi_count (count_by_genre.scifi). Skill bridge only; MCP off.",
+    "prompt_image": "IMAGE SKILL MODE. Attached .cdc.png is the full skill. MCP off. Bridge node mcp-call.js. Use books: list_books, top_price, count_by_genre. JSON: book_count, top_title (top_price.title), scifi_count (count_by_genre.scifi)."
+  },
+  {
+    "id": "inventory",
+    "auth": false,
+    "command": [
+      "node",
+      "BIN/inventory-mcp.js"
+    ],
+    "skill": "inventory-cdc",
+    "truth": {
+      "item_count": 4,
+      "low_stock": [
+        "SKU-B",
+        "SKU-D"
+      ],
+      "total_value": 55.3,
+      "warehouse_count": 2
+    },
+    "score_keys": [
+      "item_count",
+      "low_stock",
+      "total_value",
+      "warehouse_count"
+    ],
+    "prompt_mcp": "Use inventory. JSON: item_count, low_stock (array of skus below 10, sorted), total_value, warehouse_count. Use MCP tools only.",
+    "prompt_use": "Use the inventory-cdc skill. JSON: item_count, low_stock (array of skus below 10, sorted), total_value, warehouse_count. Skill bridge only; MCP off.",
+    "prompt_image": "IMAGE SKILL MODE. Attached .cdc.png is the full skill. MCP off. Bridge node mcp-call.js. Use inventory. JSON: item_count, low_stock (array of skus below 10, sorted), total_value, warehouse_count."
+  },
+  {
+    "id": "queue",
+    "auth": false,
+    "command": [
+      "node",
+      "BIN/queue-mcp.js"
+    ],
+    "skill": "queue-cdc",
+    "truth": {
+      "size": 3,
+      "peek": "job-alpha",
+      "after_deq_size": 2
+    },
+    "score_keys": [
+      "size",
+      "peek"
+    ],
+    "prompt_mcp": "Use queue: size, peek. JSON: size, peek (front job string). Do not dequeue. Use MCP tools only.",
+    "prompt_use": "Use the queue-cdc skill: size, peek. JSON: size, peek (front job string). Do not dequeue. Skill bridge only; MCP off.",
+    "prompt_image": "IMAGE SKILL MODE. Attached .cdc.png is the full skill. MCP off. Bridge node mcp-call.js. Use queue: size, peek. JSON: size, peek (front job string). Do not dequeue."
+  },
+  {
+    "id": "flags",
+    "auth": false,
+    "command": [
+      "node",
+      "BIN/flags-mcp.js"
+    ],
+    "skill": "flags-cdc",
+    "truth": {
+      "enabled_count": 3,
+      "dark_mode": true,
+      "beta_ui": false
+    },
+    "score_keys": [
+      "enabled_count",
+      "dark_mode",
+      "beta_ui"
+    ],
+    "prompt_mcp": "Use flags. JSON: enabled_count, dark_mode (bool), beta_ui (bool). Use MCP tools only.",
+    "prompt_use": "Use the flags-cdc skill. JSON: enabled_count, dark_mode (bool), beta_ui (bool). Skill bridge only; MCP off.",
+    "prompt_image": "IMAGE SKILL MODE. Attached .cdc.png is the full skill. MCP off. Bridge node mcp-call.js. Use flags. JSON: enabled_count, dark_mode (bool), beta_ui (bool)."
+  },
+  {
+    "id": "geo",
+    "auth": false,
+    "command": [
+      "node",
+      "BIN/geo-mcp.js"
+    ],
+    "skill": "geo-cdc",
+    "truth": {
+      "city_count": 4,
+      "has_paris": true,
+      "paris_london_km_min": 300,
+      "paris_london_km_max": 400
+    },
+    "score_keys": [
+      "city_count",
+      "has_paris"
+    ],
+    "prompt_mcp": "Use geo: list_cities, get_city Paris, distance_km Paris London. JSON: city_count, has_paris (bool), paris_london_km (number). Use MCP tools only.",
+    "prompt_use": "Use the geo-cdc skill: list_cities, get_city Paris, distance_km Paris London. JSON: city_count, has_paris (bool), paris_london_km (number). Skill bridge only; MCP off.",
+    "prompt_image": "IMAGE SKILL MODE. Attached .cdc.png is the full skill. MCP off. Bridge node mcp-call.js. Use geo: list_cities, get_city Paris, distance_km Paris London. JSON: city_count, has_paris (bool), paris_london_km (number)."
+  },
+  {
+    "id": "regex",
+    "auth": false,
+    "command": [
+      "node",
+      "BIN/regex-mcp.js"
+    ],
+    "skill": "regex-cdc",
+    "truth": {
+      "ok": true,
+      "count": 3,
+      "replaced": "a-b-c"
+    },
+    "score_keys": [
+      "ok",
+      "count",
+      "replaced"
+    ],
+    "prompt_mcp": "Use regex on s=\"a1b2c3\": match digits \\\\d, count digits, replace \\\\d with \"-\". JSON: ok (match bool), count, replaced. Use MCP tools only.",
+    "prompt_use": "Use the regex-cdc skill on s=\"a1b2c3\": match digits \\\\d, count digits, replace \\\\d with \"-\". JSON: ok (match bool), count, replaced. Skill bridge only; MCP off.",
+    "prompt_image": "IMAGE SKILL MODE. Attached .cdc.png is the full skill. MCP off. Bridge node mcp-call.js. Use regex on s=\"a1b2c3\": match digits \\\\d, count digits, replace \\\\d with \"-\". JSON: ok (match bool), count, replaced."
+  },
+  {
+    "id": "csvops",
+    "auth": false,
+    "command": [
+      "node",
+      "BIN/csvops-mcp.js"
+    ],
+    "skill": "csvops-cdc",
+    "truth": {
+      "row_count": 3,
+      "sum_col1": 60
+    },
+    "score_keys": [
+      "row_count",
+      "sum_col1"
+    ],
+    "prompt_mcp": "Use csvops on text \"name,score\\nalice,10\\nbob,20\\ncarol,30\". JSON: row_count, sum_col1 (sum of score column index 1). Use MCP tools only.",
+    "prompt_use": "Use the csvops-cdc skill on text \"name,score\\nalice,10\\nbob,20\\ncarol,30\". JSON: row_count, sum_col1 (sum of score column index 1). Skill bridge only; MCP off.",
+    "prompt_image": "IMAGE SKILL MODE. Attached .cdc.png is the full skill. MCP off. Bridge node mcp-call.js. Use csvops on text \"name,score\\nalice,10\\nbob,20\\ncarol,30\". JSON: row_count, sum_col1 (sum of score column index 1)."
+  },
+  {
+    "id": "cronish",
+    "auth": false,
+    "command": [
+      "node",
+      "BIN/cronish-mcp.js"
+    ],
+    "skill": "cronish-cdc",
+    "truth": {
+      "job_count": 4,
+      "enabled_ids": [
+        "j1",
+        "j2",
+        "j4"
+      ]
+    },
+    "score_keys": [
+      "job_count",
+      "enabled_ids"
+    ],
+    "prompt_mcp": "Use cronish: list_jobs, enabled_jobs. JSON: job_count, enabled_ids (sorted array). Use MCP tools only.",
+    "prompt_use": "Use the cronish-cdc skill: list_jobs, enabled_jobs. JSON: job_count, enabled_ids (sorted array). Skill bridge only; MCP off.",
+    "prompt_image": "IMAGE SKILL MODE. Attached .cdc.png is the full skill. MCP off. Bridge node mcp-call.js. Use cronish: list_jobs, enabled_jobs. JSON: job_count, enabled_ids (sorted array)."
+  },
+  {
+    "id": "uuidgen",
+    "auth": false,
+    "command": [
+      "node",
+      "BIN/uuidgen-mcp.js"
+    ],
+    "skill": "uuidgen-cdc",
+    "truth": {
+      "nil": "00000000-0000-0000-0000-000000000000",
+      "is_nil_ok": true,
+      "batch_len": 3
+    },
+    "score_keys": [
+      "nil",
+      "is_nil_ok",
+      "batch_len"
+    ],
+    "prompt_mcp": "Use uuidgen: nil, is_uuid on the nil uuid, batch n=3. JSON: nil, is_nil_ok, batch_len. Use MCP tools only.",
+    "prompt_use": "Use the uuidgen-cdc skill: nil, is_uuid on the nil uuid, batch n=3. JSON: nil, is_nil_ok, batch_len. Skill bridge only; MCP off.",
+    "prompt_image": "IMAGE SKILL MODE. Attached .cdc.png is the full skill. MCP off. Bridge node mcp-call.js. Use uuidgen: nil, is_uuid on the nil uuid, batch n=3. JSON: nil, is_nil_ok, batch_len."
+  },
+  {
+    "id": "mathstat",
+    "auth": false,
+    "command": [
+      "node",
+      "BIN/mathstat-mcp.js"
+    ],
+    "skill": "mathstat-cdc",
+    "truth": {
+      "sum": 15,
+      "mean": 3,
+      "median": 3
+    },
+    "score_keys": [
+      "sum",
+      "mean",
+      "median"
+    ],
+    "prompt_mcp": "Use mathstat on nums [1,2,3,4,5]. JSON: sum, mean, median. Use MCP tools only.",
+    "prompt_use": "Use the mathstat-cdc skill on nums [1,2,3,4,5]. JSON: sum, mean, median. Skill bridge only; MCP off.",
+    "prompt_image": "IMAGE SKILL MODE. Attached .cdc.png is the full skill. MCP off. Bridge node mcp-call.js. Use mathstat on nums [1,2,3,4,5]. JSON: sum, mean, median."
+  },
+  {
+    "id": "dateops",
+    "auth": false,
+    "command": [
+      "node",
+      "BIN/dateops-mcp.js"
+    ],
+    "skill": "dateops-cdc",
+    "truth": {
+      "add_days": "2026-07-16",
+      "diff_days": 5,
+      "weekday": "Saturday"
+    },
+    "score_keys": [
+      "add_days",
+      "diff_days",
+      "weekday"
+    ],
+    "prompt_mcp": "Use dateops: add_days 2026-07-11 +5, diff_days 2026-07-11 to 2026-07-16, weekday of 2026-07-11. JSON: add_days (YYYY-MM-DD), diff_days, weekday. Use MCP tools only.",
+    "prompt_use": "Use the dateops-cdc skill: add_days 2026-07-11 +5, diff_days 2026-07-11 to 2026-07-16, weekday of 2026-07-11. JSON: add_days (YYYY-MM-DD), diff_days, weekday. Skill bridge only; MCP off.",
+    "prompt_image": "IMAGE SKILL MODE. Attached .cdc.png is the full skill. MCP off. Bridge node mcp-call.js. Use dateops: add_days 2026-07-11 +5, diff_days 2026-07-11 to 2026-07-16, weekday of 2026-07-11. JSON: add_days (YYYY-MM-DD), diff_days, weekday."
+  },
+  {
+    "id": "cache",
+    "auth": false,
+    "command": [
+      "node",
+      "BIN/cache-mcp.js"
+    ],
+    "skill": "cache-cdc",
+    "truth": {
+      "seed_hit": true,
+      "seed_value": "ok",
+      "size": 1
+    },
+    "score_keys": [
+      "seed_hit",
+      "seed_value",
+      "size"
+    ],
+    "prompt_mcp": "Use cache: get seed, stats. JSON: seed_hit (bool), seed_value, size (from stats). Use MCP tools only.",
+    "prompt_use": "Use the cache-cdc skill: get seed, stats. JSON: seed_hit (bool), seed_value, size (from stats). Skill bridge only; MCP off.",
+    "prompt_image": "IMAGE SKILL MODE. Attached .cdc.png is the full skill. MCP off. Bridge node mcp-call.js. Use cache: get seed, stats. JSON: seed_hit (bool), seed_value, size (from stats)."
+  }
+]

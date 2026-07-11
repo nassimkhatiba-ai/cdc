@@ -20,7 +20,7 @@
 const path = require('path');
 const fs = require('fs');
 const { estimateTokens } = require('./tokens');
-const { paramsOf, envVarName, writePackage } = require('./schema-util');
+const { paramsOf, envVarName, writePackage, writeImageSkill } = require('./schema-util');
 const { snapshotFs } = require('./fs-snapshot');
 const { buildQjs } = require('./q-template');
 
@@ -947,6 +947,27 @@ function compileMCP({
 
 
   writePackage(outDir, { cdc, skill, stats });
+
+  // Image skill (.cdc): always emit PNG package; image is primary by default
+  // (CDC_IMAGE=0 keeps text SKILL.md as primary; images still written).
+  try {
+    const img = writeImageSkill(outDir, {
+      name,
+      skill,
+      cdc,
+    });
+    if (img) {
+      stats.imagePages = img.pages;
+      stats.imageApproxVisionTokens = img.approxVisionTokens;
+      stats.imageApproxTextTokens = img.approxTextTokens;
+      stats.imagePrimary = !!img.imagePrimary;
+      fs.writeFileSync(path.join(outDir, 'stats.json'), JSON.stringify(stats, null, 2));
+    }
+  } catch (e) {
+    // non-fatal: text skill still valid
+    stats.imageError = String(e.message || e);
+  }
+
 
   if (mode === 'mcp') {
     fs.writeFileSync(

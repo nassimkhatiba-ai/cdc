@@ -1,0 +1,4246 @@
+[
+  {
+    "target": "everything",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 16952,
+        "wall": 25,
+        "score": "5/5",
+        "ok": 5,
+        "total": 5,
+        "detail": {
+          "echo_result": true,
+          "add_sum": true,
+          "has_echo": true,
+          "has_add": true,
+          "tool_count_min": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 4,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "echo_result": "cdc-bench-ok",
+          "add_sum": 42,
+          "tool_count": 15,
+          "has_echo": true,
+          "has_add": true
+        }
+      },
+      "text": {
+        "tokens": 9365,
+        "wall": 13,
+        "score": "4/5",
+        "ok": 4,
+        "total": 5,
+        "detail": {
+          "echo_result": false,
+          "add_sum": true,
+          "has_echo": true,
+          "has_add": true,
+          "tool_count_min": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 3,
+          "callPaged": 0,
+          "mcp_call_js": 5,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "echo_result": "Echo: cdc-bench-ok",
+          "add_sum": 42,
+          "tool_count": 13,
+          "has_echo": true,
+          "has_add": true
+        }
+      },
+      "image": {
+        "tokens": 8012,
+        "wall": 14,
+        "score": "4/5",
+        "ok": 4,
+        "total": 5,
+        "detail": {
+          "echo_result": false,
+          "add_sum": true,
+          "has_echo": true,
+          "has_add": true,
+          "tool_count_min": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 1,
+          "mcp_call_js": 3,
+          "image_attach": 5
+        },
+        "images": [
+          "everything.cdc.png"
+        ],
+        "ans": {
+          "echo_result": "Echo: cdc-bench-ok",
+          "add_sum": 42,
+          "tool_count": 15,
+          "has_echo": true,
+          "has_add": true
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 1.81,
+      "mcp_over_image": 2.12,
+      "text_over_image": 1.17,
+      "image_vs_text_pct": 14.4
+    }
+  },
+  {
+    "target": "memory",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 14354,
+        "wall": 17,
+        "score": "7/7",
+        "ok": 7,
+        "total": 7,
+        "detail": {
+          "entity_count": true,
+          "relation_count": true,
+          "person_count": true,
+          "company_count": true,
+          "highest_salary_person": true,
+          "highest_salary": true,
+          "largest_company_by_employees": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 2,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "entity_count": 35,
+          "relation_count": 56,
+          "person_count": 20,
+          "company_count": 5,
+          "highest_salary_person": "Hana Sol",
+          "highest_salary": 220000,
+          "largest_company_by_employees": "Cedar Health"
+        }
+      },
+      "text": {
+        "tokens": 14980,
+        "wall": 24,
+        "score": "7/7",
+        "ok": 7,
+        "total": 7,
+        "detail": {
+          "entity_count": true,
+          "relation_count": true,
+          "person_count": true,
+          "company_count": true,
+          "highest_salary_person": true,
+          "highest_salary": true,
+          "largest_company_by_employees": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "entity_count": 35,
+          "relation_count": 56,
+          "person_count": 20,
+          "company_count": 5,
+          "highest_salary_person": "Hana Sol",
+          "highest_salary": 220000,
+          "largest_company_by_employees": "Cedar Health"
+        }
+      },
+      "image": {
+        "tokens": 9139,
+        "wall": 23,
+        "score": "7/7",
+        "ok": 7,
+        "total": 7,
+        "detail": {
+          "entity_count": true,
+          "relation_count": true,
+          "person_count": true,
+          "company_count": true,
+          "highest_salary_person": true,
+          "highest_salary": true,
+          "largest_company_by_employees": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 1,
+          "mcp_call_js": 3,
+          "image_attach": 5
+        },
+        "images": [
+          "memory.cdc.png"
+        ],
+        "ans": {
+          "entity_count": 35,
+          "relation_count": 56,
+          "person_count": 20,
+          "company_count": 5,
+          "highest_salary_person": "Hana Sol",
+          "highest_salary": 220000,
+          "largest_company_by_employees": "Cedar Health"
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 0.96,
+      "mcp_over_image": 1.57,
+      "text_over_image": 1.64,
+      "image_vs_text_pct": 39
+    }
+  },
+  {
+    "target": "filesystem",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 16310,
+        "wall": 14,
+        "score": "5/5",
+        "ok": 5,
+        "total": 5,
+        "detail": {
+          "readme_content": true,
+          "note_has_token": true,
+          "search_hit": true,
+          "has_subdir": true,
+          "allowed_count_min": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 6,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "readme_content": "cdc-fs-readme",
+          "note_has_token": true,
+          "search_hit": "needle-findme",
+          "has_subdir": true,
+          "allowed_count": 2
+        }
+      },
+      "text": {
+        "tokens": 10723,
+        "wall": 41,
+        "score": "3/5",
+        "ok": 3,
+        "total": 5,
+        "detail": {
+          "readme_content": false,
+          "note_has_token": true,
+          "search_hit": false,
+          "has_subdir": true,
+          "allowed_count_min": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "readme_content": "cdc-fs-readme\n",
+          "note_has_token": true,
+          "search_hit": true,
+          "has_subdir": true,
+          "allowed_count": 1
+        }
+      },
+      "image": {
+        "tokens": 9869,
+        "wall": 26,
+        "score": "0/5",
+        "ok": 0,
+        "total": 5,
+        "detail": {
+          "readme_content": false,
+          "note_has_token": false,
+          "search_hit": false,
+          "has_subdir": false,
+          "allowed_count_min": false
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 1,
+          "mcp_call_js": 6,
+          "image_attach": 5
+        },
+        "images": [
+          "filesystem.cdc.png"
+        ],
+        "ans": {
+          "readme_content": null,
+          "note_has_token": null,
+          "search_hit": null,
+          "has_subdir": null,
+          "allowed_count": null
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 1.52,
+      "mcp_over_image": 1.65,
+      "text_over_image": 1.09,
+      "image_vs_text_pct": 8
+    }
+  },
+  {
+    "target": "sequential",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 7674,
+        "wall": 13,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "used_tool": true,
+          "thought_steps_min": true,
+          "has_answer": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 4,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "used_tool": true,
+          "thought_steps": 2,
+          "answer": 323,
+          "has_answer": true
+        }
+      },
+      "text": {
+        "tokens": 8776,
+        "wall": 16,
+        "score": "2/3",
+        "ok": 2,
+        "total": 3,
+        "detail": {
+          "used_tool": false,
+          "thought_steps_min": true,
+          "has_answer": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "used_tool": "sequentialthinking",
+          "thought_steps": 2,
+          "answer": 323,
+          "has_answer": true
+        }
+      },
+      "image": {
+        "tokens": 6954,
+        "wall": 8,
+        "score": "2/3",
+        "ok": 2,
+        "total": 3,
+        "detail": {
+          "used_tool": false,
+          "thought_steps_min": true,
+          "has_answer": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 1,
+          "mcp_call_js": 3,
+          "image_attach": 5
+        },
+        "images": [
+          "sequential.cdc.png"
+        ],
+        "ans": {
+          "used_tool": "sequentialthinking",
+          "thought_steps": 1,
+          "answer": 323,
+          "has_answer": true
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 0.87,
+      "mcp_over_image": 1.1,
+      "text_over_image": 1.26,
+      "image_vs_text_pct": 20.8
+    }
+  },
+  {
+    "target": "sqlite",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 12618,
+        "wall": 21,
+        "score": "5/5",
+        "ok": 5,
+        "total": 5,
+        "detail": {
+          "product_count": true,
+          "order_count": true,
+          "delivered_revenue": true,
+          "top_delivered_product_by_qty": true,
+          "categories": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 8,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "product_count": 6,
+          "order_count": 8,
+          "delivered_revenue": 264.5,
+          "top_delivered_product_by_qty": "Novel A",
+          "categories": [
+            "books",
+            "gear"
+          ]
+        }
+      },
+      "text": {
+        "tokens": 10955,
+        "wall": 43,
+        "score": "0/5",
+        "ok": 0,
+        "total": 5,
+        "detail": {
+          "product_count": false,
+          "order_count": false,
+          "delivered_revenue": false,
+          "top_delivered_product_by_qty": false,
+          "categories": false
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 0,
+          "mcp_call_js": 4,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "product_count": null,
+          "order_count": null,
+          "delivered_revenue": null,
+          "top_delivered_product_by_qty": null,
+          "categories": []
+        }
+      },
+      "image": {
+        "tokens": 9843,
+        "wall": 34,
+        "score": "4/5",
+        "ok": 4,
+        "total": 5,
+        "detail": {
+          "product_count": true,
+          "order_count": true,
+          "delivered_revenue": true,
+          "top_delivered_product_by_qty": false,
+          "categories": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 1,
+          "mcp_call_js": 4,
+          "image_attach": 5
+        },
+        "images": [
+          "sqlite.cdc.png"
+        ],
+        "ans": {
+          "product_count": 6,
+          "order_count": 8,
+          "delivered_revenue": 264.5,
+          "top_delivered_product_by_qty": "Trail Lamp",
+          "categories": [
+            "books",
+            "gear"
+          ]
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 1.15,
+      "mcp_over_image": 1.28,
+      "text_over_image": 1.11,
+      "image_vs_text_pct": 10.2
+    }
+  },
+  {
+    "target": "playwright",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 18208,
+        "wall": 29,
+        "score": "7/7",
+        "ok": 7,
+        "total": 7,
+        "detail": {
+          "page_title": true,
+          "shop_name": true,
+          "tagline": true,
+          "product_count": true,
+          "promo_code": true,
+          "contact_email": true,
+          "total_price": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 6,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "page_title": "CDC Test Shop",
+          "shop_name": "Nebula Outfitters",
+          "tagline": "Gear for night hikers",
+          "product_count": 4,
+          "product_names": [
+            "Trail Lamp",
+            "Summit Pack",
+            "Glow Stick 2-pack",
+            "Night Boots"
+          ],
+          "promo_code": "SUMMER25",
+          "contact_email": "shop@nebula.test",
+          "total_price": 175.75
+        }
+      },
+      "text": {
+        "tokens": 22243,
+        "wall": 75,
+        "score": "7/7",
+        "ok": 7,
+        "total": 7,
+        "detail": {
+          "page_title": true,
+          "shop_name": true,
+          "tagline": true,
+          "product_count": true,
+          "promo_code": true,
+          "contact_email": true,
+          "total_price": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 7,
+          "callPaged": 0,
+          "mcp_call_js": 8,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "page_title": "CDC Test Shop",
+          "shop_name": "Nebula Outfitters",
+          "tagline": "Gear for night hikers",
+          "product_count": 4,
+          "product_names": [
+            "Trail Lamp",
+            "Summit Pack",
+            "Glow Stick 2-pack",
+            "Night Boots"
+          ],
+          "promo_code": "SUMMER25",
+          "contact_email": "shop@nebula.test",
+          "total_price": 175.75
+        }
+      },
+      "image": {
+        "tokens": 11805,
+        "wall": 39,
+        "score": "6/7",
+        "ok": 6,
+        "total": 7,
+        "detail": {
+          "page_title": true,
+          "shop_name": true,
+          "tagline": true,
+          "product_count": true,
+          "promo_code": true,
+          "contact_email": true,
+          "total_price": false
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 1,
+          "mcp_call_js": 4,
+          "image_attach": 5
+        },
+        "images": [
+          "playwright.cdc.png"
+        ],
+        "ans": {
+          "page_title": "CDC Test Shop",
+          "shop_name": "Nebula Outfitters",
+          "tagline": "Gear for night hikers",
+          "product_count": 4,
+          "product_names": [
+            "Trail Lamp",
+            "Summit Pack",
+            "Glow Stick 2-pack",
+            "Night Boots"
+          ],
+          "promo_code": "SUMMER25",
+          "contact_email": "shop@nebula.test",
+          "total_price": null
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 0.82,
+      "mcp_over_image": 1.54,
+      "text_over_image": 1.88,
+      "image_vs_text_pct": 46.9
+    }
+  },
+  {
+    "target": "puppeteer",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 31727,
+        "wall": 27,
+        "score": "5/5",
+        "ok": 5,
+        "total": 5,
+        "detail": {
+          "page_title": true,
+          "shop_name": true,
+          "product_count": true,
+          "promo_code": true,
+          "total_price": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 6,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "page_title": "CDC Test Shop",
+          "shop_name": "Nebula Outfitters",
+          "product_count": 4,
+          "promo_code": "SUMMER25",
+          "total_price": 175.75
+        }
+      },
+      "text": {
+        "tokens": 7329,
+        "wall": 32,
+        "score": "5/5",
+        "ok": 5,
+        "total": 5,
+        "detail": {
+          "page_title": true,
+          "shop_name": true,
+          "product_count": true,
+          "promo_code": true,
+          "total_price": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 0,
+          "mcp_call_js": 4,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "page_title": "CDC Test Shop",
+          "shop_name": "Nebula Outfitters",
+          "product_count": 4,
+          "promo_code": "SUMMER25",
+          "total_price": "175.75"
+        }
+      },
+      "image": {
+        "tokens": 9461,
+        "wall": 27,
+        "score": "4/5",
+        "ok": 4,
+        "total": 5,
+        "detail": {
+          "page_title": true,
+          "shop_name": true,
+          "product_count": true,
+          "promo_code": true,
+          "total_price": false
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 1,
+          "mcp_call_js": 4,
+          "image_attach": 5
+        },
+        "images": [
+          "puppeteer.cdc.png"
+        ],
+        "ans": {
+          "page_title": "CDC Test Shop",
+          "shop_name": "Nebula Outfitters",
+          "product_count": 4,
+          "promo_code": "SUMMER25",
+          "total_price": null
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 4.33,
+      "mcp_over_image": 3.35,
+      "text_over_image": 0.77,
+      "image_vs_text_pct": -29.1
+    }
+  },
+  {
+    "target": "context7",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 8267,
+        "wall": 22,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "resolved": true,
+          "library_id_has_slash": true,
+          "docs_nonempty": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 4,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "resolved": true,
+          "library_id": "/reactjs/react.dev",
+          "library_id_has_slash": true,
+          "docs_nonempty": true,
+          "snippet": "const [state, setState] = useState(initialState)"
+        }
+      },
+      "text": {
+        "tokens": 11063,
+        "wall": 25,
+        "score": "0/3",
+        "ok": 0,
+        "total": 3,
+        "detail": {
+          "resolved": false,
+          "library_id_has_slash": false,
+          "docs_nonempty": false
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 0,
+          "mcp_call_js": 4,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "query": "x",
+          "libraryName": "x"
+        }
+      },
+      "image": {
+        "tokens": 7519,
+        "wall": 30,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "resolved": true,
+          "library_id_has_slash": true,
+          "docs_nonempty": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 1,
+          "mcp_call_js": 3,
+          "image_attach": 5
+        },
+        "images": [
+          "context7.cdc.png"
+        ],
+        "ans": {
+          "resolved": true,
+          "library_id": "/reactjs/react.dev",
+          "library_id_has_slash": true,
+          "docs_nonempty": true,
+          "snippet": "Library /facebook/react has been redirected to this library: /react/react."
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 0.75,
+      "mcp_over_image": 1.1,
+      "text_over_image": 1.47,
+      "image_vs_text_pct": 32
+    }
+  },
+  {
+    "target": "git",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 17635,
+        "wall": 24,
+        "score": "4/4",
+        "ok": 4,
+        "total": 4,
+        "detail": {
+          "has_readme": true,
+          "branch_main_or_master": true,
+          "has_unstaged_change": true,
+          "log_nonempty": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 16,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "has_readme": true,
+          "branch": "main",
+          "branch_main_or_master": true,
+          "has_unstaged_change": true,
+          "log_nonempty": true,
+          "latest_subject": "init: cdc mega20 fixture"
+        }
+      },
+      "text": {
+        "tokens": 11251,
+        "wall": 28,
+        "score": "4/4",
+        "ok": 4,
+        "total": 4,
+        "detail": {
+          "has_readme": true,
+          "branch_main_or_master": true,
+          "has_unstaged_change": true,
+          "log_nonempty": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 0,
+          "mcp_call_js": 4,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "has_readme": true,
+          "branch": "main",
+          "branch_main_or_master": true,
+          "has_unstaged_change": true,
+          "log_nonempty": true,
+          "latest_subject": "Initial commit"
+        }
+      },
+      "image": {
+        "tokens": 9943,
+        "wall": 21,
+        "score": "3/4",
+        "ok": 3,
+        "total": 4,
+        "detail": {
+          "has_readme": false,
+          "branch_main_or_master": true,
+          "has_unstaged_change": true,
+          "log_nonempty": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 1,
+          "mcp_call_js": 4,
+          "image_attach": 5
+        },
+        "images": [
+          "git.cdc.png"
+        ],
+        "ans": {
+          "has_readme": false,
+          "branch": "main",
+          "branch_main_or_master": true,
+          "has_unstaged_change": true,
+          "log_nonempty": true,
+          "latest_subject": "init: cdc mega20 fixture"
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 1.57,
+      "mcp_over_image": 1.77,
+      "text_over_image": 1.13,
+      "image_vs_text_pct": 11.6
+    }
+  },
+  {
+    "target": "time",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 15462,
+        "wall": 20,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "has_utc": true,
+          "has_ny": true,
+          "converted": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 6,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "utc_iso": "2026-07-11T14:30:25+00:00",
+          "ny_time": "2026-07-11T10:30:25-04:00",
+          "has_utc": true,
+          "has_ny": true,
+          "converted": true,
+          "convert_result": "2026-07-11T12:00:00+00:00 → 2026-07-11T08:00:00-04:00"
+        }
+      },
+      "text": {
+        "tokens": 6159,
+        "wall": 22,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "has_utc": true,
+          "has_ny": true,
+          "converted": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "utc_iso": "2026-07-11T14:37:16+00:00",
+          "ny_time": "2026-07-11T10:37:16-04:00",
+          "has_utc": true,
+          "has_ny": true,
+          "converted": true,
+          "convert_result": "2026-07-11T08:00:00-04:00"
+        }
+      },
+      "image": {
+        "tokens": 11351,
+        "wall": 10,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "has_utc": true,
+          "has_ny": true,
+          "converted": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 1,
+          "mcp_call_js": 3,
+          "image_attach": 5
+        },
+        "images": [
+          "time.cdc.png"
+        ],
+        "ans": {
+          "utc_iso": "2026-07-11T14:43:50+00:00",
+          "ny_time": "2026-07-11T10:43:50-04:00",
+          "has_utc": true,
+          "has_ny": true,
+          "converted": true,
+          "convert_result": {
+            "source": "2026-07-11T12:00:00+00:00",
+            "target": "2026-07-11T08:00:00-04:00",
+            "time_difference": "-4.0h"
+          }
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 2.51,
+      "mcp_over_image": 1.36,
+      "text_over_image": 0.54,
+      "image_vs_text_pct": -84.3
+    }
+  },
+  {
+    "target": "fetch",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 15691,
+        "wall": 14,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "status_ok": true,
+          "has_shop_name": true,
+          "has_promo": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 1,
+          "mcp_calls": 2,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "status_ok": true,
+          "has_shop_name": true,
+          "has_promo": true,
+          "title_guess": "CDC Test Shop"
+        }
+      },
+      "text": {
+        "tokens": 8601,
+        "wall": 14,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "status_ok": true,
+          "has_shop_name": true,
+          "has_promo": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "status_ok": true,
+          "has_shop_name": true,
+          "has_promo": true,
+          "title_guess": "CDC Test Shop"
+        }
+      },
+      "image": {
+        "tokens": 6834,
+        "wall": 14,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "status_ok": true,
+          "has_shop_name": true,
+          "has_promo": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 1,
+          "mcp_call_js": 3,
+          "image_attach": 5
+        },
+        "images": [
+          "fetch.cdc.png"
+        ],
+        "ans": {
+          "status_ok": true,
+          "has_shop_name": true,
+          "has_promo": true,
+          "title_guess": "Nebula Outfitters"
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 1.82,
+      "mcp_over_image": 2.3,
+      "text_over_image": 1.26,
+      "image_vs_text_pct": 20.5
+    }
+  },
+  {
+    "target": "tradingview",
+    "auth": true,
+    "arms": {
+      "mcp": {
+        "tokens": 24909,
+        "wall": 31,
+        "score": "5/5",
+        "ok": 5,
+        "total": 5,
+        "detail": {
+          "tool_count": true,
+          "has_top_gainers": true,
+          "has_market_sentiment": true,
+          "has_coin_analysis": true,
+          "gainers_nonempty": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 2,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "tool_count": 27,
+          "has_top_gainers": true,
+          "has_market_sentiment": true,
+          "has_coin_analysis": true,
+          "gainers_nonempty": true
+        }
+      },
+      "text": {
+        "tokens": 13422,
+        "wall": 17,
+        "score": "5/5",
+        "ok": 5,
+        "total": 5,
+        "detail": {
+          "tool_count": true,
+          "has_top_gainers": true,
+          "has_market_sentiment": true,
+          "has_coin_analysis": true,
+          "gainers_nonempty": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 3,
+          "callPaged": 0,
+          "mcp_call_js": 5,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "tool_count": 27,
+          "has_top_gainers": true,
+          "has_market_sentiment": true,
+          "has_coin_analysis": true,
+          "gainers_nonempty": true
+        }
+      },
+      "image": {
+        "tokens": 16644,
+        "wall": 16,
+        "score": "5/5",
+        "ok": 5,
+        "total": 5,
+        "detail": {
+          "tool_count": true,
+          "has_top_gainers": true,
+          "has_market_sentiment": true,
+          "has_coin_analysis": true,
+          "gainers_nonempty": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 1,
+          "mcp_call_js": 3,
+          "image_attach": 6
+        },
+        "images": [
+          "tradingview.cdc.png",
+          "tradingview.page-002.cdc.png"
+        ],
+        "ans": {
+          "tool_count": 27,
+          "has_top_gainers": true,
+          "has_market_sentiment": true,
+          "has_coin_analysis": true,
+          "gainers_nonempty": true
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 1.86,
+      "mcp_over_image": 1.5,
+      "text_over_image": 0.81,
+      "image_vs_text_pct": -24
+    }
+  },
+  {
+    "target": "github",
+    "auth": true,
+    "arms": {
+      "mcp": {
+        "tokens": 18804,
+        "wall": 11,
+        "score": "5/5",
+        "ok": 5,
+        "total": 5,
+        "detail": {
+          "me_login": true,
+          "me_public_repos": true,
+          "cdc_full_name": true,
+          "cdc_private": true,
+          "cdc_default_branch": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 1,
+          "mcp_calls": 6,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "me_login": "nassimkhatiba-ai",
+          "me_public_repos": 1,
+          "torvalds_followers": 311297,
+          "torvalds_public_repos": 12,
+          "cdc_full_name": "nassimkhatiba-ai/cdc",
+          "cdc_private": false,
+          "cdc_default_branch": "main"
+        }
+      },
+      "text": {
+        "tokens": 12080,
+        "wall": 16,
+        "score": "5/5",
+        "ok": 5,
+        "total": 5,
+        "detail": {
+          "me_login": true,
+          "me_public_repos": true,
+          "cdc_full_name": true,
+          "cdc_private": true,
+          "cdc_default_branch": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 3,
+          "callPaged": 3,
+          "mcp_call_js": 5,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "me_login": "nassimkhatiba-ai",
+          "me_public_repos": 1,
+          "torvalds_followers": 311297,
+          "torvalds_public_repos": 12,
+          "cdc_full_name": "nassimkhatiba-ai/cdc",
+          "cdc_private": false,
+          "cdc_default_branch": "main"
+        }
+      },
+      "image": {
+        "tokens": 37571,
+        "wall": 17,
+        "score": "5/5",
+        "ok": 5,
+        "total": 5,
+        "detail": {
+          "me_login": true,
+          "me_public_repos": true,
+          "cdc_full_name": true,
+          "cdc_private": true,
+          "cdc_default_branch": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 1,
+          "mcp_call_js": 4,
+          "image_attach": 5
+        },
+        "images": [
+          "github.cdc.png"
+        ],
+        "ans": {
+          "me_login": "nassimkhatiba-ai",
+          "me_public_repos": 1,
+          "torvalds_followers": 311298,
+          "torvalds_public_repos": 12,
+          "cdc_full_name": "nassimkhatiba-ai/cdc",
+          "cdc_private": false,
+          "cdc_default_branch": "main"
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 1.56,
+      "mcp_over_image": 0.5,
+      "text_over_image": 0.32,
+      "image_vs_text_pct": -211
+    }
+  },
+  {
+    "target": "calc",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 17570,
+        "wall": 17,
+        "score": "6/6",
+        "ok": 6,
+        "total": 6,
+        "detail": {
+          "add": true,
+          "mul": true,
+          "pow": true,
+          "mean": true,
+          "min": true,
+          "max": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 8,
+          "openSession": 2,
+          "callPaged": 3,
+          "mcp_call_js": 2,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "add": 42,
+          "mul": 56,
+          "pow": 81,
+          "mean": 5,
+          "min": 1,
+          "max": 9
+        }
+      },
+      "text": {
+        "tokens": 8671,
+        "wall": 16,
+        "score": "6/6",
+        "ok": 6,
+        "total": 6,
+        "detail": {
+          "add": true,
+          "mul": true,
+          "pow": true,
+          "mean": true,
+          "min": true,
+          "max": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "add": 42,
+          "mul": 56,
+          "pow": 81,
+          "mean": 5,
+          "min": 1,
+          "max": 9
+        }
+      },
+      "image": {
+        "tokens": 7323,
+        "wall": 13,
+        "score": "6/6",
+        "ok": 6,
+        "total": 6,
+        "detail": {
+          "add": true,
+          "mul": true,
+          "pow": true,
+          "mean": true,
+          "min": true,
+          "max": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 1,
+          "mcp_call_js": 3,
+          "image_attach": 5
+        },
+        "images": [
+          "calc.cdc.png"
+        ],
+        "ans": {
+          "add": 42,
+          "mul": 56,
+          "pow": 81,
+          "mean": 5,
+          "min": 1,
+          "max": 9
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 2.03,
+      "mcp_over_image": 2.4,
+      "text_over_image": 1.18,
+      "image_vs_text_pct": 15.5
+    }
+  },
+  {
+    "target": "weather",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 9319,
+        "wall": 12,
+        "score": "4/4",
+        "ok": 4,
+        "total": 4,
+        "detail": {
+          "city_count": true,
+          "seattle_temp_c": true,
+          "austin_cond": true,
+          "warmer": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 8,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "cities": [
+            "Austin",
+            "Paris",
+            "Seattle",
+            "Tokyo"
+          ],
+          "city_count": 4,
+          "seattle_temp_c": 12,
+          "austin_cond": "sunny",
+          "warmer": "Austin"
+        }
+      },
+      "text": {
+        "tokens": 8534,
+        "wall": 13,
+        "score": "4/4",
+        "ok": 4,
+        "total": 4,
+        "detail": {
+          "city_count": true,
+          "seattle_temp_c": true,
+          "austin_cond": true,
+          "warmer": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "cities": [
+            "Austin",
+            "Paris",
+            "Seattle",
+            "Tokyo"
+          ],
+          "city_count": 4,
+          "seattle_temp_c": 12,
+          "austin_cond": "sunny",
+          "warmer": "Austin"
+        }
+      },
+      "image": {
+        "tokens": 7390,
+        "wall": 10,
+        "score": "4/4",
+        "ok": 4,
+        "total": 4,
+        "detail": {
+          "city_count": true,
+          "seattle_temp_c": true,
+          "austin_cond": true,
+          "warmer": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 1,
+          "mcp_call_js": 3,
+          "image_attach": 5
+        },
+        "images": [
+          "weather.cdc.png"
+        ],
+        "ans": {
+          "cities": [
+            "Austin",
+            "Paris",
+            "Seattle",
+            "Tokyo"
+          ],
+          "city_count": 4,
+          "seattle_temp_c": 12,
+          "austin_cond": "sunny",
+          "warmer": "Austin"
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 1.09,
+      "mcp_over_image": 1.26,
+      "text_over_image": 1.15,
+      "image_vs_text_pct": 13.4
+    }
+  },
+  {
+    "target": "jsonstore",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 5757,
+        "wall": 10,
+        "score": "4/4",
+        "ok": 4,
+        "total": 4,
+        "detail": {
+          "seed": true,
+          "counter": true,
+          "name": true,
+          "key_count": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 10,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "seed": true,
+          "counter": 7,
+          "name": "cdc",
+          "keys": [
+            "counter",
+            "name",
+            "seed"
+          ],
+          "key_count": 3
+        }
+      },
+      "text": {
+        "tokens": 13712,
+        "wall": 12,
+        "score": "4/4",
+        "ok": 4,
+        "total": 4,
+        "detail": {
+          "seed": true,
+          "counter": true,
+          "name": true,
+          "key_count": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "seed": true,
+          "counter": 7,
+          "name": "cdc",
+          "keys": [
+            "counter",
+            "name",
+            "seed"
+          ],
+          "key_count": 3
+        }
+      },
+      "image": {
+        "tokens": 7423,
+        "wall": 10,
+        "score": "4/4",
+        "ok": 4,
+        "total": 4,
+        "detail": {
+          "seed": true,
+          "counter": true,
+          "name": true,
+          "key_count": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 1,
+          "mcp_call_js": 3,
+          "image_attach": 5
+        },
+        "images": [
+          "jsonstore.cdc.png"
+        ],
+        "ans": {
+          "seed": true,
+          "counter": 7,
+          "name": "cdc",
+          "keys": [
+            "counter",
+            "name",
+            "seed"
+          ],
+          "key_count": 3
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 0.42,
+      "mcp_over_image": 0.78,
+      "text_over_image": 1.85,
+      "image_vs_text_pct": 45.9
+    }
+  },
+  {
+    "target": "todo",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 7103,
+        "wall": 30,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "total": true,
+          "open": true,
+          "done": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 12,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "total": 3,
+          "open": 2,
+          "done": 1,
+          "open_titles": [
+            "Buy milk",
+            "Ship feature"
+          ]
+        }
+      },
+      "text": {
+        "tokens": 11132,
+        "wall": 15,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "total": true,
+          "open": true,
+          "done": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "total": 3,
+          "open": 2,
+          "done": 1,
+          "open_titles": [
+            "Buy milk",
+            "Ship feature"
+          ]
+        }
+      },
+      "image": {
+        "tokens": 9402,
+        "wall": 26,
+        "score": "0/3",
+        "ok": 0,
+        "total": 3,
+        "detail": {
+          "total": false,
+          "open": false,
+          "done": false
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 1,
+          "mcp_call_js": 4,
+          "image_attach": 5
+        },
+        "images": [
+          "todo.cdc.png"
+        ],
+        "ans": {
+          "total": 6,
+          "open": 4,
+          "done": 2,
+          "open_titles": [
+            "Buy milk",
+            "Buy milk",
+            "Ship feature",
+            "Ship feature"
+          ]
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 0.64,
+      "mcp_over_image": 0.76,
+      "text_over_image": 1.18,
+      "image_vs_text_pct": 15.5
+    }
+  },
+  {
+    "target": "mockapi",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 23950,
+        "wall": 23,
+        "score": "5/5",
+        "ok": 5,
+        "total": 5,
+        "detail": {
+          "product_count": true,
+          "order_count": true,
+          "delivered_count": true,
+          "delivered_revenue": true,
+          "category_count": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 1,
+          "mcp_calls": 12,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "product_count": 30,
+          "order_count": 200,
+          "delivered_count": 92,
+          "delivered_revenue": 82576.08,
+          "category_count": 6
+        }
+      },
+      "text": {
+        "tokens": 9406,
+        "wall": 16,
+        "score": "5/5",
+        "ok": 5,
+        "total": 5,
+        "detail": {
+          "product_count": true,
+          "order_count": true,
+          "delivered_count": true,
+          "delivered_revenue": true,
+          "category_count": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 5,
+          "callPaged": 7,
+          "mcp_call_js": 5,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "product_count": 30,
+          "order_count": 200,
+          "delivered_count": 92,
+          "delivered_revenue": 82576.08,
+          "category_count": 6
+        }
+      },
+      "image": {
+        "tokens": 19996,
+        "wall": 17,
+        "score": "5/5",
+        "ok": 5,
+        "total": 5,
+        "detail": {
+          "product_count": true,
+          "order_count": true,
+          "delivered_count": true,
+          "delivered_revenue": true,
+          "category_count": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 5,
+          "callPaged": 8,
+          "mcp_call_js": 4,
+          "image_attach": 5
+        },
+        "images": [
+          "mockapi.cdc.png"
+        ],
+        "ans": {
+          "product_count": 30,
+          "order_count": 200,
+          "delivered_count": 92,
+          "delivered_revenue": 82576.08,
+          "category_count": 6
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 2.55,
+      "mcp_over_image": 1.2,
+      "text_over_image": 0.47,
+      "image_vs_text_pct": -112.6
+    }
+  },
+  {
+    "target": "chromedevtools",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 16162,
+        "wall": 17,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "page_title": true,
+          "has_shop": true,
+          "product_count": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 4,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "page_title": "CDC Test Shop",
+          "has_shop": true,
+          "product_count": 4
+        }
+      },
+      "text": {
+        "tokens": 10736,
+        "wall": 50,
+        "score": "0/3",
+        "ok": 0,
+        "total": 3,
+        "detail": {
+          "page_title": false,
+          "has_shop": false,
+          "product_count": false
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 5,
+          "callPaged": 0,
+          "mcp_call_js": 5,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "page_title": "",
+          "has_shop": false,
+          "product_count": 0
+        }
+      },
+      "image": {
+        "tokens": 30463,
+        "wall": 86,
+        "score": "0/3",
+        "ok": 0,
+        "total": 3,
+        "detail": {
+          "page_title": false,
+          "has_shop": false,
+          "product_count": false
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 1,
+          "mcp_call_js": 8,
+          "image_attach": 6
+        },
+        "images": [
+          "chromedevtools.cdc.png",
+          "chromedevtools.page-002.cdc.png"
+        ],
+        "ans": {
+          "page_title": "Google Store voor Google-apparaten en -accessoires",
+          "has_shop": false,
+          "product_count": 8
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 1.51,
+      "mcp_over_image": 0.53,
+      "text_over_image": 0.35,
+      "image_vs_text_pct": -183.7
+    }
+  },
+  {
+    "target": "filesystem_large",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 8838,
+        "wall": 13,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "tree_has_subdir": true,
+          "file_count_min": true,
+          "data_csv_lines": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 6,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "tree_has_subdir": true,
+          "file_count": 3,
+          "file_count_min": true,
+          "data_csv_lines": 4
+        }
+      },
+      "text": {
+        "tokens": 10164,
+        "wall": 31,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "tree_has_subdir": true,
+          "file_count_min": true,
+          "data_csv_lines": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "tree_has_subdir": true,
+          "file_count": 3,
+          "data_csv_lines": 4
+        }
+      },
+      "image": {
+        "tokens": 14468,
+        "wall": 44,
+        "score": "0/3",
+        "ok": 0,
+        "total": 3,
+        "detail": {
+          "tree_has_subdir": false,
+          "file_count_min": false,
+          "data_csv_lines": false
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 1,
+          "mcp_call_js": 10,
+          "image_attach": 5
+        },
+        "images": [
+          "filesystem-large.cdc.png"
+        ],
+        "ans": null
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 0.87,
+      "mcp_over_image": 0.61,
+      "text_over_image": 0.7,
+      "image_vs_text_pct": -42.3
+    }
+  },
+  {
+    "target": "complex",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 27022,
+        "wall": 46,
+        "score": "7/7",
+        "ok": 7,
+        "total": 7,
+        "detail": {
+          "open_p1_count": true,
+          "breach_count": true,
+          "arr_at_risk": true,
+          "top_account_at_risk": true,
+          "top_account_arr": true,
+          "breach_subjects_sorted": true,
+          "accounts_in_breach_sorted": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 84,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "open_p1_count": 12,
+          "breach_count": 9,
+          "arr_at_risk": 1354494,
+          "top_account_at_risk": "Aperture",
+          "top_account_arr": 209659,
+          "breach_subjects_sorted": [
+            "P1 API cascade Wayne",
+            "P1 API latency Cyberdyne",
+            "P1 Auth flapping Initech",
+            "P1 Billing halt Stark",
+            "P1 Ingest stalled Globex",
+            "P1 Invoice stuck Aperture",
+            "P1 Pipeline backpressure Tyrell",
+            "P1 SSO outage Vantara",
+            "P1 Search blackhole Northwind"
+          ],
+          "accounts_in_breach_sorted": [
+            "Aperture",
+            "Cyberdyne",
+            "Globex",
+            "Initech",
+            "Northwind",
+            "Stark Industries",
+            "Tyrell",
+            "Vantara",
+            "Wayne Enterprises"
+          ]
+        }
+      },
+      "text": {
+        "tokens": 19434,
+        "wall": 33,
+        "score": "7/7",
+        "ok": 7,
+        "total": 7,
+        "detail": {
+          "open_p1_count": true,
+          "breach_count": true,
+          "arr_at_risk": true,
+          "top_account_at_risk": true,
+          "top_account_arr": true,
+          "breach_subjects_sorted": true,
+          "accounts_in_breach_sorted": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 5,
+          "callPaged": 5,
+          "mcp_call_js": 5,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "open_p1_count": 12,
+          "breach_count": 9,
+          "arr_at_risk": 1354494,
+          "top_account_at_risk": "Aperture",
+          "top_account_arr": 209659,
+          "breach_subjects_sorted": [
+            "P1 API cascade Wayne",
+            "P1 API latency Cyberdyne",
+            "P1 Auth flapping Initech",
+            "P1 Billing halt Stark",
+            "P1 Ingest stalled Globex",
+            "P1 Invoice stuck Aperture",
+            "P1 Pipeline backpressure Tyrell",
+            "P1 SSO outage Vantara",
+            "P1 Search blackhole Northwind"
+          ],
+          "accounts_in_breach_sorted": [
+            "Aperture",
+            "Cyberdyne",
+            "Globex",
+            "Initech",
+            "Northwind",
+            "Stark Industries",
+            "Tyrell",
+            "Vantara",
+            "Wayne Enterprises"
+          ]
+        }
+      },
+      "image": {
+        "tokens": 12615,
+        "wall": 23,
+        "score": "7/7",
+        "ok": 7,
+        "total": 7,
+        "detail": {
+          "open_p1_count": true,
+          "breach_count": true,
+          "arr_at_risk": true,
+          "top_account_at_risk": true,
+          "top_account_arr": true,
+          "breach_subjects_sorted": true,
+          "accounts_in_breach_sorted": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 6
+        },
+        "images": [
+          "complex.cdc.png"
+        ],
+        "ans": {
+          "open_p1_count": 12,
+          "breach_count": 9,
+          "arr_at_risk": 1354494,
+          "top_account_at_risk": "Aperture",
+          "top_account_arr": 209659,
+          "breach_subjects_sorted": [
+            "P1 API cascade Wayne",
+            "P1 API latency Cyberdyne",
+            "P1 Auth flapping Initech",
+            "P1 Billing halt Stark",
+            "P1 Ingest stalled Globex",
+            "P1 Invoice stuck Aperture",
+            "P1 Pipeline backpressure Tyrell",
+            "P1 SSO outage Vantara",
+            "P1 Search blackhole Northwind"
+          ],
+          "accounts_in_breach_sorted": [
+            "Aperture",
+            "Cyberdyne",
+            "Globex",
+            "Initech",
+            "Northwind",
+            "Stark Industries",
+            "Tyrell",
+            "Vantara",
+            "Wayne Enterprises"
+          ]
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 1.39,
+      "mcp_over_image": 2.14,
+      "text_over_image": 1.54,
+      "image_vs_text_pct": 35.1
+    }
+  },
+  {
+    "target": "nova",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 18643,
+        "wall": 22,
+        "score": "7/7",
+        "ok": 7,
+        "total": 7,
+        "detail": {
+          "open_sev1_count": true,
+          "breach_count": true,
+          "mrr_at_risk": true,
+          "top_account_at_risk": true,
+          "top_account_mrr": true,
+          "breach_titles_sorted": true,
+          "accounts_in_breach_sorted": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 24,
+          "openSession": 2,
+          "callPaged": 3,
+          "mcp_call_js": 2,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "open_sev1_count": 10,
+          "breach_count": 7,
+          "mrr_at_risk": 395955,
+          "top_account_at_risk": "Orbit Retail",
+          "top_account_mrr": 122228,
+          "breach_titles_sorted": [
+            "SEV1 Edge Gateway Granite Soft",
+            "SEV1 Edge Gateway Nimbus Pay",
+            "SEV1 Fraud ML Delta Logistics",
+            "SEV1 Notify Hub Atlas Freight",
+            "SEV1 Payments Core Helios Bank",
+            "SEV1 Risk Engine Orbit Retail",
+            "SEV1 Search Echo Media"
+          ],
+          "accounts_in_breach_sorted": [
+            "Atlas Freight",
+            "Delta Logistics",
+            "Echo Media",
+            "Granite Soft",
+            "Helios Bank",
+            "Nimbus Pay",
+            "Orbit Retail"
+          ]
+        }
+      },
+      "text": {
+        "tokens": 8686,
+        "wall": 50,
+        "score": "7/7",
+        "ok": 7,
+        "total": 7,
+        "detail": {
+          "open_sev1_count": true,
+          "breach_count": true,
+          "mrr_at_risk": true,
+          "top_account_at_risk": true,
+          "top_account_mrr": true,
+          "breach_titles_sorted": true,
+          "accounts_in_breach_sorted": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 7,
+          "callPaged": 7,
+          "mcp_call_js": 6,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "open_sev1_count": 10,
+          "breach_count": 7,
+          "mrr_at_risk": 395955,
+          "top_account_at_risk": "Orbit Retail",
+          "top_account_mrr": 122228,
+          "breach_titles_sorted": [
+            "SEV1 Edge Gateway Granite Soft",
+            "SEV1 Edge Gateway Nimbus Pay",
+            "SEV1 Fraud ML Delta Logistics",
+            "SEV1 Notify Hub Atlas Freight",
+            "SEV1 Payments Core Helios Bank",
+            "SEV1 Risk Engine Orbit Retail",
+            "SEV1 Search Echo Media"
+          ],
+          "accounts_in_breach_sorted": [
+            "Atlas Freight",
+            "Delta Logistics",
+            "Echo Media",
+            "Granite Soft",
+            "Helios Bank",
+            "Nimbus Pay",
+            "Orbit Retail"
+          ]
+        }
+      },
+      "image": {
+        "tokens": 12883,
+        "wall": 38,
+        "score": "7/7",
+        "ok": 7,
+        "total": 7,
+        "detail": {
+          "open_sev1_count": true,
+          "breach_count": true,
+          "mrr_at_risk": true,
+          "top_account_at_risk": true,
+          "top_account_mrr": true,
+          "breach_titles_sorted": true,
+          "accounts_in_breach_sorted": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 4,
+          "image_attach": 6
+        },
+        "images": [
+          "nova.cdc.png",
+          "nova.page-002.cdc.png"
+        ],
+        "ans": {
+          "open_sev1_count": 10,
+          "breach_count": 7,
+          "mrr_at_risk": 395955,
+          "top_account_at_risk": "Orbit Retail",
+          "top_account_mrr": 122228,
+          "breach_titles_sorted": [
+            "SEV1 Edge Gateway Granite Soft",
+            "SEV1 Edge Gateway Nimbus Pay",
+            "SEV1 Fraud ML Delta Logistics",
+            "SEV1 Notify Hub Atlas Freight",
+            "SEV1 Payments Core Helios Bank",
+            "SEV1 Risk Engine Orbit Retail",
+            "SEV1 Search Echo Media"
+          ],
+          "accounts_in_breach_sorted": [
+            "Atlas Freight",
+            "Delta Logistics",
+            "Echo Media",
+            "Granite Soft",
+            "Helios Bank",
+            "Nimbus Pay",
+            "Orbit Retail"
+          ]
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 2.15,
+      "mcp_over_image": 1.45,
+      "text_over_image": 0.67,
+      "image_vs_text_pct": -48.3
+    }
+  },
+  {
+    "target": "stringops",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 16276,
+        "wall": 14,
+        "score": "4/4",
+        "ok": 4,
+        "total": 4,
+        "detail": {
+          "upper": true,
+          "reverse": true,
+          "len": true,
+          "words": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 8,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "upper": "HELLO WORLD",
+          "reverse": "dlrow olleh",
+          "len": 11,
+          "words": 2
+        }
+      },
+      "text": {
+        "tokens": 3423,
+        "wall": 11,
+        "score": "4/4",
+        "ok": 4,
+        "total": 4,
+        "detail": {
+          "upper": true,
+          "reverse": true,
+          "len": true,
+          "words": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "upper": "HELLO WORLD",
+          "reverse": "dlrow olleh",
+          "len": 11,
+          "words": 2
+        }
+      },
+      "image": {
+        "tokens": 7188,
+        "wall": 10,
+        "score": "4/4",
+        "ok": 4,
+        "total": 4,
+        "detail": {
+          "upper": true,
+          "reverse": true,
+          "len": true,
+          "words": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 6
+        },
+        "images": [
+          "stringops.cdc.png"
+        ],
+        "ans": {
+          "upper": "HELLO WORLD",
+          "reverse": "dlrow olleh",
+          "len": 11,
+          "words": 2
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 4.75,
+      "mcp_over_image": 2.26,
+      "text_over_image": 0.48,
+      "image_vs_text_pct": -110
+    }
+  },
+  {
+    "target": "unitconvert",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 5877,
+        "wall": 13,
+        "score": "4/4",
+        "ok": 4,
+        "total": 4,
+        "detail": {
+          "c_to_f": true,
+          "f_to_c": true,
+          "km_to_mi": true,
+          "kg_to_lb": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 8,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "c_to_f": 212,
+          "f_to_c": 0,
+          "km_to_mi": 6.21371,
+          "kg_to_lb": 22.0462
+        }
+      },
+      "text": {
+        "tokens": 3608,
+        "wall": 16,
+        "score": "4/4",
+        "ok": 4,
+        "total": 4,
+        "detail": {
+          "c_to_f": true,
+          "f_to_c": true,
+          "km_to_mi": true,
+          "kg_to_lb": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "c_to_f": 212,
+          "f_to_c": 0,
+          "km_to_mi": 6.21371,
+          "kg_to_lb": 22.0462
+        }
+      },
+      "image": {
+        "tokens": 7060,
+        "wall": 11,
+        "score": "0/4",
+        "ok": 0,
+        "total": 4,
+        "detail": {
+          "c_to_f": false,
+          "f_to_c": false,
+          "km_to_mi": false,
+          "kg_to_lb": false
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 5
+        },
+        "images": [
+          "unitconvert.cdc.png"
+        ],
+        "ans": {
+          "result": 22.0462
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 1.63,
+      "mcp_over_image": 0.83,
+      "text_over_image": 0.51,
+      "image_vs_text_pct": -95.7
+    }
+  },
+  {
+    "target": "graph",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 10127,
+        "wall": 13,
+        "score": "4/4",
+        "ok": 4,
+        "total": 4,
+        "detail": {
+          "node_count": true,
+          "edge_count": true,
+          "degree_A": true,
+          "has_path_A_D": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 8,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "node_count": 5,
+          "edge_count": 5,
+          "degree_A": 2,
+          "has_path_A_D": true
+        }
+      },
+      "text": {
+        "tokens": 8650,
+        "wall": 17,
+        "score": "4/4",
+        "ok": 4,
+        "total": 4,
+        "detail": {
+          "node_count": true,
+          "edge_count": true,
+          "degree_A": true,
+          "has_path_A_D": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "node_count": 5,
+          "edge_count": 5,
+          "degree_A": 2,
+          "has_path_A_D": true
+        }
+      },
+      "image": {
+        "tokens": 6619,
+        "wall": 9,
+        "score": "4/4",
+        "ok": 4,
+        "total": 4,
+        "detail": {
+          "node_count": true,
+          "edge_count": true,
+          "degree_A": true,
+          "has_path_A_D": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 5
+        },
+        "images": [
+          "graph.cdc.png"
+        ],
+        "ans": {
+          "node_count": 5,
+          "edge_count": 5,
+          "degree_A": 2,
+          "has_path_A_D": true
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 1.17,
+      "mcp_over_image": 1.53,
+      "text_over_image": 1.31,
+      "image_vs_text_pct": 23.5
+    }
+  },
+  {
+    "target": "kv",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 15796,
+        "wall": 12,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "key_count": true,
+          "alpha": true,
+          "has_beta": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 8,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "key_count": 3,
+          "alpha": "1",
+          "has_beta": true
+        }
+      },
+      "text": {
+        "tokens": 8576,
+        "wall": 14,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "key_count": true,
+          "alpha": true,
+          "has_beta": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "key_count": 3,
+          "alpha": "1",
+          "has_beta": true
+        }
+      },
+      "image": {
+        "tokens": 6364,
+        "wall": 9,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "key_count": true,
+          "alpha": true,
+          "has_beta": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 6
+        },
+        "images": [
+          "kv.cdc.png"
+        ],
+        "ans": {
+          "key_count": 3,
+          "alpha": "1",
+          "has_beta": true
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 1.84,
+      "mcp_over_image": 2.48,
+      "text_over_image": 1.35,
+      "image_vs_text_pct": 25.8
+    }
+  },
+  {
+    "target": "counter",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 10465,
+        "wall": 22,
+        "score": "2/2",
+        "ok": 2,
+        "total": 2,
+        "detail": {
+          "hits": true,
+          "misses": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 8,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "hits": 12,
+          "misses": 3
+        }
+      },
+      "text": {
+        "tokens": 3432,
+        "wall": 15,
+        "score": "2/2",
+        "ok": 2,
+        "total": 2,
+        "detail": {
+          "hits": true,
+          "misses": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "hits": 12,
+          "misses": 3
+        }
+      },
+      "image": {
+        "tokens": 7350,
+        "wall": 10,
+        "score": "1/2",
+        "ok": 1,
+        "total": 2,
+        "detail": {
+          "hits": false,
+          "misses": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 5
+        },
+        "images": [
+          "counter.cdc.png"
+        ],
+        "ans": {
+          "hits": 14,
+          "misses": 3
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 3.05,
+      "mcp_over_image": 1.42,
+      "text_over_image": 0.47,
+      "image_vs_text_pct": -114.2
+    }
+  },
+  {
+    "target": "hash",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 11594,
+        "wall": 17,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "md5": true,
+          "b64": true,
+          "decoded": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 6,
+          "openSession": 2,
+          "callPaged": 3,
+          "mcp_call_js": 2,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "md5": "5d41402abc4b2a76b9719d911017c592",
+          "b64": "aGVsbG8=",
+          "decoded": "hello"
+        }
+      },
+      "text": {
+        "tokens": 3433,
+        "wall": 13,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "md5": true,
+          "b64": true,
+          "decoded": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "md5": "5d41402abc4b2a76b9719d911017c592",
+          "b64": "aGVsbG8=",
+          "decoded": "hello"
+        }
+      },
+      "image": {
+        "tokens": 7158,
+        "wall": 10,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "md5": true,
+          "b64": true,
+          "decoded": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 5
+        },
+        "images": [
+          "hash.cdc.png"
+        ],
+        "ans": {
+          "md5": "5d41402abc4b2a76b9719d911017c592",
+          "b64": "aGVsbG8=",
+          "decoded": "hello"
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 3.38,
+      "mcp_over_image": 1.62,
+      "text_over_image": 0.48,
+      "image_vs_text_pct": -108.5
+    }
+  },
+  {
+    "target": "books",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 15590,
+        "wall": 16,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "book_count": true,
+          "top_title": true,
+          "scifi_count": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 6,
+          "openSession": 2,
+          "callPaged": 3,
+          "mcp_call_js": 2,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "book_count": 5,
+          "top_title": "Sapiens",
+          "scifi_count": 3
+        }
+      },
+      "text": {
+        "tokens": 3916,
+        "wall": 14,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "book_count": true,
+          "top_title": true,
+          "scifi_count": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 5,
+          "callPaged": 5,
+          "mcp_call_js": 5,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "book_count": 5,
+          "top_title": "Sapiens",
+          "scifi_count": 3
+        }
+      },
+      "image": {
+        "tokens": 7662,
+        "wall": 8,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "book_count": true,
+          "top_title": true,
+          "scifi_count": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 5
+        },
+        "images": [
+          "books.cdc.png"
+        ],
+        "ans": {
+          "book_count": 5,
+          "top_title": "Sapiens",
+          "scifi_count": 3
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 3.98,
+      "mcp_over_image": 2.03,
+      "text_over_image": 0.51,
+      "image_vs_text_pct": -95.7
+    }
+  },
+  {
+    "target": "inventory",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 9203,
+        "wall": 10,
+        "score": "3/4",
+        "ok": 3,
+        "total": 4,
+        "detail": {
+          "item_count": true,
+          "low_stock": true,
+          "total_value": false,
+          "warehouse_count": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 8,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "item_count": 4,
+          "low_stock": [
+            "SKU-B",
+            "SKU-D"
+          ],
+          "total_value": 55.3,
+          "warehouse_count": 2
+        }
+      },
+      "text": {
+        "tokens": 3609,
+        "wall": 13,
+        "score": "3/4",
+        "ok": 3,
+        "total": 4,
+        "detail": {
+          "item_count": true,
+          "low_stock": true,
+          "total_value": false,
+          "warehouse_count": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "item_count": 4,
+          "low_stock": [
+            "SKU-B",
+            "SKU-D"
+          ],
+          "total_value": 55.3,
+          "warehouse_count": 2
+        }
+      },
+      "image": {
+        "tokens": 6931,
+        "wall": 11,
+        "score": "3/4",
+        "ok": 3,
+        "total": 4,
+        "detail": {
+          "item_count": true,
+          "low_stock": true,
+          "total_value": false,
+          "warehouse_count": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 5
+        },
+        "images": [
+          "inventory.cdc.png"
+        ],
+        "ans": {
+          "item_count": 4,
+          "low_stock": [
+            "SKU-B",
+            "SKU-D"
+          ],
+          "total_value": 55.3,
+          "warehouse_count": 2
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 2.55,
+      "mcp_over_image": 1.33,
+      "text_over_image": 0.52,
+      "image_vs_text_pct": -92
+    }
+  },
+  {
+    "target": "queue",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 11991,
+        "wall": 19,
+        "score": "2/2",
+        "ok": 2,
+        "total": 2,
+        "detail": {
+          "size": true,
+          "peek": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 4,
+          "openSession": 2,
+          "callPaged": 3,
+          "mcp_call_js": 2,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "size": 3,
+          "peek": "job-alpha"
+        }
+      },
+      "text": {
+        "tokens": 3312,
+        "wall": 14,
+        "score": "2/2",
+        "ok": 2,
+        "total": 2,
+        "detail": {
+          "size": true,
+          "peek": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "size": 3,
+          "peek": "job-alpha"
+        }
+      },
+      "image": {
+        "tokens": 7100,
+        "wall": 9,
+        "score": "2/2",
+        "ok": 2,
+        "total": 2,
+        "detail": {
+          "size": true,
+          "peek": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 5
+        },
+        "images": [
+          "queue.cdc.png"
+        ],
+        "ans": {
+          "size": 3,
+          "peek": "job-alpha"
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 3.62,
+      "mcp_over_image": 1.69,
+      "text_over_image": 0.47,
+      "image_vs_text_pct": -114.4
+    }
+  },
+  {
+    "target": "flags",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 7327,
+        "wall": 16,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "enabled_count": true,
+          "dark_mode": true,
+          "beta_ui": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 6,
+          "openSession": 2,
+          "callPaged": 3,
+          "mcp_call_js": 2,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "enabled_count": 3,
+          "dark_mode": true,
+          "beta_ui": false
+        }
+      },
+      "text": {
+        "tokens": 9505,
+        "wall": 13,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "enabled_count": true,
+          "dark_mode": true,
+          "beta_ui": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "enabled_count": 3,
+          "dark_mode": true,
+          "beta_ui": false
+        }
+      },
+      "image": {
+        "tokens": 11824,
+        "wall": 10,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "enabled_count": true,
+          "dark_mode": true,
+          "beta_ui": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 5
+        },
+        "images": [
+          "flags.cdc.png"
+        ],
+        "ans": {
+          "enabled_count": 3,
+          "dark_mode": true,
+          "beta_ui": false
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 0.77,
+      "mcp_over_image": 0.62,
+      "text_over_image": 0.8,
+      "image_vs_text_pct": -24.4
+    }
+  },
+  {
+    "target": "geo",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 5779,
+        "wall": 14,
+        "score": "2/2",
+        "ok": 2,
+        "total": 2,
+        "detail": {
+          "city_count": true,
+          "has_paris": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 6,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "city_count": 4,
+          "has_paris": true,
+          "paris_london_km": 343.56
+        }
+      },
+      "text": {
+        "tokens": 3481,
+        "wall": 14,
+        "score": "2/2",
+        "ok": 2,
+        "total": 2,
+        "detail": {
+          "city_count": true,
+          "has_paris": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "city_count": 4,
+          "has_paris": true,
+          "paris_london_km": 343.56
+        }
+      },
+      "image": {
+        "tokens": 6665,
+        "wall": 11,
+        "score": "2/2",
+        "ok": 2,
+        "total": 2,
+        "detail": {
+          "city_count": true,
+          "has_paris": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 5
+        },
+        "images": [
+          "geo.cdc.png"
+        ],
+        "ans": {
+          "city_count": 4,
+          "has_paris": true,
+          "paris_london_km": 343.56
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 1.66,
+      "mcp_over_image": 0.87,
+      "text_over_image": 0.52,
+      "image_vs_text_pct": -91.5
+    }
+  },
+  {
+    "target": "regex",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 7816,
+        "wall": 18,
+        "score": "2/3",
+        "ok": 2,
+        "total": 3,
+        "detail": {
+          "ok": true,
+          "count": true,
+          "replaced": false
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 6,
+          "openSession": 2,
+          "callPaged": 3,
+          "mcp_call_js": 2,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "ok": true,
+          "count": 3,
+          "replaced": "a-b-c-"
+        }
+      },
+      "text": {
+        "tokens": 8632,
+        "wall": 14,
+        "score": "2/3",
+        "ok": 2,
+        "total": 3,
+        "detail": {
+          "ok": true,
+          "count": true,
+          "replaced": false
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "ok": true,
+          "count": 3,
+          "replaced": "a-b-c-"
+        }
+      },
+      "image": {
+        "tokens": 6335,
+        "wall": 11,
+        "score": "2/3",
+        "ok": 2,
+        "total": 3,
+        "detail": {
+          "ok": true,
+          "count": true,
+          "replaced": false
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 5
+        },
+        "images": [
+          "regex.cdc.png"
+        ],
+        "ans": {
+          "ok": true,
+          "count": 3,
+          "replaced": "a-b-c-"
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 0.91,
+      "mcp_over_image": 1.23,
+      "text_over_image": 1.36,
+      "image_vs_text_pct": 26.6
+    }
+  },
+  {
+    "target": "csvops",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 5629,
+        "wall": 12,
+        "score": "2/2",
+        "ok": 2,
+        "total": 2,
+        "detail": {
+          "row_count": true,
+          "sum_col1": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 4,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "row_count": 3,
+          "sum_col1": 60
+        }
+      },
+      "text": {
+        "tokens": 3537,
+        "wall": 18,
+        "score": "2/2",
+        "ok": 2,
+        "total": 2,
+        "detail": {
+          "row_count": true,
+          "sum_col1": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "row_count": 3,
+          "sum_col1": 60
+        }
+      },
+      "image": {
+        "tokens": 6477,
+        "wall": 10,
+        "score": "2/2",
+        "ok": 2,
+        "total": 2,
+        "detail": {
+          "row_count": true,
+          "sum_col1": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 5
+        },
+        "images": [
+          "csvops.cdc.png"
+        ],
+        "ans": {
+          "row_count": 3,
+          "sum_col1": 60
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 1.59,
+      "mcp_over_image": 0.87,
+      "text_over_image": 0.55,
+      "image_vs_text_pct": -83.1
+    }
+  },
+  {
+    "target": "cronish",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 5590,
+        "wall": 10,
+        "score": "2/2",
+        "ok": 2,
+        "total": 2,
+        "detail": {
+          "job_count": true,
+          "enabled_ids": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 4,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "job_count": 4,
+          "enabled_ids": [
+            "j1",
+            "j2",
+            "j4"
+          ]
+        }
+      },
+      "text": {
+        "tokens": 3476,
+        "wall": 12,
+        "score": "2/2",
+        "ok": 2,
+        "total": 2,
+        "detail": {
+          "job_count": true,
+          "enabled_ids": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "job_count": 4,
+          "enabled_ids": [
+            "j1",
+            "j2",
+            "j4"
+          ]
+        }
+      },
+      "image": {
+        "tokens": 6564,
+        "wall": 9,
+        "score": "2/2",
+        "ok": 2,
+        "total": 2,
+        "detail": {
+          "job_count": true,
+          "enabled_ids": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 5
+        },
+        "images": [
+          "cronish.cdc.png"
+        ],
+        "ans": {
+          "job_count": 4,
+          "enabled_ids": [
+            "j1",
+            "j2",
+            "j4"
+          ]
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 1.61,
+      "mcp_over_image": 0.85,
+      "text_over_image": 0.53,
+      "image_vs_text_pct": -88.8
+    }
+  },
+  {
+    "target": "uuidgen",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 7012,
+        "wall": 14,
+        "score": "2/3",
+        "ok": 2,
+        "total": 3,
+        "detail": {
+          "nil": true,
+          "is_nil_ok": false,
+          "batch_len": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 6,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "nil": "00000000-0000-0000-0000-000000000000",
+          "is_nil_ok": false,
+          "batch_len": 3
+        }
+      },
+      "text": {
+        "tokens": 3517,
+        "wall": 14,
+        "score": "2/3",
+        "ok": 2,
+        "total": 3,
+        "detail": {
+          "nil": true,
+          "is_nil_ok": false,
+          "batch_len": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "nil": "00000000-0000-0000-0000-000000000000",
+          "is_nil_ok": false,
+          "batch_len": 3
+        }
+      },
+      "image": {
+        "tokens": 7509,
+        "wall": 11,
+        "score": "2/3",
+        "ok": 2,
+        "total": 3,
+        "detail": {
+          "nil": true,
+          "is_nil_ok": false,
+          "batch_len": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 5
+        },
+        "images": [
+          "uuidgen.cdc.png"
+        ],
+        "ans": {
+          "nil": "00000000-0000-0000-0000-000000000000",
+          "is_nil_ok": false,
+          "batch_len": 3
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 1.99,
+      "mcp_over_image": 0.93,
+      "text_over_image": 0.47,
+      "image_vs_text_pct": -113.5
+    }
+  },
+  {
+    "target": "mathstat",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 19260,
+        "wall": 12,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "sum": true,
+          "mean": true,
+          "median": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 6,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "sum": 15,
+          "mean": 3,
+          "median": 3
+        }
+      },
+      "text": {
+        "tokens": 8524,
+        "wall": 14,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "sum": true,
+          "mean": true,
+          "median": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "sum": 15,
+          "mean": 3,
+          "median": 3
+        }
+      },
+      "image": {
+        "tokens": 7217,
+        "wall": 8,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "sum": true,
+          "mean": true,
+          "median": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 5
+        },
+        "images": [
+          "mathstat.cdc.png"
+        ],
+        "ans": {
+          "sum": 15,
+          "mean": 3,
+          "median": 3
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 2.26,
+      "mcp_over_image": 2.67,
+      "text_over_image": 1.18,
+      "image_vs_text_pct": 15.3
+    }
+  },
+  {
+    "target": "dateops",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 5777,
+        "wall": 13,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "add_days": true,
+          "diff_days": true,
+          "weekday": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 6,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "add_days": "2026-07-16",
+          "diff_days": 5,
+          "weekday": "Saturday"
+        }
+      },
+      "text": {
+        "tokens": 3572,
+        "wall": 14,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "add_days": true,
+          "diff_days": true,
+          "weekday": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "add_days": "2026-07-16",
+          "diff_days": 5,
+          "weekday": "Saturday"
+        }
+      },
+      "image": {
+        "tokens": 6637,
+        "wall": 12,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "add_days": true,
+          "diff_days": true,
+          "weekday": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 5
+        },
+        "images": [
+          "dateops.cdc.png"
+        ],
+        "ans": {
+          "add_days": "2026-07-16",
+          "diff_days": 5,
+          "weekday": "Saturday"
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 1.62,
+      "mcp_over_image": 0.87,
+      "text_over_image": 0.54,
+      "image_vs_text_pct": -85.8
+    }
+  },
+  {
+    "target": "cache",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 8875,
+        "wall": 10,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "seed_hit": true,
+          "seed_value": true,
+          "size": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 4,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "seed_hit": true,
+          "seed_value": "ok",
+          "size": 1
+        }
+      },
+      "text": {
+        "tokens": 3284,
+        "wall": 14,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "seed_hit": true,
+          "seed_value": true,
+          "size": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "seed_hit": true,
+          "seed_value": "ok",
+          "size": 1
+        }
+      },
+      "image": {
+        "tokens": 7111,
+        "wall": 9,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "seed_hit": true,
+          "seed_value": true,
+          "size": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 5
+        },
+        "images": [
+          "cache.cdc.png"
+        ],
+        "ans": {
+          "seed_hit": true,
+          "seed_value": "ok",
+          "size": 1
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 2.7,
+      "mcp_over_image": 1.25,
+      "text_over_image": 0.46,
+      "image_vs_text_pct": -116.5
+    }
+  }
+]

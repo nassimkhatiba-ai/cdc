@@ -173,6 +173,12 @@ async function cmdFromMcp(args) {
     process.exit(1);
   }
 
+  // Image skill is MAIN by default. --text / --no-image keeps text SKILL.md primary.
+  if (args.flags.text || args.flags['no-image'] || args.flags['text-primary']) {
+    process.env.CDC_IMAGE = '0';
+  } else if (args.flags.image || args.flags['image-primary']) {
+    process.env.CDC_IMAGE = '1';
+  }
   const { outDir, stats } = compileMCP({
     tools,
     name,
@@ -226,6 +232,8 @@ async function cmdFromMcp(args) {
     outDir,
     installed,
     warmed,
+    imagePages: stats.imagePages || null,
+    imagePrimary: stats.imagePrimary || false,
     howToUse: win.howToUse,
     nextStep: win.nextStep,
     userNotice: win.userNotice,
@@ -345,6 +353,8 @@ Output: one JSON line (add --verbose for pretty).
 Flags: --no-install  --skills-dir DIR  --target claude|codex|both|auto
        --out DIR  --title T  --http-base URL  --skill-name N (from-config)
        --no-warm  (skip daemon pre-warm)
+       --image    (default: SKILL.md pointer + .cdc.png primary)
+       --text     (keep full text SKILL.md primary; still emit .cdc.png)
 `);
     process.exit(0);
   }

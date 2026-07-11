@@ -29,3 +29,19 @@ concept/image-skill/out/
 concept/image-skill/packages/
 concept/image-skill/bench/
 concept/image-skill/logs/
+
+# mega40 live bench runtime (large Codex homes)
+implementer/mega40/homes/
+implementer/mega40/logs/
+implementer/mega40/.cdc-build/
+implementer/mega40/skills-text/
+implementer/mega40/skills-image/
+implementer/mega40/node_modules/
+implementer/mega20/homes/
+implementer/mega20/logs/
+implementer/mega20/.cdc-build/
+implementer/mega20/node_modules/
+implementer/complex/homes/
+concept/image-skill/bench/homes/
+implementer/mega40/fixtures-mega20
+implementer/mega40/fixtures
