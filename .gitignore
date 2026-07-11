@@ -5,3 +5,24 @@ test/.tmp-out/
 .env
 .claude/
 .cdc-build/
+
+# local DBs / fixture noise
+database.db
+*.db-shm
+*.db-wal
+
+# implementer harness bulk (sessions, homes, node_modules)
+implementer/**/node_modules/
+implementer/**/homes/
+implementer/**/logs/
+implementer/**/.cdc-build/
+implementer/**/.playwright-mcp/
+implementer/mega20/fixtures/*.db
+implementer/mega20/fixtures/*.db-*
+implementer/mega20/database.db
+
+# concept render caches
+concept/**/out/
+implementer/**/skills/.system/
+implementer/mega20/fixtures/gitrepo/
+concept/image-skill/out/

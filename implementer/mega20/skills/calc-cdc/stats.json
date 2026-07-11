@@ -1,0 +1,22 @@
+{
+  "name": "calc",
+  "title": "calc",
+  "source": "mcp",
+  "mode": "mcp",
+  "skillTier": "cli",
+  "tools": 4,
+  "endpoints": 4,
+  "sourceBytes": 1237,
+  "sourceTokens": 378,
+  "mcpSchemaTokens": 378,
+  "cdcBytes": 316,
+  "cdcTokens": 127,
+  "skillBytes": 1021,
+  "skillTokens": 471,
+  "generatedAt": "2026-07-11T13:44:18.748Z",
+  "compressionSourceToCdc": 3,
+  "compressionSourceToSkill": 0.8,
+  "definitionTaxMcp": 378,
+  "definitionTaxCdc": 471,
+  "definitionSavingsRatio": 0.8
+}

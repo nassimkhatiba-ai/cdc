@@ -1,0 +1,21 @@
+{
+  "name": "time",
+  "title": "time",
+  "source": "mcp",
+  "mode": "mcp",
+  "tools": 2,
+  "endpoints": 2,
+  "sourceBytes": 1655,
+  "sourceTokens": 530,
+  "mcpSchemaTokens": 530,
+  "cdcBytes": 335,
+  "cdcTokens": 114,
+  "skillBytes": 1563,
+  "skillTokens": 577,
+  "generatedAt": "2026-07-11T11:37:54.038Z",
+  "compressionSourceToCdc": 4.6,
+  "compressionSourceToSkill": 0.9,
+  "definitionTaxMcp": 530,
+  "definitionTaxCdc": 577,
+  "definitionSavingsRatio": 0.9
+}

@@ -1,0 +1,126 @@
+[
+  {
+    "target": "tradingview",
+    "auth": true,
+    "mcp_tokens": 13827,
+    "mcp_wall": 19,
+    "mcp_score": "5/5",
+    "mcp_ok": 5,
+    "mcp_total": 5,
+    "mcp_detail": {
+      "tool_count": true,
+      "has_top_gainers": true,
+      "has_market_sentiment": true,
+      "has_coin_analysis": true,
+      "gainers_nonempty": true
+    },
+    "mcp_ans": {
+      "tool_count": 27,
+      "has_top_gainers": true,
+      "has_market_sentiment": true,
+      "has_coin_analysis": true,
+      "gainers_nonempty": true
+    },
+    "mcp_purity": {
+      "curl": 0,
+      "gh_cli": 0,
+      "sqlite3_cli": 0,
+      "mcp_calls": 2,
+      "openSession": 0,
+      "callPaged": 0,
+      "mcp_call_js": 0
+    },
+    "use_tokens": 17301,
+    "use_wall": 21,
+    "use_score": "5/5",
+    "use_ok": 5,
+    "use_total": 5,
+    "use_detail": {
+      "tool_count": true,
+      "has_top_gainers": true,
+      "has_market_sentiment": true,
+      "has_coin_analysis": true,
+      "gainers_nonempty": true
+    },
+    "use_ans": {
+      "tool_count": 27,
+      "has_top_gainers": true,
+      "has_market_sentiment": true,
+      "has_coin_analysis": true,
+      "gainers_nonempty": true
+    },
+    "use_purity": {
+      "curl": 0,
+      "gh_cli": 0,
+      "sqlite3_cli": 0,
+      "mcp_calls": 0,
+      "openSession": 4,
+      "callPaged": 0,
+      "mcp_call_js": 7
+    }
+  },
+  {
+    "target": "calc",
+    "auth": false,
+    "mcp_tokens": 17232,
+    "mcp_wall": 16,
+    "mcp_score": "6/6",
+    "mcp_ok": 6,
+    "mcp_total": 6,
+    "mcp_detail": {
+      "add": true,
+      "mul": true,
+      "pow": true,
+      "mean": true,
+      "min": true,
+      "max": true
+    },
+    "mcp_ans": {
+      "add": 42,
+      "mul": 56,
+      "pow": 81,
+      "mean": 5,
+      "min": 1,
+      "max": 9
+    },
+    "mcp_purity": {
+      "curl": 0,
+      "gh_cli": 0,
+      "sqlite3_cli": 0,
+      "mcp_calls": 8,
+      "openSession": 2,
+      "callPaged": 3,
+      "mcp_call_js": 2
+    },
+    "use_tokens": 7348,
+    "use_wall": 14,
+    "use_score": "6/6",
+    "use_ok": 6,
+    "use_total": 6,
+    "use_detail": {
+      "add": true,
+      "mul": true,
+      "pow": true,
+      "mean": true,
+      "min": true,
+      "max": true
+    },
+    "use_ans": {
+      "add": 42,
+      "mul": 56,
+      "pow": 81,
+      "mean": 5,
+      "min": 1,
+      "max": 9
+    },
+    "use_purity": {
+      "curl": 0,
+      "gh_cli": 0,
+      "sqlite3_cli": 0,
+      "mcp_calls": 0,
+      "openSession": 1,
+      "callPaged": 0,
+      "mcp_call_js": 4
+    }
+  }
+]

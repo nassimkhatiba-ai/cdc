@@ -1,0 +1,21 @@
+{
+  "name": "todo",
+  "title": "todo",
+  "source": "mcp",
+  "mode": "mcp",
+  "tools": 4,
+  "endpoints": 4,
+  "sourceBytes": 910,
+  "sourceTokens": 287,
+  "mcpSchemaTokens": 287,
+  "cdcBytes": 351,
+  "cdcTokens": 122,
+  "skillBytes": 1569,
+  "skillTokens": 584,
+  "generatedAt": "2026-07-11T11:37:57.481Z",
+  "compressionSourceToCdc": 2.4,
+  "compressionSourceToSkill": 0.5,
+  "definitionTaxMcp": 287,
+  "definitionTaxCdc": 584,
+  "definitionSavingsRatio": 0.5
+}

@@ -1,0 +1,21 @@
+{
+  "name": "memory",
+  "title": "memory",
+  "source": "mcp",
+  "mode": "mcp",
+  "tools": 9,
+  "endpoints": 9,
+  "sourceBytes": 18645,
+  "sourceTokens": 5082,
+  "mcpSchemaTokens": 5082,
+  "cdcBytes": 1142,
+  "cdcTokens": 382,
+  "skillBytes": 2268,
+  "skillTokens": 816,
+  "generatedAt": "2026-07-11T11:37:44.791Z",
+  "compressionSourceToCdc": 13.3,
+  "compressionSourceToSkill": 6.2,
+  "definitionTaxMcp": 5082,
+  "definitionTaxCdc": 816,
+  "definitionSavingsRatio": 6.2
+}

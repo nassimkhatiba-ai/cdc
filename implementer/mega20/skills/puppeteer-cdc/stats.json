@@ -1,0 +1,21 @@
+{
+  "name": "puppeteer",
+  "title": "puppeteer",
+  "source": "mcp",
+  "mode": "mcp",
+  "tools": 7,
+  "endpoints": 7,
+  "sourceBytes": 3644,
+  "sourceTokens": 1103,
+  "mcpSchemaTokens": 1103,
+  "cdcBytes": 843,
+  "cdcTokens": 287,
+  "skillBytes": 1993,
+  "skillTokens": 723,
+  "generatedAt": "2026-07-11T11:37:50.408Z",
+  "compressionSourceToCdc": 3.8,
+  "compressionSourceToSkill": 1.5,
+  "definitionTaxMcp": 1103,
+  "definitionTaxCdc": 723,
+  "definitionSavingsRatio": 1.5
+}

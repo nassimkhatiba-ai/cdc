@@ -62,6 +62,8 @@ function installToDirs(srcDir, skillFolderName, dirs) {
     if (fs.existsSync(skillMd)) {
       const text = fs.readFileSync(skillMd, 'utf8');
       if (text.includes('__SKILL_DIR__')) {
+        // Keep paths shell-safe (dirs may contain ';', spaces, etc.).
+        // Templates already quote shell paths as '__SKILL_DIR__/...'.
         fs.writeFileSync(skillMd, text.split('__SKILL_DIR__').join(dest));
       }
     }

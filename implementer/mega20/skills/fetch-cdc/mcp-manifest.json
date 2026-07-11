@@ -1,0 +1,9 @@
+{
+  "name": "fetch",
+  "mode": "mcp",
+  "command": "/Users/nesbes/mcp-a;t/implementer/mega20/homes/fetch/fetch-mcp.sh",
+  "args": [],
+  "envToken": "CDC_FETCH_TOKEN",
+  "tools": 1,
+  "note": "Prefer an installed binary over npx -y to avoid network cold starts."
+}

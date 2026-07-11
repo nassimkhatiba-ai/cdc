@@ -166,11 +166,11 @@ function buildDirectFsPackage({ name, root, tools, snapshot }) {
         snapshot.skillBlock,
         '```',
         '',
-        'If reality differs from this snapshot: `node __SKILL_DIR__/q.js recon`.',
+        'If reality differs from this snapshot: `node \'__SKILL_DIR__/q.js\' recon`.',
       ]
     : [
         'No layout snapshot (root unavailable at build time). First run:',
-        '`node __SKILL_DIR__/q.js recon` (bounded output), then ONE compute script.',
+        '`node \'__SKILL_DIR__/q.js\' recon` (bounded output), then ONE compute script.',
       ];
 
   const skill = [
@@ -262,69 +262,181 @@ function buildHttpPackage({ name, title, httpBase, envVar, tools }) {
  * SHORT skill for general MCP servers (bridge mode).
  * The bridge keeps ONE server session per script — per-call spawning was the
  * single biggest latency regression in live A/B runs.
+ *
+ * UX goal (mega-20 lesson): after convert, the agent must feel faster + cheaper
+ * than connected MCP. That means:
+ *   - Prefer CLI one-liners / --batch (no openSession boilerplate) for simple work
+ *   - Only teach openSession/callPaged when tools actually paginate or need multi-step
+ *   - Never put a fake callPaged example in every skill (agents thrash on minis)
  */
+function toolLooksPaginated(tool) {
+  const schema = tool.inputSchema || tool.input_schema || {};
+  const props = schema.properties || {};
+  const keys = Object.keys(props).map((k) => k.toLowerCase());
+  // Real list pagination: page/cursor/offset (+ optional page size).
+  // Do NOT treat bare `limit` as pagination — almost every tool has limit
+  // (tradingview top_gainers etc.) and that forced callPaged thrash in mega-20.
+  const hasPage = keys.some((k) =>
+    /^(page|page_number|pagenumber|cursor|offset|skip|after|next_token|continuation_token)$/.test(k),
+  );
+  const hasPageSize = keys.some((k) =>
+    /^(per_page|page_size|pagesize|limit|count|take|size)$/.test(k),
+  );
+  if (hasPage) return true;
+  // page_size alone without page is weak; require explicit pagination language
+  const blob = `${tool.name} ${tool.description || ''}`.toLowerCase();
+  if (hasPageSize && /\bpaginat/.test(blob)) return true;
+  return /\bpaginat/.test(blob) && /\b(list|search|find|query|all pages)\b/.test(blob);
+}
+
+
+function firstPaginatedToolName(tools) {
+  const t = (tools || []).find(toolLooksPaginated);
+  return t ? t.name : null;
+}
+
+function sampleArgsForTool(tool) {
+  const schema = tool.inputSchema || tool.input_schema || {};
+  const props = schema.properties || {};
+  const required = Array.isArray(schema.required) && schema.required.length
+    ? schema.required
+    : Object.keys(props).slice(0, 3);
+  const args = {};
+  for (const k of required.slice(0, 5)) {
+    const p = props[k] || {};
+    if (p.default !== undefined) args[k] = p.default;
+    else if (Array.isArray(p.enum) && p.enum.length) args[k] = p.enum[0];
+    else if (p.type === 'integer' || p.type === 'number') args[k] = 1;
+    else if (p.type === 'boolean') args[k] = true;
+    else if (p.type === 'array' || p.items) args[k] = [];
+    else if (p.type === 'object' || p.properties) args[k] = {};
+    else args[k] = 'x';
+  }
+  return args;
+}
+
 function buildMcpBridgePackage({ name, title, tools }) {
   const { byTag, tags } = groupTools(tools);
   const firstTag = tags[0] || 'misc';
   const tagDir = tags.map((t) => `- ${t} (${byTag.get(t).length})`).join('\n');
+  const nTools = (tools || []).length;
+  const pageTool = firstPaginatedToolName(tools);
+  const hasPaging = Boolean(pageTool);
+  // "Simple" = small surface + no pagination. CLI/batch is enough; multi-step
+  // scripts are pure overhead (mega-20 calc/todo/weather).
+  const simple = nTools <= 12 && !hasPaging;
 
-  // Small/medium servers: inline the full signature index in SKILL.md.
-  // Grep-into-CDC.md indirection saved tokens on 1000-endpoint APIs but COST
-  // whole turns on a 24-tool server (see playwright A/B) — a few hundred
-  // inline tokens are cheaper than one grep round trip.
   const indexBody = tags
     .map((t) => `### ${t}\n` + byTag.get(t).join('\n'))
     .join('\n');
-  // Threshold calibrated from the playwright A/B: one grep round trip costs
-  // more input tokens than a ~1k inline index, and inline can't thrash.
-  const inlineIndex = estimateTokens(indexBody) <= 1000;
+  // Prefer inline tool index for speed: recon greps burn a full agent turn.
+  const inlineIndex = estimateTokens(indexBody) <= 1400;
 
+  // Always ship tool NAMES in SKILL.md so agents can answer "what tools?"
+  // without grepping CDC.md (mega-20 tradingview thrash).
+  const nameList = (tools || []).map((x) => x.name).join(', ');
   const toolSection = inlineIndex
     ? ['## Tools', '', indexBody]
     : [
-        'Tool signatures: grep CDC.md — do not read the whole file:',
-        `\`grep -A 20 "^## ${firstTag}" __SKILL_DIR__/CDC.md\``,
+        '## Tools (names)',
+        '',
+        nameList,
+        '',
+        "Args: only if a call fails, `grep -A 12 \"^## <tool>\" '__SKILL_DIR__/CDC.md'` once. Do not cat CDC.md.",
         '',
         'Groups:',
         tagDir,
       ];
 
-  const skill = [
+  // Example tools for a REAL batch (prefer short non-paging tools)
+  const nonPage = (tools || []).filter((t) => !toolLooksPaginated(t));
+  const batchTools = (nonPage.length ? nonPage : tools || []).slice(0, Math.min(4, nTools || 1));
+  const exampleTool = batchTools[0]?.name || (tools || [])[0]?.name || 'tool_name';
+  const batchSpec = batchTools.map((t) => ({
+    tool: t.name,
+    args: sampleArgsForTool(t),
+  }));
+  const batchJson = JSON.stringify(batchSpec);
+  const singleArgs = JSON.stringify(sampleArgsForTool(batchTools[0] || { inputSchema: {} }));
+
+  // SPEED-FIRST: lead with one copy-pasteable --batch; ban recon unless failure.
+  const lines = [
     '---',
     `name: ${name}-cdc`,
-    `description: Call ${title} via short Node scripts (CDC). Compact tool index; no full MCP schemas in context. Use for ${name}.`,
+    `description: Fast CDC for ${title}. ONE shell --batch (no MCP schemas). Use ${name}-cdc skill.`,
     '---',
     '',
     `# ${title}`,
     '',
-    'Plain calls need NO script: `node __SKILL_DIR__/mcp-call.js <tool> \'<json-args>\'` · batch: `--batch \'[{"tool":"t","args":{}},...]\'`',
+    '**No connected MCP.** Skill only. **Speed: ONE shell call, then final answer.**',
     '',
-    'Multi-step / aggregation — ONE inline script (bash heredoc, never a script file):',
+    '## Call (do this first)',
     '',
     '```bash',
-    "node - <<'EOF'",
-    "const { openSession, callPaged } = require('__SKILL_DIR__/mcp-call.js');",
-    '(async () => {',
-    '  const s = await openSession();',
-    "  const rows = await callPaged(s, 'list_tool', { /* filters */ }); // fetches ALL pages",
-    "  const one = await s.call('tool_name', { /* args */ });",
-    '  console.log(JSON.stringify(answer)); // aggregate in code first',
-    '  s.close();',
-    '})();',
-    'EOF',
+    `node '__SKILL_DIR__/mcp-call.js' --batch '${batchJson}'`,
     '```',
     '',
-    'A background daemon keeps the server warm: repeat calls skip cold start and server STATE (browser pages, auth sessions) persists across scripts. `daemon-stop` ends it; env `CDC_MCP_DAEMON=0` disables.',
+    `Single tool: \`node '__SKILL_DIR__/mcp-call.js' ${exampleTool} '${singleArgs}'\``,
     '',
-    'Rules:',
-    '1. ONE session per script — never one per call.',
-    '2. List tools paginate — use callPaged, never just page 1. Aggregate in code; print ONLY the final compact JSON in the EXACT requested shape.',
-    '3. Tool prose is not an answer — extract the value. Named resource (id, owner/name)? Direct lookup, never global search.',
-    '4. Empty/zero/implausible result = bug: re-check args against the signatures. Max 2 runs.',
+    'Daemon is warm (install pre-start). Do **not** list tools first — names are below.',
     '',
-    ...toolSection,
-    '',
-  ].join('\n');
+  ];
+
+  if (!simple) {
+    lines.push(
+      '## Multi-step only if batch cannot aggregate',
+      '',
+      '```bash',
+      "node - <<'EOF'",
+      "const { openSession" + (hasPaging ? ', callPaged' : '') + " } = require('__SKILL_DIR__/mcp-call.js');",
+      '(async () => {',
+      '  const s = await openSession();',
+    );
+    if (hasPaging) {
+      lines.push(
+        `  const rows = await callPaged(s, '${pageTool}', { /* filters */ }); // ALL pages`,
+      );
+    }
+    lines.push(
+      `  const one = await s.call('${exampleTool}', ${singleArgs});`,
+      '  console.log(JSON.stringify(/* compact answer */));',
+      '  s.close();',
+      '})();',
+      'EOF',
+      '```',
+      '',
+    );
+  }
+
+  lines.push('## Rules', '');
+  if (simple) {
+    lines.push(
+      '1. **ONE** `--batch` (or one single call). No openSession. No CDC.md. No tool listing.',
+      '2. Print ONLY compact final JSON in the exact shape asked.',
+      '3. Wrong/empty: fix args from Tools below. Max **1** retry (2 shell runs total).',
+      '',
+    );
+  } else {
+    lines.push(
+      '1. **Prefer ONE `--batch`** for 1–N tools. openSession only for loops/pages.',
+    );
+    if (hasPaging) {
+      lines.push(
+        `2. Paginated lists (e.g. \`${pageTool}\`): callPaged — never page 1 only.`,
+      );
+    } else {
+      lines.push('2. Aggregate in code; print ONLY compact final JSON.');
+    }
+    lines.push(
+      '3. Tool names are below — do **not** run bare `mcp-call.js` to list first.',
+      '4. No full CDC.md. Grep one tool only after a failed call. Max **2** shell runs.',
+      '',
+    );
+  }
+
+  lines.push(...toolSection, '');
+
+  const skill = lines.join('\n');
 
   const cdc = renderCdcIndex({
     title: `${title} - CDC`,
@@ -333,11 +445,20 @@ function buildMcpBridgePackage({ name, title, tools }) {
     tags,
     headerLines: [
       `Source: MCP tools/list (${tools.length} tools)`,
-      'Use mcp-call.js openSession() from a script; print answer only.',
+      simple
+        ? 'Prefer: node mcp-call.js --batch (ONE shell call)'
+        : 'Prefer: --batch first; openSession only for multi-step' +
+          (hasPaging ? `; callPaged for ${pageTool}` : ''),
     ],
   });
 
-  return { skill, cdc, mode: 'mcp' };
+  return {
+    skill,
+    cdc,
+    mode: 'mcp',
+    skillTier: simple ? 'cli' : hasPaging ? 'paged' : 'multi',
+    hasPaging,
+  };
 }
 
 function buildMcpCallHelper({ mcpCommand, mcpArgs, name }) {
@@ -763,6 +884,7 @@ function compileMCP({
   let cdc;
   let mode;
   let rootOut = null;
+  let skillTier = null;
 
   if (httpBase) {
     ({ skill, cdc, mode } = buildHttpPackage({
@@ -783,12 +905,17 @@ function compileMCP({
       tools,
       snapshot,
     }));
+    skillTier = 'direct-fs';
   } else {
-    ({ skill, cdc, mode } = buildMcpBridgePackage({
+    const bridge = buildMcpBridgePackage({
       name,
       title: displayTitle,
       tools,
-    }));
+    });
+    skill = bridge.skill;
+    cdc = bridge.cdc;
+    mode = bridge.mode;
+    skillTier = bridge.skillTier || 'multi';
   }
 
   const outDir = path.join(outRoot, name);
@@ -799,6 +926,7 @@ function compileMCP({
     title: displayTitle,
     source: 'mcp',
     mode,
+    skillTier: skillTier || mode,
     tools: tools.length,
     endpoints: tools.length,
     sourceBytes: Buffer.byteLength(raw),
@@ -816,6 +944,7 @@ function compileMCP({
   stats.definitionTaxMcp = stats.mcpSchemaTokens;
   stats.definitionTaxCdc = stats.skillTokens;
   stats.definitionSavingsRatio = +(stats.definitionTaxMcp / Math.max(1, stats.definitionTaxCdc)).toFixed(1);
+
 
   writePackage(outDir, { cdc, skill, stats });
 
@@ -942,4 +1071,7 @@ module.exports = {
   toolLine,
   descOf,
   detectFilesystemRoot,
+  toolLooksPaginated,
+  firstPaginatedToolName,
 };
+

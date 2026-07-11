@@ -1,0 +1,21 @@
+{
+  "name": "chromedevtools",
+  "title": "chromedevtools",
+  "source": "mcp",
+  "mode": "mcp",
+  "tools": 29,
+  "endpoints": 29,
+  "sourceBytes": 32206,
+  "sourceTokens": 9902,
+  "mcpSchemaTokens": 9902,
+  "cdcBytes": 4271,
+  "cdcTokens": 1416,
+  "skillBytes": 1753,
+  "skillTokens": 672,
+  "generatedAt": "2026-07-11T11:37:59.312Z",
+  "compressionSourceToCdc": 7,
+  "compressionSourceToSkill": 14.7,
+  "definitionTaxMcp": 9902,
+  "definitionTaxCdc": 672,
+  "definitionSavingsRatio": 14.7
+}

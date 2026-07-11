@@ -1,0 +1,9 @@
+{
+  "name": "context7",
+  "mode": "mcp",
+  "command": "/Users/nesbes/mcp-a;t/implementer/mega20/homes/context7/context7-mcp.sh",
+  "args": [],
+  "envToken": "CDC_CONTEXT7_TOKEN",
+  "tools": 2,
+  "note": "Prefer an installed binary over npx -y to avoid network cold starts."
+}

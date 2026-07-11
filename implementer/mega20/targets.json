@@ -1,0 +1,517 @@
+[
+  {
+    "id": "everything",
+    "auth": false,
+    "command": [
+      "npx",
+      "-y",
+      "@modelcontextprotocol/server-everything"
+    ],
+    "skill": "everything-cdc",
+    "truth": {
+      "echo_result": "cdc-bench-ok",
+      "add_sum": 42,
+      "has_echo": true,
+      "has_add": true,
+      "tool_count_min": 5
+    },
+    "score_keys": [
+      "echo_result",
+      "add_sum",
+      "has_echo",
+      "has_add",
+      "tool_count_min"
+    ],
+    "prompt_mcp": "hey use the everything MCP. call echo with message cdc-bench-ok, call add/get-sum with a=20 b=22, list tools. return json only: echo_result (string content only, no Echo: prefix), add_sum (number), tool_count (number), has_echo (bool), has_add (bool true if add or get-sum exists). use MCP tools not shell.",
+    "prompt_use": "hey use the everything-cdc skill: echo message cdc-bench-ok, add/get-sum 20+22, count tools. json exact: echo_result (string), add_sum (number), tool_count (number), has_echo (bool), has_add (bool). extract values; skill bridge only."
+  },
+  {
+    "id": "memory",
+    "auth": false,
+    "command": [
+      "npx",
+      "-y",
+      "@modelcontextprotocol/server-memory"
+    ],
+    "env": {
+      "MEMORY_FILE_PATH": "FIXTURES/mem.jsonl"
+    },
+    "skill": "memory-cdc",
+    "truth": {
+      "entity_count": 35,
+      "relation_count": 56,
+      "person_count": 20,
+      "company_count": 5,
+      "highest_salary_person": "Hana Sol",
+      "highest_salary": 220000,
+      "largest_company_by_employees": "Cedar Health"
+    },
+    "score_keys": [
+      "entity_count",
+      "relation_count",
+      "person_count",
+      "company_count",
+      "highest_salary_person",
+      "highest_salary",
+      "largest_company_by_employees"
+    ],
+    "prompt_mcp": "hey use the memory MCP knowledge graph. return json only: entity_count, relation_count, person_count, company_count, highest_salary_person, highest_salary (number), largest_company_by_employees. use MCP tools not shell.",
+    "prompt_use": "hey use the memory-cdc skill. return json exact: entity_count, relation_count, person_count, company_count, highest_salary_person, highest_salary, largest_company_by_employees. skill bridge only; aggregate in code."
+  },
+  {
+    "id": "filesystem",
+    "auth": false,
+    "command": [
+      "npx",
+      "-y",
+      "@modelcontextprotocol/server-filesystem",
+      "FIXTURES/fsroot"
+    ],
+    "skill": "filesystem-cdc",
+    "truth": {
+      "readme_content": "cdc-fs-readme",
+      "note_has_token": true,
+      "search_hit": "needle-findme",
+      "has_subdir": true,
+      "allowed_count_min": 1
+    },
+    "score_keys": [
+      "readme_content",
+      "note_has_token",
+      "search_hit",
+      "has_subdir",
+      "allowed_count_min"
+    ],
+    "prompt_mcp": "hey use the filesystem MCP on the allowed root. return json: readme_content (contents of readme.txt trimmed), note_has_token (bool true if subdir/note.txt contains XYZ), search_hit (the line containing needle-findme from data.csv), has_subdir (bool), allowed_count (number of allowed dirs). use MCP tools not shell cat.",
+    "prompt_use": "hey use the filesystem-cdc skill. return json exact: readme_content, note_has_token, search_hit, has_subdir, allowed_count. skill bridge only."
+  },
+  {
+    "id": "sequential",
+    "auth": false,
+    "command": [
+      "npx",
+      "-y",
+      "@modelcontextprotocol/server-sequential-thinking"
+    ],
+    "skill": "sequential-cdc",
+    "truth": {
+      "used_tool": true,
+      "thought_steps_min": 1,
+      "has_answer": true
+    },
+    "score_keys": [
+      "used_tool",
+      "thought_steps_min",
+      "has_answer"
+    ],
+    "prompt_mcp": "hey use the sequentialthinking MCP tool to reason: what is 17*19? return json: used_tool (bool), thought_steps (number of thoughts/steps), answer (number 323), has_answer (bool). use MCP not mental-only.",
+    "prompt_use": "hey use the sequential-cdc skill sequentialthinking tool for 17*19. json: used_tool, thought_steps, answer, has_answer. skill bridge only."
+  },
+  {
+    "id": "sqlite",
+    "auth": false,
+    "command": [
+      "node",
+      "BIN/sqlite-mcp.js",
+      "/tmp/mega20-shop.db"
+    ],
+    "skill": "sqlite-cdc",
+    "truth": {
+      "product_count": 6,
+      "order_count": 8,
+      "delivered_revenue": 264.5,
+      "top_delivered_product_by_qty": "Novel A",
+      "categories": [
+        "books",
+        "gear"
+      ]
+    },
+    "score_keys": [
+      "product_count",
+      "order_count",
+      "delivered_revenue",
+      "top_delivered_product_by_qty",
+      "categories"
+    ],
+    "prompt_mcp": "hey use the sqlite MCP on the shop database. return json: product_count, order_count, delivered_revenue (sum qty*price for delivered, 2 decimals), top_delivered_product_by_qty (product NAME string), categories (sorted unique string array). MCP SQL tools only, not shell sqlite3.",
+    "prompt_use": "hey use the sqlite-cdc skill. json exact: product_count, order_count, delivered_revenue, top_delivered_product_by_qty (string name only), categories (sorted array). aggregate in code.",
+    "env": {
+      "SQLITE_DB_PATH": "/tmp/mega20-shop.db"
+    }
+  },
+  {
+    "id": "playwright",
+    "auth": false,
+    "command": [
+      "npx",
+      "-y",
+      "@playwright/mcp",
+      "--headless"
+    ],
+    "skill": "playwright-cdc",
+    "needs_http": true,
+    "truth": {
+      "page_title": "CDC Test Shop",
+      "shop_name": "Nebula Outfitters",
+      "tagline": "Gear for night hikers",
+      "product_count": 4,
+      "promo_code": "SUMMER25",
+      "contact_email": "shop@nebula.test",
+      "total_price": 175.75
+    },
+    "score_keys": [
+      "page_title",
+      "shop_name",
+      "tagline",
+      "product_count",
+      "promo_code",
+      "contact_email",
+      "total_price"
+    ],
+    "prompt_mcp": "hey use the playwright MCP headless. open http://127.0.0.1:8766/store.html and return json: page_title, shop_name, tagline, product_count, product_names, promo_code, contact_email, total_price (sum of data-price). MCP browser tools only.",
+    "prompt_use": "hey use the playwright-cdc skill. open http://127.0.0.1:8766/store.html. json: page_title, shop_name, tagline, product_count, product_names, promo_code, contact_email, total_price. skill bridge only."
+  },
+  {
+    "id": "puppeteer",
+    "auth": false,
+    "command": [
+      "npx",
+      "-y",
+      "@modelcontextprotocol/server-puppeteer"
+    ],
+    "skill": "puppeteer-cdc",
+    "needs_http": true,
+    "truth": {
+      "page_title": "CDC Test Shop",
+      "shop_name": "Nebula Outfitters",
+      "product_count": 4,
+      "promo_code": "SUMMER25",
+      "total_price": 175.75
+    },
+    "score_keys": [
+      "page_title",
+      "shop_name",
+      "product_count",
+      "promo_code",
+      "total_price"
+    ],
+    "prompt_mcp": "hey use the puppeteer MCP. navigate to http://127.0.0.1:8766/store.html and return json: page_title, shop_name (h1 text), product_count, promo_code, total_price (sum data-price). MCP tools only.",
+    "prompt_use": "hey use the puppeteer-cdc skill. navigate to http://127.0.0.1:8766/store.html. json: page_title, shop_name, product_count, promo_code, total_price. skill bridge only."
+  },
+  {
+    "id": "context7",
+    "auth": false,
+    "command": [
+      "npx",
+      "-y",
+      "@upstash/context7-mcp"
+    ],
+    "skill": "context7-cdc",
+    "truth": {
+      "resolved": true,
+      "library_id_has_slash": true,
+      "docs_nonempty": true
+    },
+    "score_keys": [
+      "resolved",
+      "library_id_has_slash",
+      "docs_nonempty"
+    ],
+    "prompt_mcp": "hey use the context7 MCP. resolve library id for react, then query docs about useState. return json: resolved (bool), library_id (string), library_id_has_slash (bool), docs_nonempty (bool), snippet (short string from docs). MCP tools only.",
+    "prompt_use": "hey use the context7-cdc skill. resolve react library id then query useState docs. json: resolved, library_id, library_id_has_slash, docs_nonempty, snippet. skill bridge only."
+  },
+  {
+    "id": "git",
+    "auth": false,
+    "command": [
+      "uvx",
+      "mcp-server-git",
+      "--repository",
+      "FIXTURES/gitrepo"
+    ],
+    "skill": "git-cdc",
+    "truth": {
+      "has_readme": true,
+      "branch_main_or_master": true,
+      "has_unstaged_change": true,
+      "log_nonempty": true
+    },
+    "score_keys": [
+      "has_readme",
+      "branch_main_or_master",
+      "has_unstaged_change",
+      "log_nonempty"
+    ],
+    "prompt_mcp": "hey use the git MCP on the fixture repo. return json: has_readme (bool if README.md tracked), branch (current branch name), branch_main_or_master (bool), has_unstaged_change (bool), log_nonempty (bool if git log has commits), latest_subject (latest commit subject). MCP tools only not shell git.",
+    "prompt_use": "hey use the git-cdc skill. json: has_readme, branch, branch_main_or_master, has_unstaged_change, log_nonempty, latest_subject. skill bridge only."
+  },
+  {
+    "id": "time",
+    "auth": false,
+    "command": [
+      "uvx",
+      "mcp-server-time"
+    ],
+    "skill": "time-cdc",
+    "truth": {
+      "has_utc": true,
+      "has_ny": true,
+      "converted": true
+    },
+    "score_keys": [
+      "has_utc",
+      "has_ny",
+      "converted"
+    ],
+    "prompt_mcp": "hey use the time MCP. get current time in UTC and America/New_York, and convert a fixed time. return json: utc_iso (string), ny_time (string), has_utc (bool), has_ny (bool), converted (bool true if convert_time worked), convert_result (string). MCP tools only.",
+    "prompt_use": "hey use the time-cdc skill. get UTC and America/New_York times and convert. json: utc_iso, ny_time, has_utc, has_ny, converted, convert_result. skill bridge only."
+  },
+  {
+    "id": "fetch",
+    "auth": false,
+    "command": [
+      "uvx",
+      "mcp-server-fetch"
+    ],
+    "skill": "fetch-cdc",
+    "needs_http": true,
+    "truth": {
+      "status_ok": true,
+      "has_shop_name": true,
+      "has_promo": true
+    },
+    "score_keys": [
+      "status_ok",
+      "has_shop_name",
+      "has_promo"
+    ],
+    "prompt_mcp": "hey use the fetch MCP to fetch http://127.0.0.1:8766/store.html. return json: status_ok (bool), has_shop_name (bool if body has Nebula Outfitters), has_promo (bool if SUMMER25 present), title_guess (string). MCP fetch tool only not curl.",
+    "prompt_use": "hey use the fetch-cdc skill to fetch http://127.0.0.1:8766/store.html. json: status_ok, has_shop_name, has_promo, title_guess. skill bridge only."
+  },
+  {
+    "id": "tradingview",
+    "auth": true,
+    "command": [
+      "tradingview-mcp"
+    ],
+    "skill": "tradingview-cdc",
+    "truth": {
+      "tool_count": 27,
+      "has_top_gainers": true,
+      "has_market_sentiment": true,
+      "has_coin_analysis": true,
+      "gainers_nonempty": true
+    },
+    "score_keys": [
+      "tool_count",
+      "has_top_gainers",
+      "has_market_sentiment",
+      "has_coin_analysis",
+      "gainers_nonempty"
+    ],
+    "prompt_mcp": "hey use the tradingview MCP (read-only). return json: tool_count, has_top_gainers, has_market_sentiment, has_coin_analysis, gainers_nonempty (true if top_gainers returned non-empty data). MCP tools only.",
+    "prompt_use": "hey use the tradingview-cdc skill. json: tool_count, has_top_gainers, has_market_sentiment, has_coin_analysis, gainers_nonempty. skill bridge only; extract values."
+  },
+  {
+    "id": "github",
+    "auth": true,
+    "command": [
+      "node",
+      "BIN/github-auth-mcp.js"
+    ],
+    "env": {
+      "GITHUB_TOKEN": "FROM_GH"
+    },
+    "skill": "github-cdc",
+    "truth": {
+      "me_login": "nassimkhatiba-ai",
+      "me_public_repos": 1,
+      "cdc_full_name": "nassimkhatiba-ai/cdc",
+      "cdc_private": false,
+      "cdc_default_branch": "main"
+    },
+    "score_keys": [
+      "me_login",
+      "me_public_repos",
+      "cdc_full_name",
+      "cdc_private",
+      "cdc_default_branch"
+    ],
+    "prompt_mcp": "hey use the github MCP. return json: me_login, me_public_repos, torvalds_followers, torvalds_public_repos, cdc_full_name, cdc_private, cdc_default_branch for nassimkhatiba-ai/cdc. MCP tools only not curl/gh.",
+    "prompt_use": "hey use the github-cdc skill. json: me_login, me_public_repos, torvalds_followers, torvalds_public_repos, cdc_full_name, cdc_private, cdc_default_branch. direct get_repo for nassimkhatiba-ai/cdc. skill bridge only."
+  },
+  {
+    "id": "calc",
+    "auth": false,
+    "command": [
+      "node",
+      "BIN/calc-mcp.js"
+    ],
+    "skill": "calc-cdc",
+    "truth": {
+      "add": 42,
+      "mul": 56,
+      "pow": 81,
+      "mean": 5,
+      "min": 1,
+      "max": 9
+    },
+    "score_keys": [
+      "add",
+      "mul",
+      "pow",
+      "mean",
+      "min",
+      "max"
+    ],
+    "prompt_mcp": "hey use the calc MCP. return json numbers: add (20+22), mul (7*8), pow (3**4), mean/min/max of [1,5,9]. MCP tools only.",
+    "prompt_use": "hey use the calc-cdc skill. json: add, mul, pow, mean, min, max for 20+22, 7*8, 3**4, stats [1,5,9]. skill bridge only."
+  },
+  {
+    "id": "weather",
+    "auth": false,
+    "command": [
+      "node",
+      "BIN/weather-mcp.js"
+    ],
+    "skill": "weather-cdc",
+    "truth": {
+      "city_count": 4,
+      "seattle_temp_c": 12,
+      "austin_cond": "sunny",
+      "warmer": "Austin"
+    },
+    "score_keys": [
+      "city_count",
+      "seattle_temp_c",
+      "austin_cond",
+      "warmer"
+    ],
+    "prompt_mcp": "hey use the weather MCP. return json: cities (sorted), city_count, seattle_temp_c, austin_cond, warmer (from compare Seattle vs Austin). MCP tools only.",
+    "prompt_use": "hey use the weather-cdc skill. json: cities, city_count, seattle_temp_c, austin_cond, warmer (Seattle vs Austin). skill bridge only."
+  },
+  {
+    "id": "jsonstore",
+    "auth": false,
+    "command": [
+      "node",
+      "BIN/jsonstore-mcp.js"
+    ],
+    "env": {
+      "JSONSTORE_PATH": "FIXTURES/jsonstore.json"
+    },
+    "skill": "jsonstore-cdc",
+    "truth": {
+      "seed": true,
+      "counter": 7,
+      "name": "cdc",
+      "key_count": 3
+    },
+    "score_keys": [
+      "seed",
+      "counter",
+      "name",
+      "key_count"
+    ],
+    "prompt_mcp": "hey use the jsonstore MCP. read seed keys and return json: seed (bool from key seed), counter (number), name (string), keys (sorted), key_count. MCP tools only.",
+    "prompt_use": "hey use the jsonstore-cdc skill. json: seed, counter, name, keys, key_count from the store. skill bridge only."
+  },
+  {
+    "id": "todo",
+    "auth": false,
+    "command": [
+      "node",
+      "BIN/todo-mcp.js"
+    ],
+    "skill": "todo-cdc",
+    "truth": {
+      "total": 3,
+      "open": 2,
+      "done": 1
+    },
+    "score_keys": [
+      "total",
+      "open",
+      "done"
+    ],
+    "prompt_mcp": "hey use the todo MCP. add three todos: Buy milk (high), Write report (med), Ship feature (low). complete the Write report one. return json: total, open, done, open_titles (sorted). MCP tools only.",
+    "prompt_use": "hey use the todo-cdc skill. add Buy milk high, Write report med, Ship feature low; complete Write report. json: total, open, done, open_titles (sorted). skill bridge only."
+  },
+  {
+    "id": "mockapi",
+    "auth": false,
+    "command": [
+      "node",
+      "BIN/mock-api-mcp.js"
+    ],
+    "env": {
+      "MOCK_API_BASE": "http://127.0.0.1:8791"
+    },
+    "skill": "mockapi-cdc",
+    "needs_mockapi": true,
+    "truth": {
+      "product_count": 30,
+      "order_count": 200,
+      "delivered_count": 92,
+      "delivered_revenue": 82576.08,
+      "category_count": 6
+    },
+    "score_keys": [
+      "product_count",
+      "order_count",
+      "delivered_count",
+      "delivered_revenue",
+      "category_count"
+    ],
+    "prompt_mcp": "hey use the mockapi MCP (local e-commerce). return json: product_count, order_count, delivered_count, delivered_revenue (sum total for delivered), category_count. page ALL pages with MCP tools not curl.",
+    "prompt_use": "hey use the mockapi-cdc skill with callPaged for lists. json: product_count, order_count, delivered_count, delivered_revenue, category_count. exact shape; aggregate all pages."
+  },
+  {
+    "id": "chromedevtools",
+    "auth": false,
+    "command": [
+      "npx",
+      "-y",
+      "chrome-devtools-mcp",
+      "--headless"
+    ],
+    "skill": "chromedevtools-cdc",
+    "needs_http": true,
+    "truth": {
+      "page_title": "CDC Test Shop",
+      "has_shop": true,
+      "product_count": 4
+    },
+    "score_keys": [
+      "page_title",
+      "has_shop",
+      "product_count"
+    ],
+    "prompt_mcp": "hey use the chrome-devtools MCP. open http://127.0.0.1:8766/store.html and return json: page_title, has_shop (bool if Nebula Outfitters visible), product_count. MCP tools only.",
+    "prompt_use": "hey use the chromedevtools-cdc skill. open store page. json: page_title, has_shop, product_count. skill bridge only."
+  },
+  {
+    "id": "filesystem_large",
+    "auth": false,
+    "alias_note": "second fs workload: directory tree + multi-file",
+    "command": [
+      "npx",
+      "-y",
+      "@modelcontextprotocol/server-filesystem",
+      "FIXTURES/fsroot"
+    ],
+    "skill": "filesystem-large-cdc",
+    "truth": {
+      "tree_has_subdir": true,
+      "file_count_min": 3,
+      "data_csv_lines": 4
+    },
+    "score_keys": [
+      "tree_has_subdir",
+      "file_count_min",
+      "data_csv_lines"
+    ],
+    "prompt_mcp": "hey use the filesystem MCP. get directory_tree of root, count files, read data.csv line count. return json: tree_has_subdir (bool), file_count (number of files under root recursive), file_count_min true if >=3, data_csv_lines (number). MCP only.",
+    "prompt_use": "hey use the filesystem-large-cdc skill. json: tree_has_subdir, file_count, data_csv_lines. skill bridge only."
+  }
+]

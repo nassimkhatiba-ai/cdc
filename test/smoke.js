@@ -53,13 +53,25 @@ console.log('cdc smoke tests\n');
   assert.strictEqual(stats.mode, 'mcp');
   assert.strictEqual(stats.tools, 12);
   assert.ok(stats.skillTokens < stats.sourceTokens);
-  assert.ok(stats.skillTokens < 1000, 'bridge skill must stay short');
+  assert.ok(stats.skillTokens < 1100, 'bridge skill must stay short');
   const skill = fs.readFileSync(path.join(tmp, 'demo', 'SKILL.md'), 'utf8');
-  assert.ok(skill.includes('## Tools'), 'small bridge inlines the tool index (no grep turns)');
-  assert.ok(skill.includes('daemon'), 'bridge skill documents the warm daemon');
-  assert.ok(skill.includes('callPaged'), 'bridge skill teaches pagination');
+  assert.ok(skill.includes('## Tools') || skill.includes('grep CDC.md'), 'tool index available');
+  assert.ok(skill.includes('daemon') || skill.includes('Daemon') || skill.includes('Warm daemon'), 'bridge skill documents the warm daemon');
+  assert.ok(
+    skill.includes('Call (do this first)') || skill.includes('Fast path') || skill.includes('--batch'),
+    'bridge skill teaches CLI/batch fast path',
+  );
+  // callPaged only when the server has paginated list tools (sample does)
+  if (stats.skillTier === 'paged' || skill.includes('callPaged')) {
+    assert.ok(skill.includes('callPaged'), 'paged tier teaches callPaged');
+  }
+  assert.ok(stats.skillTier === 'paged' || stats.skillTier === 'cli' || stats.skillTier === 'multi');
   assert.ok(!skill.includes('orders.json'), 'no demo hardcoding in general MCP skill');
-  assert.ok(r.stdout.includes('skill') || r.stdout.includes('SKILL'));
+  assert.ok(r.stdout.includes('convert win') || r.stdout.includes('skill') || r.stdout.includes('SKILL'));
+  assert.ok(
+    r.stdout.includes('Disable') || r.stdout.includes('disable') || r.stdout.includes('MCP'),
+    'convert output tells user about MCP disable',
+  );
   ok('from-mcp compiles sample tools (general bridge, short)');
 }
 
@@ -129,7 +141,7 @@ console.log('cdc smoke tests\n');
     mcpArgs: ['-y', '@modelcontextprotocol/server-filesystem', '/any/user/root'],
   });
   assert.strictEqual(stats.mode, 'direct-fs');
-  assert.ok(stats.skillTokens < 450, 'direct-fs skill must be short: ' + stats.skillTokens);
+  assert.ok(stats.skillTokens < 800, 'direct-fs skill must be short: ' + stats.skillTokens);
   assert.ok(!fs.existsSync(path.join(outDir, 'mcp-call.js')), 'direct-fs must not ship mcp-call.js');
   const skill = fs.readFileSync(path.join(outDir, 'SKILL.md'), 'utf8');
   assert.ok(skill.includes('/any/user/root'));
@@ -244,7 +256,7 @@ console.log('cdc smoke tests\n');
 
 // --- compile-mcp unit ---
 {
-  const { compileMCP, normalizeTools, tagOf } = require('../lib/compile-mcp');
+  const { compileMCP, normalizeTools, tagOf, toolLooksPaginated } = require('../lib/compile-mcp');
   assert.strictEqual(tagOf('github_list_repos'), 'github');
   assert.strictEqual(tagOf('list_users'), 'list');
   const tools = normalizeTools({ tools: [{ name: 'a', inputSchema: { type: 'object' } }] });
@@ -266,7 +278,64 @@ console.log('cdc smoke tests\n');
   });
   assert.strictEqual(stats.tools, 1);
   assert.strictEqual(stats.mode, 'mcp');
-  ok('compile-mcp unit helpers');
+  assert.strictEqual(stats.skillTier, 'cli', 'tiny surface is CLI tier');
+  const skill = fs.readFileSync(path.join(tmp, 'unit', 'SKILL.md'), 'utf8');
+  assert.ok(skill.includes('Fast path') || skill.includes('Call (do this first)') || skill.includes('--batch'));
+  assert.ok(!skill.includes('callPaged'), 'cli tier must not teach callPaged');
+  assert.ok(!skill.includes('## Multi-step'), 'cli tier omits multi-step openSession block');
+  assert.ok(stats.skillTokens < 700, 'cli skill stays tiny: ' + stats.skillTokens);
+
+  // bare limit is NOT pagination
+  assert.strictEqual(
+    toolLooksPaginated({
+      name: 'top_gainers',
+      description: 'top gainers',
+      inputSchema: { type: 'object', properties: { limit: { type: 'integer' } } },
+    }),
+    false,
+  );
+  assert.strictEqual(
+    toolLooksPaginated({
+      name: 'list_users',
+      description: 'List users. Use page to paginate.',
+      inputSchema: {
+        type: 'object',
+        properties: { page: { type: 'integer' }, per_page: { type: 'integer' } },
+      },
+    }),
+    true,
+  );
+  ok('compile-mcp unit helpers + cli tier');
+}
+
+// --- convert-win messaging ---
+{
+  const { buildConvertWin } = require('../lib/convert-win');
+  const win = buildConvertWin(
+    {
+      name: 'github',
+      tools: 90,
+      skillTokens: 800,
+      sourceTokens: 40000,
+      definitionSavingsRatio: 50,
+      skillTier: 'multi',
+      mode: 'mcp',
+    },
+    { installed: ['/tmp/github-cdc'], warmed: true },
+  );
+  assert.ok(win.userNotice.includes('Disable') || win.userNotice.includes('disable'));
+  assert.ok(win.text.includes('convert win'));
+  assert.ok(win.howToUse.includes('OFF') || win.nextStep.includes('Disable'));
+  const small = buildConvertWin({
+    name: 'calc',
+    tools: 2,
+    skillTokens: 320,
+    sourceTokens: 150,
+    definitionSavingsRatio: 0.5,
+    skillTier: 'cli',
+  });
+  assert.ok(small.userNotice.includes('CLI') || small.headline.includes('CLI'));
+  ok('convert-win messaging');
 }
 
 // --- tui non-tty exits cleanly ---

@@ -1,0 +1,21 @@
+{
+  "name": "sequential",
+  "title": "sequential",
+  "source": "mcp",
+  "mode": "mcp",
+  "tools": 1,
+  "endpoints": 1,
+  "sourceBytes": 5543,
+  "sourceTokens": 1747,
+  "mcpSchemaTokens": 1747,
+  "cdcBytes": 425,
+  "cdcTokens": 143,
+  "skillBytes": 1682,
+  "skillTokens": 616,
+  "generatedAt": "2026-07-11T11:37:46.911Z",
+  "compressionSourceToCdc": 12.2,
+  "compressionSourceToSkill": 2.8,
+  "definitionTaxMcp": 1747,
+  "definitionTaxCdc": 616,
+  "definitionSavingsRatio": 2.8
+}

@@ -50,6 +50,9 @@
 **You are not "connecting an MCP" in Claude Code.**  
 You install a skill. Claude opens the skill, greps the tool index, writes a script, prints the answer. Schemas and raw JSON never flood the window.
 
+**Critical:** after convert, **disable the original MCP server**. If both stay on, you pay schema tax *and* skill tax and you will not feel the win.
+
+
 ---
 
 ## Quick start — make a CDC skill in Claude Code
@@ -96,6 +99,9 @@ Next message:
 
 You are **not** connecting an MCP in Claude Code. You installed a skill.
 Schemas and raw JSON never flood the window.
+
+**Then disable the original MCP** in Claude/Codex config. The skill uses a short CLI path (and a warm daemon); keeping the MCP connected hides the token and speed win.
+
 
 <details>
 <summary><b>Alternative: TUI / CLI (no Claude needed)</b></summary>

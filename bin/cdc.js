@@ -17,6 +17,7 @@ const { compileOpenAPI } = require('../lib/compile-openapi');
 const { compileMCP, probeMcpServer } = require('../lib/compile-mcp');
 const { collectStats } = require('../lib/stats');
 const { runTui } = require('../lib/tui');
+const { buildConvertWin } = require('../lib/convert-win');
 const {
   resolveSkillsDirs,
   installToDirs,
@@ -63,6 +64,7 @@ QUICK START
   cdc install-creator --target both
   # then in Claude Code or Codex:
   #   "Convert my GitHub MCP into a CDC skill"
+  # After convert: DISABLE the MCP server so you feel the token/speed win.
 
 Docs: README.md · Paper: PAPER.md
 `.trim();
@@ -82,10 +84,6 @@ function parseArgs(argv) {
   const args = { _: [], flags: {} };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
-    if (a === '--') {
-      args._.push(...argv.slice(i + 1));
-      break;
-    }
     if (a.startsWith('--')) {
       let key = a.slice(2);
       let val;
@@ -134,6 +132,21 @@ function num(flags, name, def) {
   const n = Number(flags[name]);
   if (Number.isNaN(n)) throw new Error(`--${name} must be a number`);
   return n;
+}
+
+function prewarmDaemon(skillDir) {
+  try {
+    const bridge = path.join(skillDir, 'mcp-call.js');
+    if (!fs.existsSync(bridge)) return false;
+    const { spawn } = require('child_process');
+    spawn(process.execPath, [bridge, 'daemon-start'], {
+      detached: true,
+      stdio: 'ignore',
+    }).unref();
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 async function cmdMake(args) {
@@ -202,20 +215,21 @@ async function cmdFromMcp(args) {
   printCompileResult(outDir, stats);
 }
 
-function printCompileResult(outDir, stats) {
+function printCompileResult(outDir, stats, installed = [], warmed = false) {
+  const win = buildConvertWin(stats, {
+    installed,
+    warmed,
+    skillName: skillFolderName(stats.name),
+  });
   console.log(`\nWrote CDC skill package -> ${outDir}/`);
-  console.log(`  SKILL.md   ${stats.skillTokens} tokens (upfront context)`);
-  console.log(`  CDC.md     ${stats.cdcTokens} tokens (grep lazily)`);
-  console.log(`  tools      ${stats.tools || stats.endpoints}`);
-  if (stats.sourceTokens) {
-    console.log(
-      `  compress   source ${stats.sourceTokens.toLocaleString()} tok -> skill ${stats.skillTokens} tok  (${stats.compressionSourceToSkill || stats.compressionSpecToSkill}x)`,
-    );
+  console.log(win.text);
+  if (!installed.length) {
+    console.log(`Install as an Agent Skill (Claude Code and/or Codex):`);
+    console.log(`  cdc install ${stats.name} --target both`);
+    console.log(`  # then DISABLE the MCP server of the same name`);
+    console.log(`  cdc --stats --root ${path.dirname(outDir)}`);
+    console.log('');
   }
-  console.log(`\nInstall as an Agent Skill (Claude Code and/or Codex):`);
-  console.log(`  cdc install ${stats.name} --target both`);
-  console.log(`  cdc --stats --root ${path.dirname(outDir)}`);
-  console.log('');
 }
 
 function resolvePackage(nameOrPath, root = 'cdc') {
@@ -250,22 +264,47 @@ function cmdInstall(args) {
   });
   const installed = installToDirs(src, folder, dirs);
 
-  for (const dest of installed) {
-    console.log(`Installed skill ${src} -> ${dest}`);
+  let stats = null;
+  try {
+    stats = JSON.parse(fs.readFileSync(path.join(src, 'stats.json'), 'utf8'));
+  } catch {}
+
+  let warmed = false;
+  if (!args.flags['no-warm'] && installed.length) {
+    const manPath = path.join(installed[0], 'mcp-manifest.json');
+    if (fs.existsSync(manPath)) {
+      try {
+        const man = JSON.parse(fs.readFileSync(manPath, 'utf8'));
+        if (man.mode === 'mcp' && man.command) {
+          warmed = prewarmDaemon(installed[0]);
+        }
+      } catch {}
+    }
   }
-  console.log(`Loads as an Agent Skill (not a connected MCP server).`);
-  console.log(`Skill name: ${folder}`);
-  console.log(`Targets: Claude Code (~/.claude/skills) and/or Codex (~/.codex/skills)`);
+
+  if (stats) {
+    printCompileResult(src, stats, installed, warmed);
+  } else {
+    for (const dest of installed) {
+      console.log(`Installed skill ${src} -> ${dest}`);
+    }
+    console.log(`Loads as an Agent Skill (not a connected MCP server).`);
+    console.log(`Skill name: ${folder}`);
+    console.log(`\n* Disable the same-name MCP server or you pay schema tax AND skill tax.`);
+  }
+
   if (fs.existsSync(path.join(installed[0], 'mcp-manifest.json'))) {
     const man = JSON.parse(fs.readFileSync(path.join(installed[0], 'mcp-manifest.json'), 'utf8'));
     if (man.mode === 'direct-fs') {
-      console.log(`\nMode: direct-fs — use Node fs under ${man.root || 'ROOT'} (no MCP spawn).`);
+      console.log(`Mode: direct-fs — use Node fs under ${man.root || 'ROOT'} (no MCP spawn).`);
     } else if (man.mode === 'mcp' && !man.command) {
       console.log(`\nNote: set CDC_MCP_COMMAND so scripts can reach the MCP server, e.g.:`);
       console.log(`  export CDC_MCP_COMMAND=npx`);
       console.log(`  export CDC_MCP_ARGS='["-y","@modelcontextprotocol/server-github"]'`);
     } else if (man.mode === 'mcp' && man.command) {
-      console.log(`\nMode: mcp bridge — mcp-call.js uses ${man.command} ${(man.args || []).join(' ')}`.trim());
+      console.log(
+        `Mode: mcp bridge — mcp-call.js uses ${man.command} ${(man.args || []).join(' ')}`.trim(),
+      );
     }
   }
 }
@@ -290,6 +329,8 @@ function cmdInstallCreator(args = { flags: {} }) {
   console.log('  "Convert my GitHub MCP into a CDC skill"');
   console.log('  "Use cdc-skill-creator on tools.json"');
   console.log('');
+  console.log('After convert: DISABLE the original MCP server so the agent');
+  console.log('uses only the skill - that is when you feel fewer tokens + speed.');
   console.log('Generated skills load as skills - not as connected MCP servers.');
   console.log('Restart Codex after install to pick up new skills.');
 }
@@ -345,8 +386,9 @@ function cmdList(args) {
   for (const p of pkgs) {
     const s = JSON.parse(fs.readFileSync(path.join(p, 'stats.json'), 'utf8'));
     const comp = s.compressionSourceToSkill || s.compressionSpecToSkill || '?';
+    const tier = s.skillTier || s.mode || '?';
     console.log(
-      `  ${s.name.padEnd(16)} ${(s.tools || s.endpoints || 0).toString().padStart(5)} tools  skill=${String(s.skillTokens).padStart(5)} tok  compress=${comp}x  [${s.source || '?'}]`,
+      `  ${s.name.padEnd(16)} ${(s.tools || s.endpoints || 0).toString().padStart(5)} tools  skill=${String(s.skillTokens).padStart(5)} tok  compress=${comp}x  tier=${tier}  [${s.source || '?'}]`,
     );
   }
   console.log('');

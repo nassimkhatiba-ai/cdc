@@ -1,0 +1,9 @@
+{
+  "name": "sqlite",
+  "mode": "mcp",
+  "command": "/Users/nesbes/mcp-a;t/implementer/mega20/homes/sqlite/sqlite-mcp.sh",
+  "args": [],
+  "envToken": "CDC_SQLITE_TOKEN",
+  "tools": 4,
+  "note": "Prefer an installed binary over npx -y to avoid network cold starts."
+}

@@ -1,0 +1,22 @@
+{
+  "name": "complex",
+  "title": "complex",
+  "source": "mcp",
+  "mode": "mcp",
+  "skillTier": "paged",
+  "tools": 47,
+  "endpoints": 47,
+  "sourceBytes": 30540,
+  "sourceTokens": 9698,
+  "mcpSchemaTokens": 9698,
+  "cdcBytes": 4866,
+  "cdcTokens": 1729,
+  "skillBytes": 2465,
+  "skillTokens": 1036,
+  "generatedAt": "2026-07-11T13:53:24.644Z",
+  "compressionSourceToCdc": 5.6,
+  "compressionSourceToSkill": 9.4,
+  "definitionTaxMcp": 9698,
+  "definitionTaxCdc": 1036,
+  "definitionSavingsRatio": 9.4
+}

@@ -1,0 +1,21 @@
+{
+  "name": "everything",
+  "title": "everything",
+  "source": "mcp",
+  "mode": "mcp",
+  "tools": 13,
+  "endpoints": 13,
+  "sourceBytes": 10694,
+  "sourceTokens": 3433,
+  "mcpSchemaTokens": 3433,
+  "cdcBytes": 1782,
+  "cdcTokens": 597,
+  "skillBytes": 2806,
+  "skillTokens": 985,
+  "generatedAt": "2026-07-11T11:37:43.575Z",
+  "compressionSourceToCdc": 5.8,
+  "compressionSourceToSkill": 3.5,
+  "definitionTaxMcp": 3433,
+  "definitionTaxCdc": 985,
+  "definitionSavingsRatio": 3.5
+}

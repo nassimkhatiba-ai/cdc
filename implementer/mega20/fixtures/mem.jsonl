@@ -1,0 +1,91 @@
+{"type": "entity", "name": "Nebula Labs", "entityType": "company", "observations": ["founded 2018", "hq Seattle", "employees 85", "sector robotics"]}
+{"type": "entity", "name": "Orbit Pay", "entityType": "company", "observations": ["founded 2020", "hq Austin", "employees 40", "sector fintech"]}
+{"type": "entity", "name": "Cedar Health", "entityType": "company", "observations": ["founded 2015", "hq Boston", "employees 210", "sector health"]}
+{"type": "entity", "name": "Pine Analytics", "entityType": "company", "observations": ["founded 2017", "hq Denver", "employees 55", "sector data"]}
+{"type": "entity", "name": "Harbor Cloud", "entityType": "company", "observations": ["founded 2019", "hq Portland", "employees 95", "sector cloud"]}
+{"type": "entity", "name": "Lumen Rover", "entityType": "project", "observations": ["status active", "budget 2.4m", "owner Nebula Labs"]}
+{"type": "entity", "name": "Ledger X", "entityType": "project", "observations": ["status active", "budget 1.1m", "owner Orbit Pay"]}
+{"type": "entity", "name": "Pulse EMR", "entityType": "project", "observations": ["status paused", "budget 3.0m", "owner Cedar Health"]}
+{"type": "entity", "name": "Signal Lake", "entityType": "project", "observations": ["status active", "budget 0.9m", "owner Pine Analytics"]}
+{"type": "entity", "name": "Nimbus Edge", "entityType": "project", "observations": ["status active", "budget 1.6m", "owner Harbor Cloud"]}
+{"type": "entity", "name": "Seattle", "entityType": "city", "observations": ["state WA", "country US"]}
+{"type": "entity", "name": "Austin", "entityType": "city", "observations": ["state TX", "country US"]}
+{"type": "entity", "name": "Boston", "entityType": "city", "observations": ["state MA", "country US"]}
+{"type": "entity", "name": "Denver", "entityType": "city", "observations": ["state CO", "country US"]}
+{"type": "entity", "name": "Portland", "entityType": "city", "observations": ["state OR", "country US"]}
+{"type": "entity", "name": "Ava Chen", "entityType": "person", "observations": ["role engineer", "city Seattle", "skill rust", "salary 180000", "employer Nebula Labs"]}
+{"type": "relation", "from": "Ava Chen", "to": "Nebula Labs", "relationType": "works_at"}
+{"type": "relation", "from": "Ava Chen", "to": "Seattle", "relationType": "lives_in"}
+{"type": "relation", "from": "Ava Chen", "to": "Lumen Rover", "relationType": "contributes_to"}
+{"type": "entity", "name": "Ben Ortiz", "entityType": "person", "observations": ["role engineer", "city Seattle", "skill python", "salary 165000", "employer Nebula Labs"]}
+{"type": "relation", "from": "Ben Ortiz", "to": "Nebula Labs", "relationType": "works_at"}
+{"type": "relation", "from": "Ben Ortiz", "to": "Seattle", "relationType": "lives_in"}
+{"type": "relation", "from": "Ben Ortiz", "to": "Lumen Rover", "relationType": "contributes_to"}
+{"type": "entity", "name": "Cara Kim", "entityType": "person", "observations": ["role pm", "city Seattle", "skill roadmap", "salary 155000", "employer Nebula Labs"]}
+{"type": "relation", "from": "Cara Kim", "to": "Nebula Labs", "relationType": "works_at"}
+{"type": "relation", "from": "Cara Kim", "to": "Seattle", "relationType": "lives_in"}
+{"type": "entity", "name": "Dan Wu", "entityType": "person", "observations": ["role engineer", "city Remote", "skill go", "salary 170000", "employer Nebula Labs"]}
+{"type": "relation", "from": "Dan Wu", "to": "Nebula Labs", "relationType": "works_at"}
+{"type": "relation", "from": "Dan Wu", "to": "Remote", "relationType": "lives_in"}
+{"type": "relation", "from": "Dan Wu", "to": "Lumen Rover", "relationType": "contributes_to"}
+{"type": "entity", "name": "Eli Park", "entityType": "person", "observations": ["role engineer", "city Austin", "skill typescript", "salary 160000", "employer Orbit Pay"]}
+{"type": "relation", "from": "Eli Park", "to": "Orbit Pay", "relationType": "works_at"}
+{"type": "relation", "from": "Eli Park", "to": "Austin", "relationType": "lives_in"}
+{"type": "relation", "from": "Eli Park", "to": "Ledger X", "relationType": "contributes_to"}
+{"type": "entity", "name": "Fay Ng", "entityType": "person", "observations": ["role engineer", "city Austin", "skill rust", "salary 175000", "employer Orbit Pay"]}
+{"type": "relation", "from": "Fay Ng", "to": "Orbit Pay", "relationType": "works_at"}
+{"type": "relation", "from": "Fay Ng", "to": "Austin", "relationType": "lives_in"}
+{"type": "relation", "from": "Fay Ng", "to": "Ledger X", "relationType": "contributes_to"}
+{"type": "entity", "name": "Gus Rivera", "entityType": "person", "observations": ["role sales", "city Austin", "skill enterprise", "salary 140000", "employer Orbit Pay"]}
+{"type": "relation", "from": "Gus Rivera", "to": "Orbit Pay", "relationType": "works_at"}
+{"type": "relation", "from": "Gus Rivera", "to": "Austin", "relationType": "lives_in"}
+{"type": "entity", "name": "Hana Sol", "entityType": "person", "observations": ["role doctor", "city Boston", "skill cardiology", "salary 220000", "employer Cedar Health"]}
+{"type": "relation", "from": "Hana Sol", "to": "Cedar Health", "relationType": "works_at"}
+{"type": "relation", "from": "Hana Sol", "to": "Boston", "relationType": "lives_in"}
+{"type": "entity", "name": "Ira Bloom", "entityType": "person", "observations": ["role engineer", "city Boston", "skill python", "salary 150000", "employer Cedar Health"]}
+{"type": "relation", "from": "Ira Bloom", "to": "Cedar Health", "relationType": "works_at"}
+{"type": "relation", "from": "Ira Bloom", "to": "Boston", "relationType": "lives_in"}
+{"type": "relation", "from": "Ira Bloom", "to": "Pulse EMR", "relationType": "contributes_to"}
+{"type": "entity", "name": "Jade Lin", "entityType": "person", "observations": ["role nurse", "city Boston", "skill icu", "salary 95000", "employer Cedar Health"]}
+{"type": "relation", "from": "Jade Lin", "to": "Cedar Health", "relationType": "works_at"}
+{"type": "relation", "from": "Jade Lin", "to": "Boston", "relationType": "lives_in"}
+{"type": "entity", "name": "Kai Moss", "entityType": "person", "observations": ["role engineer", "city Denver", "skill spark", "salary 168000", "employer Pine Analytics"]}
+{"type": "relation", "from": "Kai Moss", "to": "Pine Analytics", "relationType": "works_at"}
+{"type": "relation", "from": "Kai Moss", "to": "Denver", "relationType": "lives_in"}
+{"type": "relation", "from": "Kai Moss", "to": "Signal Lake", "relationType": "contributes_to"}
+{"type": "entity", "name": "Lia Frost", "entityType": "person", "observations": ["role analyst", "city Denver", "skill sql", "salary 120000", "employer Pine Analytics"]}
+{"type": "relation", "from": "Lia Frost", "to": "Pine Analytics", "relationType": "works_at"}
+{"type": "relation", "from": "Lia Frost", "to": "Denver", "relationType": "lives_in"}
+{"type": "entity", "name": "Max Reed", "entityType": "person", "observations": ["role engineer", "city Portland", "skill kubernetes", "salary 172000", "employer Harbor Cloud"]}
+{"type": "relation", "from": "Max Reed", "to": "Harbor Cloud", "relationType": "works_at"}
+{"type": "relation", "from": "Max Reed", "to": "Portland", "relationType": "lives_in"}
+{"type": "relation", "from": "Max Reed", "to": "Nimbus Edge", "relationType": "contributes_to"}
+{"type": "entity", "name": "Noa Vale", "entityType": "person", "observations": ["role engineer", "city Portland", "skill rust", "salary 185000", "employer Harbor Cloud"]}
+{"type": "relation", "from": "Noa Vale", "to": "Harbor Cloud", "relationType": "works_at"}
+{"type": "relation", "from": "Noa Vale", "to": "Portland", "relationType": "lives_in"}
+{"type": "relation", "from": "Noa Vale", "to": "Nimbus Edge", "relationType": "contributes_to"}
+{"type": "entity", "name": "Omar Diaz", "entityType": "person", "observations": ["role sre", "city Remote", "skill terraform", "salary 160000", "employer Harbor Cloud"]}
+{"type": "relation", "from": "Omar Diaz", "to": "Harbor Cloud", "relationType": "works_at"}
+{"type": "relation", "from": "Omar Diaz", "to": "Remote", "relationType": "lives_in"}
+{"type": "relation", "from": "Omar Diaz", "to": "Nimbus Edge", "relationType": "contributes_to"}
+{"type": "entity", "name": "Pia Shah", "entityType": "person", "observations": ["role designer", "city Seattle", "skill figma", "salary 130000", "employer Nebula Labs"]}
+{"type": "relation", "from": "Pia Shah", "to": "Nebula Labs", "relationType": "works_at"}
+{"type": "relation", "from": "Pia Shah", "to": "Seattle", "relationType": "lives_in"}
+{"type": "entity", "name": "Quinn Ames", "entityType": "person", "observations": ["role pm", "city Remote", "skill payments", "salary 158000", "employer Orbit Pay"]}
+{"type": "relation", "from": "Quinn Ames", "to": "Orbit Pay", "relationType": "works_at"}
+{"type": "relation", "from": "Quinn Ames", "to": "Remote", "relationType": "lives_in"}
+{"type": "entity", "name": "Rae Cole", "entityType": "person", "observations": ["role engineer", "city Remote", "skill python", "salary 155000", "employer Pine Analytics"]}
+{"type": "relation", "from": "Rae Cole", "to": "Pine Analytics", "relationType": "works_at"}
+{"type": "relation", "from": "Rae Cole", "to": "Remote", "relationType": "lives_in"}
+{"type": "relation", "from": "Rae Cole", "to": "Signal Lake", "relationType": "contributes_to"}
+{"type": "entity", "name": "Sam York", "entityType": "person", "observations": ["role pm", "city Boston", "skill emr", "salary 148000", "employer Cedar Health"]}
+{"type": "relation", "from": "Sam York", "to": "Cedar Health", "relationType": "works_at"}
+{"type": "relation", "from": "Sam York", "to": "Boston", "relationType": "lives_in"}
+{"type": "entity", "name": "Tess Wren", "entityType": "person", "observations": ["role sales", "city Portland", "skill enterprise", "salary 135000", "employer Harbor Cloud"]}
+{"type": "relation", "from": "Tess Wren", "to": "Harbor Cloud", "relationType": "works_at"}
+{"type": "relation", "from": "Tess Wren", "to": "Portland", "relationType": "lives_in"}
+{"type": "relation", "from": "Nebula Labs", "to": "Seattle", "relationType": "hq_in"}
+{"type": "relation", "from": "Orbit Pay", "to": "Austin", "relationType": "hq_in"}
+{"type": "relation", "from": "Cedar Health", "to": "Boston", "relationType": "hq_in"}
+{"type": "relation", "from": "Pine Analytics", "to": "Denver", "relationType": "hq_in"}
+{"type": "relation", "from": "Harbor Cloud", "to": "Portland", "relationType": "hq_in"}

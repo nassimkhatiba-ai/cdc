@@ -1,0 +1,21 @@
+{
+  "name": "fetch",
+  "title": "fetch",
+  "source": "mcp",
+  "mode": "mcp",
+  "tools": 1,
+  "endpoints": 1,
+  "sourceBytes": 1513,
+  "sourceTokens": 459,
+  "mcpSchemaTokens": 459,
+  "cdcBytes": 289,
+  "cdcTokens": 99,
+  "skillBytes": 1544,
+  "skillTokens": 572,
+  "generatedAt": "2026-07-11T11:37:55.106Z",
+  "compressionSourceToCdc": 4.6,
+  "compressionSourceToSkill": 0.8,
+  "definitionTaxMcp": 459,
+  "definitionTaxCdc": 572,
+  "definitionSavingsRatio": 0.8
+}

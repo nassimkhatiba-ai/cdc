@@ -1,0 +1,21 @@
+{
+  "name": "context7",
+  "title": "context7",
+  "source": "mcp",
+  "mode": "mcp",
+  "tools": 2,
+  "endpoints": 2,
+  "sourceBytes": 5415,
+  "sourceTokens": 1758,
+  "mcpSchemaTokens": 1758,
+  "cdcBytes": 427,
+  "cdcTokens": 146,
+  "skillBytes": 1667,
+  "skillTokens": 613,
+  "generatedAt": "2026-07-11T11:37:51.807Z",
+  "compressionSourceToCdc": 12,
+  "compressionSourceToSkill": 2.9,
+  "definitionTaxMcp": 1758,
+  "definitionTaxCdc": 613,
+  "definitionSavingsRatio": 2.9
+}

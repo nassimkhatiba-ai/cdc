@@ -1,0 +1,22 @@
+{
+  "name": "filesystem-large",
+  "title": "filesystem-large",
+  "source": "mcp",
+  "mode": "direct-fs",
+  "tools": 14,
+  "endpoints": 14,
+  "sourceBytes": 18957,
+  "sourceTokens": 5700,
+  "mcpSchemaTokens": 5700,
+  "cdcBytes": 1887,
+  "cdcTokens": 628,
+  "skillBytes": 1231,
+  "skillTokens": 469,
+  "generatedAt": "2026-07-11T11:38:00.344Z",
+  "fsRoot": "$CDC_FS_ROOT",
+  "compressionSourceToCdc": 9.1,
+  "compressionSourceToSkill": 12.2,
+  "definitionTaxMcp": 5700,
+  "definitionTaxCdc": 469,
+  "definitionSavingsRatio": 12.2
+}

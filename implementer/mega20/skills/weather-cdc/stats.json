@@ -1,0 +1,21 @@
+{
+  "name": "weather",
+  "title": "weather",
+  "source": "mcp",
+  "mode": "mcp",
+  "tools": 3,
+  "endpoints": 3,
+  "sourceBytes": 725,
+  "sourceTokens": 227,
+  "mcpSchemaTokens": 227,
+  "cdcBytes": 303,
+  "cdcTokens": 105,
+  "skillBytes": 1538,
+  "skillTokens": 572,
+  "generatedAt": "2026-07-11T11:37:56.964Z",
+  "compressionSourceToCdc": 2.2,
+  "compressionSourceToSkill": 0.4,
+  "definitionTaxMcp": 227,
+  "definitionTaxCdc": 572,
+  "definitionSavingsRatio": 0.4
+}

@@ -1,0 +1,21 @@
+{
+  "name": "playwright",
+  "title": "playwright",
+  "source": "mcp",
+  "mode": "mcp",
+  "tools": 24,
+  "endpoints": 24,
+  "sourceBytes": 25733,
+  "sourceTokens": 7975,
+  "mcpSchemaTokens": 7975,
+  "cdcBytes": 3001,
+  "cdcTokens": 1036,
+  "skillBytes": 3842,
+  "skillTokens": 1368,
+  "generatedAt": "2026-07-11T11:37:49.284Z",
+  "compressionSourceToCdc": 7.7,
+  "compressionSourceToSkill": 5.8,
+  "definitionTaxMcp": 7975,
+  "definitionTaxCdc": 1368,
+  "definitionSavingsRatio": 5.8
+}

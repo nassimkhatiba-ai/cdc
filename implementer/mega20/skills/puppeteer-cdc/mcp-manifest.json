@@ -1,0 +1,9 @@
+{
+  "name": "puppeteer",
+  "mode": "mcp",
+  "command": "/Users/nesbes/mcp-a;t/implementer/mega20/homes/puppeteer/puppeteer-mcp.sh",
+  "args": [],
+  "envToken": "CDC_PUPPETEER_TOKEN",
+  "tools": 7,
+  "note": "Prefer an installed binary over npx -y to avoid network cold starts."
+}

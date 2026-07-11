@@ -1,0 +1,21 @@
+{
+  "name": "jsonstore",
+  "title": "jsonstore",
+  "source": "mcp",
+  "mode": "mcp",
+  "tools": 5,
+  "endpoints": 5,
+  "sourceBytes": 1044,
+  "sourceTokens": 333,
+  "mcpSchemaTokens": 333,
+  "cdcBytes": 304,
+  "cdcTokens": 105,
+  "skillBytes": 1551,
+  "skillTokens": 576,
+  "generatedAt": "2026-07-11T11:37:57.240Z",
+  "compressionSourceToCdc": 3.2,
+  "compressionSourceToSkill": 0.6,
+  "definitionTaxMcp": 333,
+  "definitionTaxCdc": 576,
+  "definitionSavingsRatio": 0.6
+}

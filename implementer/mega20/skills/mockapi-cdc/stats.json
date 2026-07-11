@@ -1,0 +1,21 @@
+{
+  "name": "mockapi",
+  "title": "mockapi",
+  "source": "mcp",
+  "mode": "mcp",
+  "tools": 5,
+  "endpoints": 5,
+  "sourceBytes": 1336,
+  "sourceTokens": 422,
+  "mcpSchemaTokens": 422,
+  "cdcBytes": 511,
+  "cdcTokens": 181,
+  "skillBytes": 1720,
+  "skillTokens": 638,
+  "generatedAt": "2026-07-11T11:37:57.712Z",
+  "compressionSourceToCdc": 2.3,
+  "compressionSourceToSkill": 0.7,
+  "definitionTaxMcp": 422,
+  "definitionTaxCdc": 638,
+  "definitionSavingsRatio": 0.7
+}

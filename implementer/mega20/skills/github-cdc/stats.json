@@ -1,0 +1,21 @@
+{
+  "name": "github",
+  "title": "github",
+  "source": "mcp",
+  "mode": "mcp",
+  "tools": 5,
+  "endpoints": 5,
+  "sourceBytes": 1810,
+  "sourceTokens": 566,
+  "mcpSchemaTokens": 566,
+  "cdcBytes": 635,
+  "cdcTokens": 221,
+  "skillBytes": 1822,
+  "skillTokens": 672,
+  "generatedAt": "2026-07-11T11:37:56.546Z",
+  "compressionSourceToCdc": 2.6,
+  "compressionSourceToSkill": 0.8,
+  "definitionTaxMcp": 566,
+  "definitionTaxCdc": 672,
+  "definitionSavingsRatio": 0.8
+}

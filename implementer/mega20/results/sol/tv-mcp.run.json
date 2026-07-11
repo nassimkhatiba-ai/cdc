@@ -1,0 +1,24 @@
+{
+  "target": "tradingview",
+  "arm": "mcp",
+  "exit": 0,
+  "secs": 19,
+  "tokens": 13827,
+  "signal": null,
+  "purity": {
+    "curl": 0,
+    "gh_cli": 0,
+    "sqlite3_cli": 0,
+    "mcp_calls": 2,
+    "openSession": 0,
+    "callPaged": 0,
+    "mcp_call_js": 0
+  },
+  "ans": {
+    "tool_count": 27,
+    "has_top_gainers": true,
+    "has_market_sentiment": true,
+    "has_coin_analysis": true,
+    "gainers_nonempty": true
+  }
+}

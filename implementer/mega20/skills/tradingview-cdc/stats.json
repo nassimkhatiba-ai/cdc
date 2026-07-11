@@ -1,0 +1,22 @@
+{
+  "name": "tradingview",
+  "title": "tradingview",
+  "source": "mcp",
+  "mode": "mcp",
+  "skillTier": "multi",
+  "tools": 27,
+  "endpoints": 27,
+  "sourceBytes": 28292,
+  "sourceTokens": 9692,
+  "mcpSchemaTokens": 9692,
+  "cdcBytes": 4639,
+  "cdcTokens": 1577,
+  "skillBytes": 5517,
+  "skillTokens": 2067,
+  "generatedAt": "2026-07-11T13:44:18.560Z",
+  "compressionSourceToCdc": 6.1,
+  "compressionSourceToSkill": 4.7,
+  "definitionTaxMcp": 9692,
+  "definitionTaxCdc": 2067,
+  "definitionSavingsRatio": 4.7
+}

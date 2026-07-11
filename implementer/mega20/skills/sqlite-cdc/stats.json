@@ -1,0 +1,21 @@
+{
+  "name": "sqlite",
+  "title": "sqlite",
+  "source": "mcp",
+  "mode": "mcp",
+  "tools": 4,
+  "endpoints": 4,
+  "sourceBytes": 913,
+  "sourceTokens": 287,
+  "mcpSchemaTokens": 287,
+  "cdcBytes": 327,
+  "cdcTokens": 113,
+  "skillBytes": 1550,
+  "skillTokens": 575,
+  "generatedAt": "2026-07-11T12:03:59.203Z",
+  "compressionSourceToCdc": 2.5,
+  "compressionSourceToSkill": 0.5,
+  "definitionTaxMcp": 287,
+  "definitionTaxCdc": 575,
+  "definitionSavingsRatio": 0.5
+}

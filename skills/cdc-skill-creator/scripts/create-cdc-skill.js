@@ -21,8 +21,9 @@ const path = require('path');
 const { compileMCP, probeMcpServer } = require('./lib/compile-mcp');
 const { compileOpenAPI } = require('./lib/compile-openapi');
 const { collectStats } = require('./lib/stats');
+const { buildConvertWin } = require('./lib/convert-win');
 
-// Flags that ALWAYS take a value — their value is consumed verbatim even when
+// Flags that ALWAYS take a value - their value is consumed verbatim even when
 // it starts with "--" (e.g. `--arg --headless` for probing @playwright/mcp).
 const VALUE_FLAGS = new Set([
   'arg', 'probe', 'name', 'file', 'spec', 'out', 'title', 'http-base',
@@ -83,6 +84,21 @@ function installPackage(srcDir, name, { skillsDir, target } = {}) {
   const dirs = resolveSkillsDirs({ skillsDir, target });
   const folder = skillFolderName(name);
   return installToDirs(srcDir, folder, dirs);
+}
+
+function prewarmDaemon(skillDir) {
+  try {
+    const bridge = path.join(skillDir, 'mcp-call.js');
+    if (!fs.existsSync(bridge)) return false;
+    const { spawn } = require('child_process');
+    spawn(process.execPath, [bridge, 'daemon-start'], {
+      detached: true,
+      stdio: 'ignore',
+    }).unref();
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 // Compact single line by default: this output lands in an agent's context on
@@ -176,26 +192,31 @@ async function cmdFromMcp(args) {
   }
 
   // Pre-warm the bridge daemon: the connected-MCP baseline gets its server
-  // booted before any benchmark/user timer starts — give CDC the same deal.
+  // booted before any benchmark/user timer starts - give CDC the same deal.
   // Fire-and-forget; the daemon idles out on its own. Opt out: --no-warm.
   let warmed = false;
   if (!args.flags['no-warm'] && stats.mode === 'mcp' && installed.length && mcpCommand) {
-    try {
-      const { spawn } = require('child_process');
-      spawn(process.execPath, [path.join(installed[0], 'mcp-call.js'), 'daemon-start'], {
-        detached: true,
-        stdio: 'ignore',
-      }).unref();
-      warmed = true;
-    } catch {}
+    warmed = prewarmDaemon(installed[0]);
   }
 
-  const skillName = skillFolderName(stats.name);
+  const win = buildConvertWin(stats, {
+    installed,
+    warmed,
+    skillName: skillFolderName(stats.name),
+  });
+
+  // Human-readable banner on stderr so agents still get one JSON line on stdout
+  // but users running the CLI see the convert win immediately.
+  if (VERBOSE || process.stderr.isTTY) {
+    process.stderr.write(win.text);
+  }
+
   printJson({
     ok: true,
     mode: stats.mode || 'mcp',
+    skillTier: stats.skillTier || null,
     name: stats.name,
-    skillName,
+    skillName: win.skillName,
     tools: stats.tools,
     skillTokens: stats.skillTokens,
     cdcTokens: stats.cdcTokens,
@@ -205,10 +226,10 @@ async function cmdFromMcp(args) {
     outDir,
     installed,
     warmed,
-    howToUse: installed.length
-      ? `In Claude Code or Codex: "Using the ${skillName} skill, ..."`
-      : `Install with: cdc install ${stats.name} --target both`,
-    note: 'Installed as an Agent Skill (Claude Code + Codex) - not as a connected MCP server.',
+    howToUse: win.howToUse,
+    nextStep: win.nextStep,
+    userNotice: win.userNotice,
+    note: 'Installed as an Agent Skill (Claude Code + Codex) - not as a connected MCP server. Disable the MCP to feel the token/speed win.',
   });
 }
 
@@ -236,12 +257,19 @@ async function cmdFromOpenApi(args) {
     });
   }
 
-  const skillName = skillFolderName(stats.name);
+  const win = buildConvertWin(stats, {
+    installed,
+    skillName: skillFolderName(stats.name),
+  });
+  if (VERBOSE || process.stderr.isTTY) {
+    process.stderr.write(win.text);
+  }
+
   printJson({
     ok: true,
     mode: 'openapi',
     name: stats.name,
-    skillName,
+    skillName: win.skillName,
     tools: stats.endpoints,
     skillTokens: stats.skillTokens,
     cdcTokens: stats.cdcTokens,
@@ -249,9 +277,9 @@ async function cmdFromOpenApi(args) {
     compression: stats.compressionSourceToSkill || stats.compressionSpecToSkill,
     outDir,
     installed,
-    howToUse: installed.length
-      ? `In Claude Code or Codex: "Using the ${skillName} skill, ..."`
-      : `Install with: cdc install ${stats.name} --target both`,
+    howToUse: win.howToUse,
+    nextStep: win.nextStep,
+    userNotice: win.userNotice,
     note: 'Installed as an Agent Skill (Claude Code + Codex) - not as a connected MCP server.',
   });
 }
@@ -316,6 +344,7 @@ Default: installs into Claude Code + Codex skill dirs (auto-detect).
 Output: one JSON line (add --verbose for pretty).
 Flags: --no-install  --skills-dir DIR  --target claude|codex|both|auto
        --out DIR  --title T  --http-base URL  --skill-name N (from-config)
+       --no-warm  (skip daemon pre-warm)
 `);
     process.exit(0);
   }

@@ -1,0 +1,21 @@
+{
+  "name": "git",
+  "title": "git",
+  "source": "mcp",
+  "mode": "mcp",
+  "tools": 12,
+  "endpoints": 12,
+  "sourceBytes": 9393,
+  "sourceTokens": 2887,
+  "mcpSchemaTokens": 2887,
+  "cdcBytes": 1266,
+  "cdcTokens": 441,
+  "skillBytes": 2378,
+  "skillTokens": 861,
+  "generatedAt": "2026-07-11T11:37:53.201Z",
+  "compressionSourceToCdc": 6.5,
+  "compressionSourceToSkill": 3.4,
+  "definitionTaxMcp": 2887,
+  "definitionTaxCdc": 861,
+  "definitionSavingsRatio": 3.4
+}

@@ -1,0 +1,25 @@
+{
+  "target": "calc",
+  "arm": "use",
+  "exit": 0,
+  "secs": 14,
+  "tokens": 7348,
+  "signal": null,
+  "purity": {
+    "curl": 0,
+    "gh_cli": 0,
+    "sqlite3_cli": 0,
+    "mcp_calls": 0,
+    "openSession": 1,
+    "callPaged": 0,
+    "mcp_call_js": 4
+  },
+  "ans": {
+    "add": 42,
+    "mul": 56,
+    "pow": 81,
+    "mean": 5,
+    "min": 1,
+    "max": 9
+  }
+}
