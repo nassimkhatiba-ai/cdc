@@ -12,7 +12,13 @@ Generator rules (product quality for every user):
 1. **Always run the script** - never hand-write SKILL.md for real tool lists.
 2. **General templates only** - no example files, demo paths, or task-specific code in generated skills.
 3. Filesystem MCPs → **direct Node fs** (no MCP/npx re-entry). Other MCPs → short bridge + mcp-call.js.
-4. Skills stay **short**: one script, print answer only, no thrash instructions.
+4. Skills stay **short** but not blind: CDC.md keeps a one-line description per
+   tool (guessing return shapes causes exploratory-script thrash).
+5. Bridge skills use `openSession()` — **one server process per script**, never
+   a spawn per call (per-call `npx` cold starts were the big latency regression).
+6. Generated rules enforce **recon-then-compute** (max 2 runs) and a
+   **canonical-source rule** (never aggregate a full dump plus its page shards —
+   this exact mistake produced a 2× wrong answer in live A/B).
 
 ```
 MCP tools/list  -->  ~/.claude/skills/<name>-cdc/

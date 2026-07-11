@@ -1,18 +1,18 @@
 ---
 name: filesystem-cdc
-description: File ops under /path/to/allowed/root via short Node fs scripts (CDC). Prefer fs; do not use MCP/npx. Use when the user asks about files in that root or filesystem-cdc.
+description: File ops under /Users/nesbes/cdc-mcp-sandbox via short Node fs scripts (CDC). Prefer fs; do not use MCP/npx. Use when the user asks about files in that root or filesystem-cdc.
 ---
 
 # filesystem-cdc
 
-Root: `/path/to/allowed/root`
+Root: `/Users/nesbes/cdc-mcp-sandbox`
 
 Use **Node fs/path** in a short script. Do **not** spawn the filesystem MCP or npx.
 
 ```js
 const fs = require('fs');
 const path = require('path');
-const ROOT = "/path/to/allowed/root";
+const ROOT = "/Users/nesbes/cdc-mcp-sandbox";
 // recon: fs.readdirSync(dir, { withFileTypes: true }) + statSync for sizes
 // compute: read/filter/aggregate under ROOT; do ALL math in code
 // console.log(JSON.stringify(answer));

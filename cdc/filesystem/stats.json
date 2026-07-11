@@ -1,6 +1,6 @@
 {
   "name": "filesystem",
-  "title": "Filesystem MCP",
+  "title": "filesystem",
   "source": "mcp",
   "mode": "direct-fs",
   "tools": 14,
@@ -8,15 +8,15 @@
   "sourceBytes": 18957,
   "sourceTokens": 5700,
   "mcpSchemaTokens": 5700,
-  "cdcBytes": 958,
-  "cdcTokens": 371,
-  "skillBytes": 851,
-  "skillTokens": 306,
-  "generatedAt": "2026-07-11T00:26:43.892Z",
+  "cdcBytes": 1876,
+  "cdcTokens": 620,
+  "skillBytes": 1280,
+  "skillTokens": 446,
+  "generatedAt": "2026-07-11T08:54:08.814Z",
   "fsRoot": "/path/to/allowed/root",
-  "compressionSourceToCdc": 15.4,
-  "compressionSourceToSkill": 18.6,
+  "compressionSourceToCdc": 9.2,
+  "compressionSourceToSkill": 12.8,
   "definitionTaxMcp": 5700,
-  "definitionTaxCdc": 306,
-  "definitionSavingsRatio": 18.6
+  "definitionTaxCdc": 446,
+  "definitionSavingsRatio": 12.8
 }

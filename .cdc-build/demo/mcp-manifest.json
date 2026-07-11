@@ -1,0 +1,9 @@
+{
+  "name": "demo",
+  "mode": "mcp",
+  "command": null,
+  "args": [],
+  "envToken": "CDC_DEMO_TOKEN",
+  "tools": 12,
+  "note": "Prefer an installed binary over npx -y to avoid network cold starts."
+}

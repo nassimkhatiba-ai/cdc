@@ -1,6 +1,6 @@
 # filesystem-cdc (direct fs)
 
-Root: /path/to/allowed/root
+Root: /Users/nesbes/cdc-mcp-sandbox
 Mode: direct Node fs (not MCP).
 MCP tool names below are a map only --- implement with fs.
 

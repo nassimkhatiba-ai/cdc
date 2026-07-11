@@ -6,11 +6,16 @@
 //   - HTTP base provided → fetch mode
 //   - everything else --- short skill + mcp-call.js bridge
 //
-// Design goals (public product - skills anyone installs must work):
-//   1. SHORT skill preambles (low definition tax).
-//   2. Prefer real code paths over re-entering MCP when possible.
-//   3. NEVER bake example-specific paths, filenames, or task logic into templates.
-//   4. Agent instructions: one short script, print answer only, no thrash.
+// Design goals (learned the hard way from A/B runs — see results-codex-luna-*.md):
+//   1. SHORT skill preambles (low definition tax) — but not so short the agent
+//      has to guess. Guessing = exploratory scripts = thrash = slow + expensive.
+//   2. The bridge NEVER spawns a server per call. One session per script.
+//      (Per-call spawn was the #1 wall-clock regression: npx cold start × N.)
+//   3. CDC.md lines carry a truncated description — a few tokens per tool that
+//      save whole exploratory round trips.
+//   4. Recon-then-compute discipline with a canonical-source rule. The blanket
+//      "one run, no thrash" rule caused a 2× double-count on sharded data.
+//   5. NEVER bake example-specific paths, filenames, or task logic into templates.
 
 const path = require('path');
 const fs = require('fs');
@@ -38,7 +43,20 @@ function tagOf(toolName) {
   return 'misc';
 }
 
-/** Compact signature: name(params) - no long prose (keeps CDC.md greppable + cheap). */
+/** First sentence of a tool description, hard-capped. Empty string if none. */
+function descOf(tool) {
+  let d = String(tool.description || '').replace(/\s+/g, ' ').trim();
+  if (!d) return '';
+  const m = d.match(/^(.{12,}?[.!?])(?:\s|$)/);
+  if (m) d = m[1];
+  d = d.replace(/[.\s]+$/, '');
+  if (d.length > 90) d = d.slice(0, 87) + '…';
+  return d;
+}
+
+/** Compact signature WITH a one-line description.
+ *  `list_directory(path*)` alone forces the agent to guess return shapes and
+ *  thrash; ~10 extra tokens per tool buys first-try scripts. */
 function toolLine(tool) {
   const schema = tool.inputSchema || tool.input_schema || { type: 'object', properties: {} };
   const params = paramsOf(schema);
@@ -46,7 +64,8 @@ function toolLine(tool) {
   const paramStr = shown.length
     ? '(' + shown.join(', ') + (params.length > 8 ? ',...' : '') + ')'
     : '()';
-  return `${tool.name}${paramStr}`;
+  const desc = descOf(tool);
+  return `${tool.name}${paramStr}${desc ? ' — ' + desc : ''}`;
 }
 
 /**
@@ -113,6 +132,19 @@ function renderCdcIndex({ title, tools, byTag, tags, headerLines }) {
   return cdc;
 }
 
+// Shared discipline block. Every mode gets the same three correctness rules —
+// they exist because their absence produced a wrong answer in live A/B runs.
+function disciplineRules(extra = []) {
+  const rules = [
+    ...extra,
+    'Unknown data layout? Run ONE tiny recon first (names/counts/sizes only, print ≤15 lines), THEN one compute script. Max 2 runs total.',
+    'If several sources can contain the SAME records (full dump + page shards, raw + rollup, daily + monthly), pick ONE canonical source. NEVER aggregate overlapping sources.',
+    'Sanity-check before printing: counts consistent with recon, no double counting, magnitudes plausible.',
+    'Print ONLY the final answer as compact JSON. Never echo raw payloads into chat.',
+  ];
+  return rules.map((r, i) => `${i + 1}. ${r}`).join('\n');
+}
+
 /**
  * SHORT skill for local filesystem MCP -> direct Node fs.
  * General template: ROOT from probe path or CDC_FS_ROOT only.
@@ -134,21 +166,22 @@ function buildDirectFsPackage({ name, root, tools }) {
     '',
     `Root: \`${rootDisplay}\`${hasRoot ? '' : ' (set env CDC_FS_ROOT if empty)'}`,
     '',
-    'Use **Node fs/path** in ONE short script. Do **not** call the filesystem MCP or mcp-call.js.',
+    'Use **Node fs/path** in a short script. Do **not** spawn the filesystem MCP or npx.',
     '',
     '```js',
     "const fs = require('fs');",
     "const path = require('path');",
     `const ROOT = ${rootExpr};`,
-    '// read / list / search / aggregate under ROOT only',
+    '// recon: fs.readdirSync(dir, { withFileTypes: true }) + statSync for sizes',
+    '// compute: read/filter/aggregate under ROOT; do ALL math in code',
     '// console.log(JSON.stringify(answer));',
     '```',
     '',
     'Rules:',
-    '1. Paths must stay under ROOT.',
-    '2. Aggregate/filter in the script - print only the final answer.',
-    '3. One short script, one run. No multi-step thrash, no dumping file bodies into chat.',
-    '4. Prefer built-ins: readFileSync, readdirSync, statSync, writeFileSync.',
+    disciplineRules([
+      'Paths must stay under ROOT.',
+      'Prefer built-ins: readFileSync, readdirSync, statSync, writeFileSync.',
+    ]),
     '',
     'Tool name map (optional): see CDC.md',
     '',
@@ -182,10 +215,14 @@ function buildHttpPackage({ name, title, httpBase, envVar, tools }) {
     '',
     `Base URL: ${httpBase}`,
     '',
-    `ONE Node script with fetch. Auth from env $${envVar} if needed.`,
-    'Filter/aggregate in script. Print only the answer.',
+    `ONE Node script with fetch. Auth from env $${envVar} if needed — never hardcode secrets.`,
     '',
-    'Grep CDC.md for endpoints/tools. Do not load the whole file.',
+    'Rules:',
+    disciplineRules([
+      'Fetch only what you need; paginate where offered; do ALL filtering/aggregation in the script.',
+    ]),
+    '',
+    'Endpoint/tool signatures: grep CDC.md — do not load the whole file.',
     '',
   ].join('\n');
 
@@ -202,7 +239,8 @@ function buildHttpPackage({ name, title, httpBase, envVar, tools }) {
 
 /**
  * SHORT skill for general MCP servers (bridge mode).
- * mcp-call.js is the escape hatch - skill still pushes one script, print answer.
+ * The bridge keeps ONE server session per script — per-call spawning was the
+ * single biggest latency regression in live A/B runs.
  */
 function buildMcpBridgePackage({ name, title, tools }) {
   const { byTag, tags } = groupTools(tools);
@@ -217,21 +255,29 @@ function buildMcpBridgePackage({ name, title, tools }) {
     '',
     `# ${title}`,
     '',
-    'ONE Node script per question. Compose tools in code; print only the answer.',
+    'Compose tools IN CODE via the bundled bridge. One session, one script, print only the answer.',
     '',
     '```js',
-    "const { callTool } = require('./mcp-call.js');",
-    "// const data = await callTool('tool_name', { /* args */ });",
-    '// filter/aggregate here',
-    '// console.log(JSON.stringify(answer));',
+    "const { openSession } = require('__SKILL_DIR__/mcp-call.js');",
+    '(async () => {',
+    '  const s = await openSession();          // ONE server process for ALL calls',
+    "  const data = await s.call('tool_name', { /* args */ });",
+    '  // join/filter/aggregate here — do ALL math in code',
+    '  console.log(JSON.stringify(answer));',
+    '  s.close();',
+    '})();',
     '```',
     '',
-    'Rules:',
-    '1. Call only tools you need. Aggregate in the script - never paste raw payloads into chat.',
-    '2. One short script, one run. No exploratory thrash.',
-    '3. Grep CDC.md for signatures (do not read the whole file).',
+    'Quick one-off (no script file):',
+    '`node __SKILL_DIR__/mcp-call.js <tool> \'<json-args>\'`  ·  batch: `--batch \'[{"tool":"t","args":{}},...]\'`',
     '',
-    `\`grep -A 15 "^## ${firstTag}" CDC.md\``,
+    'Rules:',
+    disciplineRules([
+      'ONE session per script (`openSession`). Never open a session per call.',
+    ]),
+    '',
+    'Tool signatures: grep CDC.md — do not read the whole file:',
+    `\`grep -A 20 "^## ${firstTag}" __SKILL_DIR__/CDC.md\``,
     '',
     'Groups:',
     tagDir,
@@ -245,7 +291,7 @@ function buildMcpBridgePackage({ name, title, tools }) {
     tags,
     headerLines: [
       `Source: MCP tools/list (${tools.length} tools)`,
-      'Use mcp-call.js from a script; print answer only.',
+      'Use mcp-call.js openSession() from a script; print answer only.',
     ],
   });
 
@@ -256,11 +302,22 @@ function buildMcpCallHelper({ mcpCommand, mcpArgs, name }) {
   const bakedCmd = mcpCommand ? JSON.stringify(mcpCommand) : 'null';
   const bakedArgs = JSON.stringify(mcpArgs || []);
   return `#!/usr/bin/env node
-// mcp-call.js --- stdio MCP client for CDC scripts (package: ${name}).
-// Prefer a permanently installed server binary over \`npx -y\` (avoids network cold start).
+// mcp-call.js --- stdio MCP bridge for CDC scripts (package: ${name}).
+//
+// KEY PROPERTY: one Session = ONE server process for any number of tool calls.
+// Never open a session per call — server cold start (especially \`npx -y\`)
+// costs seconds each and was the dominant CDC latency cost before this design.
+//
+// API:    const { openSession, callTool, callTools } = require('.../mcp-call.js');
+//         const s = await openSession(); await s.call(name, args); s.close();
+// CLI:    node mcp-call.js                        # list tool names
+//         node mcp-call.js <tool> '<json-args>'   # single call
+//         node mcp-call.js --batch '<json array>' # many calls, one session
 const { spawn } = require('child_process');
 const fs = require('fs');
 const path = require('path');
+
+const CALL_TIMEOUT_MS = parseInt(process.env.CDC_MCP_TIMEOUT_MS || '60000', 10);
 
 function loadManifest() {
   try { return JSON.parse(fs.readFileSync(path.join(__dirname, 'mcp-manifest.json'), 'utf8')); }
@@ -279,76 +336,11 @@ function resolveServer() {
   return { command, args };
 }
 
-function rpc(command, args, method, params = {}) {
-  return new Promise((resolve, reject) => {
-    const child = spawn(command, args, { stdio: ['pipe', 'pipe', 'pipe'], env: process.env });
-    let buf = '', stderr = '', nextId = 1;
-    const pending = new Map();
-    const send = (msg) => child.stdin.write(JSON.stringify(msg) + '\\n');
-    const request = (meth, pars) => new Promise((res, rej) => {
-      const id = nextId++;
-      pending.set(id, { res, rej });
-      send({ jsonrpc: '2.0', id, method: meth, params: pars });
-    });
-    child.stdout.setEncoding('utf8');
-    child.stdout.on('data', (chunk) => {
-      buf += chunk;
-      let idx;
-      while ((idx = buf.indexOf('\\n')) !== -1) {
-        const line = buf.slice(0, idx).trim();
-        buf = buf.slice(idx + 1);
-        if (!line || line.startsWith('Content-Length:')) continue;
-        let msg;
-        try { msg = JSON.parse(line); } catch {
-          const i = line.indexOf('{');
-          if (i === -1) continue;
-          try { msg = JSON.parse(line.slice(i)); } catch { continue; }
-        }
-        if (msg.id != null && pending.has(msg.id)) {
-          const { res, rej } = pending.get(msg.id);
-          pending.delete(msg.id);
-          if (msg.error) rej(new Error(JSON.stringify(msg.error)));
-          else res(msg.result);
-        }
-      }
-    });
-    child.stderr.on('data', (c) => { stderr += c; });
-    child.on('error', reject);
-    child.on('close', (code) => {
-      if (pending.size) reject(new Error('MCP server exited ' + code + '. stderr: ' + stderr.slice(0, 400)));
-    });
-    (async () => {
-      try {
-        await request('initialize', {
-          protocolVersion: '2024-11-05',
-          capabilities: {},
-          clientInfo: { name: 'cdc-mcp-call', version: '1.0.0' },
-        });
-        send({ jsonrpc: '2.0', method: 'notifications/initialized' });
-        const result = await request(method, params);
-        child.stdin.end();
-        setTimeout(() => { try { child.kill('SIGTERM'); } catch {} }, 50);
-        resolve(result);
-      } catch (e) {
-        try { child.kill('SIGTERM'); } catch {}
-        reject(e);
-      }
-    })();
-  });
-}
-
-async function listTools() {
-  const { command, args } = resolveServer();
-  const result = await rpc(command, args, 'tools/list', {});
-  return result.tools || [];
-}
-
-async function callTool(name, args = {}) {
-  const { command, args: serverArgs } = resolveServer();
-  const result = await rpc(command, serverArgs, 'tools/call', { name, arguments: args });
+function normalizeResult(result) {
   if (result && result.isError) {
     throw new Error((result.content || []).map((c) => c.text || '').join('\\n') || 'tool error');
   }
+  if (result && result.structuredContent !== undefined) return result.structuredContent;
   if (result && result.content) {
     const joined = result.content.filter((c) => c.type === 'text').map((c) => c.text).join('\\n');
     try { return JSON.parse(joined); } catch { return joined; }
@@ -356,19 +348,150 @@ async function callTool(name, args = {}) {
   return result;
 }
 
-module.exports = { callTool, listTools };
+class Session {
+  constructor(command, args) {
+    this.command = command;
+    this.args = args;
+    this.nextId = 1;
+    this.pending = new Map();
+    this.buf = '';
+    this.stderr = '';
+    this.child = null;
+    this.closed = false;
+  }
+
+  async start() {
+    this.child = spawn(this.command, this.args, { stdio: ['pipe', 'pipe', 'pipe'], env: process.env });
+    this.child.stdout.setEncoding('utf8');
+    this.child.stdout.on('data', (chunk) => this._onData(chunk));
+    this.child.stderr.on('data', (c) => { this.stderr += c; });
+    this.child.on('error', (e) => this._failAll(e));
+    this.child.on('close', (code) => {
+      if (!this.closed && this.pending.size) {
+        this._failAll(new Error('MCP server exited ' + code + '. stderr: ' + this.stderr.slice(0, 400)));
+      }
+    });
+    await this._request('initialize', {
+      protocolVersion: '2024-11-05',
+      capabilities: {},
+      clientInfo: { name: 'cdc-mcp-call', version: '2.0.0' },
+    });
+    this._send({ jsonrpc: '2.0', method: 'notifications/initialized' });
+    return this;
+  }
+
+  _onData(chunk) {
+    this.buf += chunk;
+    let idx;
+    while ((idx = this.buf.indexOf('\\n')) !== -1) {
+      const line = this.buf.slice(0, idx).trim();
+      this.buf = this.buf.slice(idx + 1);
+      if (!line || line.startsWith('Content-Length:')) continue;
+      let msg;
+      try { msg = JSON.parse(line); } catch {
+        const i = line.indexOf('{');
+        if (i === -1) continue;
+        try { msg = JSON.parse(line.slice(i)); } catch { continue; }
+      }
+      if (msg.id != null && this.pending.has(msg.id)) {
+        const { res, rej, timer } = this.pending.get(msg.id);
+        this.pending.delete(msg.id);
+        clearTimeout(timer);
+        if (msg.error) rej(new Error(JSON.stringify(msg.error)));
+        else res(msg.result);
+      }
+      // requests/notifications from the server (logging, pings) are ignored
+    }
+  }
+
+  _failAll(err) {
+    for (const { rej, timer } of this.pending.values()) {
+      clearTimeout(timer);
+      rej(err);
+    }
+    this.pending.clear();
+  }
+
+  _send(msg) {
+    this.child.stdin.write(JSON.stringify(msg) + '\\n');
+  }
+
+  _request(method, params, timeoutMs = CALL_TIMEOUT_MS) {
+    return new Promise((res, rej) => {
+      const id = this.nextId++;
+      const timer = setTimeout(() => {
+        this.pending.delete(id);
+        rej(new Error(method + ' timed out after ' + timeoutMs + 'ms. stderr: ' + this.stderr.slice(0, 300)));
+      }, timeoutMs);
+      this.pending.set(id, { res, rej, timer });
+      this._send({ jsonrpc: '2.0', id, method, params });
+    });
+  }
+
+  async call(name, args = {}) {
+    const result = await this._request('tools/call', { name, arguments: args });
+    return normalizeResult(result);
+  }
+
+  async list() {
+    const result = await this._request('tools/list', {});
+    return result.tools || [];
+  }
+
+  close() {
+    this.closed = true;
+    try { this.child.stdin.end(); } catch {}
+    const child = this.child;
+    setTimeout(() => { try { child.kill('SIGTERM'); } catch {} }, 50).unref?.();
+  }
+}
+
+async function openSession() {
+  const { command, args } = resolveServer();
+  return new Session(command, args).start();
+}
+
+/** One-shot convenience. For MULTIPLE calls use openSession() or callTools(). */
+async function callTool(name, args = {}) {
+  const s = await openSession();
+  try { return await s.call(name, args); }
+  finally { s.close(); }
+}
+
+/** Run many calls over a single session. calls: [{ tool, args }] */
+async function callTools(calls) {
+  const s = await openSession();
+  try {
+    const out = [];
+    for (const c of calls) out.push(await s.call(c.tool || c.name, c.args || {}));
+    return out;
+  } finally { s.close(); }
+}
+
+module.exports = { openSession, callTool, callTools, Session };
 
 if (require.main === module) {
-  const [toolName, argsJson] = process.argv.slice(2);
-  if (!toolName) {
-    listTools()
-      .then((tools) => console.log(JSON.stringify(tools.map((t) => t.name), null, 2)))
-      .catch((e) => { console.error(e.message); process.exit(1); });
-  } else {
-    callTool(toolName, argsJson ? JSON.parse(argsJson) : {})
-      .then((r) => console.log(typeof r === 'string' ? r : JSON.stringify(r, null, 2)))
-      .catch((e) => { console.error(e.message); process.exit(1); });
-  }
+  (async () => {
+    const argv = process.argv.slice(2);
+    try {
+      if (!argv.length) {
+        const s = await openSession();
+        const tools = await s.list();
+        s.close();
+        console.log(JSON.stringify(tools.map((t) => t.name), null, 2));
+      } else if (argv[0] === '--batch') {
+        const calls = JSON.parse(argv[1] || '[]');
+        const results = await callTools(calls);
+        console.log(JSON.stringify(results, null, 2));
+      } else {
+        const r = await callTool(argv[0], argv[1] ? JSON.parse(argv[1]) : {});
+        console.log(typeof r === 'string' ? r : JSON.stringify(r, null, 2));
+      }
+    } catch (e) {
+      console.error(e.message);
+      process.exit(1);
+    }
+  })();
 }
 `;
 }
@@ -584,5 +707,6 @@ module.exports = {
   probeMcpServer,
   tagOf,
   toolLine,
+  descOf,
   detectFilesystemRoot,
 };
