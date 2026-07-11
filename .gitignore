@@ -4,3 +4,4 @@ test/.tmp-out/
 *.log
 .env
 .claude/
+.cdc-build/

@@ -1,7 +1,0 @@
-{
-  "name": "filesystem",
-  "mode": "direct-fs",
-  "root": "/Users/nesbes/cdc-mcp-sandbox",
-  "tools": 14,
-  "note": "Use Node fs under root. Do not spawn MCP for normal queries."
-}
