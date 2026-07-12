@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CDC — Code-Call Descriptors</title>
+<meta name="description" content="CDC converts fat MCP servers into ~900-token Agent Skills for Claude Code and Codex. An always-on router keeps small MCPs native and sends large schemas to CDC — so the model stops paying for tool definitions it never reads.">
+<meta property="og:title" content="CDC — Code-Call Descriptors">
+<meta property="og:description" content="Your MCP brought 40,000 tokens of schemas to a one-tool job. CDC left them at the door.">
+<meta property="og:image" content="cdc-banner.png">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="cdc-logo.png">
+<style>
+  :root{
+    --ink:#0b0b0d;
+    --body:#3f4045;
+    --muted:#77787f;
+    --line:#e7e7ea;
+    --line-strong:#d5d5da;
+    --bg:#ffffff;
+    --soft:#fafafa;
+    --code-bg:#0d0e12;
+    --code-fg:#e9e9ec;
+    --accent:#0a8090;      /* interactive / links — AA on white */
+    --accent-strong:#086b78;
+    --accent-fill:#19b6c9; /* brand teal for bars/marks */
+    --neutral-fill:#e4e4e7;
+    --glass-bg:rgba(255,255,255,.55);
+    --glass-brd:rgba(255,255,255,.7);
+    --glass-sh:0 10px 34px rgba(11,11,13,.07);
+    --blur:blur(18px) saturate(160%);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+  body{
+    margin:0; color:var(--body);
+    background:
+      radial-gradient(1100px 620px at 12% -8%, rgba(25,182,201,.13), transparent 60%),
+      radial-gradient(1000px 560px at 100% 2%, rgba(246,182,11,.10), transparent 55%),
+      radial-gradient(900px 700px at 60% 110%, rgba(25,182,201,.08), transparent 60%),
+      linear-gradient(180deg,#ffffff 0%,#f2f6f7 100%);
+    background-attachment:fixed;
+    font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
+    font-size:17px; line-height:1.65; letter-spacing:-.006em;
+    -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+  }
+  ::selection{background:#cdeff3}
+  a{color:var(--accent); text-decoration:none}
+  a:hover{color:var(--accent-strong)}
+  img{max-width:100%; height:auto; display:block}
+  h1,h2,h3{color:var(--ink); font-weight:650; letter-spacing:-.028em; line-height:1.12; margin:0}
+  mono,code,pre,.num{font-family:ui-monospace,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace}
+  .num{font-variant-numeric:tabular-nums}
+  :focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:4px}
+
+  .wrap{max-width:1080px; margin:0 auto; padding:0 28px}
+  .measure{max-width:660px}
+  .eyebrow{font-size:12.5px; font-weight:600; letter-spacing:.09em; text-transform:uppercase; color:var(--accent); margin:0 0 14px}
+
+  /* nav */
+  nav{position:sticky; top:0; z-index:10; background:rgba(255,255,255,.55);
+    backdrop-filter:saturate(180%) blur(14px); -webkit-backdrop-filter:saturate(180%) blur(14px);
+    border-bottom:1px solid rgba(255,255,255,.6); box-shadow:0 1px 0 rgba(11,11,13,.04)}
+  nav .wrap{display:flex; align-items:center; justify-content:space-between; height:60px}
+  .brand{display:flex; align-items:center; gap:10px; font-weight:650; color:var(--ink); letter-spacing:-.02em}
+  .brand img{width:24px; height:24px; border-radius:7px; padding:3px; box-sizing:content-box;
+    background:var(--glass-bg); border:1px solid var(--glass-brd)}
+  .nav-links{display:flex; align-items:center; gap:28px; font-size:15px}
+  .nav-links a{color:var(--body); font-weight:500}
+  .nav-links a:hover{color:var(--ink)}
+  .nav-links .gh{color:var(--ink); font-weight:600}
+  @media(max-width:640px){ .nav-links a:not(.gh){display:none} }
+
+  /* buttons */
+  .btn{display:inline-flex; align-items:center; gap:8px; font-size:15px; font-weight:600;
+    padding:11px 18px; border-radius:9px; border:1px solid transparent; transition:.15s ease}
+  .btn.primary{background:var(--ink); color:#fff}
+  .btn.primary:hover{background:#26262b; color:#fff}
+  .btn.ghost{background:var(--glass-bg); backdrop-filter:var(--blur); -webkit-backdrop-filter:var(--blur);
+    color:var(--ink); border-color:var(--glass-brd); box-shadow:var(--glass-sh)}
+  .btn.ghost:hover{border-color:var(--ink)}
+
+  /* hero */
+  .hero{padding:104px 0 76px; text-align:center; border-bottom:1px solid var(--line)}
+  .hero .mark{width:60px; height:60px; margin:0 auto 26px; padding:13px; border-radius:20px; box-sizing:content-box;
+    background:var(--glass-bg); backdrop-filter:var(--blur); -webkit-backdrop-filter:var(--blur);
+    border:1px solid var(--glass-brd); box-shadow:var(--glass-sh)}
+  .hero h1{font-size:clamp(38px,6vw,62px); font-weight:680; letter-spacing:-.038em}
+  .hero .tag{font-size:clamp(19px,2.5vw,23px); color:var(--body); margin:20px auto 0; max-width:620px; font-weight:450}
+  .hero .tag b{color:var(--ink); font-weight:600}
+  .cta{display:flex; gap:12px; justify-content:center; margin-top:34px; flex-wrap:wrap}
+  .cmd{display:inline-flex; align-items:center; gap:10px; margin:30px auto 0; width:max-content; max-width:100%;
+    font-size:14px; color:var(--body); background:var(--glass-bg); border:1px solid var(--glass-brd);
+    backdrop-filter:var(--blur); -webkit-backdrop-filter:var(--blur); box-shadow:var(--glass-sh);
+    border-radius:10px; padding:10px 15px; overflow-x:auto}
+  .cmd .dollar{color:var(--muted); user-select:none}
+  .trust{margin-top:24px; font-size:13.5px; color:var(--muted); letter-spacing:.01em}
+  .trust b{color:var(--body); font-weight:600}
+  .hero .tag em{font-style:normal; color:var(--ink); font-weight:600}
+
+  /* hero context-window graphic */
+  .cw{margin:38px auto 4px; max-width:600px; text-align:left; padding:22px 22px 18px;
+    background:var(--glass-bg); backdrop-filter:var(--blur); -webkit-backdrop-filter:var(--blur);
+    border:1px solid var(--glass-brd); box-shadow:var(--glass-sh); border-radius:16px}
+  .cw-row + .cw-row{margin-top:15px}
+  .cw-head{display:flex; justify-content:space-between; align-items:baseline; gap:12px; margin-bottom:7px}
+  .cw-name{font-weight:600; color:var(--ink); font-size:14px}
+  .cw-note{font-size:12.5px; color:var(--muted); white-space:nowrap}
+  .cw-bar{display:flex; align-items:stretch; height:44px; border-radius:10px; overflow:hidden; border:1px solid var(--line)}
+  .cw-seg{display:flex; align-items:center; padding:0 14px; font-size:12.5px; font-weight:600;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .cw-seg.schema{flex:1; min-width:0; color:#43434a;
+    background:repeating-linear-gradient(135deg,#e7e7ec 0,#e7e7ec 9px,#dcdce2 9px,#dcdce2 18px)}
+  .cw-seg.skill{flex:0 0 auto; color:#06343a; background:var(--accent-fill); font-variant-numeric:tabular-nums; box-shadow:2px 0 8px rgba(25,182,201,.35)}
+  .cw-free{flex:1; min-width:0; display:flex; align-items:center; padding:0 14px; font-size:12px;
+    color:var(--muted); font-style:italic; background:rgba(255,255,255,.32); overflow:hidden; text-overflow:ellipsis}
+  .cw-cap{margin-top:15px; font-size:14px; color:var(--body); text-align:center}
+  .cw-cap b{color:var(--accent-strong); font-weight:700}
+  @media(max-width:640px){ .cw-note{display:none} .cw-seg,.cw-free{font-size:11.5px; padding:0 10px} }
+
+  /* sections */
+  section{padding:88px 0; border-bottom:1px solid var(--line)}
+  section h2{font-size:clamp(27px,3.6vw,36px); font-weight:660}
+  section .lead{color:var(--body); margin-top:16px; font-size:18px}
+
+  /* before / after */
+  .ba{display:grid; grid-template-columns:1fr 1fr; gap:0; margin-top:40px; border-radius:16px; overflow:hidden;
+    background:var(--glass-bg); backdrop-filter:var(--blur); -webkit-backdrop-filter:var(--blur);
+    border:1px solid var(--glass-brd); box-shadow:var(--glass-sh)}
+  .ba > div{padding:30px 30px}
+  .ba > div:first-child{border-right:1px solid var(--line); background:rgba(255,255,255,.22)}
+  .ba h3{font-size:14px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); font-weight:600; margin-bottom:14px}
+  .ba p{margin:0; color:var(--body)}
+  .ba .big{font-size:15px}
+  .ba .stat{margin-top:18px; font-size:15px; color:var(--ink); font-weight:600}
+  .ba .stat .num{color:var(--accent-strong)}
+  @media(max-width:640px){ .ba{grid-template-columns:1fr} .ba > div:first-child{border-right:0; border-bottom:1px solid var(--line)} }
+
+  /* router */
+  .rules{margin-top:36px; border-top:1px solid var(--line)}
+  .rule{display:grid; grid-template-columns:auto 1fr; gap:22px; align-items:baseline; padding:20px 2px; border-bottom:1px solid var(--line)}
+  .rule .cond{font-size:15px; color:var(--ink)}
+  .rule .cond .num{color:var(--ink); font-weight:600}
+  .rule .arrow{color:var(--body)}
+  .rule .arrow .to{color:var(--accent-strong); font-weight:600}
+  .rule .to-mcp{color:var(--body); font-weight:600}
+  .rule .k{font-size:13px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; white-space:nowrap; padding-top:2px}
+  .router-note{margin-top:24px; font-size:14px; color:var(--muted)}
+
+  /* benchmark */
+  .bench-card{margin-top:38px; border-radius:16px; padding:34px 34px 30px;
+    background:var(--glass-bg); backdrop-filter:var(--blur); -webkit-backdrop-filter:var(--blur);
+    border:1px solid var(--glass-brd); box-shadow:var(--glass-sh)}
+  .bench-head{display:flex; justify-content:space-between; align-items:baseline; gap:16px; flex-wrap:wrap; margin-bottom:26px}
+  .bench-head .t{font-size:15px; color:var(--ink); font-weight:600}
+  .bench-head .m{font-size:13px; color:var(--muted)}
+  .bar{margin:18px 0}
+  .bar .row{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px}
+  .bar .name{font-size:14px; color:var(--body)}
+  .bar .name b{color:var(--ink); font-weight:600}
+  .bar .val{font-size:14px; color:var(--ink); font-weight:600}
+  .bar .val .ok{color:var(--muted); font-weight:500; margin-left:8px}
+  .track{height:12px; border-radius:7px; background:#f1f1f3; overflow:hidden}
+  .fill{height:100%; border-radius:7px}
+  .fill.mcp{width:100%; background:var(--neutral-fill)}
+  .fill.cdc{width:60.4%; background:var(--accent-fill)}
+  .delta{display:inline-block; margin-top:22px; font-size:14px; font-weight:600; color:var(--accent-strong);
+    background:#e7f7f9; border:1px solid #cdeef2; border-radius:8px; padding:6px 12px}
+
+  table{width:100%; border-collapse:collapse; margin-top:20px; font-size:15px}
+  thead th{font-size:12.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); font-weight:600;
+    text-align:right; padding:0 0 10px; border-bottom:1px solid var(--line-strong)}
+  thead th:first-child{text-align:left}
+  tbody td{padding:11px 0; border-bottom:1px solid var(--line); text-align:right; color:var(--ink)}
+  tbody td:first-child{text-align:left; color:var(--body)}
+  tbody td.win{color:var(--accent-strong); font-weight:600}
+  .tnote{margin-top:18px; font-size:13.5px; color:var(--muted)}
+  .tnote code{font-size:12.5px; background:var(--soft); border:1px solid var(--line); border-radius:5px; padding:1px 5px}
+
+  .suite{margin-top:56px}
+  .suite h3{font-size:19px; font-weight:640}
+  .suite .m{color:var(--muted); font-size:14.5px; margin-top:4px}
+
+  /* install */
+  .cols{display:grid; grid-template-columns:1fr 1fr; gap:34px; margin-top:36px}
+  @media(max-width:720px){ .cols{grid-template-columns:1fr; gap:30px} }
+  .cols h3{font-size:16px; font-weight:620; margin-bottom:12px}
+  pre{background:rgba(13,14,18,.82); color:var(--code-fg); border-radius:12px; padding:18px 20px;
+    overflow-x:auto; font-size:14px; line-height:1.6; margin:0; border:1px solid rgba(255,255,255,.08);
+    backdrop-filter:var(--blur); -webkit-backdrop-filter:var(--blur); box-shadow:var(--glass-sh)}
+  pre + h3{margin-top:26px}
+  pre .c{color:#7fd1da}
+  pre .d{color:#6b6d78}
+  .subnote{font-size:13.5px; color:var(--muted); margin-top:12px}
+  code.inline{font-size:.9em; background:var(--soft); border:1px solid var(--line); border-radius:5px; padding:1px 6px}
+
+  /* footer */
+  footer{padding:52px 0 64px; text-align:center; color:var(--muted); font-size:14px}
+  footer .flinks{display:flex; gap:22px; justify-content:center; margin-bottom:14px; font-weight:500}
+  footer .flinks a{color:var(--body)}
+  footer .flinks a:hover{color:var(--ink)}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <span class="brand"><img src="cdc-logo.png" alt="">CDC</span>
+    <span class="nav-links">
+      <a href="#how">How it works</a>
+      <a href="#router">Router</a>
+      <a href="#bench">Benchmarks</a>
+      <a class="gh" href="https://github.com/nassimkhatiba-ai/cdc">GitHub ↗</a>
+    </span>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <img class="mark" src="cdc-logo.png" alt="CDC logo">
+    <h1>Same tools. Same answers.<br>Half the tokens.</h1>
+    <p class="tag">Connect the GitHub MCP and your agent loads <b>~3.18 million tokens</b> of tool schemas <em>before it answers a single question.</em> CDC shrinks that to a <b>909-token</b> skill — and routes to it automatically.</p>
+
+    <div class="cw" aria-label="Context spent on tool definitions before you ask a question">
+      <div class="cw-row">
+        <div class="cw-head"><span class="cw-name">Native GitHub MCP</span><span class="cw-note">loaded up front, every session</span></div>
+        <div class="cw-bar"><span class="cw-seg schema">1,196 tool schemas&nbsp;·&nbsp;~3,183,737 tokens</span></div>
+      </div>
+      <div class="cw-row">
+        <div class="cw-head"><span class="cw-name">Same tools, with CDC</span><span class="cw-note">grepped on demand</span></div>
+        <div class="cw-bar"><span class="cw-seg skill">909</span><span class="cw-free">context stays free for your actual task</span></div>
+      </div>
+      <div class="cw-cap"><b>3,502× smaller</b> up-front cost — identical capabilities.</div>
+    </div>
+
+    <div class="cta">
+      <a class="btn primary" href="#install">Install CDC</a>
+      <a class="btn ghost" href="#bench">See the proof →</a>
+    </div>
+    <div class="cmd"><span class="dollar">$</span><span class="num">node bin/cdc.js install-plugin</span></div>
+    <p class="trust"><b>Claude Code</b> &amp; <b>Codex</b> &nbsp;·&nbsp; Node 18+ &nbsp;·&nbsp; Zero dependencies &nbsp;·&nbsp; MIT</p>
+  </div>
+</header>
+
+<section id="how">
+  <div class="wrap">
+    <p class="eyebrow">What it is</p>
+    <h2>Code-Call Descriptors</h2>
+    <p class="lead measure">A fat MCP server injects its entire tool schema into context on every turn — tens of thousands of tokens for a one-tool job. CDC converts that server into a compact Agent Skill: a short preamble plus a one-line-per-endpoint reference the agent greps only when it needs it. Same capabilities, a fraction of the standing cost.</p>
+
+    <div class="ba">
+      <div>
+        <h3>Before — native MCP</h3>
+        <p class="big">Connect the GitHub MCP server, ask for one star count, and the window is already full of 1,196 tool definitions you'll never call.</p>
+        <p class="stat">Schema in context: <span class="num">~3,183,737</span> tokens</p>
+      </div>
+      <div>
+        <h3>After — CDC skill</h3>
+        <p class="big">Install <code class="inline">github-cdc</code>. The agent greps <code class="inline">CDC.md</code>, runs one short request, and answers. Schemas stay out of the window.</p>
+        <p class="stat">Skill in context: <span class="num" style="color:var(--accent-strong)">909</span> tokens <span style="color:var(--muted);font-weight:500">(3,502× smaller)</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="router">
+  <div class="wrap">
+    <p class="eyebrow">Always-on router</p>
+    <h2>It decides per server, by cost</h2>
+    <p class="lead measure">Before the first tool call, the router weighs the native schema against the CDC skill and takes the cheaper path at equal accuracy — even when you explicitly ask to “use the MCP.” Small surfaces stay native; large ones convert. You don't choose; it measures.</p>
+
+    <div class="rules">
+      <div class="rule">
+        <div class="k">Large schema</div>
+        <div>
+          <div class="cond">github MCP · <span class="num">1,196</span> tools · <span class="num">~3.18M</span> schema tokens</div>
+          <div class="arrow">→ over threshold, routes to the <span class="to">github-cdc</span> skill (<span class="num">909</span> tokens)</div>
+        </div>
+      </div>
+      <div class="rule">
+        <div class="k">Small schema</div>
+        <div>
+          <div class="cond">a handful of tools · a few hundred schema tokens</div>
+          <div class="arrow">→ under threshold, <span class="to-mcp">stays native MCP</span> — converting wouldn't pay off</div>
+        </div>
+      </div>
+    </div>
+
+    <table style="max-width:520px">
+      <thead><tr><th>Signal</th><th>Default</th><th>Effect</th></tr></thead>
+      <tbody>
+        <tr><td>Schema tokens</td><td class="num">≥ 3,500</td><td>prefer CDC</td></tr>
+        <tr><td>Tool count</td><td class="num">≥ 40</td><td>prefer CDC</td></tr>
+        <tr><td>MCP ÷ skill ratio</td><td class="num">≥ 1.8×</td><td>prefer CDC</td></tr>
+      </tbody>
+    </table>
+    <p class="router-note">Converting a large MCP prints a one-time cost line; every session afterward is cheaper.</p>
+  </div>
+</section>
+
+<section id="bench">
+  <div class="wrap">
+    <p class="eyebrow">Live benchmark</p>
+    <h2>Same answer, 39.6% fewer tokens</h2>
+    <p class="lead measure">A single live A/B on <code class="inline">gpt-5.6-sol</code>: read the <code class="inline">LICENSE</code> and <code class="inline">go.mod</code> of <code class="inline">cli/cli</code> — once through the native GitHub MCP server, once through the <code class="inline">github-cdc</code> skill the router selected. Both arms returned the identical, correct answer.</p>
+
+    <div class="bench-card">
+      <div class="bench-head">
+        <span class="t">GitHub file-read task</span>
+        <span class="m num">gpt-5.6-sol · medium reasoning · Codex CLI</span>
+      </div>
+      <div class="bar">
+        <div class="row"><span class="name">Native MCP <b>·</b> server-github</span><span class="val"><span class="num">20,125</span> tok<span class="ok">✓ 2/2 correct</span></span></div>
+        <div class="track"><div class="fill mcp"></div></div>
+      </div>
+      <div class="bar">
+        <div class="row"><span class="name">CDC router <b>·</b> github-cdc</span><span class="val"><span class="num">12,146</span> tok<span class="ok">✓ 2/2 correct</span></span></div>
+        <div class="track"><div class="fill cdc"></div></div>
+      </div>
+      <span class="delta">−39.6% tokens · identical output</span>
+    </div>
+
+    <div class="suite">
+      <h3>Across a 10-MCP suite</h3>
+      <p class="m num">gpt-5.6-sol · medium · 10 real MCPs · 45 score keys · native vs CDC skill</p>
+      <table style="max-width:560px">
+        <thead><tr><th>Target</th><th>Native MCP</th><th>CDC</th><th>Δ</th></tr></thead>
+        <tbody>
+          <tr><td>everything</td><td class="num">18,500</td><td class="num">8,624</td><td class="num win">−53%</td></tr>
+          <tr><td>calc</td><td class="num">17,410</td><td class="num">8,230</td><td class="num win">−53%</td></tr>
+          <tr><td>github</td><td class="num">19,228</td><td class="num">9,749</td><td class="num win">−49%</td></tr>
+          <tr><td>fetch</td><td class="num">15,931</td><td class="num">9,017</td><td class="num win">−43%</td></tr>
+          <tr><td>memory</td><td class="num">17,609</td><td class="num">12,805</td><td class="num win">−27%</td></tr>
+          <tr><td style="color:var(--muted)">suite total</td><td class="num">155,309</td><td class="num">118,470</td><td class="num win">−23.7%</td></tr>
+        </tbody>
+      </table>
+      <p class="tnote">Directional, not statistically settled — token counts vary run to run; the live A/B is n=1 and the suite is a single sweep. Reproduce with the harness under <code>implementer/</code>.</p>
+    </div>
+  </div>
+</section>
+
+<section id="install">
+  <div class="wrap">
+    <p class="eyebrow">Install</p>
+    <h2>Two commands</h2>
+    <p class="lead measure">Requires Node 18+ on your PATH. Restart Claude Code or Codex afterward.</p>
+    <div class="cols">
+      <div>
+        <h3>Both agents — recommended</h3>
+<pre><span class="d"># clone and install skills + hooks</span>
+git clone https://github.com/nassimkhatiba-ai/cdc.git
+cd cdc
+node bin/cdc.js <span class="c">install-plugin</span></pre>
+        <p class="subnote">Skills install to <code class="inline">~/.claude/skills</code> and <code class="inline">~/.codex/skills</code>; the router stays on via Claude hooks and <code class="inline">~/.codex/AGENTS.md</code>.</p>
+      </div>
+      <div>
+        <h3>Claude Code only</h3>
+<pre>claude plugin marketplace add <span class="c">nassimkhatiba-ai/cdc</span>
+claude plugin install <span class="c">cdc@cdc</span></pre>
+        <h3>Then just ask</h3>
+<pre><span class="d">›</span> Convert my GitHub MCP into a CDC skill
+<span class="d">›</span> Use the github MCP   <span class="d"># still cost-checks first</span></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="flinks">
+      <a href="https://github.com/nassimkhatiba-ai/cdc">GitHub</a>
+      <a href="https://github.com/nassimkhatiba-ai/cdc/blob/main/INSTALL.md">Install guide</a>
+      <a href="#bench">Benchmarks</a>
+    </div>
+    <p>Code-Call Descriptors · benchmarked on <span class="num">gpt-5.6-sol</span> · MIT licensed.</p>
+  </div>
+</footer>
+
+</body>
+</html>
