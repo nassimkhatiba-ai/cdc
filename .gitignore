@@ -47,3 +47,7 @@ implementer/mega40/fixtures-mega20
 implementer/mega40/fixtures
 .playwright-mcp/
 implementer/mega20/fixtures/
+
+# generated MCP launchers (embed live tokens at runtime)
+implementer/notion-live/notion-mcp.sh
+implementer/*/*-mcp.sh
