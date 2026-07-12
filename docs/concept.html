@@ -210,11 +210,11 @@
         <div class="body">
           <div class="cmd"><span class="p">$</span> connect <span style="color:var(--ink)">github</span></div>
           <div class="mrow">
-            <div class="head"><span class="lab">github <small>· MCP · 1,196 tools</small></span><span class="tok">3,183,737</span></div>
+            <div class="head"><span class="lab">github <small>· MCP · 1,196 tools</small></span><span class="tok" data-count="3183737" data-load="1">3,183,737</span></div>
             <div class="mtrack"><div class="mfill mcp"></div></div>
           </div>
           <div class="mrow">
-            <div class="head"><span class="lab">github-cdc <small>· skill · same tools</small></span><span class="tok">909</span></div>
+            <div class="head"><span class="lab">github-cdc <small>· skill · same tools</small></span><span class="tok" data-count="909" data-load="1">909</span></div>
             <div class="mtrack"><div class="mfill cdc"></div></div>
           </div>
           <div class="foot"><span>tool definitions loaded up front</span><span><b>3,502× lighter</b></span></div>
@@ -236,8 +236,8 @@
         <p>Live on <span class="mono">gpt-5.6-sol</span>: reading <span class="mono">cli/cli</span>'s LICENSE and go.mod, the CDC skill matched the MCP's answer on far less context.</p>
         <div class="widget">
           <div class="ab">
-            <div class="r"><div class="h"><span class="n">native MCP</span><span class="t">20,125 tok</span></div><div class="track"><div class="f a"></div></div></div>
-            <div class="r"><div class="h"><span class="n">github-cdc</span><span class="t">12,146 tok</span></div><div class="track"><div class="f b"></div></div></div>
+            <div class="r"><div class="h"><span class="n">native MCP</span><span class="t"><span data-count="20125">20,125</span> tok</span></div><div class="track"><div class="f a"></div></div></div>
+            <div class="r"><div class="h"><span class="n">github-cdc</span><span class="t"><span data-count="12146">12,146</span> tok</span></div><div class="track"><div class="f b"></div></div></div>
             <div class="cap"><span>gpt-5.6-sol · medium</span><span class="ok">✓ both 2/2 correct</span></div>
           </div>
         </div>
@@ -351,6 +351,63 @@
   var c=document.getElementById('copycmd'), l=document.getElementById('cplabel');
   function copy(){navigator.clipboard&&navigator.clipboard.writeText('node bin/cdc.js install-plugin').then(function(){l.textContent='copied';setTimeout(function(){l.textContent='copy'},1600)})}
   c.addEventListener('click',copy); c.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();copy()}});
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script>
+(function(){
+  if(!window.gsap) return;                                  // CDN failed → everything stays visible
+  if(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  gsap.registerPlugin(ScrollTrigger);
+
+  var EASE='power3.out';
+  // count-up helper (load or on-scroll)
+  function countUp(el){
+    var target=parseFloat(el.getAttribute('data-count'));
+    var dec=parseInt(el.getAttribute('data-dec')||'0',10);
+    var onLoad=el.getAttribute('data-load');
+    var o={v:0};
+    var cfg={v:target, duration:1.2, ease:'power2.out', onUpdate:function(){
+      el.textContent=o.v.toLocaleString('en-US',{minimumFractionDigits:dec,maximumFractionDigits:dec});
+    }};
+    if(onLoad){ cfg.delay=0.55; } else { cfg.scrollTrigger={trigger:el, start:'top 88%'}; }
+    gsap.to(o,cfg);
+  }
+  gsap.utils.toArray('[data-count]').forEach(countUp);
+
+  // hero intro (on load)
+  gsap.from('.hero .grid > div:first-child > *', {y:22, opacity:0, duration:.7, ease:'power2.out', stagger:.08, delay:.1});
+  gsap.from('.term', {y:28, opacity:0, duration:.8, ease:EASE, delay:.22});
+  gsap.set('.term .mfill', {transformOrigin:'left center'});
+  gsap.from('.term .mfill', {scaleX:0, duration:1, ease:EASE, delay:.5, stagger:.12});
+
+  // scroll reveals
+  function reveal(sel, o){
+    gsap.utils.toArray(sel).forEach(function(el){
+      gsap.from(el, Object.assign({y:24, opacity:0, duration:.7, ease:'power2.out',
+        scrollTrigger:{trigger:el, start:'top 84%'}}, o||{}));
+    });
+  }
+  reveal('.stats .eyebrow'); reveal('.stats h2');
+  reveal('.metric', {y:30, stagger:.1});
+  reveal('.how .eyebrow'); reveal('.how h2');
+
+  // bars grow on scroll
+  gsap.utils.toArray('.ab .f').forEach(function(f){
+    gsap.set(f,{transformOrigin:'left center'});
+    gsap.from(f,{scaleX:0, duration:1, ease:EASE, scrollTrigger:{trigger:f, start:'top 90%'}});
+  });
+
+  // steps stagger
+  gsap.from('.step', {y:26, opacity:0, duration:.6, ease:'power2.out', stagger:.12,
+    scrollTrigger:{trigger:'.steps', start:'top 82%'}});
+
+  // cta + footer
+  gsap.from('.ctabox', {y:32, opacity:0, duration:.85, ease:EASE, scrollTrigger:{trigger:'.ctabox', start:'top 86%'}});
+  gsap.from('.ftop > *', {y:20, opacity:0, duration:.6, ease:'power2.out', stagger:.1,
+    scrollTrigger:{trigger:'footer', start:'top 88%'}});
+})();
 </script>
 
 </body>
