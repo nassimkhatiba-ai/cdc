@@ -4,206 +4,230 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CDC — concept</title>
-<meta name="description" content="Concept: minimal landing for CDC — tools for your agent, without the schema tax.">
+<meta name="description" content="Concept: minimal, terminal-native landing for CDC — call one tool, not ten thousand schemas.">
 <link rel="icon" href="cdc-logo.png">
 <style>
   :root{
-    --ink:#0d0d0f;
-    --body:#5b5c61;
-    --muted:#a6a7ad;
-    --faint:#c9cace;
-    --line:#ececed;
-    --bg:#ffffff;
-    --accent:#12a6b8;
+    --ink:#111214;
+    --body:#5c5d62;
+    --muted:#a4a5ab;
+    --faint:#cbccd0;
+    --line:#eae9e6;
+    --bg:#fbfbf9;
+    --panel:#ffffff;
+    --accent:#0f9fb0;
     --accent-soft:#22c3d6;
-    --green:#22b07a;
+    --amber:#d99a00;
+    --green:#25b07c;
+    --mono:ui-monospace,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
   }
   *{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
   body{margin:0; background:var(--bg); color:var(--body);
     font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
-    font-weight:400; font-size:17px; line-height:1.6; letter-spacing:-.01em;
-    -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;}
+    font-size:17px; line-height:1.6; letter-spacing:-.01em; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;}
   a{color:inherit; text-decoration:none}
   img{max-width:100%; height:auto; display:block}
-  h1,h2,h3{margin:0; color:var(--ink); font-weight:300; letter-spacing:-.035em; line-height:1.04}
+  h1,h2,h3{margin:0; color:var(--ink); font-weight:350; letter-spacing:-.035em; line-height:1.05}
+  .mono{font-family:var(--mono)}
   .num{font-variant-numeric:tabular-nums}
-  .wrap{max-width:1180px; margin:0 auto; padding:0 40px}
-  .eyebrow{font-size:12px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:var(--muted)}
-  ::selection{background:#d3f1f5}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 40px}
+  .eyebrow{font-family:var(--mono); font-size:12px; font-weight:500; letter-spacing:.12em; text-transform:uppercase; color:var(--muted)}
+  ::selection{background:#cfeff3}
 
   /* nav */
-  nav{position:absolute; top:0; left:0; right:0; z-index:20}
-  nav .wrap{display:flex; align-items:center; justify-content:space-between; height:88px}
-  .brand{display:flex; align-items:center; gap:11px; font-size:22px; font-weight:500; color:var(--ink); letter-spacing:-.02em}
-  .brand img{width:30px; height:30px; mix-blend-mode:multiply}
-  .menu{display:flex; gap:34px; font-size:15px; color:var(--body)}
+  nav{position:sticky; top:0; z-index:20; background:rgba(251,251,249,.8); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex; align-items:center; justify-content:space-between; height:72px}
+  .brand{display:flex; align-items:center; gap:10px; font-size:19px; font-weight:600; color:var(--ink); letter-spacing:-.02em}
+  .brand img{width:27px; height:27px; mix-blend-mode:multiply}
+  .brand .v{font-family:var(--mono); font-size:11px; font-weight:500; color:var(--faint); letter-spacing:0}
+  .menu{display:flex; gap:30px; font-family:var(--mono); font-size:13.5px; color:var(--body)}
   .menu a:hover{color:var(--ink)}
-  .navr{display:flex; align-items:center; gap:12px}
-  .pill{display:inline-flex; align-items:center; gap:7px; font-size:14.5px; font-weight:500; padding:9px 18px; border-radius:999px; transition:.15s}
-  .pill.light{background:#fff; color:var(--ink); border:1px solid var(--line)}
+  .navr{display:flex; align-items:center; gap:10px}
+  .pill{display:inline-flex; align-items:center; gap:7px; font-size:14px; font-weight:500; padding:9px 17px; border-radius:8px; transition:.15s}
+  .pill.light{background:var(--panel); color:var(--ink); border:1px solid var(--line)}
   .pill.light:hover{border-color:var(--ink)}
   .pill.dark{background:var(--ink); color:#fff}
-  .pill.dark:hover{background:#2a2a2e}
+  .pill.dark:hover{background:#2b2c30}
+  .arrow{font-size:.8em; opacity:.7}
   @media(max-width:900px){ .menu{display:none} }
 
   /* hero */
-  .hero{position:relative; min-height:100vh; overflow:hidden; display:flex; align-items:center}
-  .ghost{position:absolute; top:8%; left:-2%; right:-2%; font-size:34vw; font-weight:700; letter-spacing:-.05em;
-    color:#f4f5f6; user-select:none; pointer-events:none; line-height:1; z-index:0; white-space:nowrap; text-align:center}
-  .hero .art{position:absolute; right:2%; top:50%; transform:translateY(-52%); width:min(52vw,720px); z-index:1;
-    mix-blend-mode:multiply; -webkit-mask-image:linear-gradient(180deg,#000 62%,transparent 96%);
-    mask-image:linear-gradient(180deg,#000 62%,transparent 96%)}
-  .hero .art::after{content:""}
-  .hero .glow{position:absolute; right:12%; top:34%; width:44vw; height:44vw; max-width:640px; max-height:640px; z-index:0;
-    background:radial-gradient(circle,rgba(34,195,214,.16),transparent 62%); filter:blur(10px); pointer-events:none}
-  .hero .wrap{position:relative; z-index:2; width:100%}
-  .hero h1{font-size:clamp(40px,6.4vw,86px); max-width:12ch}
-  .hero .sub{margin-top:22px; font-size:19px; color:var(--body); max-width:44ch}
-  .hero .actions{display:flex; gap:12px; margin-top:36px}
-  .hero .actions .pill{font-size:15.5px; padding:13px 24px}
-  .arrow{font-size:.85em; opacity:.7}
+  .hero{padding:96px 0 84px}
+  .hero .grid{display:grid; grid-template-columns:1.02fr .98fr; gap:64px; align-items:center}
+  @media(max-width:900px){ .hero .grid{grid-template-columns:1fr; gap:44px} }
+  .hero h1{font-size:clamp(38px,5.4vw,68px); letter-spacing:-.04em; max-width:14ch}
+  .hero h1 .tealword{color:var(--accent); font-weight:400}
+  .hero .sub{margin-top:22px; font-size:18.5px; color:var(--body); max-width:46ch}
+  .hero .actions{display:flex; gap:11px; margin-top:32px; flex-wrap:wrap}
+  .hero .actions .pill{font-size:15px; padding:12px 22px}
+  .hero .tiny{margin-top:20px; font-family:var(--mono); font-size:12.5px; color:var(--muted)}
+
+  /* terminal token meter — the CDC device */
+  .term{border:1px solid var(--line); border-radius:14px; background:var(--panel); overflow:hidden;
+    box-shadow:0 22px 60px rgba(17,18,20,.07); font-family:var(--mono)}
+  .term .top{display:flex; align-items:center; gap:8px; padding:13px 16px; border-bottom:1px solid var(--line); background:#fcfcfb}
+  .term .top i{width:10px; height:10px; border-radius:50%; background:#e6e6e3; display:inline-block}
+  .term .top i:nth-child(2){background:#ececea} .term .top i:nth-child(3){background:#f1f1ef}
+  .term .top .path{margin-left:8px; font-size:12.5px; color:var(--muted)}
+  .term .body{padding:20px 18px}
+  .term .cmd{font-size:13px; color:var(--body); margin-bottom:18px}
+  .term .cmd .p{color:var(--accent)}
+  .mrow{margin:14px 0}
+  .mrow .head{display:flex; justify-content:space-between; align-items:baseline; font-size:12.5px; margin-bottom:6px}
+  .mrow .head .lab{color:var(--ink); font-weight:500}
+  .mrow .head .lab small{color:var(--muted); font-weight:400}
+  .mrow .head .tok{color:var(--ink); font-variant-numeric:tabular-nums}
+  .mtrack{height:16px; border-radius:5px; background:#f4f4f2; overflow:hidden; border:1px solid #efefec}
+  .mfill{height:100%}
+  .mfill.mcp{width:100%; background:repeating-linear-gradient(135deg,#e4e4e1 0,#e4e4e1 7px,#dadad7 7px,#dadad7 14px)}
+  .mfill.cdc{width:3px; background:var(--accent)}
+  .term .foot{margin-top:20px; padding-top:15px; border-top:1px dashed var(--line); font-size:12.5px; color:var(--body); display:flex; justify-content:space-between}
+  .term .foot b{color:var(--accent); font-weight:600}
 
   /* stats */
-  section.stats{padding:150px 0 130px; border-top:1px solid var(--line)}
-  .stats h2{font-size:clamp(30px,4.3vw,52px); font-weight:300; max-width:20ch}
-  .stats h2 .lead{color:var(--faint)}
-  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:90px; margin-top:96px}
-  @media(max-width:860px){ .grid2{grid-template-columns:1fr; gap:72px} }
-  .metric .big{font-size:84px; font-weight:300; letter-spacing:-.05em; color:var(--ink); line-height:.9}
-  .metric .big sup{font-size:34px; font-weight:400; letter-spacing:-.02em; top:-.5em; margin-left:2px}
-  .metric h3{font-size:21px; font-weight:500; margin-top:22px; color:var(--ink)}
-  .metric p{margin-top:12px; font-size:15.5px; color:var(--body); max-width:42ch}
-  .widget{margin-top:34px}
+  section.stats{padding:120px 0; border-top:1px solid var(--line)}
+  .stats .eyebrow{margin-bottom:20px}
+  .stats h2{font-size:clamp(28px,3.9vw,46px); font-weight:350; max-width:19ch}
+  .stats h2 b{font-weight:500; color:var(--ink)}
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:80px; margin-top:84px}
+  @media(max-width:860px){ .grid2{grid-template-columns:1fr; gap:64px} }
+  .metric .big{font-size:76px; font-weight:300; letter-spacing:-.05em; color:var(--ink); line-height:.9}
+  .metric .big sup{font-size:30px; font-weight:400; top:-.55em; margin-left:2px}
+  .metric h3{font-size:20px; font-weight:500; margin-top:20px; color:var(--ink)}
+  .metric p{margin-top:11px; font-size:15.5px; color:var(--body); max-width:42ch}
+  .widget{margin-top:30px}
 
-  /* area chart widget */
-  .chart{position:relative}
-  .chart svg{width:100%; height:150px; display:block}
-  .floatpill{position:absolute; left:50%; bottom:8px; transform:translateX(-50%);
-    display:inline-flex; align-items:center; gap:9px; font-size:13.5px; font-weight:500; color:var(--ink);
-    background:#fff; padding:8px 15px; border-radius:999px;
-    box-shadow:0 6px 22px rgba(18,166,184,.22), 0 1px 0 rgba(0,0,0,.03);
-    position:absolute}
-  .floatpill::before{content:""; position:absolute; inset:-1.5px; border-radius:999px; z-index:-1;
-    background:conic-gradient(from 180deg,#22c3d6,#8a7bf0,#f6b60b,#22c3d6)}
-  .floatpill .dot{width:8px; height:8px; border-radius:50%; background:var(--green); box-shadow:0 0 0 3px rgba(34,176,122,.16)}
-  .floatpill b{font-variant-numeric:tabular-nums}
+  /* mono A/B bars */
+  .ab{font-family:var(--mono); border:1px solid var(--line); border-radius:12px; background:var(--panel); padding:18px}
+  .ab .r{margin:12px 0}
+  .ab .r:first-child{margin-top:2px}
+  .ab .r .h{display:flex; justify-content:space-between; font-size:12.5px; margin-bottom:6px}
+  .ab .r .h .n{color:var(--ink)} .ab .r .h .t{color:var(--ink); font-variant-numeric:tabular-nums}
+  .ab .track{height:14px; border-radius:4px; background:#f4f4f2; overflow:hidden}
+  .ab .f{height:100%}
+  .ab .f.a{width:100%; background:#e0e0dd}
+  .ab .f.b{width:60.4%; background:var(--accent)}
+  .ab .cap{margin-top:14px; font-size:12px; color:var(--muted); display:flex; justify-content:space-between}
+  .ab .cap .ok{color:var(--green)}
 
-  /* decision card */
-  .card{border:1px solid var(--line); border-radius:16px; overflow:hidden; background:#fff; box-shadow:0 12px 40px rgba(13,13,15,.05)}
-  .card .chead{display:flex; justify-content:space-between; align-items:center; padding:16px 18px; border-bottom:1px solid var(--line)}
-  .card .chead .t{display:flex; align-items:center; gap:9px; font-weight:500; color:var(--ink); font-size:15px}
-  .card .chead .dot{width:8px; height:8px; border-radius:50%; background:var(--green)}
-  .card .chead .live{font-size:12.5px; color:var(--muted)}
-  .row{display:flex; align-items:center; justify-content:space-between; padding:14px 18px; border-bottom:1px solid var(--line); font-size:15px}
-  .row:last-child{border-bottom:0}
-  .row .l{display:flex; align-items:center; gap:11px; color:var(--ink)}
-  .row .l .ck{color:var(--accent); font-size:15px}
-  .row .r{font-size:13px; color:var(--muted)}
-  .row.faded{opacity:.45}
+  /* decision list */
+  .decide{border:1px solid var(--line); border-radius:12px; background:var(--panel); overflow:hidden; font-family:var(--mono); font-size:13.5px}
+  .decide .dh{padding:13px 16px; border-bottom:1px solid var(--line); color:var(--muted); font-size:12px; letter-spacing:.06em; text-transform:uppercase}
+  .decide .d{display:flex; justify-content:space-between; align-items:center; padding:13px 16px; border-bottom:1px solid var(--line)}
+  .decide .d:last-child{border-bottom:0}
+  .decide .d .l{color:var(--ink)} .decide .d .l small{color:var(--muted)}
+  .decide .d .to{color:var(--accent)}
+  .decide .d.native .to{color:var(--muted)}
+  .decide .d.faded{opacity:.5}
 
   /* footer */
-  footer{padding:120px 0 0; border-top:1px solid var(--line)}
-  .fhead{display:flex; justify-content:space-between; align-items:flex-start; gap:40px; flex-wrap:wrap}
-  .fhead h2{font-size:clamp(26px,3vw,36px); font-weight:300; max-width:16ch}
-  .fhead h2 .lead{color:var(--faint)}
-  .status{display:inline-flex; align-items:center; gap:9px; font-size:13.5px; color:var(--ink);
-    border:1px solid var(--line); border-radius:999px; padding:8px 14px}
+  footer{padding:110px 0 0; border-top:1px solid var(--line)}
+  .fhead{display:flex; justify-content:space-between; align-items:flex-end; gap:36px; flex-wrap:wrap}
+  .fhead h2{font-size:clamp(24px,2.8vw,34px); font-weight:350; max-width:15ch}
+  .status{display:inline-flex; align-items:center; gap:9px; font-family:var(--mono); font-size:12.5px; color:var(--ink);
+    border:1px solid var(--line); border-radius:999px; padding:8px 14px; background:var(--panel)}
   .status .dot{width:8px; height:8px; border-radius:50%; background:var(--green)}
-  .status .m{color:var(--muted); font-variant-numeric:tabular-nums}
-  .fmeta{text-align:right; margin-top:8px; font-size:12.5px; color:var(--muted); font-family:ui-monospace,Menlo,monospace}
-  .cols{display:grid; grid-template-columns:repeat(4,1fr); gap:30px; margin-top:70px; padding-top:40px; border-top:1px solid var(--line)}
-  @media(max-width:760px){ .cols{grid-template-columns:1fr 1fr; gap:40px 24px} }
-  .col h4{font-size:12px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin:0 0 18px}
-  .col a{display:block; color:var(--body); font-size:15.5px; margin-bottom:14px}
+  .status .m{color:var(--muted)}
+  .cols{display:grid; grid-template-columns:repeat(4,1fr); gap:28px; margin-top:64px; padding-top:38px; border-top:1px solid var(--line)}
+  @media(max-width:760px){ .cols{grid-template-columns:1fr 1fr; gap:38px 24px} }
+  .col h4{font-family:var(--mono); font-size:11.5px; font-weight:500; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin:0 0 18px}
+  .col a{display:block; color:var(--body); font-size:15px; margin-bottom:13px}
   .col a:hover{color:var(--ink)}
-  .col a .ann{color:var(--faint); font-size:12px; margin-left:6px; font-family:ui-monospace,Menlo,monospace}
+  .col a .ann{color:var(--faint); font-size:11.5px; margin-left:6px; font-family:var(--mono)}
   .fbot{display:flex; justify-content:space-between; align-items:center; gap:20px; flex-wrap:wrap;
-    margin-top:56px; padding-top:26px; border-top:1px solid var(--line); font-size:13.5px; color:var(--muted)}
+    margin-top:52px; padding-top:24px; border-top:1px solid var(--line); font-family:var(--mono); font-size:12.5px; color:var(--muted)}
   .fbot .l{display:flex; align-items:center; gap:9px}
-  .fbot .l img{width:20px; height:20px; mix-blend-mode:multiply}
-  .fbot .r{display:flex; gap:22px}
+  .fbot .l img{width:19px; height:19px; mix-blend-mode:multiply}
+  .fbot .r{display:flex; gap:20px}
   .fbot .r a:hover{color:var(--ink)}
-  .fbot .r .v{font-family:ui-monospace,Menlo,monospace; color:var(--faint)}
-  .bigmark{font-size:clamp(120px,32vw,520px); font-weight:700; letter-spacing:-.045em; line-height:.72;
-    text-align:center; margin:36px 0 -.12em; user-select:none; pointer-events:none;
-    background:linear-gradient(180deg,#0d0d0f 0%,#0d0d0f 26%,rgba(13,13,15,0) 90%);
-    -webkit-background-clip:text; background-clip:text; color:transparent}
+  /* closing mark — outline, not gradient-fill (distinct from the reference) */
+  .bigmark{font-size:clamp(110px,29vw,440px); font-weight:800; letter-spacing:-.05em; line-height:.74; text-align:center;
+    margin:46px 0 -.14em; user-select:none; pointer-events:none; color:transparent;
+    -webkit-text-stroke:1.4px #e0e0dc; text-stroke:1.4px #e0e0dc}
+  .bigmark .dot{color:var(--accent); -webkit-text-stroke:0}
 </style>
 </head>
 <body>
 
 <nav>
   <div class="wrap">
-    <span class="brand"><img src="cdc-logo.png" alt="">cdc</span>
+    <span class="brand"><img src="cdc-logo.png" alt="">cdc<span class="v">v0.1</span></span>
     <span class="menu">
-      <a href="#stats">How it works</a>
-      <a href="#stats">Router</a>
-      <a href="#stats">Benchmarks</a>
-      <a href="https://github.com/nassimkhatiba-ai/cdc">Docs</a>
+      <a href="#stats">how</a>
+      <a href="#stats">router</a>
+      <a href="#stats">benchmarks</a>
+      <a href="https://github.com/nassimkhatiba-ai/cdc">docs</a>
     </span>
     <span class="navr">
       <a class="pill light" href="https://github.com/nassimkhatiba-ai/cdc">GitHub</a>
-      <a class="pill dark" href="https://github.com/nassimkhatiba-ai/cdc">Get started <span class="arrow">↗</span></a>
+      <a class="pill dark" href="https://github.com/nassimkhatiba-ai/cdc">Install <span class="arrow">↗</span></a>
     </span>
   </div>
 </nav>
 
 <header class="hero">
-  <div class="ghost">cdc</div>
-  <div class="glow"></div>
-  <img class="art" src="cdc-logo.png" alt="CDC mascot">
   <div class="wrap">
-    <h1>Tools for your agent,<br>without the schema tax.</h1>
-    <p class="sub">CDC turns bloated MCP servers into ~900-token skills for Claude&nbsp;Code and Codex — and an always-on router reaches for them automatically.</p>
-    <div class="actions">
-      <a class="pill dark" href="https://github.com/nassimkhatiba-ai/cdc">Install CDC <span class="arrow">↗</span></a>
-      <a class="pill light" href="#stats">See benchmarks</a>
+    <div class="grid">
+      <div>
+        <p class="eyebrow" style="margin-bottom:22px">code-call descriptors</p>
+        <h1>Call one tool. Not ten&nbsp;thousand <span class="tealword">schemas.</span></h1>
+        <p class="sub">CDC compiles bloated MCP servers into ~900-token skills for Claude&nbsp;Code and Codex. Same tools — the schema just stops riding along every turn.</p>
+        <div class="actions">
+          <a class="pill dark" href="https://github.com/nassimkhatiba-ai/cdc">Install CDC <span class="arrow">↗</span></a>
+          <a class="pill light" href="#stats">See benchmarks</a>
+        </div>
+        <p class="tiny">claude &amp; codex · node 18+ · zero deps · MIT</p>
+      </div>
+
+      <div class="term" aria-label="Tokens spent on tool definitions before the first question">
+        <div class="top"><i></i><i></i><i></i><span class="path">~/agent — context on connect</span></div>
+        <div class="body">
+          <div class="cmd"><span class="p">$</span> connect <span style="color:var(--ink)">github</span></div>
+          <div class="mrow">
+            <div class="head"><span class="lab">github <small>· MCP · 1,196 tools</small></span><span class="tok">3,183,737</span></div>
+            <div class="mtrack"><div class="mfill mcp"></div></div>
+          </div>
+          <div class="mrow">
+            <div class="head"><span class="lab">github-cdc <small>· skill · same tools</small></span><span class="tok">909</span></div>
+            <div class="mtrack"><div class="mfill cdc"></div></div>
+          </div>
+          <div class="foot"><span>tool definitions loaded up front</span><span><b>3,502× lighter</b></span></div>
+        </div>
+      </div>
     </div>
   </div>
 </header>
 
 <section class="stats" id="stats">
   <div class="wrap">
-    <h2><span class="lead">Agents that switch to CDC</span> keep every tool, drop the schema tax, and answer on a fraction of the context.</h2>
+    <p class="eyebrow">the payoff</p>
+    <h2>Fewer tokens in, <b>the same answer out</b> — and the router picks the cheap path for you.</h2>
 
     <div class="grid2">
       <div class="metric">
         <div class="big num">−40<sup>%</sup></div>
-        <h3>Fewer tokens, same answer</h3>
-        <p>Measured live on <span class="num">gpt-5.6-sol</span>: the <span class="num">github-cdc</span> skill returned the identical, correct answer using 12,146 tokens instead of the MCP's 20,125.</p>
+        <h3>Fewer tokens, identical answer</h3>
+        <p>Live on <span class="mono">gpt-5.6-sol</span>: reading <span class="mono">cli/cli</span>'s LICENSE and go.mod, the CDC skill matched the MCP's answer on far less context.</p>
         <div class="widget">
-          <div class="chart">
-            <svg viewBox="0 0 520 150" preserveAspectRatio="none" aria-hidden="true">
-              <defs>
-                <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0" stop-color="#22c3d6" stop-opacity=".16"/>
-                  <stop offset="1" stop-color="#22c3d6" stop-opacity="0"/>
-                </linearGradient>
-              </defs>
-              <g stroke="#ededee" stroke-dasharray="2 6" stroke-width="1">
-                <line x1="0" y1="38" x2="520" y2="38"/><line x1="0" y1="80" x2="520" y2="80"/><line x1="0" y1="122" x2="520" y2="122"/>
-              </g>
-              <path d="M0,120 L70,108 L140,116 L210,86 L280,92 L350,58 L420,64 L520,30 L520,150 L0,150 Z" fill="url(#g)"/>
-              <path d="M0,120 L70,108 L140,116 L210,86 L280,92 L350,58 L420,64 L520,30" fill="none" stroke="#12a6b8" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-              <circle cx="210" cy="86" r="4" fill="#fff" stroke="#12a6b8" stroke-width="2.5"/>
-              <circle cx="350" cy="58" r="4" fill="#12a6b8"/>
-            </svg>
-            <span class="floatpill"><span class="dot"></span>live · gpt-5.6-sol · <b>−39.6%</b></span>
+          <div class="ab">
+            <div class="r"><div class="h"><span class="n">native MCP</span><span class="t">20,125 tok</span></div><div class="track"><div class="f a"></div></div></div>
+            <div class="r"><div class="h"><span class="n">github-cdc</span><span class="t">12,146 tok</span></div><div class="track"><div class="f b"></div></div></div>
+            <div class="cap"><span>gpt-5.6-sol · medium</span><span class="ok">✓ both 2/2 correct</span></div>
           </div>
         </div>
       </div>
 
       <div class="metric">
-        <div class="big num">3,502<sup>×</sup></div>
-        <h3>Smaller tool-definition footprint</h3>
-        <p>The GitHub MCP loads 1,196 tool schemas — about <span class="num">3.18M</span> tokens — up front. The <span class="num">github-cdc</span> skill is 909, grepped only when needed.</p>
+        <div class="big num">auto</div>
+        <h3>Routed by cost, every session</h3>
+        <p>Before the first call, CDC weighs the native schema against the skill and takes the cheaper path — even when you say “use the MCP.”</p>
         <div class="widget">
-          <div class="card">
-            <div class="chead"><span class="t"><span class="dot"></span>Router decision</span><span class="live">always on</span></div>
-            <div class="row"><span class="l"><span class="ck">✓</span> github <span style="color:var(--muted);font-size:13px">· 1,196 tools</span></span><span class="r">→ CDC skill · 909 tok</span></div>
-            <div class="row"><span class="l"><span class="ck">✓</span> notion <span style="color:var(--muted);font-size:13px">· fat schema</span></span><span class="r">→ CDC skill</span></div>
-            <div class="row faded"><span class="l"><span class="ck">✓</span> small MCP <span style="color:var(--muted);font-size:13px">· few tools</span></span><span class="r">stays native</span></div>
+          <div class="decide">
+            <div class="dh">router decision</div>
+            <div class="d"><span class="l">github <small>· 1,196 tools</small></span><span class="to">→ cdc skill</span></div>
+            <div class="d"><span class="l">notion <small>· fat schema</small></span><span class="to">→ cdc skill</span></div>
+            <div class="d native faded"><span class="l">small mcp <small>· few tools</small></span><span class="to">→ stays native</span></div>
           </div>
         </div>
       </div>
@@ -215,52 +239,49 @@
   <div class="wrap">
     <div class="fhead">
       <div>
-        <p class="eyebrow" style="margin-bottom:16px">Code-Call Descriptors</p>
-        <h2><span>Tools without the tax.</span> <span class="lead">On by default.</span></h2>
+        <p class="eyebrow" style="margin-bottom:16px">code-call descriptors</p>
+        <h2>You keep the tools. CDC drops the tax.</h2>
       </div>
-      <div>
-        <span class="status"><span class="dot"></span> Benchmarked <span class="m">· gpt-5.6-sol</span></span>
-        <div class="fmeta">MIT · zero deps · Node 18+</div>
-      </div>
+      <span class="status"><span class="dot"></span> benchmarked <span class="m">· gpt-5.6-sol</span></span>
     </div>
 
     <div class="cols">
       <div class="col">
-        <h4>Install</h4>
-        <a href="https://github.com/nassimkhatiba-ai/cdc">Both agents <span class="ann">plugin</span></a>
-        <a href="https://github.com/nassimkhatiba-ai/cdc">Claude Code</a>
-        <a href="https://github.com/nassimkhatiba-ai/cdc">Codex</a>
-        <a href="https://github.com/nassimkhatiba-ai/cdc/blob/main/INSTALL.md">Guide</a>
+        <h4>install</h4>
+        <a href="https://github.com/nassimkhatiba-ai/cdc">both agents <span class="ann">plugin</span></a>
+        <a href="https://github.com/nassimkhatiba-ai/cdc">claude code</a>
+        <a href="https://github.com/nassimkhatiba-ai/cdc">codex</a>
+        <a href="https://github.com/nassimkhatiba-ai/cdc/blob/main/INSTALL.md">guide</a>
       </div>
       <div class="col">
-        <h4>Skills</h4>
+        <h4>skills</h4>
         <a href="https://github.com/nassimkhatiba-ai/cdc">github-cdc <span class="ann">909 tok</span></a>
         <a href="https://github.com/nassimkhatiba-ai/cdc">notion-cdc</a>
-        <a href="https://github.com/nassimkhatiba-ai/cdc">Router</a>
-        <a href="https://github.com/nassimkhatiba-ai/cdc">Skill creator</a>
+        <a href="https://github.com/nassimkhatiba-ai/cdc">router</a>
+        <a href="https://github.com/nassimkhatiba-ai/cdc">skill creator</a>
       </div>
       <div class="col">
-        <h4>Benchmarks</h4>
-        <a href="index.html#bench">Live A/B <span class="ann">−40%</span></a>
-        <a href="index.html#bench">10-MCP suite</a>
-        <a href="https://github.com/nassimkhatiba-ai/cdc/tree/main/implementer">Harness</a>
-        <a href="index.html">Full site</a>
+        <h4>benchmarks</h4>
+        <a href="index.html#bench">live a/b <span class="ann">−40%</span></a>
+        <a href="index.html#bench">10-mcp suite</a>
+        <a href="https://github.com/nassimkhatiba-ai/cdc/tree/main/implementer">harness</a>
+        <a href="index.html">full site</a>
       </div>
       <div class="col">
-        <h4>Project</h4>
-        <a href="https://github.com/nassimkhatiba-ai/cdc">GitHub</a>
-        <a href="https://github.com/nassimkhatiba-ai/cdc/blob/main/README.md">README</a>
-        <a href="https://github.com/nassimkhatiba-ai/cdc/blob/main/PAPER.md">Paper</a>
-        <a href="https://github.com/nassimkhatiba-ai/cdc/issues">Issues</a>
+        <h4>project</h4>
+        <a href="https://github.com/nassimkhatiba-ai/cdc">github</a>
+        <a href="https://github.com/nassimkhatiba-ai/cdc/blob/main/README.md">readme</a>
+        <a href="https://github.com/nassimkhatiba-ai/cdc/blob/main/PAPER.md">paper</a>
+        <a href="https://github.com/nassimkhatiba-ai/cdc/issues">issues</a>
       </div>
     </div>
 
     <div class="fbot">
-      <span class="l"><img src="cdc-logo.png" alt="">© 2026 CDC · Independent · Built for Claude &amp; Codex</span>
-      <span class="r"><a href="#">Privacy</a><a href="#">Terms</a><span class="v">v0.1</span></span>
+      <span class="l"><img src="cdc-logo.png" alt="">© 2026 cdc · independent · built for claude &amp; codex</span>
+      <span class="r"><a href="#">privacy</a><a href="#">terms</a><span>v0.1</span></span>
     </div>
 
-    <div class="bigmark">cdc</div>
+    <div class="bigmark">cdc<span class="dot">.</span></div>
   </div>
 </footer>
 
