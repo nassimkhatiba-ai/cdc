@@ -35,20 +35,16 @@
   .eyebrow{font-family:var(--mono); font-size:12px; font-weight:500; letter-spacing:.12em; text-transform:uppercase; color:var(--muted)}
   ::selection{background:#cfeff3}
 
-  /* ambient background — faint drifting dot grid + slow teal glow */
+  /* ambient background — faint monospace character field + slow teal glow */
   .bg{position:fixed; inset:0; z-index:-1; pointer-events:none; overflow:hidden}
-  .bg .dots{position:absolute; inset:-60px;
-    background-image:radial-gradient(circle, rgba(17,18,20,.04) 1px, transparent 1.5px);
-    background-size:30px 30px;
-    -webkit-mask-image:radial-gradient(ellipse 92% 74% at 50% 28%, #000 38%, transparent 84%);
-    mask-image:radial-gradient(ellipse 92% 74% at 50% 28%, #000 38%, transparent 84%);
-    animation:gridDrift 46s linear infinite}
-  @keyframes gridDrift{to{background-position:30px 30px}}
-  .bg .glow{position:absolute; width:62vw; height:62vw; max-width:840px; max-height:840px; left:48%; top:-18%;
-    background:radial-gradient(circle, rgba(34,195,214,.09), transparent 62%); filter:blur(14px);
+  .bgcanvas{position:absolute; inset:0; width:100%; height:100%;
+    -webkit-mask-image:radial-gradient(ellipse 96% 82% at 50% 30%, #000 26%, transparent 88%);
+    mask-image:radial-gradient(ellipse 96% 82% at 50% 30%, #000 26%, transparent 88%)}
+  .bg .glow{position:absolute; width:60vw; height:60vw; max-width:800px; max-height:800px; left:50%; top:-16%;
+    background:radial-gradient(circle, rgba(34,195,214,.07), transparent 62%); filter:blur(16px);
     animation:glowFloat 34s ease-in-out infinite alternate}
   @keyframes glowFloat{from{transform:translate(-4%,0) scale(1)} to{transform:translate(7%,7%) scale(1.12)}}
-  @media (prefers-reduced-motion: reduce){ .bg .dots, .bg .glow{animation:none} }
+  @media (prefers-reduced-motion: reduce){ .bg .glow{animation:none} }
 
   /* nav */
   nav{position:sticky; top:0; z-index:20; background:rgba(251,251,249,.8); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); border-bottom:1px solid var(--line)}
@@ -190,7 +186,7 @@
 </head>
 <body>
 
-<div class="bg" aria-hidden="true"><div class="dots"></div><div class="glow"></div></div>
+<div class="bg" aria-hidden="true"><canvas id="bgcanvas" class="bgcanvas"></canvas><div class="glow"></div></div>
 
 <nav>
   <div class="wrap">
@@ -370,6 +366,43 @@
   c.addEventListener('click',copy); c.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();copy()}});
 </script>
 
+<script>
+// ambient monospace character field — faint, slow, on-theme "schema texture"
+(function(){
+  var cv=document.getElementById('bgcanvas'); if(!cv||!cv.getContext) return;
+  var ctx=cv.getContext('2d');
+  var reduce=window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var glyphs='{}[]()<>/\\;:,.="\'01923tokcdcmcp·*+#'.split('');
+  var cell=22, cols=0, rows=0, grid=[], W=0, H=0, dpr=Math.min(window.devicePixelRatio||1,2);
+  function pick(){ return glyphs[(Math.random()*glyphs.length)|0]; }
+  function resize(){
+    W=window.innerWidth; H=window.innerHeight;
+    cv.width=W*dpr; cv.height=H*dpr; cv.style.width=W+'px'; cv.style.height=H+'px';
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    ctx.font='13px ui-monospace, Menlo, Consolas, monospace'; ctx.textBaseline='top';
+    cols=Math.ceil(W/cell)+1; rows=Math.ceil(H/cell)+1; grid=new Array(cols*rows);
+    for(var i=0;i<grid.length;i++) grid[i]={c:pick(), g:0.02+Math.random()*0.035, t:Math.random()<0.06};
+    draw();
+  }
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    for(var y=0;y<rows;y++) for(var x=0;x<cols;x++){
+      var it=grid[y*cols+x];
+      ctx.fillStyle=(it.t?'rgba(18,166,184,':'rgba(17,18,20,')+it.g.toFixed(3)+')';
+      ctx.fillText(it.c, x*cell, y*cell);
+    }
+  }
+  function tick(){
+    var n=(grid.length*0.018)|0;
+    for(var k=0;k<n;k++){ var it=grid[(Math.random()*grid.length)|0];
+      it.c=pick(); it.g=0.11+Math.random()*0.06; it.t=Math.random()<0.14; }
+    for(var i=0;i<grid.length;i++){ var g=grid[i]; if(g.g>0.05){ g.g-=0.006; if(g.g<0.05)g.g=0.05; } }
+    draw();
+  }
+  resize(); window.addEventListener('resize', resize);
+  if(!reduce) setInterval(tick, 120);
+})();
+</script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 <script>
