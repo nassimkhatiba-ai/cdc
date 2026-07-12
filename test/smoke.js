@@ -112,24 +112,28 @@ console.log('cdc smoke tests\n');
   const tinySkill = fs.readFileSync(path.join(tmp, 'optiny', 'SKILL.md'), 'utf8');
   assert.ok(tinySkill.includes('t_one'), 'tiny keeps normal text skill');
 
-  // fat surface -> image primary under auto, pointer + pages + text fallback
+  // fat surface -> optical pages as sidecar; SKILL.md stays full TEXT (hot path).
+  // Product fix: never replace SKILL.md with a vision pointer (Codex thrash root cause).
   const fatTools = [];
   for (let i = 0; i < 40; i++) fatTools.push(mkTool('svc_tool_' + i, 'Tool number ' + i + ' retrieves operational records and joins them against reference data for reporting purposes.'));
   const fat = compileMCP({ tools: fatTools, name: 'opfat', outRoot: tmp, imageMode: 'auto' });
   assert.strictEqual(fat.stats.skillMode, 'image', 'fat surface routes image: ' + fat.stats.skillModeReason);
   assert.ok(fs.existsSync(path.join(tmp, 'opfat', 'opfat.cdc.png')), 'image pages written');
-  assert.ok(fs.existsSync(path.join(tmp, 'opfat', 'SKILL.text.md')), 'text fallback kept');
+  assert.ok(!fat.stats.imagePrimary, 'text is always installed hot path (imagePrimary false)');
+  const fatSkill = fs.readFileSync(path.join(tmp, 'opfat', 'SKILL.md'), 'utf8');
+  assert.ok(fatSkill.includes('svc_tool_0') || fatSkill.includes('--batch') || fatSkill.includes('openSession'), 'SKILL.md is full text hot path, not optical pointer');
+  assert.ok(!fatSkill.includes('optical skill') || fatSkill.includes('No connected MCP'), 'SKILL.md must not be vision-only pointer');
+  assert.ok(fs.existsSync(path.join(tmp, 'opfat', 'SKILL.optical.md')) || !fs.existsSync(path.join(tmp, 'opfat', 'SKILL.text.md')), 'optical is sidecar (SKILL.optical.md), not SKILL.text.md primary swap');
   const meta = JSON.parse(fs.readFileSync(path.join(tmp, 'opfat', 'image-meta.json'), 'utf8'));
   assert.ok(meta.tiles >= 1 && meta.estVisionTokens >= 255, 'pack metrics present');
   assert.ok(meta.estVisionTokens < meta.textEquivalentTokens, 'image must beat text-equiv when routed image');
   assert.ok(meta.pageDims.every((p) => !p.downscaled), 'pages must survive provider resize untouched');
-  const ptr = fs.readFileSync(path.join(tmp, 'opfat', 'SKILL.md'), 'utf8');
-  assert.ok(ptr.includes('.cdc.png') && ptr.includes('mcp-call.js'), 'pointer hot path present');
+  assert.ok(meta.opticalSidecar || meta.imagePrimary === false, 'optical is sidecar; text primary');
 
   // forced modes override the router
   const forced = compileMCP({ tools: fatTools, name: 'opforce', outRoot: tmp, imageMode: 'text' });
   assert.strictEqual(forced.stats.skillMode, 'text');
-  ok('optical packer + auto router (tiny->text, fat->image, forced modes)');
+  ok('optical packer + auto router (tiny->text, fat->image-sidecar, forced modes)');
 }
 
 // --- callPaged helper: full pagination without a live server ---
@@ -140,7 +144,10 @@ console.log('cdc smoke tests\n');
     2: { data: [{ id: 3 }, { id: 4 }], total_pages: 3 },
     3: { data: [{ id: 5 }], total_pages: 3 },
   };
-  const fake = { call: async (tool, args) => pages[args.page] };
+  // First call may omit page (Notion-safe: no forced page=1). Treat missing page as page 1.
+  const fake = {
+    call: async (tool, args) => pages[args.page != null ? args.page : 1],
+  };
   bridge.callPaged(fake, 'list_x', {}).then((rows) => {
     assert.strictEqual(rows.length, 5, 'collects every page');
     // server that ignores the page param must not loop or double-count

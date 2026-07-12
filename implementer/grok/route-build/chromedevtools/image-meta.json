@@ -1,0 +1,59 @@
+{
+  "format": "cdc-optical-skill",
+  "version": 2,
+  "cdc": "implementer/grok/route-build/chromedevtools/chromedevtools.cdc",
+  "pageFiles": [
+    "implementer/grok/route-build/chromedevtools/chromedevtools.cdc.png"
+  ],
+  "pages": 1,
+  "width": 504,
+  "scale": 2,
+  "cols": 40,
+  "pageDims": [
+    {
+      "w": 504,
+      "h": 2000,
+      "tiles": 4,
+      "downscaled": false
+    }
+  ],
+  "tiles": 4,
+  "tileBudget": 12,
+  "budgetMet": true,
+  "estVisionTokens": 765,
+  "sourceChars": 3612,
+  "approxTextTokens": 1257,
+  "visionVsTextRatio": 0.61,
+  "provider": {
+    "tile": 512,
+    "base": 85,
+    "perTile": 170,
+    "fitLong": 2048,
+    "shortCap": 768
+  },
+  "providerNote": "assumes fit-2048 then shortest-side-768 resize, 512px tiles, base+perTile billing; pages sized to avoid any resize",
+  "alternatives": [
+    {
+      "scale": 2,
+      "width": 760,
+      "pages": 1,
+      "estVisionTokens": 1105
+    }
+  ],
+  "createdAt": "2026-07-12T11:56:58.125Z",
+  "skillName": "chromedevtools",
+  "skillMode": "image",
+  "skillModeReason": "optical 765+160 ptr+600 prior < 2529 text-equiv × 0.7",
+  "textEquivalentTokens": 2529,
+  "planned": {
+    "scale": 2,
+    "width": 504,
+    "pages": 1,
+    "tiles": 4,
+    "budgetMet": true
+  },
+  "imagePrimary": false,
+  "opticalSidecar": true,
+  "opticalWouldHaveBeenPrimary": true,
+  "approxVisionTokens": 765
+}

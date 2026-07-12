@@ -1,0 +1,9 @@
+{
+  "name": "weather",
+  "mode": "mcp",
+  "command": "implementer/mega40/homes/weather/weather-mcp.sh",
+  "args": [],
+  "envToken": "CDC_WEATHER_TOKEN",
+  "tools": 3,
+  "note": "Prefer an installed binary over npx -y to avoid network cold starts."
+}

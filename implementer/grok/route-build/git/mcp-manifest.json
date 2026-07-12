@@ -1,0 +1,9 @@
+{
+  "name": "git",
+  "mode": "mcp",
+  "command": "implementer/mega40/homes/git/git-mcp.sh",
+  "args": [],
+  "envToken": "CDC_GIT_TOKEN",
+  "tools": 12,
+  "note": "Prefer an installed binary over npx -y to avoid network cold starts."
+}

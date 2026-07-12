@@ -1,0 +1,135 @@
+{
+  "name": "main",
+  "width": 800,
+  "height": 600,
+  "bg": "#ffffff",
+  "createdAt": "2026-07-12T11:35:51.972Z",
+  "updatedAt": "2026-07-12T11:35:51.991Z",
+  "turtle": {
+    "x": 225,
+    "y": 355,
+    "heading": 0,
+    "penDown": false,
+    "color": "black",
+    "width": 3,
+    "fill": "yellow"
+  },
+  "strokes": [
+    {
+      "type": "line",
+      "x1": 140,
+      "y1": 280,
+      "x2": 140,
+      "y2": 160,
+      "color": "black",
+      "width": 3
+    },
+    {
+      "type": "line",
+      "x1": 140,
+      "y1": 160,
+      "x2": 260,
+      "y2": 160,
+      "color": "black",
+      "width": 3
+    },
+    {
+      "type": "line",
+      "x1": 260,
+      "y1": 160,
+      "x2": 260,
+      "y2": 280,
+      "color": "black",
+      "width": 3
+    },
+    {
+      "type": "line",
+      "x1": 260,
+      "y1": 280,
+      "x2": 140,
+      "y2": 280,
+      "color": "black",
+      "width": 3
+    },
+    {
+      "type": "line",
+      "x1": 140,
+      "y1": 160,
+      "x2": 200,
+      "y2": 105,
+      "color": "black",
+      "width": 3
+    },
+    {
+      "type": "line",
+      "x1": 200,
+      "y1": 105,
+      "x2": 260,
+      "y2": 160,
+      "color": "black",
+      "width": 3
+    },
+    {
+      "type": "line",
+      "x1": 260,
+      "y1": 160,
+      "x2": 140,
+      "y2": 160,
+      "color": "black",
+      "width": 3
+    },
+    {
+      "type": "line",
+      "x1": 185,
+      "y1": 280,
+      "x2": 185,
+      "y2": 230,
+      "color": "black",
+      "width": 3
+    },
+    {
+      "type": "line",
+      "x1": 185,
+      "y1": 230,
+      "x2": 215,
+      "y2": 230,
+      "color": "black",
+      "width": 3
+    },
+    {
+      "type": "line",
+      "x1": 215,
+      "y1": 230,
+      "x2": 215,
+      "y2": 280,
+      "color": "black",
+      "width": 3
+    },
+    {
+      "type": "line",
+      "x1": 215,
+      "y1": 280,
+      "x2": 185,
+      "y2": 280,
+      "color": "black",
+      "width": 3
+    },
+    {
+      "type": "circle",
+      "cx": 408,
+      "cy": 85,
+      "r": 28,
+      "color": "orange",
+      "width": 3,
+      "fill": "yellow"
+    },
+    {
+      "type": "text",
+      "x": 225,
+      "y": 355,
+      "text": "home",
+      "color": "black",
+      "size": 16
+    }
+  ]
+}

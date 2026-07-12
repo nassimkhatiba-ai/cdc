@@ -1,0 +1,13 @@
+# Example Codex MCP config snippet for turtle-canvas.
+# Copy the [mcp_servers.turtle] block into your CODEX_HOME config.toml.
+# Do NOT ship a CDC skill with this package — convert later for A/B.
+
+model = "gpt-5.6-sol"
+model_reasoning_effort = "medium"
+approval_policy = "never"
+sandbox_mode = "danger-full-access"
+
+[mcp_servers.turtle]
+command = "node"
+args = ["/Users/nesbes/mcp-a;t/implementer/turtle-canvas/bin/turtle-canvas-mcp.js"]
+# optional: args env via wrapper script if you need TURTLE_CANVAS_DIR

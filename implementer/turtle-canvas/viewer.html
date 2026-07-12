@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>turtle-canvas viewer (read-only)</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 1.5rem; background: #0f172a; color: #e2e8f0; }
+    h1 { font-size: 1.1rem; font-weight: 600; }
+    p { color: #94a3b8; max-width: 40rem; }
+    code { background: #1e293b; padding: 0.1rem 0.35rem; border-radius: 4px; }
+    .frame {
+      margin-top: 1rem;
+      background: #fff;
+      border-radius: 8px;
+      display: inline-block;
+      padding: 8px;
+      box-shadow: 0 8px 30px rgba(0,0,0,.35);
+    }
+    img, object { max-width: 90vw; max-height: 70vh; display: block; }
+    input { width: min(28rem, 90vw); padding: 0.4rem 0.6rem; border-radius: 6px; border: 1px solid #334155; background: #1e293b; color: #e2e8f0; }
+    button { margin-left: 0.4rem; padding: 0.4rem 0.8rem; border-radius: 6px; border: 0; background: #2563eb; color: #fff; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>turtle-canvas viewer</h1>
+  <p>
+    Read-only. Drawing happens via the MCP turtle tools, not by editing this page.
+    Open a generated SVG from <code>canvases/</code> (file path or drag-and-drop).
+  </p>
+  <div>
+    <input id="path" type="text" placeholder="canvases/demo_square.svg" value="canvases/demo_square.svg" />
+    <button id="load">Load</button>
+  </div>
+  <div class="frame" id="frame">
+    <object id="svg" type="image/svg+xml" data="canvases/demo_square.svg" width="400" height="400">SVG</object>
+  </div>
+  <script>
+    document.getElementById('load').onclick = () => {
+      const p = document.getElementById('path').value.trim();
+      document.getElementById('svg').data = p + '?t=' + Date.now();
+    };
+  </script>
+</body>
+</html>

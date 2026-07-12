@@ -1,0 +1,695 @@
+{
+  "version": 4,
+  "n": 40,
+  "imageTargets": [
+    "playwright",
+    "tradingview",
+    "complex",
+    "nova"
+  ],
+  "floorTokens": 3454,
+  "mcpTotal": 527748,
+  "mcpAvg": 13193.7,
+  "autoTotal": 361869,
+  "autoAvg": 9046.725,
+  "hybridTotal": 457450,
+  "hybridAvg": 11436.25,
+  "efficiencyGainPct": 45.83951651011831,
+  "hybridEfficiencyGainPct": 15.367362553284503,
+  "accuracy": {
+    "mcpScoreSum": 39.33333333333333,
+    "autoScoreSum": 32.904761904761905,
+    "hybridScoreSum": 35.77142857142857,
+    "mcpAvgFrac": 0.9833333333333332,
+    "autoAvgFrac": 0.8226190476190476,
+    "hybridAvgFrac": 0.8942857142857144,
+    "mcp": 39.33333333333333,
+    "auto": 32.904761904761905,
+    "hybrid": 35.77142857142857
+  },
+  "wall": {
+    "mcpAvgSec": 17.85,
+    "autoAvgSec": 17.225,
+    "hybridAvgSec": 19.125,
+    "textOnlyAvgSec": 15.825
+  },
+  "textOnly": {
+    "total": 339485,
+    "avg": 8487.125,
+    "efficiencyGainPct": 55.45546931381358,
+    "scoreSum": 31.904761904761905,
+    "avgFrac": 0.7976190476190477
+  },
+  "systems": {
+    "MCP-only": {
+      "system": "MCP-only",
+      "totalTokens": 527748,
+      "avg": 13193.7,
+      "aboveFloorTokens": 389588,
+      "accuracyPct": 98.33333333333331,
+      "avgWallSec": 17.85,
+      "scoreSum": 39.33333333333333,
+      "rawGainPct": 0,
+      "aboveFloorGainPct": 0
+    },
+    "CDC-auto": {
+      "system": "CDC-auto",
+      "totalTokens": 361869,
+      "avg": 9046.725,
+      "aboveFloorTokens": 223709,
+      "accuracyPct": 82.26190476190476,
+      "avgWallSec": 17.225,
+      "scoreSum": 32.904761904761905,
+      "rawGainPct": 45.83951651011831,
+      "aboveFloorGainPct": 74.14945308414056
+    },
+    "CDC-hybrid": {
+      "system": "CDC-hybrid",
+      "totalTokens": 457450,
+      "avg": 11436.25,
+      "aboveFloorTokens": 319290,
+      "accuracyPct": 89.42857142857143,
+      "avgWallSec": 19.125,
+      "scoreSum": 35.77142857142857,
+      "rawGainPct": 15.367362553284503,
+      "aboveFloorGainPct": 22.016975163644336
+    }
+  },
+  "bands": [
+    {
+      "band": "<8",
+      "n": 30,
+      "mcpAvg": 11099.3,
+      "autoAvg": 7913.266666666666,
+      "hybridAvg": 11099.3,
+      "rawGainPct_auto": 40.26192301535818,
+      "aboveFloorGainPct_auto": 71.44747267861682,
+      "rawGainPct_hybrid": 0,
+      "aboveFloorGainPct_hybrid": 0
+    },
+    {
+      "band": "8-19",
+      "n": 5,
+      "mcpAvg": 16713.6,
+      "autoAvg": 8297.4,
+      "hybridAvg": 8297.4,
+      "rawGainPct_auto": 101.43177380866297,
+      "aboveFloorGainPct_auto": 173.76636247264318,
+      "rawGainPct_hybrid": 101.43177380866297,
+      "aboveFloorGainPct_hybrid": 173.76636247264318
+    },
+    {
+      "band": ">=20",
+      "n": 5,
+      "mcpAvg": 22240.2,
+      "autoAvg": 16596.8,
+      "hybridAvg": 16596.8,
+      "rawGainPct_auto": 34.00294032584594,
+      "aboveFloorGainPct_auto": 42.93909973521623,
+      "rawGainPct_hybrid": 34.00294032584594,
+      "aboveFloorGainPct_hybrid": 42.93909973521623
+    }
+  ],
+  "keepMcpRule": "tools < 8 AND mcpSchemaTokens < 2500",
+  "keptMcpTargets": [
+    "books",
+    "cache",
+    "calc",
+    "context7",
+    "counter",
+    "cronish",
+    "csvops",
+    "dateops",
+    "fetch",
+    "flags",
+    "geo",
+    "github",
+    "graph",
+    "hash",
+    "inventory",
+    "jsonstore",
+    "kv",
+    "mathstat",
+    "mockapi",
+    "puppeteer",
+    "queue",
+    "regex",
+    "sequential",
+    "sqlite",
+    "stringops",
+    "time",
+    "todo",
+    "unitconvert",
+    "uuidgen",
+    "weather"
+  ],
+  "nKeptMcp": 30,
+  "targets": [
+    {
+      "id": "everything",
+      "mcpTok": 18313,
+      "autoArm": "text",
+      "autoTok": 8144,
+      "mcpScore": "5/5",
+      "autoScore": "4/5",
+      "mcpScoreFrac": 1,
+      "autoScoreFrac": 0.8
+    },
+    {
+      "id": "memory",
+      "mcpTok": 14219,
+      "autoArm": "text",
+      "autoTok": 9578,
+      "mcpScore": "7/7",
+      "autoScore": "4/7",
+      "mcpScoreFrac": 1,
+      "autoScoreFrac": 0.5714285714285714
+    },
+    {
+      "id": "filesystem",
+      "mcpTok": 16247,
+      "autoArm": "text",
+      "autoTok": 11778,
+      "mcpScore": "5/5",
+      "autoScore": "3/5",
+      "mcpScoreFrac": 1,
+      "autoScoreFrac": 0.6
+    },
+    {
+      "id": "sequential",
+      "mcpTok": 6275,
+      "autoArm": "text",
+      "autoTok": 7321,
+      "mcpScore": "3/3",
+      "autoScore": "2/3",
+      "mcpScoreFrac": 1,
+      "autoScoreFrac": 0.6666666666666666
+    },
+    {
+      "id": "sqlite",
+      "mcpTok": 8427,
+      "autoArm": "text",
+      "autoTok": 8731,
+      "mcpScore": "5/5",
+      "autoScore": "0/5",
+      "mcpScoreFrac": 1,
+      "autoScoreFrac": 0
+    },
+    {
+      "id": "playwright",
+      "mcpTok": 31041,
+      "autoArm": "image",
+      "autoTok": 7436,
+      "mcpScore": "7/7",
+      "autoScore": "7/7",
+      "mcpScoreFrac": 1,
+      "autoScoreFrac": 1
+    },
+    {
+      "id": "puppeteer",
+      "mcpTok": 18546,
+      "autoArm": "text",
+      "autoTok": 8906,
+      "mcpScore": "5/5",
+      "autoScore": "4/5",
+      "mcpScoreFrac": 1,
+      "autoScoreFrac": 0.8
+    },
+    {
+      "id": "context7",
+      "mcpTok": 13300,
+      "autoArm": "text",
+      "autoTok": 8639,
+      "mcpScore": "3/3",
+      "autoScore": "2/3",
+      "mcpScoreFrac": 1,
+      "autoScoreFrac": 0.6666666666666666
+    },
+    {
+      "id": "git",
+      "mcpTok": 18672,
+      "autoArm": "text",
+      "autoTok": 2769,
+      "mcpScore": "4/4",
+      "autoScore": "0/4",
+      "mcpScoreFrac": 1,
+      "autoScoreFrac": 0
+    },
+    {
+      "id": "time",
+      "mcpTok": 15624,
+      "autoArm": "text",
+      "autoTok": 8357,
+      "mcpScore": "3/3",
+      "autoScore": "0/3",
+      "mcpScoreFrac": 1,
+      "autoScoreFrac": 0
+    },
+    {
+      "id": "fetch",
+      "mcpTok": 17653,
+      "autoArm": "text",
+      "autoTok": 7943,
+      "mcpScore": "3/3",
+      "autoScore": "3/3",
+      "mcpScoreFrac": 1,
+      "autoScoreFrac": 1
+    },
+    {
+      "id": "tradingview",
+      "mcpTok": 13821,
+      "autoArm": "image",
+      "autoTok": 10132,
+      "mcpScore": "5/5",
+      "autoScore": "4/5",
+      "mcpScoreFrac": 1,
+      "autoScoreFrac": 0.8
+    },
+    {
+      "id": "github",
+      "mcpTok": 18760,
+      "autoArm": "text",
+      "autoTok": 10643,
+      "mcpScore": "5/5",
+      "autoScore": "5/5",
+      "mcpScoreFrac": 1,
+      "autoScoreFrac": 1
+    },
+    {
+      "id": "calc",
+      "mcpTok": 19197,
+      "autoArm": "text",
+      "autoTok": 8024,
+      "mcpScore": "6/6",
+      "autoScore": "6/6",
+      "mcpScoreFrac": 1,
+      "autoScoreFrac": 1
+    },
+    {
+      "id": "weather",
+      "mcpTok": 8312,
+      "autoArm": "text",
+      "autoTok": 2958,
+      "mcpScore": "4/4",
+      "autoScore": "4/4",
+      "mcpScoreFrac": 1,
+      "autoScoreFrac": 1
+    },
+    {
+      "id": "jsonstore",
+      "mcpTok": 5762,
+      "autoArm": "text",
+      "autoTok": 7351,
+      "mcpScore": "4/4",
+      "autoScore": "4/4",
+      "mcpScoreFrac": 1,
+      "autoScoreFrac": 1
+    },
+    {
+      "id": "todo",
+      "mcpTok": 10804,
+      "autoArm": "text",
+      "autoTok": 8316,
+      "mcpScore": "3/3",
+      "autoScore": "3/3",
+      "mcpScoreFrac": 1,
+      "autoScoreFrac": 1
+    },
+    {
+      "id": "mockapi",
+      "mcpTok": 43782,
+      "autoArm": "text",
+      "autoTok": 8441,
+      "mcpScore": "5/5",
+      "autoScore": "5/5",
+      "mcpScoreFrac": 1,
+      "autoScoreFrac": 1
+    },
+    {
+      "id": "chromedevtools",
+      "mcpTok": 16887,
+      "autoArm": "text",
+      "autoTok": 15489,
+      "mcpScore": "3/3",
+      "autoScore": "0/3",
+      "mcpScoreFrac": 1,
+      "autoScoreFrac": 0
+    },
+    {
+      "id": "filesystem_large",
+      "mcpTok": 16117,
+      "autoArm": "text",
+      "autoTok": 9218,
+      "mcpScore": "3/3",
+      "autoScore": "2/3",
+      "mcpScoreFrac": 1,
+      "autoScoreFrac": 0.6666666666666666
+    },
+    {
+      "id": "complex",
+      "mcpTok": 24135,
+      "autoArm": "image",
+      "autoTok": 26271,
+      "mcpScore": "7/7",
+      "autoScore": "7/7",
+      "mcpScoreFrac": 1,
+      "autoScoreFrac": 1
+    },
+    {
+      "id": "nova",
+      "mcpTok": 25317,
+      "autoArm": "image",
+      "autoTok": 23656,
+      "mcpScore": "7/7",
+      "autoScore": "7/7",
+      "mcpScoreFrac": 1,
+      "autoScoreFrac": 1
+    },
+    {
+      "id": "stringops",
+      "mcpTok": 8674,
+      "autoArm": "text",
+      "autoTok": 7396,
+      "mcpScore": "4/4",
+      "autoScore": "4/4",
+      "mcpScoreFrac": 1,
+      "autoScoreFrac": 1
+    },
+    {
+      "id": "unitconvert",
+      "mcpTok": 5920,
+      "autoArm": "text",
+      "autoTok": 8077,
+      "mcpScore": "4/4",
+      "autoScore": "4/4",
+      "mcpScoreFrac": 1,
+      "autoScoreFrac": 1
+    },
+    {
+      "id": "graph",
+      "mcpTok": 10115,
+      "autoArm": "text",
+      "autoTok": 8021,
+      "mcpScore": "4/4",
+      "autoScore": "4/4",
+      "mcpScoreFrac": 1,
+      "autoScoreFrac": 1
+    },
+    {
+      "id": "kv",
+      "mcpTok": 14658,
+      "autoArm": "text",
+      "autoTok": 7298,
+      "mcpScore": "3/3",
+      "autoScore": "3/3",
+      "mcpScoreFrac": 1,
+      "autoScoreFrac": 1
+    },
+    {
+      "id": "counter",
+      "mcpTok": 6391,
+      "autoArm": "text",
+      "autoTok": 7348,
+      "mcpScore": "2/2",
+      "autoScore": "2/2",
+      "mcpScoreFrac": 1,
+      "autoScoreFrac": 1
+    },
+    {
+      "id": "hash",
+      "mcpTok": 12999,
+      "autoArm": "text",
+      "autoTok": 14231,
+      "mcpScore": "3/3",
+      "autoScore": "3/3",
+      "mcpScoreFrac": 1,
+      "autoScoreFrac": 1
+    },
+    {
+      "id": "books",
+      "mcpTok": 8199,
+      "autoArm": "text",
+      "autoTok": 9175,
+      "mcpScore": "3/3",
+      "autoScore": "3/3",
+      "mcpScoreFrac": 1,
+      "autoScoreFrac": 1
+    },
+    {
+      "id": "inventory",
+      "mcpTok": 11619,
+      "autoArm": "text",
+      "autoTok": 9377,
+      "mcpScore": "4/4",
+      "autoScore": "4/4",
+      "mcpScoreFrac": 1,
+      "autoScoreFrac": 1
+    },
+    {
+      "id": "queue",
+      "mcpTok": 6213,
+      "autoArm": "text",
+      "autoTok": 7997,
+      "mcpScore": "2/2",
+      "autoScore": "2/2",
+      "mcpScoreFrac": 1,
+      "autoScoreFrac": 1
+    },
+    {
+      "id": "flags",
+      "mcpTok": 5994,
+      "autoArm": "text",
+      "autoTok": 7311,
+      "mcpScore": "3/3",
+      "autoScore": "3/3",
+      "mcpScoreFrac": 1,
+      "autoScoreFrac": 1
+    },
+    {
+      "id": "geo",
+      "mcpTok": 5633,
+      "autoArm": "text",
+      "autoTok": 7291,
+      "mcpScore": "2/2",
+      "autoScore": "2/2",
+      "mcpScoreFrac": 1,
+      "autoScoreFrac": 1
+    },
+    {
+      "id": "regex",
+      "mcpTok": 9861,
+      "autoArm": "text",
+      "autoTok": 7982,
+      "mcpScore": "2/3",
+      "autoScore": "2/3",
+      "mcpScoreFrac": 0.6666666666666666,
+      "autoScoreFrac": 0.6666666666666666
+    },
+    {
+      "id": "csvops",
+      "mcpTok": 10261,
+      "autoArm": "text",
+      "autoTok": 8087,
+      "mcpScore": "2/2",
+      "autoScore": "2/2",
+      "mcpScoreFrac": 1,
+      "autoScoreFrac": 1
+    },
+    {
+      "id": "cronish",
+      "mcpTok": 5488,
+      "autoArm": "text",
+      "autoTok": 7419,
+      "mcpScore": "2/2",
+      "autoScore": "2/2",
+      "mcpScoreFrac": 1,
+      "autoScoreFrac": 1
+    },
+    {
+      "id": "uuidgen",
+      "mcpTok": 6174,
+      "autoArm": "text",
+      "autoTok": 7504,
+      "mcpScore": "2/3",
+      "autoScore": "2/3",
+      "mcpScoreFrac": 0.6666666666666666,
+      "autoScoreFrac": 0.6666666666666666
+    },
+    {
+      "id": "mathstat",
+      "mcpTok": 7013,
+      "autoArm": "text",
+      "autoTok": 2794,
+      "mcpScore": "3/3",
+      "autoScore": "3/3",
+      "mcpScoreFrac": 1,
+      "autoScoreFrac": 1
+    },
+    {
+      "id": "dateops",
+      "mcpTok": 5602,
+      "autoArm": "text",
+      "autoTok": 7345,
+      "mcpScore": "3/3",
+      "autoScore": "3/3",
+      "mcpScoreFrac": 1,
+      "autoScoreFrac": 1
+    },
+    {
+      "id": "cache",
+      "mcpTok": 5723,
+      "autoArm": "text",
+      "autoTok": 7115,
+      "mcpScore": "3/3",
+      "autoScore": "3/3",
+      "mcpScoreFrac": 1,
+      "autoScoreFrac": 1
+    }
+  ],
+  "largestGains": [
+    {
+      "id": "git",
+      "gainPct": 574.3228602383532,
+      "mcpTok": 18672,
+      "autoTok": 2769,
+      "autoArm": "text"
+    },
+    {
+      "id": "mockapi",
+      "gainPct": 418.68262054258975,
+      "mcpTok": 43782,
+      "autoTok": 8441,
+      "autoArm": "text"
+    },
+    {
+      "id": "playwright",
+      "gainPct": 317.442173211404,
+      "mcpTok": 31041,
+      "autoTok": 7436,
+      "autoArm": "image"
+    },
+    {
+      "id": "weather",
+      "gainPct": 181.000676132522,
+      "mcpTok": 8312,
+      "autoTok": 2958,
+      "autoArm": "text"
+    },
+    {
+      "id": "mathstat",
+      "gainPct": 151.00214745884037,
+      "mcpTok": 7013,
+      "autoTok": 2794,
+      "autoArm": "text"
+    },
+    {
+      "id": "calc",
+      "gainPct": 139.24476570289133,
+      "mcpTok": 19197,
+      "autoTok": 8024,
+      "autoArm": "text"
+    },
+    {
+      "id": "everything",
+      "gainPct": 124.86493123772102,
+      "mcpTok": 18313,
+      "autoTok": 8144,
+      "autoArm": "text"
+    },
+    {
+      "id": "fetch",
+      "gainPct": 122.24600276973435,
+      "mcpTok": 17653,
+      "autoTok": 7943,
+      "autoArm": "text"
+    },
+    {
+      "id": "puppeteer",
+      "gainPct": 108.24163485290813,
+      "mcpTok": 18546,
+      "autoTok": 8906,
+      "autoArm": "text"
+    },
+    {
+      "id": "kv",
+      "gainPct": 100.8495478213209,
+      "mcpTok": 14658,
+      "autoTok": 7298,
+      "autoArm": "text"
+    }
+  ],
+  "smallestGains": [
+    {
+      "id": "unitconvert",
+      "gainPct": -26.7054599480005,
+      "mcpTok": 5920,
+      "autoTok": 8077,
+      "autoArm": "text"
+    },
+    {
+      "id": "cronish",
+      "gainPct": -26.027766545356513,
+      "mcpTok": 5488,
+      "autoTok": 7419,
+      "autoArm": "text"
+    },
+    {
+      "id": "dateops",
+      "gainPct": -23.730428863172225,
+      "mcpTok": 5602,
+      "autoTok": 7345,
+      "autoArm": "text"
+    },
+    {
+      "id": "geo",
+      "gainPct": -22.740364833356196,
+      "mcpTok": 5633,
+      "autoTok": 7291,
+      "autoArm": "text"
+    },
+    {
+      "id": "queue",
+      "gainPct": -22.308365637113916,
+      "mcpTok": 6213,
+      "autoTok": 7997,
+      "autoArm": "text"
+    },
+    {
+      "id": "jsonstore",
+      "gainPct": -21.616106652156162,
+      "mcpTok": 5762,
+      "autoTok": 7351,
+      "autoArm": "text"
+    },
+    {
+      "id": "cache",
+      "gainPct": -19.564300773014754,
+      "mcpTok": 5723,
+      "autoTok": 7115,
+      "autoArm": "text"
+    },
+    {
+      "id": "flags",
+      "gainPct": -18.013951579811238,
+      "mcpTok": 5994,
+      "autoTok": 7311,
+      "autoArm": "text"
+    },
+    {
+      "id": "uuidgen",
+      "gainPct": -17.72388059701493,
+      "mcpTok": 6174,
+      "autoTok": 7504,
+      "autoArm": "text"
+    },
+    {
+      "id": "sequential",
+      "gainPct": -14.287665619450895,
+      "mcpTok": 6275,
+      "autoTok": 7321,
+      "autoArm": "text"
+    }
+  ],
+  "failures": [],
+  "eraIssues": []
+}

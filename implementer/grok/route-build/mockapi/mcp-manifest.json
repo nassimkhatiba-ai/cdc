@@ -1,0 +1,9 @@
+{
+  "name": "mockapi",
+  "mode": "mcp",
+  "command": "implementer/mega40/homes/mockapi/mockapi-mcp.sh",
+  "args": [],
+  "envToken": "CDC_MOCKAPI_TOKEN",
+  "tools": 5,
+  "note": "Prefer an installed binary over npx -y to avoid network cold starts."
+}

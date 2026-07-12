@@ -332,7 +332,8 @@
       "BIN/github-auth-mcp.js"
     ],
     "env": {
-      "GITHUB_TOKEN": "FROM_GH"
+      "GITHUB_TOKEN": "FROM_GH",
+      "NODE_EXTRA_CA_CERTS": "FIXTURES/github-chain.pem"
     },
     "skill": "github-cdc",
     "truth": {

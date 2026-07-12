@@ -1,0 +1,7 @@
+{
+  "name": "filesystem-large",
+  "mode": "direct-fs",
+  "root": null,
+  "tools": 14,
+  "note": "Use Node fs under root. Do not spawn MCP for normal queries."
+}

@@ -1,0 +1,116 @@
+{
+  "when": "2026-07-12",
+  "model": "gpt-5.6-sol",
+  "reasoning": "medium",
+  "task": "draw house on turtle canvas (base, roof, door, sun, label)",
+  "skill": "product cdc from-mcp convert (not hand-written)",
+  "definition_tax": {
+    "mcp_schema_tokens_est": 3399,
+    "cdc_skill_tokens": 795
+  },
+  "mcp": {
+    "tokens": 13708,
+    "wall_s": 26,
+    "answer": {
+      "canvas": "house",
+      "strokeCount": 5,
+      "svgPath": "/Users/nesbes/mcp-a;t/implementer/turtle-canvas/bench/canvases-mcp/house.svg",
+      "byType": {
+        "poly": 3,
+        "text": 1,
+        "circle": 1
+      },
+      "has_base": true,
+      "has_roof": true,
+      "has_door": true,
+      "has_sun": true,
+      "has_label": true
+    },
+    "canvas": {
+      "exists": true,
+      "strokeCount": 5,
+      "byType": {
+        "poly": 3,
+        "text": 1,
+        "circle": 1
+      },
+      "has_lines": false,
+      "has_roof_or_extra_lines": true,
+      "has_sun_circle": true,
+      "has_label_text": true,
+      "svg_bytes": 898,
+      "svg_path": "/Users/nesbes/mcp-a;t/implementer/turtle-canvas/bench/canvases-mcp/house.svg",
+      "json_path": "/Users/nesbes/mcp-a;t/implementer/turtle-canvas/bench/canvases-mcp/house.json",
+      "structure_score": 4,
+      "structure_max": 5,
+      "pass": true
+    },
+    "mcp_tool_events": 10,
+    "accuracy": {
+      "requested_canvas_ok": true,
+      "structure_score": 4
+    }
+  },
+  "cdc": {
+    "tokens": 13206,
+    "wall_s": 42,
+    "answer": {
+      "canvas": "house",
+      "strokeCount": 0,
+      "svgPath": "/Users/nesbes/mcp-a;t/implementer/turtle-canvas/bench/canvases-cdc/house.svg",
+      "byType": {},
+      "has_base": true,
+      "has_roof": true,
+      "has_door": true,
+      "has_sun": true,
+      "has_label": true
+    },
+    "canvas_house": {
+      "exists": true,
+      "strokeCount": 0,
+      "byType": {},
+      "has_lines": false,
+      "has_roof_or_extra_lines": false,
+      "has_sun_circle": false,
+      "has_label_text": false,
+      "svg_bytes": 345,
+      "svg_path": "/Users/nesbes/mcp-a;t/implementer/turtle-canvas/bench/canvases-cdc/house.svg",
+      "json_path": "/Users/nesbes/mcp-a;t/implementer/turtle-canvas/bench/canvases-cdc/house.json",
+      "structure_score": 0,
+      "structure_max": 5,
+      "pass": false
+    },
+    "canvas_main_if_any": {
+      "exists": true,
+      "strokeCount": 13,
+      "byType": {
+        "line": 11,
+        "circle": 1,
+        "text": 1
+      },
+      "has_lines": true,
+      "has_roof_or_extra_lines": true,
+      "has_sun_circle": true,
+      "has_label_text": true,
+      "svg_bytes": 1638,
+      "svg_path": "/Users/nesbes/mcp-a;t/implementer/turtle-canvas/bench/canvases-cdc/main.svg",
+      "json_path": "/Users/nesbes/mcp-a;t/implementer/turtle-canvas/bench/canvases-cdc/main.json",
+      "structure_score": 5,
+      "structure_max": 5,
+      "pass": true
+    },
+    "shell_execs": 2,
+    "accuracy": {
+      "requested_canvas_ok": false,
+      "drew_on_main_instead": true,
+      "structure_score_house": 0,
+      "structure_score_main": 5,
+      "note": "CDC batch omitted name on draw ops \u2192 strokes landed on default canvas \"main\"; house left empty"
+    }
+  },
+  "ratios": {
+    "cdc_over_mcp_tokens": 0.963,
+    "cdc_vs_mcp_pct": -3.7,
+    "mcp_over_cdc_tokens": 1.038
+  }
+}

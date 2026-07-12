@@ -1,0 +1,66 @@
+{
+  "format": "cdc-optical-skill",
+  "version": 2,
+  "cdc": "implementer/grok/route-build/complex/complex.cdc",
+  "pageFiles": [
+    "implementer/grok/route-build/complex/complex.cdc.png",
+    "implementer/grok/route-build/complex/complex.page-002.cdc.png"
+  ],
+  "pages": 2,
+  "width": 504,
+  "scale": 2,
+  "cols": 40,
+  "pageDims": [
+    {
+      "w": 504,
+      "h": 2032,
+      "tiles": 4,
+      "downscaled": false
+    },
+    {
+      "w": 504,
+      "h": 144,
+      "tiles": 1,
+      "downscaled": false
+    }
+  ],
+  "tiles": 5,
+  "tileBudget": 12,
+  "budgetMet": true,
+  "estVisionTokens": 1020,
+  "sourceChars": 3924,
+  "approxTextTokens": 1432,
+  "visionVsTextRatio": 0.71,
+  "provider": {
+    "tile": 512,
+    "base": 85,
+    "perTile": 170,
+    "fitLong": 2048,
+    "shortCap": 768
+  },
+  "providerNote": "assumes fit-2048 then shortest-side-768 resize, 512px tiles, base+perTile billing; pages sized to avoid any resize",
+  "alternatives": [
+    {
+      "scale": 2,
+      "width": 760,
+      "pages": 1,
+      "estVisionTokens": 1445
+    }
+  ],
+  "createdAt": "2026-07-12T11:56:57.154Z",
+  "skillName": "complex",
+  "skillMode": "image",
+  "skillModeReason": "optical 1020+160 ptr+600 prior < 3311 text-equiv × 0.7",
+  "textEquivalentTokens": 3311,
+  "planned": {
+    "scale": 2,
+    "width": 504,
+    "pages": 2,
+    "tiles": 5,
+    "budgetMet": true
+  },
+  "imagePrimary": false,
+  "opticalSidecar": true,
+  "opticalWouldHaveBeenPrimary": true,
+  "approxVisionTokens": 1020
+}

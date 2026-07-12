@@ -1,0 +1,154 @@
+{
+  "when": "2026-07-11T22:16:37.516Z",
+  "model": "gpt-5.6-sol",
+  "sums": {
+    "mcp": {
+      "n": 3,
+      "n_tok": 3,
+      "tokens_avg": 12203,
+      "wall_avg": 11.7,
+      "accuracy": "7/7",
+      "accuracy_pct": 100
+    },
+    "text": {
+      "n": 3,
+      "n_tok": 3,
+      "tokens_avg": 6476,
+      "wall_avg": 17.3,
+      "accuracy": "6/7",
+      "accuracy_pct": 85.7
+    }
+  },
+  "under": 46.9,
+  "rows": [
+    {
+      "target": "identity",
+      "arms": {
+        "mcp": {
+          "tokens": 10104,
+          "wall": 13,
+          "score": "2/2",
+          "ok": 2,
+          "total": 2,
+          "detail": {
+            "bot_name": true,
+            "workspace_name": true
+          },
+          "reasoning": "medium",
+          "ans": {
+            "bot_name": "test",
+            "workspace_name": "D0jsG Khatib’s Workspace"
+          }
+        },
+        "text": {
+          "tokens": 5651,
+          "wall": 11,
+          "score": "2/2",
+          "ok": 2,
+          "total": 2,
+          "detail": {
+            "bot_name": true,
+            "workspace_name": true
+          },
+          "reasoning": "medium",
+          "ans": {
+            "bot_name": "test",
+            "workspace_name": "D0jsG Khatib’s Workspace"
+          }
+        }
+      },
+      "under_mcp_pct": 44.1,
+      "mcp_over_text": 1.79
+    },
+    {
+      "target": "search",
+      "arms": {
+        "mcp": {
+          "tokens": 10923,
+          "wall": 10,
+          "score": "2/2",
+          "ok": 2,
+          "total": 2,
+          "detail": {
+            "stacksnap_count": true,
+            "stacksnap_titles_sorted": true
+          },
+          "reasoning": "medium",
+          "ans": {
+            "stacksnap_count": 3,
+            "stacksnap_titles_sorted": [
+              "stacksnap",
+              "stacksnap_FULL_PLAN",
+              "stacksnap_checklist"
+            ]
+          }
+        },
+        "text": {
+          "tokens": 6236,
+          "wall": 15,
+          "score": "2/2",
+          "ok": 2,
+          "total": 2,
+          "detail": {
+            "stacksnap_count": true,
+            "stacksnap_titles_sorted": true
+          },
+          "reasoning": "medium",
+          "ans": {
+            "stacksnap_count": 3,
+            "stacksnap_titles_sorted": [
+              "stacksnap",
+              "stacksnap_checklist",
+              "stacksnap_FULL_PLAN"
+            ]
+          }
+        }
+      },
+      "under_mcp_pct": 42.9,
+      "mcp_over_text": 1.75
+    },
+    {
+      "target": "plan",
+      "arms": {
+        "mcp": {
+          "tokens": 15581,
+          "wall": 12,
+          "score": "3/3",
+          "ok": 3,
+          "total": 3,
+          "detail": {
+            "plan_title": true,
+            "first_heading": true,
+            "has_how_to_use": true
+          },
+          "reasoning": "medium",
+          "ans": {
+            "plan_title": "stacksnap_FULL_PLAN",
+            "first_heading": "StackSnap Product Plan",
+            "has_how_to_use": true
+          }
+        },
+        "text": {
+          "tokens": 7542,
+          "wall": 26,
+          "score": "2/3",
+          "ok": 2,
+          "total": 3,
+          "detail": {
+            "plan_title": true,
+            "first_heading": true,
+            "has_how_to_use": false
+          },
+          "reasoning": "medium",
+          "ans": {
+            "plan_title": "stacksnap_FULL_PLAN",
+            "first_heading": "StackSnap Product Plan",
+            "has_how_to_use": false
+          }
+        }
+      },
+      "under_mcp_pct": 51.6,
+      "mcp_over_text": 2.07
+    }
+  ]
+}

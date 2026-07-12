@@ -1,0 +1,9 @@
+{
+  "name": "nova",
+  "mode": "mcp",
+  "command": "implementer/mega40/homes/nova/nova-mcp.sh",
+  "args": [],
+  "envToken": "CDC_NOVA_TOKEN",
+  "tools": 48,
+  "note": "Prefer an installed binary over npx -y to avoid network cold starts."
+}

@@ -1,0 +1,9 @@
+{
+  "name": "memory",
+  "mode": "mcp",
+  "command": "implementer/mega40/homes/memory/memory-mcp.sh",
+  "args": [],
+  "envToken": "CDC_MEMORY_TOKEN",
+  "tools": 9,
+  "note": "Prefer an installed binary over npx -y to avoid network cold starts."
+}

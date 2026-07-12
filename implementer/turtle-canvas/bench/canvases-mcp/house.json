@@ -1,0 +1,104 @@
+{
+  "name": "house",
+  "width": 500,
+  "height": 400,
+  "bg": "#ffffff",
+  "createdAt": "2026-07-12T11:35:13.087Z",
+  "updatedAt": "2026-07-12T11:35:20.412Z",
+  "turtle": {
+    "x": 435,
+    "y": 80,
+    "heading": 0,
+    "penDown": false,
+    "color": "#e69a00",
+    "width": 3,
+    "fill": "#ffc928"
+  },
+  "strokes": [
+    {
+      "type": "poly",
+      "points": [
+        [
+          140,
+          280
+        ],
+        [
+          260,
+          280
+        ],
+        [
+          260,
+          160
+        ],
+        [
+          140,
+          160
+        ]
+      ],
+      "color": "#2f4f4f",
+      "width": 4,
+      "fill": "#d9a066"
+    },
+    {
+      "type": "poly",
+      "points": [
+        [
+          130,
+          160
+        ],
+        [
+          200,
+          95
+        ],
+        [
+          270,
+          160
+        ]
+      ],
+      "color": "#8b2e2e",
+      "width": 4,
+      "fill": "#c94b40"
+    },
+    {
+      "type": "poly",
+      "points": [
+        [
+          185,
+          280
+        ],
+        [
+          215,
+          280
+        ],
+        [
+          215,
+          220
+        ],
+        [
+          185,
+          220
+        ]
+      ],
+      "color": "#5b3716",
+      "width": 3,
+      "fill": "#7a4a21"
+    },
+    {
+      "type": "text",
+      "x": 215,
+      "y": 350,
+      "text": "home",
+      "color": "#263238",
+      "size": 28
+    },
+    {
+      "type": "circle",
+      "cx": 470,
+      "cy": 80,
+      "r": 35,
+      "color": "#e69a00",
+      "width": 3,
+      "fill": "#ffc928"
+    }
+  ]
+}

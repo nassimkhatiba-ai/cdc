@@ -1,11 +1,547 @@
 [
   {
+    "target": "everything",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 18313,
+        "wall": 20,
+        "score": "5/5",
+        "ok": 5,
+        "total": 5,
+        "detail": {
+          "echo_result": true,
+          "add_sum": true,
+          "has_echo": true,
+          "has_add": true,
+          "tool_count_min": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "echo_result": "cdc-bench-ok",
+          "add_sum": 42,
+          "tool_count": 14,
+          "has_echo": true,
+          "has_add": true
+        }
+      },
+      "text": {
+        "tokens": 8144,
+        "wall": 11,
+        "score": "4/5",
+        "ok": 4,
+        "total": 5,
+        "detail": {
+          "echo_result": false,
+          "add_sum": true,
+          "has_echo": true,
+          "has_add": true,
+          "tool_count_min": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 6,
+          "callPaged": 1,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "echo_result": "Echo: cdc-bench-ok",
+          "add_sum": 42,
+          "tool_count": 13,
+          "has_echo": true,
+          "has_add": true
+        }
+      },
+      "image": {
+        "tokens": 10006,
+        "wall": 25,
+        "score": "4/5",
+        "ok": 4,
+        "total": 5,
+        "detail": {
+          "echo_result": false,
+          "add_sum": true,
+          "has_echo": true,
+          "has_add": true,
+          "tool_count_min": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 3,
+          "callPaged": 3,
+          "mcp_call_js": 5,
+          "image_attach": 5
+        },
+        "images": [
+          "everything.cdc.png"
+        ],
+        "ans": {
+          "echo_result": "Echo: cdc-bench-ok",
+          "add_sum": 42,
+          "tool_count": 13,
+          "has_echo": true,
+          "has_add": true
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 2.25,
+      "mcp_over_image": 1.83,
+      "text_over_image": 0.81,
+      "image_vs_text_pct": -22.9
+    }
+  },
+  {
+    "target": "memory",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 14219,
+        "wall": 13,
+        "score": "7/7",
+        "ok": 7,
+        "total": 7,
+        "detail": {
+          "entity_count": true,
+          "relation_count": true,
+          "person_count": true,
+          "company_count": true,
+          "highest_salary_person": true,
+          "highest_salary": true,
+          "largest_company_by_employees": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "entity_count": 35,
+          "relation_count": 56,
+          "person_count": 20,
+          "company_count": 5,
+          "highest_salary_person": "Hana Sol",
+          "highest_salary": 220000,
+          "largest_company_by_employees": "Cedar Health"
+        }
+      },
+      "text": {
+        "tokens": 9578,
+        "wall": 30,
+        "score": "4/7",
+        "ok": 4,
+        "total": 7,
+        "detail": {
+          "entity_count": true,
+          "relation_count": false,
+          "person_count": true,
+          "company_count": true,
+          "highest_salary_person": false,
+          "highest_salary": false,
+          "largest_company_by_employees": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "entity_count": 35,
+          "relation_count": 70,
+          "person_count": 20,
+          "company_count": 5,
+          "highest_salary_person": "Ava Chen",
+          "highest_salary": 180000,
+          "largest_company_by_employees": "Cedar Health"
+        }
+      },
+      "image": {
+        "tokens": 13460,
+        "wall": 86,
+        "score": "7/7",
+        "ok": 7,
+        "total": 7,
+        "detail": {
+          "entity_count": true,
+          "relation_count": true,
+          "person_count": true,
+          "company_count": true,
+          "highest_salary_person": true,
+          "highest_salary": true,
+          "largest_company_by_employees": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 7,
+          "callPaged": 6,
+          "mcp_call_js": 6,
+          "image_attach": 5
+        },
+        "images": [
+          "memory.cdc.png"
+        ],
+        "ans": {
+          "entity_count": 35,
+          "relation_count": 56,
+          "person_count": 20,
+          "company_count": 5,
+          "highest_salary_person": "Hana Sol",
+          "highest_salary": 220000,
+          "largest_company_by_employees": "Cedar Health"
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 1.48,
+      "mcp_over_image": 1.06,
+      "text_over_image": 0.71,
+      "image_vs_text_pct": -40.5
+    }
+  },
+  {
+    "target": "filesystem",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 16247,
+        "wall": 15,
+        "score": "5/5",
+        "ok": 5,
+        "total": 5,
+        "detail": {
+          "readme_content": true,
+          "note_has_token": true,
+          "search_hit": true,
+          "has_subdir": true,
+          "allowed_count_min": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "readme_content": "cdc-fs-readme",
+          "note_has_token": true,
+          "search_hit": "needle-findme",
+          "has_subdir": true,
+          "allowed_count": 2
+        }
+      },
+      "text": {
+        "tokens": 11778,
+        "wall": 38,
+        "score": "3/5",
+        "ok": 3,
+        "total": 5,
+        "detail": {
+          "readme_content": false,
+          "note_has_token": true,
+          "search_hit": false,
+          "has_subdir": true,
+          "allowed_count_min": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 1,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "readme_content": "cdc-fs-readme\n",
+          "note_has_token": true,
+          "search_hit": true,
+          "has_subdir": true,
+          "allowed_count": 3
+        }
+      },
+      "image": {
+        "tokens": 5578,
+        "wall": 11,
+        "score": "0/5",
+        "ok": 0,
+        "total": 5,
+        "detail": {
+          "readme_content": false,
+          "note_has_token": false,
+          "search_hit": false,
+          "has_subdir": false,
+          "allowed_count_min": false
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 1,
+          "mcp_call_js": 4,
+          "image_attach": 5
+        },
+        "images": [],
+        "ans": {
+          "readme_content": null,
+          "note_has_token": false,
+          "search_hit": null,
+          "has_subdir": false,
+          "allowed_count": 0
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 1.38,
+      "mcp_over_image": 2.91,
+      "text_over_image": 2.11,
+      "image_vs_text_pct": 52.6
+    }
+  },
+  {
+    "target": "sequential",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 6275,
+        "wall": 9,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "used_tool": true,
+          "thought_steps_min": true,
+          "has_answer": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "used_tool": true,
+          "thought_steps": 1,
+          "answer": 323,
+          "has_answer": true
+        }
+      },
+      "text": {
+        "tokens": 7321,
+        "wall": 9,
+        "score": "2/3",
+        "ok": 2,
+        "total": 3,
+        "detail": {
+          "used_tool": false,
+          "thought_steps_min": true,
+          "has_answer": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "used_tool": "sequentialthinking",
+          "thought_steps": 1,
+          "answer": 323,
+          "has_answer": true
+        }
+      },
+      "image": {
+        "tokens": 7090,
+        "wall": 21,
+        "score": "2/3",
+        "ok": 2,
+        "total": 3,
+        "detail": {
+          "used_tool": false,
+          "thought_steps_min": true,
+          "has_answer": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 1,
+          "mcp_call_js": 4,
+          "image_attach": 5
+        },
+        "images": [
+          "sequential.cdc.png"
+        ],
+        "ans": {
+          "used_tool": "sequentialthinking",
+          "thought_steps": 2,
+          "answer": 323,
+          "has_answer": true
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 0.86,
+      "mcp_over_image": 0.89,
+      "text_over_image": 1.03,
+      "image_vs_text_pct": 3.2
+    }
+  },
+  {
+    "target": "sqlite",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 8427,
+        "wall": 21,
+        "score": "5/5",
+        "ok": 5,
+        "total": 5,
+        "detail": {
+          "product_count": true,
+          "order_count": true,
+          "delivered_revenue": true,
+          "top_delivered_product_by_qty": true,
+          "categories": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "product_count": 6,
+          "order_count": 8,
+          "delivered_revenue": 264.5,
+          "top_delivered_product_by_qty": "Novel A",
+          "categories": [
+            "books",
+            "gear"
+          ]
+        }
+      },
+      "text": {
+        "tokens": 8731,
+        "wall": 22,
+        "score": "0/5",
+        "ok": 0,
+        "total": 5,
+        "detail": {
+          "product_count": false,
+          "order_count": false,
+          "delivered_revenue": false,
+          "top_delivered_product_by_qty": false,
+          "categories": false
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "product_count": null,
+          "order_count": null,
+          "delivered_revenue": null,
+          "top_delivered_product_by_qty": null,
+          "categories": []
+        }
+      },
+      "image": {
+        "tokens": 17486,
+        "wall": 78,
+        "score": "0/5",
+        "ok": 0,
+        "total": 5,
+        "detail": {
+          "product_count": false,
+          "order_count": false,
+          "delivered_revenue": false,
+          "top_delivered_product_by_qty": false,
+          "categories": false
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 2,
+          "mcp_call_js": 15,
+          "image_attach": 5
+        },
+        "images": [
+          "sqlite.cdc.png"
+        ],
+        "ans": {
+          "code": -32000,
+          "message": "unknown tool"
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 0.97,
+      "mcp_over_image": 0.48,
+      "text_over_image": 0.5,
+      "image_vs_text_pct": -100.3
+    }
+  },
+  {
     "target": "playwright",
     "auth": false,
     "arms": {
       "mcp": {
-        "tokens": 18208,
-        "wall": 29,
+        "tokens": 31041,
+        "wall": 35,
         "score": "7/7",
         "ok": 7,
         "total": 7,
@@ -21,7 +557,7 @@
         "exit": 0,
         "purity": {
           "curl": 0,
-          "mcp_calls": 6,
+          "mcp_calls": 0,
           "openSession": 0,
           "callPaged": 0,
           "mcp_call_js": 0,
@@ -45,49 +581,37 @@
         }
       },
       "text": {
-        "tokens": 22243,
-        "wall": 75,
-        "score": "7/7",
-        "ok": 7,
+        "tokens": 6099,
+        "wall": 40,
+        "score": "0/7",
+        "ok": 0,
         "total": 7,
         "detail": {
-          "page_title": true,
-          "shop_name": true,
-          "tagline": true,
-          "product_count": true,
-          "promo_code": true,
-          "contact_email": true,
-          "total_price": true
+          "page_title": false,
+          "shop_name": false,
+          "tagline": false,
+          "product_count": false,
+          "promo_code": false,
+          "contact_email": false,
+          "total_price": false
         },
         "exit": 0,
         "purity": {
           "curl": 0,
           "mcp_calls": 0,
-          "openSession": 7,
-          "callPaged": 0,
-          "mcp_call_js": 8,
+          "openSession": 10,
+          "callPaged": 1,
+          "mcp_call_js": 4,
           "image_attach": 0
         },
         "images": [],
         "ans": {
-          "page_title": "CDC Test Shop",
-          "shop_name": "Nebula Outfitters",
-          "tagline": "Gear for night hikers",
-          "product_count": 4,
-          "product_names": [
-            "Trail Lamp",
-            "Summit Pack",
-            "Glow Stick 2-pack",
-            "Night Boots"
-          ],
-          "promo_code": "SUMMER25",
-          "contact_email": "shop@nebula.test",
-          "total_price": 175.75
+          "error": "Extraction failed during the single permitted repair pass."
         }
       },
       "image": {
-        "tokens": 11173,
-        "wall": 34,
+        "tokens": 7436,
+        "wall": 20,
         "score": "7/7",
         "ok": 7,
         "total": 7,
@@ -106,7 +630,7 @@
           "mcp_calls": 0,
           "openSession": 1,
           "callPaged": 1,
-          "mcp_call_js": 6,
+          "mcp_call_js": 4,
           "image_attach": 5
         },
         "images": [
@@ -130,10 +654,636 @@
       }
     },
     "ratios": {
-      "mcp_over_text": 0.82,
-      "mcp_over_image": 1.63,
-      "text_over_image": 1.99,
-      "image_vs_text_pct": 49.8
+      "mcp_over_text": 5.09,
+      "mcp_over_image": 4.17,
+      "text_over_image": 0.82,
+      "image_vs_text_pct": -21.9
+    }
+  },
+  {
+    "target": "puppeteer",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 18546,
+        "wall": 24,
+        "score": "5/5",
+        "ok": 5,
+        "total": 5,
+        "detail": {
+          "page_title": true,
+          "shop_name": true,
+          "product_count": true,
+          "promo_code": true,
+          "total_price": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "page_title": "CDC Test Shop",
+          "shop_name": "Nebula Outfitters",
+          "product_count": 4,
+          "promo_code": "SUMMER25",
+          "total_price": 175.75
+        }
+      },
+      "text": {
+        "tokens": 8906,
+        "wall": 21,
+        "score": "4/5",
+        "ok": 4,
+        "total": 5,
+        "detail": {
+          "page_title": true,
+          "shop_name": true,
+          "product_count": true,
+          "promo_code": true,
+          "total_price": false
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "page_title": "CDC Test Shop",
+          "shop_name": "Nebula Outfitters",
+          "product_count": 4,
+          "promo_code": "SUMMER25",
+          "total_price": null
+        }
+      },
+      "image": {
+        "tokens": 7072,
+        "wall": 17,
+        "score": "5/5",
+        "ok": 5,
+        "total": 5,
+        "detail": {
+          "page_title": true,
+          "shop_name": true,
+          "product_count": true,
+          "promo_code": true,
+          "total_price": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 1,
+          "mcp_call_js": 4,
+          "image_attach": 5
+        },
+        "images": [
+          "puppeteer.cdc.png"
+        ],
+        "ans": {
+          "page_title": "CDC Test Shop",
+          "shop_name": "Nebula Outfitters",
+          "product_count": 4,
+          "promo_code": "SUMMER25",
+          "total_price": 175.75
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 2.08,
+      "mcp_over_image": 2.62,
+      "text_over_image": 1.26,
+      "image_vs_text_pct": 20.6
+    }
+  },
+  {
+    "target": "context7",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 13300,
+        "wall": 18,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "resolved": true,
+          "library_id_has_slash": true,
+          "docs_nonempty": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "resolved": true,
+          "library_id": "/reactjs/react.dev",
+          "library_id_has_slash": true,
+          "docs_nonempty": true,
+          "snippet": "const [stateVariable, setter] = useState(0);"
+        }
+      },
+      "text": {
+        "tokens": 8639,
+        "wall": 15,
+        "score": "2/3",
+        "ok": 2,
+        "total": 3,
+        "detail": {
+          "resolved": true,
+          "library_id_has_slash": true,
+          "docs_nonempty": false
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "resolved": true,
+          "library_id": "/reactjs/react.dev",
+          "library_id_has_slash": true,
+          "docs_nonempty": false,
+          "snippet": ""
+        }
+      },
+      "image": {
+        "tokens": 7643,
+        "wall": 25,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "resolved": true,
+          "library_id_has_slash": true,
+          "docs_nonempty": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 1,
+          "mcp_call_js": 4,
+          "image_attach": 5
+        },
+        "images": [
+          "context7.cdc.png"
+        ],
+        "ans": {
+          "resolved": true,
+          "library_id": "/reactjs/react.dev",
+          "library_id_has_slash": true,
+          "docs_nonempty": true,
+          "snippet": "const [state, setState] = useState(initialState)"
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 1.54,
+      "mcp_over_image": 1.74,
+      "text_over_image": 1.13,
+      "image_vs_text_pct": 11.5
+    }
+  },
+  {
+    "target": "git",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 18672,
+        "wall": 24,
+        "score": "4/4",
+        "ok": 4,
+        "total": 4,
+        "detail": {
+          "has_readme": true,
+          "branch_main_or_master": true,
+          "has_unstaged_change": true,
+          "log_nonempty": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "has_readme": true,
+          "branch": "main",
+          "branch_main_or_master": true,
+          "has_unstaged_change": true,
+          "log_nonempty": true,
+          "latest_subject": "init: cdc mega20 fixture"
+        }
+      },
+      "text": {
+        "tokens": 2769,
+        "wall": 14,
+        "score": "0/4",
+        "ok": 0,
+        "total": 4,
+        "detail": {
+          "has_readme": false,
+          "branch_main_or_master": false,
+          "has_unstaged_change": false,
+          "log_nonempty": false
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "has_readme": null,
+          "branch": null,
+          "branch_main_or_master": null,
+          "has_unstaged_change": null,
+          "log_nonempty": null,
+          "latest_subject": null
+        }
+      },
+      "image": {
+        "tokens": 10047,
+        "wall": 35,
+        "score": "4/4",
+        "ok": 4,
+        "total": 4,
+        "detail": {
+          "has_readme": true,
+          "branch_main_or_master": true,
+          "has_unstaged_change": true,
+          "log_nonempty": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 1,
+          "mcp_call_js": 6,
+          "image_attach": 5
+        },
+        "images": [
+          "git.cdc.png"
+        ],
+        "ans": {
+          "has_readme": true,
+          "branch": "main",
+          "branch_main_or_master": true,
+          "has_unstaged_change": true,
+          "log_nonempty": true,
+          "latest_subject": "init: cdc mega20 fixture"
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 6.74,
+      "mcp_over_image": 1.86,
+      "text_over_image": 0.28,
+      "image_vs_text_pct": -262.8
+    }
+  },
+  {
+    "target": "time",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 15624,
+        "wall": 15,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "has_utc": true,
+          "has_ny": true,
+          "converted": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "utc_iso": "2026-07-12T12:22:16+00:00",
+          "ny_time": "2026-07-12T08:22:16-04:00",
+          "has_utc": true,
+          "has_ny": true,
+          "converted": true,
+          "convert_result": "2026-07-12T15:30:00+00:00 -> 2026-07-12T11:30:00-04:00"
+        }
+      },
+      "text": {
+        "tokens": 8357,
+        "wall": 13,
+        "score": "0/3",
+        "ok": 0,
+        "total": 3,
+        "detail": {
+          "has_utc": false,
+          "has_ny": false,
+          "converted": false
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "utc_iso": null,
+          "ny_time": null,
+          "has_utc": false,
+          "has_ny": false,
+          "converted": false,
+          "convert_result": {
+            "error": "Skill bridge rejected the listed tool names as unknown."
+          }
+        }
+      },
+      "image": {
+        "tokens": 7433,
+        "wall": 21,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "has_utc": true,
+          "has_ny": true,
+          "converted": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 1,
+          "mcp_call_js": 5,
+          "image_attach": 5
+        },
+        "images": [
+          "time.cdc.png"
+        ],
+        "ans": {
+          "utc_iso": "2026-07-11T19:17:58+00:00",
+          "ny_time": "2026-07-11T15:17:58-04:00",
+          "has_utc": true,
+          "has_ny": true,
+          "converted": true,
+          "convert_result": "2026-07-11T15:17:00-04:00"
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 1.87,
+      "mcp_over_image": 2.1,
+      "text_over_image": 1.12,
+      "image_vs_text_pct": 11.1
+    }
+  },
+  {
+    "target": "fetch",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 17653,
+        "wall": 11,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "status_ok": true,
+          "has_shop_name": true,
+          "has_promo": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 1,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "status_ok": true,
+          "has_shop_name": true,
+          "has_promo": true,
+          "title_guess": "CDC Test Shop"
+        }
+      },
+      "text": {
+        "tokens": 7943,
+        "wall": 11,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "status_ok": true,
+          "has_shop_name": true,
+          "has_promo": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "status_ok": true,
+          "has_shop_name": true,
+          "has_promo": true,
+          "title_guess": "Nebula Outfitters"
+        }
+      },
+      "image": {
+        "tokens": 5179,
+        "wall": 11,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "status_ok": true,
+          "has_shop_name": true,
+          "has_promo": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 1,
+          "mcp_call_js": 4,
+          "image_attach": 5
+        },
+        "images": [
+          "fetch.cdc.png"
+        ],
+        "ans": {
+          "status_ok": true,
+          "has_shop_name": true,
+          "has_promo": true,
+          "title_guess": "Nebula Outfitters"
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 2.22,
+      "mcp_over_image": 3.41,
+      "text_over_image": 1.53,
+      "image_vs_text_pct": 34.8
+    }
+  },
+  {
+    "target": "tradingview",
+    "auth": true,
+    "arms": {
+      "mcp": {
+        "tokens": 13821,
+        "wall": 17,
+        "score": "5/5",
+        "ok": 5,
+        "total": 5,
+        "detail": {
+          "tool_count": true,
+          "has_top_gainers": true,
+          "has_market_sentiment": true,
+          "has_coin_analysis": true,
+          "gainers_nonempty": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "tool_count": 27,
+          "has_top_gainers": true,
+          "has_market_sentiment": true,
+          "has_coin_analysis": true,
+          "gainers_nonempty": true
+        }
+      },
+      "text": {
+        "tokens": 18514,
+        "wall": 31,
+        "score": "4/5",
+        "ok": 4,
+        "total": 5,
+        "detail": {
+          "tool_count": true,
+          "has_top_gainers": true,
+          "has_market_sentiment": true,
+          "has_coin_analysis": true,
+          "gainers_nonempty": false
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 10,
+          "callPaged": 1,
+          "mcp_call_js": 4,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "tool_count": 27,
+          "has_top_gainers": true,
+          "has_market_sentiment": true,
+          "has_coin_analysis": true,
+          "gainers_nonempty": false
+        }
+      },
+      "image": {
+        "tokens": 10132,
+        "wall": 33,
+        "score": "4/5",
+        "ok": 4,
+        "total": 5,
+        "detail": {
+          "tool_count": false,
+          "has_top_gainers": true,
+          "has_market_sentiment": true,
+          "has_coin_analysis": true,
+          "gainers_nonempty": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 3,
+          "callPaged": 1,
+          "mcp_call_js": 5,
+          "image_attach": 5
+        },
+        "images": [
+          "tradingview.cdc.png"
+        ],
+        "ans": {
+          "tool_count": 26,
+          "has_top_gainers": true,
+          "has_market_sentiment": true,
+          "has_coin_analysis": true,
+          "gainers_nonempty": true
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 0.75,
+      "mcp_over_image": 1.36,
+      "text_over_image": 1.83,
+      "image_vs_text_pct": 45.3
     }
   },
   {
@@ -141,8 +1291,8 @@
     "auth": true,
     "arms": {
       "mcp": {
-        "tokens": 18804,
-        "wall": 11,
+        "tokens": 18760,
+        "wall": 13,
         "score": "5/5",
         "ok": 5,
         "total": 5,
@@ -156,7 +1306,7 @@
         "exit": 0,
         "purity": {
           "curl": 1,
-          "mcp_calls": 6,
+          "mcp_calls": 0,
           "openSession": 0,
           "callPaged": 0,
           "mcp_call_js": 0,
@@ -166,7 +1316,7 @@
         "ans": {
           "me_login": "nassimkhatiba-ai",
           "me_public_repos": 1,
-          "torvalds_followers": 311297,
+          "torvalds_followers": 311409,
           "torvalds_public_repos": 12,
           "cdc_full_name": "nassimkhatiba-ai/cdc",
           "cdc_private": false,
@@ -174,8 +1324,8 @@
         }
       },
       "text": {
-        "tokens": 12080,
-        "wall": 16,
+        "tokens": 10643,
+        "wall": 14,
         "score": "5/5",
         "ok": 5,
         "total": 5,
@@ -190,16 +1340,16 @@
         "purity": {
           "curl": 0,
           "mcp_calls": 0,
-          "openSession": 3,
-          "callPaged": 3,
-          "mcp_call_js": 5,
+          "openSession": 8,
+          "callPaged": 5,
+          "mcp_call_js": 3,
           "image_attach": 0
         },
         "images": [],
         "ans": {
           "me_login": "nassimkhatiba-ai",
           "me_public_repos": 1,
-          "torvalds_followers": 311297,
+          "torvalds_followers": 311408,
           "torvalds_public_repos": 12,
           "cdc_full_name": "nassimkhatiba-ai/cdc",
           "cdc_private": false,
@@ -207,8 +1357,8 @@
         }
       },
       "image": {
-        "tokens": 8357,
-        "wall": 16,
+        "tokens": 12521,
+        "wall": 14,
         "score": "5/5",
         "ok": 5,
         "total": 5,
@@ -234,7 +1384,7 @@
         "ans": {
           "me_login": "nassimkhatiba-ai",
           "me_public_repos": 1,
-          "torvalds_followers": 311313,
+          "torvalds_followers": 311327,
           "torvalds_public_repos": 12,
           "cdc_full_name": "nassimkhatiba-ai/cdc",
           "cdc_private": false,
@@ -243,10 +1393,467 @@
       }
     },
     "ratios": {
-      "mcp_over_text": 1.56,
-      "mcp_over_image": 2.25,
-      "text_over_image": 1.45,
-      "image_vs_text_pct": 30.8
+      "mcp_over_text": 1.76,
+      "mcp_over_image": 1.5,
+      "text_over_image": 0.85,
+      "image_vs_text_pct": -17.6
+    }
+  },
+  {
+    "target": "calc",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 19197,
+        "wall": 10,
+        "score": "6/6",
+        "ok": 6,
+        "total": 6,
+        "detail": {
+          "add": true,
+          "mul": true,
+          "pow": true,
+          "mean": true,
+          "min": true,
+          "max": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "add": 42,
+          "mul": 56,
+          "pow": 81,
+          "mean": 5,
+          "min": 1,
+          "max": 9
+        }
+      },
+      "text": {
+        "tokens": 8024,
+        "wall": 8,
+        "score": "6/6",
+        "ok": 6,
+        "total": 6,
+        "detail": {
+          "add": true,
+          "mul": true,
+          "pow": true,
+          "mean": true,
+          "min": true,
+          "max": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "add": 42,
+          "mul": 56,
+          "pow": 81,
+          "mean": 5,
+          "min": 1,
+          "max": 9
+        }
+      },
+      "image": {
+        "tokens": 5400,
+        "wall": 24,
+        "score": "6/6",
+        "ok": 6,
+        "total": 6,
+        "detail": {
+          "add": true,
+          "mul": true,
+          "pow": true,
+          "mean": true,
+          "min": true,
+          "max": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 1,
+          "mcp_call_js": 3,
+          "image_attach": 5
+        },
+        "images": [
+          "calc.cdc.png"
+        ],
+        "ans": {
+          "add": 42,
+          "mul": 56,
+          "pow": 81,
+          "mean": 5,
+          "min": 1,
+          "max": 9
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 2.39,
+      "mcp_over_image": 3.56,
+      "text_over_image": 1.49,
+      "image_vs_text_pct": 32.7
+    }
+  },
+  {
+    "target": "weather",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 8312,
+        "wall": 10,
+        "score": "4/4",
+        "ok": 4,
+        "total": 4,
+        "detail": {
+          "city_count": true,
+          "seattle_temp_c": true,
+          "austin_cond": true,
+          "warmer": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "cities": [
+            "Austin",
+            "Paris",
+            "Seattle",
+            "Tokyo"
+          ],
+          "city_count": 4,
+          "seattle_temp_c": 12,
+          "austin_cond": "sunny",
+          "warmer": "Austin"
+        }
+      },
+      "text": {
+        "tokens": 2958,
+        "wall": 9,
+        "score": "4/4",
+        "ok": 4,
+        "total": 4,
+        "detail": {
+          "city_count": true,
+          "seattle_temp_c": true,
+          "austin_cond": true,
+          "warmer": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "cities": [
+            "Austin",
+            "Paris",
+            "Seattle",
+            "Tokyo"
+          ],
+          "city_count": 4,
+          "seattle_temp_c": 12,
+          "austin_cond": "sunny",
+          "warmer": "Austin"
+        }
+      },
+      "image": {
+        "tokens": 6498,
+        "wall": 14,
+        "score": "4/4",
+        "ok": 4,
+        "total": 4,
+        "detail": {
+          "city_count": true,
+          "seattle_temp_c": true,
+          "austin_cond": true,
+          "warmer": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 1,
+          "mcp_call_js": 3,
+          "image_attach": 5
+        },
+        "images": [
+          "weather.cdc.png"
+        ],
+        "ans": {
+          "cities": [
+            "Austin",
+            "Paris",
+            "Seattle",
+            "Tokyo"
+          ],
+          "city_count": 4,
+          "seattle_temp_c": 12,
+          "austin_cond": "sunny",
+          "warmer": "Austin"
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 2.81,
+      "mcp_over_image": 1.28,
+      "text_over_image": 0.46,
+      "image_vs_text_pct": -119.7
+    }
+  },
+  {
+    "target": "jsonstore",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 5762,
+        "wall": 12,
+        "score": "4/4",
+        "ok": 4,
+        "total": 4,
+        "detail": {
+          "seed": true,
+          "counter": true,
+          "name": true,
+          "key_count": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "seed": true,
+          "counter": 7,
+          "name": "cdc",
+          "keys": [
+            "counter",
+            "name",
+            "seed"
+          ],
+          "key_count": 3
+        }
+      },
+      "text": {
+        "tokens": 7351,
+        "wall": 13,
+        "score": "4/4",
+        "ok": 4,
+        "total": 4,
+        "detail": {
+          "seed": true,
+          "counter": true,
+          "name": true,
+          "key_count": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "seed": true,
+          "counter": 7,
+          "name": "cdc",
+          "keys": [
+            "counter",
+            "name",
+            "seed"
+          ],
+          "key_count": 3
+        }
+      },
+      "image": {
+        "tokens": 19479,
+        "wall": 52,
+        "score": "4/4",
+        "ok": 4,
+        "total": 4,
+        "detail": {
+          "seed": true,
+          "counter": true,
+          "name": true,
+          "key_count": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 6,
+          "callPaged": 7,
+          "mcp_call_js": 11,
+          "image_attach": 5
+        },
+        "images": [
+          "jsonstore.cdc.png"
+        ],
+        "ans": {
+          "seed": true,
+          "counter": 7,
+          "name": "cdc",
+          "keys": [
+            "counter",
+            "name",
+            "seed"
+          ],
+          "key_count": 3
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 0.78,
+      "mcp_over_image": 0.3,
+      "text_over_image": 0.38,
+      "image_vs_text_pct": -165
+    }
+  },
+  {
+    "target": "todo",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 10804,
+        "wall": 14,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "total": true,
+          "open": true,
+          "done": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "total": 3,
+          "open": 2,
+          "done": 1,
+          "open_titles": [
+            "Buy milk",
+            "Ship feature"
+          ]
+        }
+      },
+      "text": {
+        "tokens": 8316,
+        "wall": 11,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "total": true,
+          "open": true,
+          "done": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "total": 3,
+          "open": 2,
+          "done": 1,
+          "open_titles": [
+            "Buy milk",
+            "Ship feature"
+          ]
+        }
+      },
+      "image": {
+        "tokens": 7067,
+        "wall": 25,
+        "score": "0/3",
+        "ok": 0,
+        "total": 3,
+        "detail": {
+          "total": false,
+          "open": false,
+          "done": false
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 1,
+          "mcp_call_js": 4,
+          "image_attach": 5
+        },
+        "images": [
+          "todo.cdc.png"
+        ],
+        "ans": {
+          "total": 6,
+          "open": 4,
+          "done": 2,
+          "open_titles": [
+            "Buy milk",
+            "Buy milk",
+            "Ship feature",
+            "Ship feature"
+          ]
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 1.3,
+      "mcp_over_image": 1.53,
+      "text_over_image": 1.18,
+      "image_vs_text_pct": 15
     }
   },
   {
@@ -254,8 +1861,8 @@
     "auth": false,
     "arms": {
       "mcp": {
-        "tokens": 23950,
-        "wall": 23,
+        "tokens": 43782,
+        "wall": 22,
         "score": "5/5",
         "ok": 5,
         "total": 5,
@@ -269,7 +1876,7 @@
         "exit": 0,
         "purity": {
           "curl": 1,
-          "mcp_calls": 12,
+          "mcp_calls": 0,
           "openSession": 0,
           "callPaged": 0,
           "mcp_call_js": 0,
@@ -285,8 +1892,8 @@
         }
       },
       "text": {
-        "tokens": 9406,
-        "wall": 16,
+        "tokens": 8441,
+        "wall": 11,
         "score": "5/5",
         "ok": 5,
         "total": 5,
@@ -301,9 +1908,9 @@
         "purity": {
           "curl": 0,
           "mcp_calls": 0,
-          "openSession": 5,
-          "callPaged": 7,
-          "mcp_call_js": 5,
+          "openSession": 8,
+          "callPaged": 9,
+          "mcp_call_js": 3,
           "image_attach": 0
         },
         "images": [],
@@ -316,8 +1923,8 @@
         }
       },
       "image": {
-        "tokens": 18918,
-        "wall": 48,
+        "tokens": 21475,
+        "wall": 40,
         "score": "5/5",
         "ok": 5,
         "total": 5,
@@ -332,9 +1939,9 @@
         "purity": {
           "curl": 0,
           "mcp_calls": 0,
-          "openSession": 1,
-          "callPaged": 7,
-          "mcp_call_js": 7,
+          "openSession": 7,
+          "callPaged": 13,
+          "mcp_call_js": 8,
           "image_attach": 5
         },
         "images": [
@@ -350,10 +1957,189 @@
       }
     },
     "ratios": {
-      "mcp_over_text": 2.55,
-      "mcp_over_image": 1.27,
-      "text_over_image": 0.5,
-      "image_vs_text_pct": -101.1
+      "mcp_over_text": 5.19,
+      "mcp_over_image": 2.04,
+      "text_over_image": 0.39,
+      "image_vs_text_pct": -154.4
+    }
+  },
+  {
+    "target": "chromedevtools",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 16887,
+        "wall": 20,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "page_title": true,
+          "has_shop": true,
+          "product_count": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "page_title": "CDC Test Shop",
+          "has_shop": true,
+          "product_count": 4
+        }
+      },
+      "text": {
+        "tokens": 15489,
+        "wall": 45,
+        "score": "0/3",
+        "ok": 0,
+        "total": 3,
+        "detail": {
+          "page_title": false,
+          "has_shop": false,
+          "product_count": false
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 8,
+          "callPaged": 1,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "error": "Could not select the store page: the bridge returned a null pageId."
+        }
+      },
+      "image": {
+        "tokens": 15843,
+        "wall": 39,
+        "score": "0/3",
+        "ok": 0,
+        "total": 3,
+        "detail": {
+          "page_title": false,
+          "has_shop": false,
+          "product_count": false
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 1,
+          "mcp_call_js": 6,
+          "image_attach": 5
+        },
+        "images": [
+          "chromedevtools.cdc.png"
+        ],
+        "ans": null
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 1.09,
+      "mcp_over_image": 1.07,
+      "text_over_image": 0.98,
+      "image_vs_text_pct": -2.3
+    }
+  },
+  {
+    "target": "filesystem_large",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 16117,
+        "wall": 20,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "tree_has_subdir": true,
+          "file_count_min": true,
+          "data_csv_lines": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "tree_has_subdir": true,
+          "file_count": 3,
+          "file_count_min": true,
+          "data_csv_lines": 4
+        }
+      },
+      "text": {
+        "tokens": 9218,
+        "wall": 14,
+        "score": "2/3",
+        "ok": 2,
+        "total": 3,
+        "detail": {
+          "tree_has_subdir": true,
+          "file_count_min": true,
+          "data_csv_lines": false
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 1,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "tree_has_subdir": true,
+          "file_count": 3,
+          "data_csv_lines": 3
+        }
+      },
+      "image": {
+        "tokens": 5576,
+        "wall": 11,
+        "score": "0/3",
+        "ok": 0,
+        "total": 3,
+        "detail": {
+          "tree_has_subdir": false,
+          "file_count_min": false,
+          "data_csv_lines": false
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 1,
+          "callPaged": 1,
+          "mcp_call_js": 6,
+          "image_attach": 4
+        },
+        "images": [],
+        "ans": null
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 1.75,
+      "mcp_over_image": 2.89,
+      "text_over_image": 1.65,
+      "image_vs_text_pct": 39.5
     }
   },
   {
@@ -361,8 +2147,8 @@
     "auth": false,
     "arms": {
       "mcp": {
-        "tokens": 27022,
-        "wall": 46,
+        "tokens": 24135,
+        "wall": 53,
         "score": "7/7",
         "ok": 7,
         "total": 7,
@@ -378,7 +2164,7 @@
         "exit": 0,
         "purity": {
           "curl": 0,
-          "mcp_calls": 84,
+          "mcp_calls": 0,
           "openSession": 0,
           "callPaged": 0,
           "mcp_call_js": 0,
@@ -399,8 +2185,8 @@
             "P1 Ingest stalled Globex",
             "P1 Invoice stuck Aperture",
             "P1 Pipeline backpressure Tyrell",
-            "P1 SSO outage Vantara",
-            "P1 Search blackhole Northwind"
+            "P1 Search blackhole Northwind",
+            "P1 SSO outage Vantara"
           ],
           "accounts_in_breach_sorted": [
             "Aperture",
@@ -416,8 +2202,8 @@
         }
       },
       "text": {
-        "tokens": 19434,
-        "wall": 33,
+        "tokens": 10504,
+        "wall": 23,
         "score": "7/7",
         "ok": 7,
         "total": 7,
@@ -434,9 +2220,9 @@
         "purity": {
           "curl": 0,
           "mcp_calls": 0,
-          "openSession": 5,
-          "callPaged": 5,
-          "mcp_call_js": 5,
+          "openSession": 8,
+          "callPaged": 7,
+          "mcp_call_js": 3,
           "image_attach": 0
         },
         "images": [],
@@ -454,8 +2240,8 @@
             "P1 Ingest stalled Globex",
             "P1 Invoice stuck Aperture",
             "P1 Pipeline backpressure Tyrell",
-            "P1 SSO outage Vantara",
-            "P1 Search blackhole Northwind"
+            "P1 Search blackhole Northwind",
+            "P1 SSO outage Vantara"
           ],
           "accounts_in_breach_sorted": [
             "Aperture",
@@ -471,8 +2257,8 @@
         }
       },
       "image": {
-        "tokens": 15040,
-        "wall": 30,
+        "tokens": 26271,
+        "wall": 69,
         "score": "7/7",
         "ok": 7,
         "total": 7,
@@ -491,7 +2277,7 @@
           "mcp_calls": 0,
           "openSession": 0,
           "callPaged": 0,
-          "mcp_call_js": 4,
+          "mcp_call_js": 7,
           "image_attach": 6
         },
         "images": [
@@ -512,8 +2298,8 @@
             "P1 Ingest stalled Globex",
             "P1 Invoice stuck Aperture",
             "P1 Pipeline backpressure Tyrell",
-            "P1 SSO outage Vantara",
-            "P1 Search blackhole Northwind"
+            "P1 Search blackhole Northwind",
+            "P1 SSO outage Vantara"
           ],
           "accounts_in_breach_sorted": [
             "Aperture",
@@ -530,10 +2316,10 @@
       }
     },
     "ratios": {
-      "mcp_over_text": 1.39,
-      "mcp_over_image": 1.8,
-      "text_over_image": 1.29,
-      "image_vs_text_pct": 22.6
+      "mcp_over_text": 2.3,
+      "mcp_over_image": 0.92,
+      "text_over_image": 0.4,
+      "image_vs_text_pct": -150.1
     }
   },
   {
@@ -541,8 +2327,8 @@
     "auth": false,
     "arms": {
       "mcp": {
-        "tokens": 18643,
-        "wall": 22,
+        "tokens": 25317,
+        "wall": 53,
         "score": "7/7",
         "ok": 7,
         "total": 7,
@@ -558,10 +2344,10 @@
         "exit": 0,
         "purity": {
           "curl": 0,
-          "mcp_calls": 24,
-          "openSession": 2,
-          "callPaged": 3,
-          "mcp_call_js": 2,
+          "mcp_calls": 0,
+          "openSession": 83,
+          "callPaged": 69,
+          "mcp_call_js": 79,
           "image_attach": 0
         },
         "images": [],
@@ -592,8 +2378,8 @@
         }
       },
       "text": {
-        "tokens": 8686,
-        "wall": 50,
+        "tokens": 9994,
+        "wall": 19,
         "score": "7/7",
         "ok": 7,
         "total": 7,
@@ -610,9 +2396,9 @@
         "purity": {
           "curl": 0,
           "mcp_calls": 0,
-          "openSession": 7,
+          "openSession": 8,
           "callPaged": 7,
-          "mcp_call_js": 6,
+          "mcp_call_js": 3,
           "image_attach": 0
         },
         "images": [],
@@ -643,8 +2429,8 @@
         }
       },
       "image": {
-        "tokens": 15262,
-        "wall": 50,
+        "tokens": 23656,
+        "wall": 47,
         "score": "7/7",
         "ok": 7,
         "total": 7,
@@ -661,10 +2447,10 @@
         "purity": {
           "curl": 0,
           "mcp_calls": 0,
-          "openSession": 0,
-          "callPaged": 0,
+          "openSession": 2,
+          "callPaged": 3,
           "mcp_call_js": 8,
-          "image_attach": 6
+          "image_attach": 5
         },
         "images": [
           "nova.cdc.png"
@@ -697,10 +2483,1737 @@
       }
     },
     "ratios": {
-      "mcp_over_text": 2.15,
-      "mcp_over_image": 1.22,
-      "text_over_image": 0.57,
-      "image_vs_text_pct": -75.7
+      "mcp_over_text": 2.53,
+      "mcp_over_image": 1.07,
+      "text_over_image": 0.42,
+      "image_vs_text_pct": -136.7
+    }
+  },
+  {
+    "target": "stringops",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 8674,
+        "wall": 15,
+        "score": "4/4",
+        "ok": 4,
+        "total": 4,
+        "detail": {
+          "upper": true,
+          "reverse": true,
+          "len": true,
+          "words": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "upper": "HELLO WORLD",
+          "reverse": "dlrow olleh",
+          "len": 11,
+          "words": 2
+        }
+      },
+      "text": {
+        "tokens": 7396,
+        "wall": 11,
+        "score": "4/4",
+        "ok": 4,
+        "total": 4,
+        "detail": {
+          "upper": true,
+          "reverse": true,
+          "len": true,
+          "words": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "upper": "HELLO WORLD",
+          "reverse": "dlrow olleh",
+          "len": 11,
+          "words": 2
+        }
+      },
+      "image": {
+        "tokens": 15092,
+        "wall": 34,
+        "score": "4/4",
+        "ok": 4,
+        "total": 4,
+        "detail": {
+          "upper": true,
+          "reverse": true,
+          "len": true,
+          "words": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 4,
+          "image_attach": 9
+        },
+        "images": [
+          "stringops.cdc.png"
+        ],
+        "ans": {
+          "upper": "HELLO WORLD",
+          "reverse": "dlrow olleh",
+          "len": 11,
+          "words": 2
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 1.17,
+      "mcp_over_image": 0.57,
+      "text_over_image": 0.49,
+      "image_vs_text_pct": -104.1
+    }
+  },
+  {
+    "target": "unitconvert",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 5920,
+        "wall": 34,
+        "score": "4/4",
+        "ok": 4,
+        "total": 4,
+        "detail": {
+          "c_to_f": true,
+          "f_to_c": true,
+          "km_to_mi": true,
+          "kg_to_lb": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "c_to_f": 212,
+          "f_to_c": 0,
+          "km_to_mi": 6.21371,
+          "kg_to_lb": 22.0462
+        }
+      },
+      "text": {
+        "tokens": 8077,
+        "wall": 10,
+        "score": "4/4",
+        "ok": 4,
+        "total": 4,
+        "detail": {
+          "c_to_f": true,
+          "f_to_c": true,
+          "km_to_mi": true,
+          "kg_to_lb": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "c_to_f": 212,
+          "f_to_c": 0,
+          "km_to_mi": 6.21371,
+          "kg_to_lb": 22.0462
+        }
+      },
+      "image": {
+        "tokens": 6233,
+        "wall": 15,
+        "score": "4/4",
+        "ok": 4,
+        "total": 4,
+        "detail": {
+          "c_to_f": true,
+          "f_to_c": true,
+          "km_to_mi": true,
+          "kg_to_lb": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 4,
+          "image_attach": 6
+        },
+        "images": [
+          "unitconvert.cdc.png"
+        ],
+        "ans": {
+          "c_to_f": 212,
+          "f_to_c": 0,
+          "km_to_mi": 6.21371,
+          "kg_to_lb": 22.0462
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 0.73,
+      "mcp_over_image": 0.95,
+      "text_over_image": 1.3,
+      "image_vs_text_pct": 22.8
+    }
+  },
+  {
+    "target": "graph",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 10115,
+        "wall": 12,
+        "score": "4/4",
+        "ok": 4,
+        "total": 4,
+        "detail": {
+          "node_count": true,
+          "edge_count": true,
+          "degree_A": true,
+          "has_path_A_D": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "node_count": 5,
+          "edge_count": 5,
+          "degree_A": 2,
+          "has_path_A_D": true
+        }
+      },
+      "text": {
+        "tokens": 8021,
+        "wall": 9,
+        "score": "4/4",
+        "ok": 4,
+        "total": 4,
+        "detail": {
+          "node_count": true,
+          "edge_count": true,
+          "degree_A": true,
+          "has_path_A_D": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "node_count": 5,
+          "edge_count": 5,
+          "degree_A": 2,
+          "has_path_A_D": true
+        }
+      },
+      "image": {
+        "tokens": 6233,
+        "wall": 10,
+        "score": "4/4",
+        "ok": 4,
+        "total": 4,
+        "detail": {
+          "node_count": true,
+          "edge_count": true,
+          "degree_A": true,
+          "has_path_A_D": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 5
+        },
+        "images": [
+          "graph.cdc.png"
+        ],
+        "ans": {
+          "node_count": 5,
+          "edge_count": 5,
+          "degree_A": 2,
+          "has_path_A_D": true
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 1.26,
+      "mcp_over_image": 1.62,
+      "text_over_image": 1.29,
+      "image_vs_text_pct": 22.3
+    }
+  },
+  {
+    "target": "kv",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 14658,
+        "wall": 10,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "key_count": true,
+          "alpha": true,
+          "has_beta": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "key_count": 3,
+          "alpha": "1",
+          "has_beta": true
+        }
+      },
+      "text": {
+        "tokens": 7298,
+        "wall": 8,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "key_count": true,
+          "alpha": true,
+          "has_beta": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "key_count": 3,
+          "alpha": "1",
+          "has_beta": true
+        }
+      },
+      "image": {
+        "tokens": 7182,
+        "wall": 18,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "key_count": true,
+          "alpha": true,
+          "has_beta": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 4,
+          "image_attach": 6
+        },
+        "images": [
+          "kv.cdc.png"
+        ],
+        "ans": {
+          "key_count": 3,
+          "alpha": "1",
+          "has_beta": true
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 2.01,
+      "mcp_over_image": 2.04,
+      "text_over_image": 1.02,
+      "image_vs_text_pct": 1.6
+    }
+  },
+  {
+    "target": "counter",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 6391,
+        "wall": 13,
+        "score": "2/2",
+        "ok": 2,
+        "total": 2,
+        "detail": {
+          "hits": true,
+          "misses": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "hits": 12,
+          "misses": 3
+        }
+      },
+      "text": {
+        "tokens": 7348,
+        "wall": 9,
+        "score": "2/2",
+        "ok": 2,
+        "total": 2,
+        "detail": {
+          "hits": true,
+          "misses": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "hits": 12,
+          "misses": 3
+        }
+      },
+      "image": {
+        "tokens": 6276,
+        "wall": 12,
+        "score": "1/2",
+        "ok": 1,
+        "total": 2,
+        "detail": {
+          "hits": false,
+          "misses": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 6
+        },
+        "images": [
+          "counter.cdc.png"
+        ],
+        "ans": {
+          "hits": 14,
+          "misses": 3
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 0.87,
+      "mcp_over_image": 1.02,
+      "text_over_image": 1.17,
+      "image_vs_text_pct": 14.6
+    }
+  },
+  {
+    "target": "hash",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 12999,
+        "wall": 17,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "md5": true,
+          "b64": true,
+          "decoded": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "md5": "5d41402abc4b2a76b9719d911017c592",
+          "b64": "aGVsbG8=",
+          "decoded": "hello"
+        }
+      },
+      "text": {
+        "tokens": 14231,
+        "wall": 17,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "md5": true,
+          "b64": true,
+          "decoded": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "md5": "5d41402abc4b2a76b9719d911017c592",
+          "b64": "aGVsbG8=",
+          "decoded": "hello"
+        }
+      },
+      "image": {
+        "tokens": 5998,
+        "wall": 9,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "md5": true,
+          "b64": true,
+          "decoded": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 6
+        },
+        "images": [
+          "hash.cdc.png"
+        ],
+        "ans": {
+          "md5": "5d41402abc4b2a76b9719d911017c592",
+          "b64": "aGVsbG8=",
+          "decoded": "hello"
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 0.91,
+      "mcp_over_image": 2.17,
+      "text_over_image": 2.37,
+      "image_vs_text_pct": 57.9
+    }
+  },
+  {
+    "target": "books",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 8199,
+        "wall": 24,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "book_count": true,
+          "top_title": true,
+          "scifi_count": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "book_count": 5,
+          "top_title": "Sapiens",
+          "scifi_count": 3
+        }
+      },
+      "text": {
+        "tokens": 9175,
+        "wall": 45,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "book_count": true,
+          "top_title": true,
+          "scifi_count": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 6,
+          "callPaged": 5,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "book_count": 5,
+          "top_title": "Sapiens",
+          "scifi_count": 3
+        }
+      },
+      "image": {
+        "tokens": 5202,
+        "wall": 10,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "book_count": true,
+          "top_title": true,
+          "scifi_count": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 6
+        },
+        "images": [
+          "books.cdc.png"
+        ],
+        "ans": {
+          "book_count": 5,
+          "top_title": "Sapiens",
+          "scifi_count": 3
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 0.89,
+      "mcp_over_image": 1.58,
+      "text_over_image": 1.76,
+      "image_vs_text_pct": 43.3
+    }
+  },
+  {
+    "target": "inventory",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 11619,
+        "wall": 10,
+        "score": "4/4",
+        "ok": 4,
+        "total": 4,
+        "detail": {
+          "item_count": true,
+          "low_stock": true,
+          "total_value": true,
+          "warehouse_count": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "item_count": 4,
+          "low_stock": [
+            "SKU-B",
+            "SKU-D"
+          ],
+          "total_value": 55.3,
+          "warehouse_count": 2
+        }
+      },
+      "text": {
+        "tokens": 9377,
+        "wall": 14,
+        "score": "4/4",
+        "ok": 4,
+        "total": 4,
+        "detail": {
+          "item_count": true,
+          "low_stock": true,
+          "total_value": true,
+          "warehouse_count": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "item_count": 4,
+          "low_stock": [
+            "SKU-B",
+            "SKU-D"
+          ],
+          "total_value": 55.3,
+          "warehouse_count": 2
+        }
+      },
+      "image": {
+        "tokens": 5207,
+        "wall": 9,
+        "score": "4/4",
+        "ok": 4,
+        "total": 4,
+        "detail": {
+          "item_count": true,
+          "low_stock": true,
+          "total_value": true,
+          "warehouse_count": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 6
+        },
+        "images": [
+          "inventory.cdc.png"
+        ],
+        "ans": {
+          "item_count": 4,
+          "low_stock": [
+            "SKU-B",
+            "SKU-D"
+          ],
+          "total_value": 55.3,
+          "warehouse_count": 2
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 1.24,
+      "mcp_over_image": 2.23,
+      "text_over_image": 1.8,
+      "image_vs_text_pct": 44.5
+    }
+  },
+  {
+    "target": "queue",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 6213,
+        "wall": 8,
+        "score": "2/2",
+        "ok": 2,
+        "total": 2,
+        "detail": {
+          "size": true,
+          "peek": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "size": 3,
+          "peek": "job-alpha"
+        }
+      },
+      "text": {
+        "tokens": 7997,
+        "wall": 13,
+        "score": "2/2",
+        "ok": 2,
+        "total": 2,
+        "detail": {
+          "size": true,
+          "peek": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "size": 3,
+          "peek": "job-alpha"
+        }
+      },
+      "image": {
+        "tokens": 5847,
+        "wall": 12,
+        "score": "0/2",
+        "ok": 0,
+        "total": 2,
+        "detail": {
+          "size": false,
+          "peek": false
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 5
+        },
+        "images": [
+          "queue.cdc.png"
+        ],
+        "ans": {
+          "job": "job-alpha"
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 0.78,
+      "mcp_over_image": 1.06,
+      "text_over_image": 1.37,
+      "image_vs_text_pct": 26.9
+    }
+  },
+  {
+    "target": "flags",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 5994,
+        "wall": 21,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "enabled_count": true,
+          "dark_mode": true,
+          "beta_ui": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "enabled_count": 3,
+          "dark_mode": true,
+          "beta_ui": false
+        }
+      },
+      "text": {
+        "tokens": 7311,
+        "wall": 9,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "enabled_count": true,
+          "dark_mode": true,
+          "beta_ui": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "enabled_count": 3,
+          "dark_mode": true,
+          "beta_ui": false
+        }
+      },
+      "image": {
+        "tokens": 6040,
+        "wall": 10,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "enabled_count": true,
+          "dark_mode": true,
+          "beta_ui": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 6
+        },
+        "images": [
+          "flags.cdc.png"
+        ],
+        "ans": {
+          "enabled_count": 3,
+          "dark_mode": true,
+          "beta_ui": false
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 0.82,
+      "mcp_over_image": 0.99,
+      "text_over_image": 1.21,
+      "image_vs_text_pct": 17.4
+    }
+  },
+  {
+    "target": "geo",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 5633,
+        "wall": 14,
+        "score": "2/2",
+        "ok": 2,
+        "total": 2,
+        "detail": {
+          "city_count": true,
+          "has_paris": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "city_count": 4,
+          "has_paris": true,
+          "paris_london_km": 343.56
+        }
+      },
+      "text": {
+        "tokens": 7291,
+        "wall": 8,
+        "score": "2/2",
+        "ok": 2,
+        "total": 2,
+        "detail": {
+          "city_count": true,
+          "has_paris": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "city_count": 4,
+          "has_paris": true,
+          "paris_london_km": 343.56
+        }
+      },
+      "image": {
+        "tokens": 5026,
+        "wall": 9,
+        "score": "2/2",
+        "ok": 2,
+        "total": 2,
+        "detail": {
+          "city_count": true,
+          "has_paris": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 6
+        },
+        "images": [
+          "geo.cdc.png"
+        ],
+        "ans": {
+          "city_count": 4,
+          "has_paris": true,
+          "paris_london_km": 343.56
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 0.77,
+      "mcp_over_image": 1.12,
+      "text_over_image": 1.45,
+      "image_vs_text_pct": 31.1
+    }
+  },
+  {
+    "target": "regex",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 9861,
+        "wall": 11,
+        "score": "2/3",
+        "ok": 2,
+        "total": 3,
+        "detail": {
+          "ok": true,
+          "count": true,
+          "replaced": false
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "ok": true,
+          "count": 3,
+          "replaced": "a-b-c-"
+        }
+      },
+      "text": {
+        "tokens": 7982,
+        "wall": 8,
+        "score": "2/3",
+        "ok": 2,
+        "total": 3,
+        "detail": {
+          "ok": true,
+          "count": true,
+          "replaced": false
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "ok": true,
+          "count": 3,
+          "replaced": "a-b-c-"
+        }
+      },
+      "image": {
+        "tokens": 6225,
+        "wall": 14,
+        "score": "2/3",
+        "ok": 2,
+        "total": 3,
+        "detail": {
+          "ok": true,
+          "count": true,
+          "replaced": false
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 5
+        },
+        "images": [
+          "regex.cdc.png"
+        ],
+        "ans": {
+          "ok": true,
+          "count": 3,
+          "replaced": "a-b-c-"
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 1.24,
+      "mcp_over_image": 1.58,
+      "text_over_image": 1.28,
+      "image_vs_text_pct": 22
+    }
+  },
+  {
+    "target": "csvops",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 10261,
+        "wall": 9,
+        "score": "2/2",
+        "ok": 2,
+        "total": 2,
+        "detail": {
+          "row_count": true,
+          "sum_col1": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "row_count": 3,
+          "sum_col1": 60
+        }
+      },
+      "text": {
+        "tokens": 8087,
+        "wall": 8,
+        "score": "2/2",
+        "ok": 2,
+        "total": 2,
+        "detail": {
+          "row_count": true,
+          "sum_col1": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "row_count": 3,
+          "sum_col1": 60
+        }
+      },
+      "image": {
+        "tokens": 5025,
+        "wall": 9,
+        "score": "2/2",
+        "ok": 2,
+        "total": 2,
+        "detail": {
+          "row_count": true,
+          "sum_col1": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 5
+        },
+        "images": [
+          "csvops.cdc.png"
+        ],
+        "ans": {
+          "row_count": 3,
+          "sum_col1": 60
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 1.27,
+      "mcp_over_image": 2.04,
+      "text_over_image": 1.61,
+      "image_vs_text_pct": 37.9
+    }
+  },
+  {
+    "target": "cronish",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 5488,
+        "wall": 9,
+        "score": "2/2",
+        "ok": 2,
+        "total": 2,
+        "detail": {
+          "job_count": true,
+          "enabled_ids": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "job_count": 4,
+          "enabled_ids": [
+            "j1",
+            "j2",
+            "j4"
+          ]
+        }
+      },
+      "text": {
+        "tokens": 7419,
+        "wall": 8,
+        "score": "2/2",
+        "ok": 2,
+        "total": 2,
+        "detail": {
+          "job_count": true,
+          "enabled_ids": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "job_count": 4,
+          "enabled_ids": [
+            "j1",
+            "j2",
+            "j4"
+          ]
+        }
+      },
+      "image": {
+        "tokens": 6090,
+        "wall": 11,
+        "score": "2/2",
+        "ok": 2,
+        "total": 2,
+        "detail": {
+          "job_count": true,
+          "enabled_ids": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 6
+        },
+        "images": [
+          "cronish.cdc.png"
+        ],
+        "ans": {
+          "job_count": 4,
+          "enabled_ids": [
+            "j1",
+            "j2",
+            "j4"
+          ]
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 0.74,
+      "mcp_over_image": 0.9,
+      "text_over_image": 1.22,
+      "image_vs_text_pct": 17.9
+    }
+  },
+  {
+    "target": "uuidgen",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 6174,
+        "wall": 17,
+        "score": "2/3",
+        "ok": 2,
+        "total": 3,
+        "detail": {
+          "nil": true,
+          "is_nil_ok": false,
+          "batch_len": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "nil": "00000000-0000-0000-0000-000000000000",
+          "is_nil_ok": false,
+          "batch_len": 3
+        }
+      },
+      "text": {
+        "tokens": 7504,
+        "wall": 11,
+        "score": "2/3",
+        "ok": 2,
+        "total": 3,
+        "detail": {
+          "nil": true,
+          "is_nil_ok": false,
+          "batch_len": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "nil": "00000000-0000-0000-0000-000000000000",
+          "is_nil_ok": false,
+          "batch_len": 3
+        }
+      },
+      "image": {
+        "tokens": 9641,
+        "wall": 18,
+        "score": "2/3",
+        "ok": 2,
+        "total": 3,
+        "detail": {
+          "nil": true,
+          "is_nil_ok": false,
+          "batch_len": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 6
+        },
+        "images": [
+          "uuidgen.cdc.png"
+        ],
+        "ans": {
+          "nil": "00000000-0000-0000-0000-000000000000",
+          "is_nil_ok": false,
+          "batch_len": 3
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 0.82,
+      "mcp_over_image": 0.64,
+      "text_over_image": 0.78,
+      "image_vs_text_pct": -28.5
+    }
+  },
+  {
+    "target": "mathstat",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 7013,
+        "wall": 11,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "sum": true,
+          "mean": true,
+          "median": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "sum": 15,
+          "mean": 3,
+          "median": 3
+        }
+      },
+      "text": {
+        "tokens": 2794,
+        "wall": 8,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "sum": true,
+          "mean": true,
+          "median": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "sum": 15,
+          "mean": 3,
+          "median": 3
+        }
+      },
+      "image": {
+        "tokens": 6067,
+        "wall": 18,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "sum": true,
+          "mean": true,
+          "median": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 6
+        },
+        "images": [
+          "mathstat.cdc.png"
+        ],
+        "ans": {
+          "sum": 15,
+          "mean": 3,
+          "median": 3
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 2.51,
+      "mcp_over_image": 1.16,
+      "text_over_image": 0.46,
+      "image_vs_text_pct": -117.1
+    }
+  },
+  {
+    "target": "dateops",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 5602,
+        "wall": 12,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "add_days": true,
+          "diff_days": true,
+          "weekday": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "add_days": "2026-07-16",
+          "diff_days": 5,
+          "weekday": "Saturday"
+        }
+      },
+      "text": {
+        "tokens": 7345,
+        "wall": 9,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "add_days": true,
+          "diff_days": true,
+          "weekday": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "add_days": "2026-07-16",
+          "diff_days": 5,
+          "weekday": "Saturday"
+        }
+      },
+      "image": {
+        "tokens": 6268,
+        "wall": 16,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "add_days": true,
+          "diff_days": true,
+          "weekday": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 4,
+          "image_attach": 6
+        },
+        "images": [
+          "dateops.cdc.png"
+        ],
+        "ans": {
+          "add_days": "2026-07-16",
+          "diff_days": 5,
+          "weekday": "Saturday"
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 0.76,
+      "mcp_over_image": 0.89,
+      "text_over_image": 1.17,
+      "image_vs_text_pct": 14.7
+    }
+  },
+  {
+    "target": "cache",
+    "auth": false,
+    "arms": {
+      "mcp": {
+        "tokens": 5723,
+        "wall": 18,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "seed_hit": true,
+          "seed_value": true,
+          "size": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 0,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "seed_hit": true,
+          "seed_value": "ok",
+          "size": 1
+        }
+      },
+      "text": {
+        "tokens": 7115,
+        "wall": 6,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "seed_hit": true,
+          "seed_value": true,
+          "size": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 0
+        },
+        "images": [],
+        "ans": {
+          "seed_hit": true,
+          "seed_value": "ok",
+          "size": 1
+        }
+      },
+      "image": {
+        "tokens": 8873,
+        "wall": 11,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3,
+        "detail": {
+          "seed_hit": true,
+          "seed_value": true,
+          "size": true
+        },
+        "exit": 0,
+        "purity": {
+          "curl": 0,
+          "mcp_calls": 0,
+          "openSession": 0,
+          "callPaged": 0,
+          "mcp_call_js": 3,
+          "image_attach": 6
+        },
+        "images": [
+          "cache.cdc.png"
+        ],
+        "ans": {
+          "seed_hit": true,
+          "seed_value": "ok",
+          "size": 1
+        }
+      }
+    },
+    "ratios": {
+      "mcp_over_text": 0.8,
+      "mcp_over_image": 0.64,
+      "text_over_image": 0.8,
+      "image_vs_text_pct": -24.7
     }
   }
 ]

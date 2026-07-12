@@ -1,0 +1,11 @@
+{
+  "name": "turtle",
+  "mode": "mcp",
+  "command": "node",
+  "args": [
+    "/Users/nesbes/mcp-a;t/implementer/turtle-canvas/bin/turtle-canvas-mcp.js"
+  ],
+  "envToken": "CDC_TURTLE_TOKEN",
+  "tools": 27,
+  "note": "Prefer an installed binary over npx -y to avoid network cold starts."
+}

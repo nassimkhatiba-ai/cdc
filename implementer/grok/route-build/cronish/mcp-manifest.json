@@ -1,0 +1,9 @@
+{
+  "name": "cronish",
+  "mode": "mcp",
+  "command": "implementer/mega40/homes/cronish/cronish-mcp.sh",
+  "args": [],
+  "envToken": "CDC_CRONISH_TOKEN",
+  "tools": 4,
+  "note": "Prefer an installed binary over npx -y to avoid network cold starts."
+}

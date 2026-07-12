@@ -1,0 +1,7 @@
+model = "gpt-5.6-sol"
+model_reasoning_effort = "medium"
+approval_policy = "never"
+sandbox_mode = "danger-full-access"
+
+[projects."/Users/nesbes/mcp-a;t/implementer/grok/floor-home-78392/work"]
+trust_level = "trusted"

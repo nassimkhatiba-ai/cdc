@@ -111,15 +111,23 @@ function resolveImageMode(explicit) {
 /**
  * Optical skill emission with auto routing (see lib/optical-pack.js).
  *
- * auto: pack a compact DSL body in-memory, estimate billed vision tokens,
- * and make the image primary ONLY when it beats the text-equivalent
- * information cost with margin AND the tool surface is big enough. Tiny
- * skills stay text and pay no vision floor (images not even rendered
- * unless CDC_EMIT_IMAGE=1).
+ * TEXT IS ALWAYS THE INSTALLED HOT PATH (SKILL.md). Optical pages are an
+ * optional sidecar for hosts that can load vision skills; they must NEVER
+ * replace SKILL.md with a thin "read the image" pointer. That pointer caused
+ * Codex product-path thrash (sed SKILL → rg mcp-call.js — 2× tokens vs MCP).
  *
- * Image-primary package: SKILL.md pointer (hot path) + {name}.cdc.png pages
- * (cold path, dense) + SKILL.text.md (full text fallback) + CDC.md (grep) +
- * image-meta.json (pack metrics; pageFiles kept for harness compat).
+ * auto: pack a compact DSL body in-memory, estimate billed vision tokens,
+ * and emit image pages ONLY when they beat the text-equivalent information
+ * cost with margin AND the tool surface is big enough. Tiny skills stay
+ * text and pay no vision floor (images not even rendered unless
+ * CDC_EMIT_IMAGE=1).
+ *
+ * Package layout (always):
+ *   SKILL.md          = full text skill (hot path for all hosts)
+ *   {name}.cdc.png    = optional optical pages (sidecar)
+ *   SKILL.optical.md  = vision-pointer only when image pages exist
+ *   CDC.md            = full signatures for grep-on-fail
+ *   image-meta.json   = pack metrics
  */
 function writeImageSkill(outDir, { name, title, skill, cdc, tools, mode, indexInlined } = {}) {
   const fs = require('fs');
@@ -159,6 +167,11 @@ function writeImageSkill(outDir, { name, title, skill, cdc, tools, mode, indexIn
     planned: { scale: plan.scale, width: plan.width, pages: plan.pages, tiles: plan.tiles, budgetMet: plan.budgetMet },
   };
 
+  // Always keep text skill as SKILL.md (writePackage already wrote it; re-assert).
+  if (skill) {
+    fs.writeFileSync(path.join(outDir, 'SKILL.md'), skill);
+  }
+
   if (route.mode !== 'image' && process.env.CDC_EMIT_IMAGE !== '1') {
     // No pages rendered (no vision floor paid) — but the router decision and
     // planned pack metrics are still recorded for inspection/benchmarks.
@@ -169,28 +182,39 @@ function writeImageSkill(outDir, { name, title, skill, cdc, tools, mode, indexIn
 
   const meta = optical.writeOptical(path.join(outDir, `${skillName}.cdc`), body, {});
   const pageList = meta.pageFiles.map((p) => `\`${path.basename(p)}\``).join(', ');
-  const pointer = `---
-name: ${skillName}-cdc
-description: Optical CDC skill for ${title || skillName}. Skill body (all tools + rules) is in the attached image ${skillName}.cdc.png — read it as vision input, then call tools via the bridge.
+  // Vision pointer is a SIDECAR only — never overwrites SKILL.md.
+  const opticalPointer = `---
+name: ${skillName}-cdc-optical
+description: Optional optical view of ${title || skillName}. Prefer SKILL.md (text) as the hot path. Images: ${skillName}.cdc.png.
 ---
 
-# ${skillName} (optical skill)
+# ${skillName} (optical sidecar — optional)
 
-Skill body = image(s): ${pageList} in this folder. Read the image; it lists every tool signature and the rules.
+Prefer **SKILL.md** (text) for normal use. Optical pages list tools for vision hosts only.
 
-Bridge: \`node __SKILL_DIR__/mcp-call.js <tool> '<json>'\` · \`--batch '[...]'\` · scripts: \`openSession()\`/\`callPaged()\`.
+Images: ${pageList}
 
-Fallbacks: SKILL.text.md (full text body) · grep CDC.md for one tool's signature.
+Bridge (same as text): \`node __SKILL_DIR__/mcp-call.js <tool> '<json>'\` · \`--batch\` · \`openSession()\`/\`callPaged()\`.
+
+Never cat/sed mcp-call.js. Grep CDC.md for one tool signature on fail only.
 `;
 
-  if (route.mode === 'image') {
-    fs.writeFileSync(path.join(outDir, 'SKILL.text.md'), skill || '');
-    fs.writeFileSync(path.join(outDir, 'SKILL.md'), pointer);
+  fs.writeFileSync(path.join(outDir, 'SKILL.optical.md'), opticalPointer);
+  // Remove legacy SKILL.text.md if present (old image-primary layout).
+  try { fs.unlinkSync(path.join(outDir, 'SKILL.text.md')); } catch {}
+  // Ensure SKILL.md is still the full text body (never the pointer).
+  if (skill) {
+    fs.writeFileSync(path.join(outDir, 'SKILL.md'), skill);
   }
+
   const full = {
     ...meta,
     ...base,
-    imagePrimary: route.mode === 'image',
+    // imagePrimary false for product install: text is always hot path.
+    // Optical pages exist as sidecar; harness may still force image mode.
+    imagePrimary: false,
+    opticalSidecar: true,
+    opticalWouldHaveBeenPrimary: route.mode === 'image',
     approxVisionTokens: meta.estVisionTokens,
   };
   fs.writeFileSync(path.join(outDir, 'image-meta.json'), JSON.stringify(full, null, 2));

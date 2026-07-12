@@ -1,0 +1,398 @@
+{
+  "memory": {
+    "status": "ok",
+    "skillMode": "text",
+    "skillModeReason": "tiny surface (9 tools < 20): vision floor not worth it",
+    "tools": 9,
+    "skillTokens": 760,
+    "imageEst": 425,
+    "textEquiv": 760,
+    "secs": 1.109
+  },
+  "filesystem": {
+    "status": "ok",
+    "skillMode": "text",
+    "skillModeReason": "direct-fs data skill: optical n/a (snapshot + q.js are the skill body)",
+    "tools": 14,
+    "skillTokens": 462,
+    "secs": 1.109
+  },
+  "everything": {
+    "status": "ok",
+    "skillMode": "text",
+    "skillModeReason": "tiny surface (13 tools < 20): vision floor not worth it",
+    "tools": 13,
+    "skillTokens": 757,
+    "imageEst": 425,
+    "textEquiv": 1553,
+    "secs": 1.152
+  },
+  "sqlite": {
+    "status": "ok",
+    "skillMode": "text",
+    "skillModeReason": "tiny surface (4 tools < 20): vision floor not worth it",
+    "tools": 4,
+    "skillTokens": 513,
+    "imageEst": 255,
+    "textEquiv": 513,
+    "secs": 0.159
+  },
+  "sequential": {
+    "status": "ok",
+    "skillMode": "text",
+    "skillModeReason": "tiny surface (1 tools < 20): vision floor not worth it",
+    "tools": 1,
+    "skillTokens": 560,
+    "imageEst": 255,
+    "textEquiv": 560,
+    "secs": 1.071
+  },
+  "playwright": {
+    "status": "ok",
+    "skillMode": "image",
+    "skillModeReason": "optical 595+160 ptr+600 prior < 2056 text-equiv × 0.7",
+    "tools": 24,
+    "skillTokens": 817,
+    "imageEst": 595,
+    "textEquiv": 2056,
+    "secs": 1.251
+  },
+  "puppeteer": {
+    "status": "ok",
+    "skillMode": "text",
+    "skillModeReason": "tiny surface (7 tools < 20): vision floor not worth it",
+    "tools": 7,
+    "skillTokens": 669,
+    "imageEst": 425,
+    "textEquiv": 669,
+    "secs": 0.875
+  },
+  "context7": {
+    "status": "ok",
+    "skillMode": "text",
+    "skillModeReason": "tiny surface (2 tools < 20): vision floor not worth it",
+    "tools": 2,
+    "skillTokens": 561,
+    "imageEst": 255,
+    "textEquiv": 561,
+    "secs": 1.026
+  },
+  "git": {
+    "status": "ok",
+    "skillMode": "text",
+    "skillModeReason": "tiny surface (12 tools < 20): vision floor not worth it",
+    "tools": 12,
+    "skillTokens": 804,
+    "imageEst": 425,
+    "textEquiv": 804,
+    "secs": 1.16
+  },
+  "time": {
+    "status": "ok",
+    "skillMode": "text",
+    "skillModeReason": "tiny surface (2 tools < 20): vision floor not worth it",
+    "tools": 2,
+    "skillTokens": 523,
+    "imageEst": 255,
+    "textEquiv": 523,
+    "secs": 0.743
+  },
+  "fetch": {
+    "status": "ok",
+    "skillMode": "text",
+    "skillModeReason": "tiny surface (1 tools < 20): vision floor not worth it",
+    "tools": 1,
+    "skillTokens": 510,
+    "imageEst": 255,
+    "textEquiv": 510,
+    "secs": 0.916
+  },
+  "tradingview": {
+    "status": "ok",
+    "skillMode": "image",
+    "skillModeReason": "optical 765+160 ptr+600 prior < 2629 text-equiv × 0.7",
+    "tools": 27,
+    "skillTokens": 847,
+    "imageEst": 765,
+    "textEquiv": 2629,
+    "secs": 1.228
+  },
+  "weather": {
+    "status": "ok",
+    "skillMode": "text",
+    "skillModeReason": "tiny surface (3 tools < 20): vision floor not worth it",
+    "tools": 3,
+    "skillTokens": 514,
+    "imageEst": 255,
+    "textEquiv": 514,
+    "secs": 0.118
+  },
+  "calc": {
+    "status": "ok",
+    "skillMode": "text",
+    "skillModeReason": "tiny surface (4 tools < 20): vision floor not worth it",
+    "tools": 4,
+    "skillTokens": 533,
+    "imageEst": 255,
+    "textEquiv": 533,
+    "secs": 0.119
+  },
+  "github": {
+    "status": "ok",
+    "skillMode": "text",
+    "skillModeReason": "tiny surface (5 tools < 20): vision floor not worth it",
+    "tools": 5,
+    "skillTokens": 774,
+    "imageEst": 425,
+    "textEquiv": 1252,
+    "secs": 0.288
+  },
+  "jsonstore": {
+    "status": "ok",
+    "skillMode": "text",
+    "skillModeReason": "tiny surface (5 tools < 20): vision floor not worth it",
+    "tools": 5,
+    "skillTokens": 512,
+    "imageEst": 255,
+    "textEquiv": 512,
+    "secs": 0.121
+  },
+  "todo": {
+    "status": "ok",
+    "skillMode": "text",
+    "skillModeReason": "tiny surface (4 tools < 20): vision floor not worth it",
+    "tools": 4,
+    "skillTokens": 524,
+    "imageEst": 255,
+    "textEquiv": 524,
+    "secs": 0.12
+  },
+  "mockapi": {
+    "status": "ok",
+    "skillMode": "text",
+    "skillModeReason": "tiny surface (5 tools < 20): vision floor not worth it",
+    "tools": 5,
+    "skillTokens": 759,
+    "imageEst": 255,
+    "textEquiv": 1189,
+    "secs": 0.125
+  },
+  "complex": {
+    "status": "ok",
+    "skillMode": "image",
+    "skillModeReason": "optical 1020+160 ptr+600 prior < 3311 text-equiv × 0.7",
+    "tools": 47,
+    "skillTokens": 1320,
+    "imageEst": 1020,
+    "textEquiv": 3311,
+    "secs": 0.361
+  },
+  "filesystem_large": {
+    "status": "ok",
+    "skillMode": "text",
+    "skillModeReason": "direct-fs data skill: optical n/a (snapshot + q.js are the skill body)",
+    "tools": 14,
+    "skillTokens": 471,
+    "secs": 0.802
+  },
+  "chromedevtools": {
+    "status": "ok",
+    "skillMode": "image",
+    "skillModeReason": "optical 765+160 ptr+600 prior < 2529 text-equiv × 0.7",
+    "tools": 29,
+    "skillTokens": 913,
+    "imageEst": 765,
+    "textEquiv": 2529,
+    "secs": 1.333
+  },
+  "stringops": {
+    "status": "ok",
+    "skillMode": "text",
+    "skillModeReason": "tiny surface (5 tools < 20): vision floor not worth it",
+    "tools": 5,
+    "skillTokens": 514,
+    "imageEst": 255,
+    "textEquiv": 514,
+    "secs": 0.124
+  },
+  "unitconvert": {
+    "status": "ok",
+    "skillMode": "text",
+    "skillModeReason": "tiny surface (5 tools < 20): vision floor not worth it",
+    "tools": 5,
+    "skillTokens": 575,
+    "imageEst": 255,
+    "textEquiv": 575,
+    "secs": 0.123
+  },
+  "nova": {
+    "status": "ok",
+    "skillMode": "image",
+    "skillModeReason": "optical 765+160 ptr+600 prior < 2852 text-equiv × 0.7",
+    "tools": 48,
+    "skillTokens": 1254,
+    "imageEst": 765,
+    "textEquiv": 2852,
+    "secs": 0.271
+  },
+  "kv": {
+    "status": "ok",
+    "skillMode": "text",
+    "skillModeReason": "tiny surface (5 tools < 20): vision floor not worth it",
+    "tools": 5,
+    "skillTokens": 505,
+    "imageEst": 255,
+    "textEquiv": 505,
+    "secs": 0.12
+  },
+  "graph": {
+    "status": "ok",
+    "skillMode": "text",
+    "skillModeReason": "tiny surface (5 tools < 20): vision floor not worth it",
+    "tools": 5,
+    "skillTokens": 534,
+    "imageEst": 255,
+    "textEquiv": 534,
+    "secs": 0.122
+  },
+  "counter": {
+    "status": "ok",
+    "skillMode": "text",
+    "skillModeReason": "tiny surface (5 tools < 20): vision floor not worth it",
+    "tools": 5,
+    "skillTokens": 518,
+    "imageEst": 255,
+    "textEquiv": 518,
+    "secs": 0.119
+  },
+  "inventory": {
+    "status": "ok",
+    "skillMode": "text",
+    "skillModeReason": "tiny surface (5 tools < 20): vision floor not worth it",
+    "tools": 5,
+    "skillTokens": 554,
+    "imageEst": 255,
+    "textEquiv": 554,
+    "secs": 0.123
+  },
+  "books": {
+    "status": "ok",
+    "skillMode": "text",
+    "skillModeReason": "tiny surface (5 tools < 20): vision floor not worth it",
+    "tools": 5,
+    "skillTokens": 752,
+    "imageEst": 255,
+    "textEquiv": 1145,
+    "secs": 0.124
+  },
+  "hash": {
+    "status": "ok",
+    "skillMode": "text",
+    "skillModeReason": "tiny surface (4 tools < 20): vision floor not worth it",
+    "tools": 4,
+    "skillTokens": 519,
+    "imageEst": 255,
+    "textEquiv": 519,
+    "secs": 0.125
+  },
+  "flags": {
+    "status": "ok",
+    "skillMode": "text",
+    "skillModeReason": "tiny surface (4 tools < 20): vision floor not worth it",
+    "tools": 4,
+    "skillTokens": 530,
+    "imageEst": 255,
+    "textEquiv": 530,
+    "secs": 0.128
+  },
+  "queue": {
+    "status": "ok",
+    "skillMode": "text",
+    "skillModeReason": "tiny surface (5 tools < 20): vision floor not worth it",
+    "tools": 5,
+    "skillTokens": 497,
+    "imageEst": 255,
+    "textEquiv": 497,
+    "secs": 0.13
+  },
+  "geo": {
+    "status": "ok",
+    "skillMode": "text",
+    "skillModeReason": "tiny surface (4 tools < 20): vision floor not worth it",
+    "tools": 4,
+    "skillTokens": 534,
+    "imageEst": 255,
+    "textEquiv": 534,
+    "secs": 0.128
+  },
+  "csvops": {
+    "status": "ok",
+    "skillMode": "text",
+    "skillModeReason": "tiny surface (4 tools < 20): vision floor not worth it",
+    "tools": 4,
+    "skillTokens": 542,
+    "imageEst": 255,
+    "textEquiv": 542,
+    "secs": 0.128
+  },
+  "cronish": {
+    "status": "ok",
+    "skillMode": "text",
+    "skillModeReason": "tiny surface (4 tools < 20): vision floor not worth it",
+    "tools": 4,
+    "skillTokens": 521,
+    "imageEst": 255,
+    "textEquiv": 521,
+    "secs": 0.128
+  },
+  "regex": {
+    "status": "ok",
+    "skillMode": "text",
+    "skillModeReason": "tiny surface (4 tools < 20): vision floor not worth it",
+    "tools": 4,
+    "skillTokens": 527,
+    "imageEst": 255,
+    "textEquiv": 527,
+    "secs": 0.13
+  },
+  "mathstat": {
+    "status": "ok",
+    "skillMode": "text",
+    "skillModeReason": "tiny surface (5 tools < 20): vision floor not worth it",
+    "tools": 5,
+    "skillTokens": 536,
+    "imageEst": 255,
+    "textEquiv": 536,
+    "secs": 0.123
+  },
+  "dateops": {
+    "status": "ok",
+    "skillMode": "text",
+    "skillModeReason": "tiny surface (4 tools < 20): vision floor not worth it",
+    "tools": 4,
+    "skillTokens": 535,
+    "imageEst": 255,
+    "textEquiv": 535,
+    "secs": 0.122
+  },
+  "uuidgen": {
+    "status": "ok",
+    "skillMode": "text",
+    "skillModeReason": "tiny surface (4 tools < 20): vision floor not worth it",
+    "tools": 4,
+    "skillTokens": 509,
+    "imageEst": 255,
+    "textEquiv": 509,
+    "secs": 0.125
+  },
+  "cache": {
+    "status": "ok",
+    "skillMode": "text",
+    "skillModeReason": "tiny surface (4 tools < 20): vision floor not worth it",
+    "tools": 4,
+    "skillTokens": 501,
+    "imageEst": 255,
+    "textEquiv": 501,
+    "secs": 0.122
+  }
+}

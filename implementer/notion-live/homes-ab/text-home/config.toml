@@ -1,0 +1,10 @@
+model = "gpt-5.6-sol"
+model_reasoning_effort = "medium"
+approval_policy = "never"
+sandbox_mode = "danger-full-access"
+
+[projects."/Users/nesbes/mcp-a;t/implementer/notion-live/homes-ab/work-text"]
+trust_level = "trusted"
+
+[projects."/Users/nesbes/mcp-a;t"]
+trust_level = "trusted"

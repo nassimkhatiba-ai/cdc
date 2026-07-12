@@ -1,0 +1,44 @@
+{
+  "format": "cdc-optical-skill",
+  "version": 2,
+  "cdc": "implementer/grok/route-build/tradingview/tradingview.cdc",
+  "pageFiles": [
+    "implementer/grok/route-build/tradingview/tradingview.cdc.png"
+  ],
+  "pages": 1,
+  "width": 504,
+  "scale": 2,
+  "cols": 40,
+  "pageDims": [
+    {
+      "w": 504,
+      "h": 2032,
+      "tiles": 4,
+      "downscaled": false
+    }
+  ],
+  "tiles": 4,
+  "tileBudget": 12,
+  "budgetMet": true,
+  "estVisionTokens": 765,
+  "sourceChars": 3725,
+  "approxTextTokens": 1358,
+  "visionVsTextRatio": 0.56,
+  "provider": {
+    "tile": 512,
+    "base": 85,
+    "perTile": 170,
+    "fitLong": 2048,
+    "shortCap": 768
+  },
+  "providerNote": "assumes fit-2048 then shortest-side-768 resize, 512px tiles, base+perTile billing; pages sized to avoid any resize",
+  "alternatives": [
+    {
+      "scale": 2,
+      "width": 760,
+      "pages": 1,
+      "estVisionTokens": 1105
+    }
+  ],
+  "createdAt": "2026-07-12T11:56:56.374Z"
+}

@@ -1,0 +1,30 @@
+{
+  "mcp_tokens": 20414,
+  "mcp_wall_s": 14,
+  "cdc_tokens": 33614,
+  "cdc_wall_s": 69,
+  "mcp_answer": {
+    "stacksnap_titles": [
+      "stacksnap",
+      "stacksnap_FULL_PLAN",
+      "stacksnap_checklist"
+    ],
+    "stacksnap_count": 3,
+    "plan_title": "stacksnap_FULL_PLAN",
+    "plan_heading": "StackSnap Product Plan",
+    "bot_name": "test",
+    "workspace_name": "D0jsG Khatib’s Workspace"
+  },
+  "cdc_answer": {
+    "stacksnap_titles": [
+      "stacksnap",
+      "stacksnap_checklist",
+      "stacksnap_FULL_PLAN"
+    ],
+    "stacksnap_count": 3,
+    "plan_title": "stacksnap_FULL_PLAN",
+    "plan_heading": "StackSnap Product Plan",
+    "bot_name": "test",
+    "workspace_name": "D0jsG Khatib’s Workspace"
+  }
+}

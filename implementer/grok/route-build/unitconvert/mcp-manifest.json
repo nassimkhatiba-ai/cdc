@@ -1,0 +1,9 @@
+{
+  "name": "unitconvert",
+  "mode": "mcp",
+  "command": "implementer/mega40/homes/unitconvert/unitconvert-mcp.sh",
+  "args": [],
+  "envToken": "CDC_UNITCONVERT_TOKEN",
+  "tools": 5,
+  "note": "Prefer an installed binary over npx -y to avoid network cold starts."
+}

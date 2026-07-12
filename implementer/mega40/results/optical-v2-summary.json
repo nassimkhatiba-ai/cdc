@@ -1,0 +1,4446 @@
+{
+  "when": "2026-07-11T19:22:15.308Z",
+  "model": "gpt-5.6-sol",
+  "sums": {
+    "mcp": {
+      "n": 40,
+      "n_tok": 40,
+      "tokens_avg": 13167,
+      "wall_avg": 17.8,
+      "accuracy": "152/155",
+      "accuracy_pct": 98.1,
+      "tokens_sum": 526674
+    },
+    "text": {
+      "n": 40,
+      "n_tok": 40,
+      "tokens_avg": 9158,
+      "wall_avg": 20.1,
+      "accuracy": "130/155",
+      "accuracy_pct": 83.9,
+      "tokens_sum": 366337
+    },
+    "image": {
+      "n": 40,
+      "n_tok": 40,
+      "tokens_avg": 9170,
+      "wall_avg": 23.4,
+      "accuracy": "129/155",
+      "accuracy_pct": 83.2,
+      "tokens_sum": 366780
+    },
+    "auto": {
+      "n": 40,
+      "n_tok": 40,
+      "n_image": 38,
+      "n_text": 2,
+      "tokens_avg": 9393,
+      "wall_avg": 24.1,
+      "accuracy": "134/155",
+      "accuracy_pct": 86.5,
+      "tokens_sum": 375725
+    }
+  },
+  "rows": [
+    {
+      "target": "everything",
+      "skill": "everything-cdc",
+      "arms": {
+        "mcp": {
+          "tokens": 18206,
+          "wall": 28,
+          "exit": 0,
+          "score": "5/5",
+          "ok": 5,
+          "total": 5,
+          "detail": {
+            "echo_result": true,
+            "add_sum": true,
+            "has_echo": true,
+            "has_add": true,
+            "tool_count_min": true
+          }
+        },
+        "text": {
+          "tokens": 9454,
+          "wall": 12,
+          "exit": 0,
+          "score": "4/5",
+          "ok": 4,
+          "total": 5,
+          "detail": {
+            "echo_result": false,
+            "add_sum": true,
+            "has_echo": true,
+            "has_add": true,
+            "tool_count_min": true
+          }
+        },
+        "image": {
+          "tokens": 10006,
+          "wall": 25,
+          "exit": 0,
+          "score": "4/5",
+          "ok": 4,
+          "total": 5,
+          "detail": {
+            "echo_result": false,
+            "add_sum": true,
+            "has_echo": true,
+            "has_add": true,
+            "tool_count_min": true
+          }
+        }
+      },
+      "pack": {
+        "format": "cdc-optical-skill",
+        "version": 2,
+        "cdc": "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/everything/everything.cdc",
+        "pageFiles": [
+          "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/everything/everything.cdc.png"
+        ],
+        "pages": 1,
+        "width": 504,
+        "scale": 2,
+        "cols": 40,
+        "pageDims": [
+          {
+            "w": 504,
+            "h": 880,
+            "tiles": 2,
+            "downscaled": false
+          }
+        ],
+        "tiles": 2,
+        "tileBudget": 12,
+        "budgetMet": true,
+        "estVisionTokens": 425,
+        "sourceChars": 1683,
+        "approxTextTokens": 602,
+        "visionVsTextRatio": 0.71,
+        "provider": {
+          "tile": 512,
+          "base": 85,
+          "perTile": 170,
+          "fitLong": 2048,
+          "shortCap": 768
+        },
+        "providerNote": "assumes fit-2048 then shortest-side-768 resize, 512px tiles, base+perTile billing; pages sized to avoid any resize",
+        "alternatives": [
+          {
+            "scale": 2,
+            "width": 760,
+            "pages": 1,
+            "estVisionTokens": 765
+          }
+        ],
+        "createdAt": "2026-07-11T17:39:44.055Z",
+        "skillName": "everything",
+        "skillMode": "image",
+        "skillModeReason": "forced image",
+        "textEquivalentTokens": 1014,
+        "planned": {
+          "scale": 2,
+          "width": 504,
+          "pages": 1,
+          "tiles": 2,
+          "budgetMet": true
+        },
+        "imagePrimary": true,
+        "approxVisionTokens": 425
+      },
+      "auto": {
+        "mode": "image",
+        "tokens": 10006,
+        "wall": 25,
+        "score": "4/5",
+        "ok": 4,
+        "total": 5
+      }
+    },
+    {
+      "target": "memory",
+      "skill": "memory-cdc",
+      "arms": {
+        "mcp": {
+          "tokens": 13245,
+          "wall": 15,
+          "exit": 0,
+          "score": "7/7",
+          "ok": 7,
+          "total": 7,
+          "detail": {
+            "entity_count": true,
+            "relation_count": true,
+            "person_count": true,
+            "company_count": true,
+            "highest_salary_person": true,
+            "highest_salary": true,
+            "largest_company_by_employees": true
+          }
+        },
+        "text": {
+          "tokens": 16156,
+          "wall": 24,
+          "exit": 0,
+          "score": "7/7",
+          "ok": 7,
+          "total": 7,
+          "detail": {
+            "entity_count": true,
+            "relation_count": true,
+            "person_count": true,
+            "company_count": true,
+            "highest_salary_person": true,
+            "highest_salary": true,
+            "largest_company_by_employees": true
+          }
+        },
+        "image": {
+          "tokens": 13460,
+          "wall": 86,
+          "exit": 0,
+          "score": "7/7",
+          "ok": 7,
+          "total": 7,
+          "detail": {
+            "entity_count": true,
+            "relation_count": true,
+            "person_count": true,
+            "company_count": true,
+            "highest_salary_person": true,
+            "highest_salary": true,
+            "largest_company_by_employees": true
+          }
+        }
+      },
+      "pack": {
+        "format": "cdc-optical-skill",
+        "version": 2,
+        "cdc": "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/memory/memory.cdc",
+        "pageFiles": [
+          "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/memory/memory.cdc.png"
+        ],
+        "pages": 1,
+        "width": 504,
+        "scale": 2,
+        "cols": 40,
+        "pageDims": [
+          {
+            "w": 504,
+            "h": 704,
+            "tiles": 2,
+            "downscaled": false
+          }
+        ],
+        "tiles": 2,
+        "tileBudget": 12,
+        "budgetMet": true,
+        "estVisionTokens": 425,
+        "sourceChars": 1283,
+        "approxTextTokens": 469,
+        "visionVsTextRatio": 0.91,
+        "provider": {
+          "tile": 512,
+          "base": 85,
+          "perTile": 170,
+          "fitLong": 2048,
+          "shortCap": 768
+        },
+        "providerNote": "assumes fit-2048 then shortest-side-768 resize, 512px tiles, base+perTile billing; pages sized to avoid any resize",
+        "alternatives": [
+          {
+            "scale": 2,
+            "width": 760,
+            "pages": 1,
+            "estVisionTokens": 765
+          }
+        ],
+        "createdAt": "2026-07-11T17:39:47.266Z",
+        "skillName": "memory",
+        "skillMode": "image",
+        "skillModeReason": "forced image",
+        "textEquivalentTokens": 698,
+        "planned": {
+          "scale": 2,
+          "width": 504,
+          "pages": 1,
+          "tiles": 2,
+          "budgetMet": true
+        },
+        "imagePrimary": true,
+        "approxVisionTokens": 425
+      },
+      "auto": {
+        "mode": "image",
+        "tokens": 13460,
+        "wall": 86,
+        "score": "7/7",
+        "ok": 7,
+        "total": 7
+      }
+    },
+    {
+      "target": "filesystem",
+      "skill": "filesystem-cdc",
+      "arms": {
+        "mcp": {
+          "tokens": 16415,
+          "wall": 16,
+          "exit": 0,
+          "score": "5/5",
+          "ok": 5,
+          "total": 5,
+          "detail": {
+            "readme_content": true,
+            "note_has_token": true,
+            "search_hit": true,
+            "has_subdir": true,
+            "allowed_count_min": true
+          }
+        },
+        "text": {
+          "tokens": 10333,
+          "wall": 30,
+          "exit": 0,
+          "score": "3/5",
+          "ok": 3,
+          "total": 5,
+          "detail": {
+            "readme_content": false,
+            "note_has_token": true,
+            "search_hit": false,
+            "has_subdir": true,
+            "allowed_count_min": true
+          }
+        },
+        "image": {
+          "tokens": 5578,
+          "wall": 11,
+          "exit": 0,
+          "score": "0/5",
+          "ok": 0,
+          "total": 5,
+          "detail": {
+            "readme_content": false,
+            "note_has_token": false,
+            "search_hit": false,
+            "has_subdir": false,
+            "allowed_count_min": false
+          }
+        }
+      },
+      "pack": null,
+      "auto": {
+        "mode": "text",
+        "tokens": 10333,
+        "wall": 30,
+        "score": "3/5",
+        "ok": 3,
+        "total": 5
+      }
+    },
+    {
+      "target": "sequential",
+      "skill": "sequential-cdc",
+      "arms": {
+        "mcp": {
+          "tokens": 10625,
+          "wall": 14,
+          "exit": 0,
+          "score": "3/3",
+          "ok": 3,
+          "total": 3,
+          "detail": {
+            "used_tool": true,
+            "thought_steps_min": true,
+            "has_answer": true
+          }
+        },
+        "text": {
+          "tokens": 8707,
+          "wall": 13,
+          "exit": 0,
+          "score": "2/3",
+          "ok": 2,
+          "total": 3,
+          "detail": {
+            "used_tool": false,
+            "thought_steps_min": true,
+            "has_answer": true
+          }
+        },
+        "image": {
+          "tokens": 7090,
+          "wall": 21,
+          "exit": 0,
+          "score": "2/3",
+          "ok": 2,
+          "total": 3,
+          "detail": {
+            "used_tool": false,
+            "thought_steps_min": true,
+            "has_answer": true
+          }
+        }
+      },
+      "pack": {
+        "format": "cdc-optical-skill",
+        "version": 2,
+        "cdc": "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/sequential/sequential.cdc",
+        "pageFiles": [
+          "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/sequential/sequential.cdc.png"
+        ],
+        "pages": 1,
+        "width": 504,
+        "scale": 2,
+        "cols": 40,
+        "pageDims": [
+          {
+            "w": 504,
+            "h": 448,
+            "tiles": 1,
+            "downscaled": false
+          }
+        ],
+        "tiles": 1,
+        "tileBudget": 12,
+        "budgetMet": true,
+        "estVisionTokens": 255,
+        "sourceChars": 880,
+        "approxTextTokens": 327,
+        "visionVsTextRatio": 0.78,
+        "provider": {
+          "tile": 512,
+          "base": 85,
+          "perTile": 170,
+          "fitLong": 2048,
+          "shortCap": 768
+        },
+        "providerNote": "assumes fit-2048 then shortest-side-768 resize, 512px tiles, base+perTile billing; pages sized to avoid any resize",
+        "alternatives": [
+          {
+            "scale": 2,
+            "width": 760,
+            "pages": 1,
+            "estVisionTokens": 425
+          }
+        ],
+        "createdAt": "2026-07-11T17:39:52.374Z",
+        "skillName": "sequential",
+        "skillMode": "image",
+        "skillModeReason": "forced image",
+        "textEquivalentTokens": 448,
+        "planned": {
+          "scale": 2,
+          "width": 504,
+          "pages": 1,
+          "tiles": 1,
+          "budgetMet": true
+        },
+        "imagePrimary": true,
+        "approxVisionTokens": 255
+      },
+      "auto": {
+        "mode": "image",
+        "tokens": 7090,
+        "wall": 21,
+        "score": "2/3",
+        "ok": 2,
+        "total": 3
+      }
+    },
+    {
+      "target": "sqlite",
+      "skill": "sqlite-cdc",
+      "arms": {
+        "mcp": {
+          "tokens": 12417,
+          "wall": 19,
+          "exit": 0,
+          "score": "5/5",
+          "ok": 5,
+          "total": 5,
+          "detail": {
+            "product_count": true,
+            "order_count": true,
+            "delivered_revenue": true,
+            "top_delivered_product_by_qty": true,
+            "categories": true
+          }
+        },
+        "text": {
+          "tokens": 15564,
+          "wall": 27,
+          "exit": 0,
+          "score": "0/5",
+          "ok": 0,
+          "total": 5,
+          "detail": {
+            "product_count": false,
+            "order_count": false,
+            "delivered_revenue": false,
+            "top_delivered_product_by_qty": false,
+            "categories": false
+          }
+        },
+        "image": {
+          "tokens": 17486,
+          "wall": 78,
+          "exit": 0,
+          "score": "0/5",
+          "ok": 0,
+          "total": 5,
+          "detail": {
+            "product_count": false,
+            "order_count": false,
+            "delivered_revenue": false,
+            "top_delivered_product_by_qty": false,
+            "categories": false
+          }
+        }
+      },
+      "pack": {
+        "format": "cdc-optical-skill",
+        "version": 2,
+        "cdc": "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/sqlite/sqlite.cdc",
+        "pageFiles": [
+          "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/sqlite/sqlite.cdc.png"
+        ],
+        "pages": 1,
+        "width": 504,
+        "scale": 2,
+        "cols": 40,
+        "pageDims": [
+          {
+            "w": 504,
+            "h": 400,
+            "tiles": 1,
+            "downscaled": false
+          }
+        ],
+        "tiles": 1,
+        "tileBudget": 12,
+        "budgetMet": true,
+        "estVisionTokens": 255,
+        "sourceChars": 767,
+        "approxTextTokens": 289,
+        "visionVsTextRatio": 0.88,
+        "provider": {
+          "tile": 512,
+          "base": 85,
+          "perTile": 170,
+          "fitLong": 2048,
+          "shortCap": 768
+        },
+        "providerNote": "assumes fit-2048 then shortest-side-768 resize, 512px tiles, base+perTile billing; pages sized to avoid any resize",
+        "alternatives": [
+          {
+            "scale": 2,
+            "width": 760,
+            "pages": 1,
+            "estVisionTokens": 425
+          }
+        ],
+        "createdAt": "2026-07-11T17:39:54.224Z",
+        "skillName": "sqlite",
+        "skillMode": "image",
+        "skillModeReason": "forced image",
+        "textEquivalentTokens": 437,
+        "planned": {
+          "scale": 2,
+          "width": 504,
+          "pages": 1,
+          "tiles": 1,
+          "budgetMet": true
+        },
+        "imagePrimary": true,
+        "approxVisionTokens": 255
+      },
+      "auto": {
+        "mode": "image",
+        "tokens": 17486,
+        "wall": 78,
+        "score": "0/5",
+        "ok": 0,
+        "total": 5
+      }
+    },
+    {
+      "target": "playwright",
+      "skill": "playwright-cdc",
+      "arms": {
+        "mcp": {
+          "tokens": 19134,
+          "wall": 24,
+          "exit": 0,
+          "score": "7/7",
+          "ok": 7,
+          "total": 7,
+          "detail": {
+            "page_title": true,
+            "shop_name": true,
+            "tagline": true,
+            "product_count": true,
+            "promo_code": true,
+            "contact_email": true,
+            "total_price": true
+          }
+        },
+        "text": {
+          "tokens": 13963,
+          "wall": 61,
+          "exit": 0,
+          "score": "0/7",
+          "ok": 0,
+          "total": 7,
+          "detail": {
+            "page_title": false,
+            "shop_name": false,
+            "tagline": false,
+            "product_count": false,
+            "promo_code": false,
+            "contact_email": false,
+            "total_price": false
+          }
+        },
+        "image": {
+          "tokens": 12502,
+          "wall": 25,
+          "exit": 0,
+          "score": "7/7",
+          "ok": 7,
+          "total": 7,
+          "detail": {
+            "page_title": true,
+            "shop_name": true,
+            "tagline": true,
+            "product_count": true,
+            "promo_code": true,
+            "contact_email": true,
+            "total_price": true
+          }
+        }
+      },
+      "pack": {
+        "format": "cdc-optical-skill",
+        "version": 2,
+        "cdc": "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/playwright/playwright.cdc",
+        "pageFiles": [
+          "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/playwright/playwright.cdc.png"
+        ],
+        "pages": 1,
+        "width": 504,
+        "scale": 2,
+        "cols": 40,
+        "pageDims": [
+          {
+            "w": 504,
+            "h": 1344,
+            "tiles": 3,
+            "downscaled": false
+          }
+        ],
+        "tiles": 3,
+        "tileBudget": 12,
+        "budgetMet": true,
+        "estVisionTokens": 595,
+        "sourceChars": 2663,
+        "approxTextTokens": 964,
+        "visionVsTextRatio": 0.62,
+        "provider": {
+          "tile": 512,
+          "base": 85,
+          "perTile": 170,
+          "fitLong": 2048,
+          "shortCap": 768
+        },
+        "providerNote": "assumes fit-2048 then shortest-side-768 resize, 512px tiles, base+perTile billing; pages sized to avoid any resize",
+        "alternatives": [
+          {
+            "scale": 2,
+            "width": 760,
+            "pages": 1,
+            "estVisionTokens": 765
+          }
+        ],
+        "createdAt": "2026-07-11T17:39:57.419Z",
+        "skillName": "playwright",
+        "skillMode": "image",
+        "skillModeReason": "forced image",
+        "textEquivalentTokens": 1399,
+        "planned": {
+          "scale": 2,
+          "width": 504,
+          "pages": 1,
+          "tiles": 3,
+          "budgetMet": true
+        },
+        "imagePrimary": true,
+        "approxVisionTokens": 595
+      },
+      "auto": {
+        "mode": "image",
+        "tokens": 12502,
+        "wall": 25,
+        "score": "7/7",
+        "ok": 7,
+        "total": 7
+      }
+    },
+    {
+      "target": "puppeteer",
+      "skill": "puppeteer-cdc",
+      "arms": {
+        "mcp": {
+          "tokens": 18357,
+          "wall": 24,
+          "exit": 0,
+          "score": "5/5",
+          "ok": 5,
+          "total": 5,
+          "detail": {
+            "page_title": true,
+            "shop_name": true,
+            "product_count": true,
+            "promo_code": true,
+            "total_price": true
+          }
+        },
+        "text": {
+          "tokens": 11051,
+          "wall": 37,
+          "exit": 0,
+          "score": "4/5",
+          "ok": 4,
+          "total": 5,
+          "detail": {
+            "page_title": true,
+            "shop_name": true,
+            "product_count": true,
+            "promo_code": true,
+            "total_price": false
+          }
+        },
+        "image": {
+          "tokens": 7072,
+          "wall": 17,
+          "exit": 0,
+          "score": "5/5",
+          "ok": 5,
+          "total": 5,
+          "detail": {
+            "page_title": true,
+            "shop_name": true,
+            "product_count": true,
+            "promo_code": true,
+            "total_price": true
+          }
+        }
+      },
+      "pack": {
+        "format": "cdc-optical-skill",
+        "version": 2,
+        "cdc": "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/puppeteer/puppeteer.cdc",
+        "pageFiles": [
+          "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/puppeteer/puppeteer.cdc.png"
+        ],
+        "pages": 1,
+        "width": 504,
+        "scale": 2,
+        "cols": 40,
+        "pageDims": [
+          {
+            "w": 504,
+            "h": 608,
+            "tiles": 2,
+            "downscaled": false
+          }
+        ],
+        "tiles": 2,
+        "tileBudget": 12,
+        "budgetMet": true,
+        "estVisionTokens": 425,
+        "sourceChars": 1162,
+        "approxTextTokens": 428,
+        "visionVsTextRatio": 0.99,
+        "provider": {
+          "tile": 512,
+          "base": 85,
+          "perTile": 170,
+          "fitLong": 2048,
+          "shortCap": 768
+        },
+        "providerNote": "assumes fit-2048 then shortest-side-768 resize, 512px tiles, base+perTile billing; pages sized to avoid any resize",
+        "alternatives": [
+          {
+            "scale": 2,
+            "width": 760,
+            "pages": 1,
+            "estVisionTokens": 425
+          }
+        ],
+        "createdAt": "2026-07-11T17:40:01.392Z",
+        "skillName": "puppeteer",
+        "skillMode": "image",
+        "skillModeReason": "forced image",
+        "textEquivalentTokens": 617,
+        "planned": {
+          "scale": 2,
+          "width": 504,
+          "pages": 1,
+          "tiles": 2,
+          "budgetMet": true
+        },
+        "imagePrimary": true,
+        "approxVisionTokens": 425
+      },
+      "auto": {
+        "mode": "image",
+        "tokens": 7072,
+        "wall": 17,
+        "score": "5/5",
+        "ok": 5,
+        "total": 5
+      }
+    },
+    {
+      "target": "context7",
+      "skill": "context7-cdc",
+      "arms": {
+        "mcp": {
+          "tokens": 11281,
+          "wall": 18,
+          "exit": 0,
+          "score": "3/3",
+          "ok": 3,
+          "total": 3,
+          "detail": {
+            "resolved": true,
+            "library_id_has_slash": true,
+            "docs_nonempty": true
+          }
+        },
+        "text": {
+          "tokens": 10961,
+          "wall": 28,
+          "exit": 0,
+          "score": "3/3",
+          "ok": 3,
+          "total": 3,
+          "detail": {
+            "resolved": true,
+            "library_id_has_slash": true,
+            "docs_nonempty": true
+          }
+        },
+        "image": {
+          "tokens": 7643,
+          "wall": 25,
+          "exit": 0,
+          "score": "3/3",
+          "ok": 3,
+          "total": 3,
+          "detail": {
+            "resolved": true,
+            "library_id_has_slash": true,
+            "docs_nonempty": true
+          }
+        }
+      },
+      "pack": {
+        "format": "cdc-optical-skill",
+        "version": 2,
+        "cdc": "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/context7/context7.cdc",
+        "pageFiles": [
+          "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/context7/context7.cdc.png"
+        ],
+        "pages": 1,
+        "width": 504,
+        "scale": 2,
+        "cols": 40,
+        "pageDims": [
+          {
+            "w": 504,
+            "h": 400,
+            "tiles": 1,
+            "downscaled": false
+          }
+        ],
+        "tiles": 1,
+        "tileBudget": 12,
+        "budgetMet": true,
+        "estVisionTokens": 255,
+        "sourceChars": 784,
+        "approxTextTokens": 301,
+        "visionVsTextRatio": 0.85,
+        "provider": {
+          "tile": 512,
+          "base": 85,
+          "perTile": 170,
+          "fitLong": 2048,
+          "shortCap": 768
+        },
+        "providerNote": "assumes fit-2048 then shortest-side-768 resize, 512px tiles, base+perTile billing; pages sized to avoid any resize",
+        "alternatives": [
+          {
+            "scale": 2,
+            "width": 760,
+            "pages": 1,
+            "estVisionTokens": 425
+          }
+        ],
+        "createdAt": "2026-07-11T17:40:05.339Z",
+        "skillName": "context7",
+        "skillMode": "image",
+        "skillModeReason": "forced image",
+        "textEquivalentTokens": 471,
+        "planned": {
+          "scale": 2,
+          "width": 504,
+          "pages": 1,
+          "tiles": 1,
+          "budgetMet": true
+        },
+        "imagePrimary": true,
+        "approxVisionTokens": 255
+      },
+      "auto": {
+        "mode": "image",
+        "tokens": 7643,
+        "wall": 25,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3
+      }
+    },
+    {
+      "target": "git",
+      "skill": "git-cdc",
+      "arms": {
+        "mcp": {
+          "tokens": 17413,
+          "wall": 20,
+          "exit": 0,
+          "score": "3/4",
+          "ok": 3,
+          "total": 4,
+          "detail": {
+            "has_readme": false,
+            "branch_main_or_master": true,
+            "has_unstaged_change": true,
+            "log_nonempty": true
+          }
+        },
+        "text": {
+          "tokens": 10911,
+          "wall": 26,
+          "exit": 0,
+          "score": "3/4",
+          "ok": 3,
+          "total": 4,
+          "detail": {
+            "has_readme": false,
+            "branch_main_or_master": true,
+            "has_unstaged_change": true,
+            "log_nonempty": true
+          }
+        },
+        "image": {
+          "tokens": 10047,
+          "wall": 35,
+          "exit": 0,
+          "score": "4/4",
+          "ok": 4,
+          "total": 4,
+          "detail": {
+            "has_readme": true,
+            "branch_main_or_master": true,
+            "has_unstaged_change": true,
+            "log_nonempty": true
+          }
+        }
+      },
+      "pack": {
+        "format": "cdc-optical-skill",
+        "version": 2,
+        "cdc": "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/git/git.cdc",
+        "pageFiles": [
+          "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/git/git.cdc.png"
+        ],
+        "pages": 1,
+        "width": 504,
+        "scale": 2,
+        "cols": 40,
+        "pageDims": [
+          {
+            "w": 504,
+            "h": 784,
+            "tiles": 2,
+            "downscaled": false
+          }
+        ],
+        "tiles": 2,
+        "tileBudget": 12,
+        "budgetMet": true,
+        "estVisionTokens": 425,
+        "sourceChars": 1526,
+        "approxTextTokens": 564,
+        "visionVsTextRatio": 0.75,
+        "provider": {
+          "tile": 512,
+          "base": 85,
+          "perTile": 170,
+          "fitLong": 2048,
+          "shortCap": 768
+        },
+        "providerNote": "assumes fit-2048 then shortest-side-768 resize, 512px tiles, base+perTile billing; pages sized to avoid any resize",
+        "alternatives": [
+          {
+            "scale": 2,
+            "width": 760,
+            "pages": 1,
+            "estVisionTokens": 765
+          }
+        ],
+        "createdAt": "2026-07-11T17:40:09.258Z",
+        "skillName": "git",
+        "skillMode": "image",
+        "skillModeReason": "forced image",
+        "textEquivalentTokens": 756,
+        "planned": {
+          "scale": 2,
+          "width": 504,
+          "pages": 1,
+          "tiles": 2,
+          "budgetMet": true
+        },
+        "imagePrimary": true,
+        "approxVisionTokens": 425
+      },
+      "auto": {
+        "mode": "image",
+        "tokens": 10047,
+        "wall": 35,
+        "score": "4/4",
+        "ok": 4,
+        "total": 4
+      }
+    },
+    {
+      "target": "time",
+      "skill": "time-cdc",
+      "arms": {
+        "mcp": {
+          "tokens": 15600,
+          "wall": 15,
+          "exit": 0,
+          "score": "3/3",
+          "ok": 3,
+          "total": 3,
+          "detail": {
+            "has_utc": true,
+            "has_ny": true,
+            "converted": true
+          }
+        },
+        "text": {
+          "tokens": 9104,
+          "wall": 19,
+          "exit": 0,
+          "score": "3/3",
+          "ok": 3,
+          "total": 3,
+          "detail": {
+            "has_utc": true,
+            "has_ny": true,
+            "converted": true
+          }
+        },
+        "image": {
+          "tokens": 7433,
+          "wall": 21,
+          "exit": 0,
+          "score": "3/3",
+          "ok": 3,
+          "total": 3,
+          "detail": {
+            "has_utc": true,
+            "has_ny": true,
+            "converted": true
+          }
+        }
+      },
+      "pack": {
+        "format": "cdc-optical-skill",
+        "version": 2,
+        "cdc": "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/time/time.cdc",
+        "pageFiles": [
+          "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/time/time.cdc.png"
+        ],
+        "pages": 1,
+        "width": 504,
+        "scale": 2,
+        "cols": 40,
+        "pageDims": [
+          {
+            "w": 504,
+            "h": 416,
+            "tiles": 1,
+            "downscaled": false
+          }
+        ],
+        "tiles": 1,
+        "tileBudget": 12,
+        "budgetMet": true,
+        "estVisionTokens": 255,
+        "sourceChars": 785,
+        "approxTextTokens": 293,
+        "visionVsTextRatio": 0.87,
+        "provider": {
+          "tile": 512,
+          "base": 85,
+          "perTile": 170,
+          "fitLong": 2048,
+          "shortCap": 768
+        },
+        "providerNote": "assumes fit-2048 then shortest-side-768 resize, 512px tiles, base+perTile billing; pages sized to avoid any resize",
+        "alternatives": [
+          {
+            "scale": 2,
+            "width": 760,
+            "pages": 1,
+            "estVisionTokens": 425
+          }
+        ],
+        "createdAt": "2026-07-11T17:40:12.432Z",
+        "skillName": "time",
+        "skillMode": "image",
+        "skillModeReason": "forced image",
+        "textEquivalentTokens": 426,
+        "planned": {
+          "scale": 2,
+          "width": 504,
+          "pages": 1,
+          "tiles": 1,
+          "budgetMet": true
+        },
+        "imagePrimary": true,
+        "approxVisionTokens": 255
+      },
+      "auto": {
+        "mode": "image",
+        "tokens": 7433,
+        "wall": 21,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3
+      }
+    },
+    {
+      "target": "fetch",
+      "skill": "fetch-cdc",
+      "arms": {
+        "mcp": {
+          "tokens": 15623,
+          "wall": 9,
+          "exit": 0,
+          "score": "3/3",
+          "ok": 3,
+          "total": 3,
+          "detail": {
+            "status_ok": true,
+            "has_shop_name": true,
+            "has_promo": true
+          }
+        },
+        "text": {
+          "tokens": 8639,
+          "wall": 12,
+          "exit": 0,
+          "score": "3/3",
+          "ok": 3,
+          "total": 3,
+          "detail": {
+            "status_ok": true,
+            "has_shop_name": true,
+            "has_promo": true
+          }
+        },
+        "image": {
+          "tokens": 5179,
+          "wall": 11,
+          "exit": 0,
+          "score": "3/3",
+          "ok": 3,
+          "total": 3,
+          "detail": {
+            "status_ok": true,
+            "has_shop_name": true,
+            "has_promo": true
+          }
+        }
+      },
+      "pack": {
+        "format": "cdc-optical-skill",
+        "version": 2,
+        "cdc": "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/fetch/fetch.cdc",
+        "pageFiles": [
+          "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/fetch/fetch.cdc.png"
+        ],
+        "pages": 1,
+        "width": 504,
+        "scale": 2,
+        "cols": 40,
+        "pageDims": [
+          {
+            "w": 504,
+            "h": 368,
+            "tiles": 1,
+            "downscaled": false
+          }
+        ],
+        "tiles": 1,
+        "tileBudget": 12,
+        "budgetMet": true,
+        "estVisionTokens": 255,
+        "sourceChars": 729,
+        "approxTextTokens": 280,
+        "visionVsTextRatio": 0.91,
+        "provider": {
+          "tile": 512,
+          "base": 85,
+          "perTile": 170,
+          "fitLong": 2048,
+          "shortCap": 768
+        },
+        "providerNote": "assumes fit-2048 then shortest-side-768 resize, 512px tiles, base+perTile billing; pages sized to avoid any resize",
+        "alternatives": [
+          {
+            "scale": 2,
+            "width": 760,
+            "pages": 1,
+            "estVisionTokens": 425
+          }
+        ],
+        "createdAt": "2026-07-11T17:40:15.809Z",
+        "skillName": "fetch",
+        "skillMode": "image",
+        "skillModeReason": "forced image",
+        "textEquivalentTokens": 360,
+        "planned": {
+          "scale": 2,
+          "width": 504,
+          "pages": 1,
+          "tiles": 1,
+          "budgetMet": true
+        },
+        "imagePrimary": true,
+        "approxVisionTokens": 255
+      },
+      "auto": {
+        "mode": "image",
+        "tokens": 5179,
+        "wall": 11,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3
+      }
+    },
+    {
+      "target": "tradingview",
+      "skill": "tradingview-cdc",
+      "arms": {
+        "mcp": {
+          "tokens": 14856,
+          "wall": 13,
+          "exit": 0,
+          "score": "5/5",
+          "ok": 5,
+          "total": 5,
+          "detail": {
+            "tool_count": true,
+            "has_top_gainers": true,
+            "has_market_sentiment": true,
+            "has_coin_analysis": true,
+            "gainers_nonempty": true
+          }
+        },
+        "text": {
+          "tokens": 18420,
+          "wall": 42,
+          "exit": 0,
+          "score": "4/5",
+          "ok": 4,
+          "total": 5,
+          "detail": {
+            "tool_count": false,
+            "has_top_gainers": true,
+            "has_market_sentiment": true,
+            "has_coin_analysis": true,
+            "gainers_nonempty": true
+          }
+        },
+        "image": {
+          "tokens": 25131,
+          "wall": 69,
+          "exit": 0,
+          "score": "4/5",
+          "ok": 4,
+          "total": 5,
+          "detail": {
+            "tool_count": false,
+            "has_top_gainers": true,
+            "has_market_sentiment": true,
+            "has_coin_analysis": true,
+            "gainers_nonempty": true
+          }
+        }
+      },
+      "pack": {
+        "format": "cdc-optical-skill",
+        "version": 2,
+        "cdc": "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/tradingview/tradingview.cdc",
+        "pageFiles": [
+          "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/tradingview/tradingview.cdc.png"
+        ],
+        "pages": 1,
+        "width": 504,
+        "scale": 2,
+        "cols": 40,
+        "pageDims": [
+          {
+            "w": 504,
+            "h": 2032,
+            "tiles": 4,
+            "downscaled": false
+          }
+        ],
+        "tiles": 4,
+        "tileBudget": 12,
+        "budgetMet": true,
+        "estVisionTokens": 765,
+        "sourceChars": 3725,
+        "approxTextTokens": 1358,
+        "visionVsTextRatio": 0.56,
+        "provider": {
+          "tile": 512,
+          "base": 85,
+          "perTile": 170,
+          "fitLong": 2048,
+          "shortCap": 768
+        },
+        "providerNote": "assumes fit-2048 then shortest-side-768 resize, 512px tiles, base+perTile billing; pages sized to avoid any resize",
+        "alternatives": [
+          {
+            "scale": 2,
+            "width": 760,
+            "pages": 1,
+            "estVisionTokens": 1105
+          }
+        ],
+        "createdAt": "2026-07-11T17:40:19.301Z",
+        "skillName": "tradingview",
+        "skillMode": "image",
+        "skillModeReason": "forced image",
+        "textEquivalentTokens": 2067,
+        "planned": {
+          "scale": 2,
+          "width": 504,
+          "pages": 1,
+          "tiles": 4,
+          "budgetMet": true
+        },
+        "imagePrimary": true,
+        "approxVisionTokens": 765
+      },
+      "auto": {
+        "mode": "image",
+        "tokens": 25131,
+        "wall": 69,
+        "score": "4/5",
+        "ok": 4,
+        "total": 5
+      }
+    },
+    {
+      "target": "github",
+      "skill": "github-cdc",
+      "arms": {
+        "mcp": {
+          "tokens": 18772,
+          "wall": 33,
+          "exit": 0,
+          "score": "5/5",
+          "ok": 5,
+          "total": 5,
+          "detail": {
+            "me_login": true,
+            "me_public_repos": true,
+            "cdc_full_name": true,
+            "cdc_private": true,
+            "cdc_default_branch": true
+          }
+        },
+        "text": {
+          "tokens": 8063,
+          "wall": 17,
+          "exit": 0,
+          "score": "5/5",
+          "ok": 5,
+          "total": 5,
+          "detail": {
+            "me_login": true,
+            "me_public_repos": true,
+            "cdc_full_name": true,
+            "cdc_private": true,
+            "cdc_default_branch": true
+          }
+        },
+        "image": {
+          "tokens": 12521,
+          "wall": 14,
+          "exit": 0,
+          "score": "5/5",
+          "ok": 5,
+          "total": 5,
+          "detail": {
+            "me_login": true,
+            "me_public_repos": true,
+            "cdc_full_name": true,
+            "cdc_private": true,
+            "cdc_default_branch": true
+          }
+        }
+      },
+      "pack": {
+        "format": "cdc-optical-skill",
+        "version": 2,
+        "cdc": "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/github/github.cdc",
+        "pageFiles": [
+          "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/github/github.cdc.png"
+        ],
+        "pages": 1,
+        "width": 504,
+        "scale": 2,
+        "cols": 40,
+        "pageDims": [
+          {
+            "w": 504,
+            "h": 544,
+            "tiles": 2,
+            "downscaled": false
+          }
+        ],
+        "tiles": 2,
+        "tileBudget": 12,
+        "budgetMet": true,
+        "estVisionTokens": 425,
+        "sourceChars": 994,
+        "approxTextTokens": 371,
+        "visionVsTextRatio": 1.15,
+        "provider": {
+          "tile": 512,
+          "base": 85,
+          "perTile": 170,
+          "fitLong": 2048,
+          "shortCap": 768
+        },
+        "providerNote": "assumes fit-2048 then shortest-side-768 resize, 512px tiles, base+perTile billing; pages sized to avoid any resize",
+        "alternatives": [
+          {
+            "scale": 2,
+            "width": 760,
+            "pages": 1,
+            "estVisionTokens": 425
+          }
+        ],
+        "createdAt": "2026-07-11T17:40:21.100Z",
+        "skillName": "github",
+        "skillMode": "image",
+        "skillModeReason": "forced image",
+        "textEquivalentTokens": 762,
+        "planned": {
+          "scale": 2,
+          "width": 504,
+          "pages": 1,
+          "tiles": 2,
+          "budgetMet": true
+        },
+        "imagePrimary": true,
+        "approxVisionTokens": 425
+      },
+      "auto": {
+        "mode": "image",
+        "tokens": 12521,
+        "wall": 14,
+        "score": "5/5",
+        "ok": 5,
+        "total": 5
+      }
+    },
+    {
+      "target": "calc",
+      "skill": "calc-cdc",
+      "arms": {
+        "mcp": {
+          "tokens": 16078,
+          "wall": 12,
+          "exit": 0,
+          "score": "6/6",
+          "ok": 6,
+          "total": 6,
+          "detail": {
+            "add": true,
+            "mul": true,
+            "pow": true,
+            "mean": true,
+            "min": true,
+            "max": true
+          }
+        },
+        "text": {
+          "tokens": 13788,
+          "wall": 14,
+          "exit": 0,
+          "score": "6/6",
+          "ok": 6,
+          "total": 6,
+          "detail": {
+            "add": true,
+            "mul": true,
+            "pow": true,
+            "mean": true,
+            "min": true,
+            "max": true
+          }
+        },
+        "image": {
+          "tokens": 5400,
+          "wall": 24,
+          "exit": 0,
+          "score": "6/6",
+          "ok": 6,
+          "total": 6,
+          "detail": {
+            "add": true,
+            "mul": true,
+            "pow": true,
+            "mean": true,
+            "min": true,
+            "max": true
+          }
+        }
+      },
+      "pack": {
+        "format": "cdc-optical-skill",
+        "version": 2,
+        "cdc": "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/calc/calc.cdc",
+        "pageFiles": [
+          "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/calc/calc.cdc.png"
+        ],
+        "pages": 1,
+        "width": 504,
+        "scale": 2,
+        "cols": 40,
+        "pageDims": [
+          {
+            "w": 504,
+            "h": 432,
+            "tiles": 1,
+            "downscaled": false
+          }
+        ],
+        "tiles": 1,
+        "tileBudget": 12,
+        "budgetMet": true,
+        "estVisionTokens": 255,
+        "sourceChars": 788,
+        "approxTextTokens": 313,
+        "visionVsTextRatio": 0.81,
+        "provider": {
+          "tile": 512,
+          "base": 85,
+          "perTile": 170,
+          "fitLong": 2048,
+          "shortCap": 768
+        },
+        "providerNote": "assumes fit-2048 then shortest-side-768 resize, 512px tiles, base+perTile billing; pages sized to avoid any resize",
+        "alternatives": [
+          {
+            "scale": 2,
+            "width": 760,
+            "pages": 1,
+            "estVisionTokens": 425
+          }
+        ],
+        "createdAt": "2026-07-11T17:40:22.158Z",
+        "skillName": "calc",
+        "skillMode": "image",
+        "skillModeReason": "forced image",
+        "textEquivalentTokens": 471,
+        "planned": {
+          "scale": 2,
+          "width": 504,
+          "pages": 1,
+          "tiles": 1,
+          "budgetMet": true
+        },
+        "imagePrimary": true,
+        "approxVisionTokens": 255
+      },
+      "auto": {
+        "mode": "image",
+        "tokens": 5400,
+        "wall": 24,
+        "score": "6/6",
+        "ok": 6,
+        "total": 6
+      }
+    },
+    {
+      "target": "weather",
+      "skill": "weather-cdc",
+      "arms": {
+        "mcp": {
+          "tokens": 9360,
+          "wall": 14,
+          "exit": 0,
+          "score": "4/4",
+          "ok": 4,
+          "total": 4,
+          "detail": {
+            "city_count": true,
+            "seattle_temp_c": true,
+            "austin_cond": true,
+            "warmer": true
+          }
+        },
+        "text": {
+          "tokens": 8556,
+          "wall": 11,
+          "exit": 0,
+          "score": "4/4",
+          "ok": 4,
+          "total": 4,
+          "detail": {
+            "city_count": true,
+            "seattle_temp_c": true,
+            "austin_cond": true,
+            "warmer": true
+          }
+        },
+        "image": {
+          "tokens": 6498,
+          "wall": 14,
+          "exit": 0,
+          "score": "4/4",
+          "ok": 4,
+          "total": 4,
+          "detail": {
+            "city_count": true,
+            "seattle_temp_c": true,
+            "austin_cond": true,
+            "warmer": true
+          }
+        }
+      },
+      "pack": {
+        "format": "cdc-optical-skill",
+        "version": 2,
+        "cdc": "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/weather/weather.cdc",
+        "pageFiles": [
+          "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/weather/weather.cdc.png"
+        ],
+        "pages": 1,
+        "width": 504,
+        "scale": 2,
+        "cols": 40,
+        "pageDims": [
+          {
+            "w": 504,
+            "h": 400,
+            "tiles": 1,
+            "downscaled": false
+          }
+        ],
+        "tiles": 1,
+        "tileBudget": 12,
+        "budgetMet": true,
+        "estVisionTokens": 255,
+        "sourceChars": 749,
+        "approxTextTokens": 283,
+        "visionVsTextRatio": 0.9,
+        "provider": {
+          "tile": 512,
+          "base": 85,
+          "perTile": 170,
+          "fitLong": 2048,
+          "shortCap": 768
+        },
+        "providerNote": "assumes fit-2048 then shortest-side-768 resize, 512px tiles, base+perTile billing; pages sized to avoid any resize",
+        "alternatives": [
+          {
+            "scale": 2,
+            "width": 760,
+            "pages": 1,
+            "estVisionTokens": 425
+          }
+        ],
+        "createdAt": "2026-07-11T17:40:23.234Z",
+        "skillName": "weather",
+        "skillMode": "image",
+        "skillModeReason": "forced image",
+        "textEquivalentTokens": 410,
+        "planned": {
+          "scale": 2,
+          "width": 504,
+          "pages": 1,
+          "tiles": 1,
+          "budgetMet": true
+        },
+        "imagePrimary": true,
+        "approxVisionTokens": 255
+      },
+      "auto": {
+        "mode": "image",
+        "tokens": 6498,
+        "wall": 14,
+        "score": "4/4",
+        "ok": 4,
+        "total": 4
+      }
+    },
+    {
+      "target": "jsonstore",
+      "skill": "jsonstore-cdc",
+      "arms": {
+        "mcp": {
+          "tokens": 5858,
+          "wall": 11,
+          "exit": 0,
+          "score": "4/4",
+          "ok": 4,
+          "total": 4,
+          "detail": {
+            "seed": true,
+            "counter": true,
+            "name": true,
+            "key_count": true
+          }
+        },
+        "text": {
+          "tokens": 4493,
+          "wall": 13,
+          "exit": 0,
+          "score": "4/4",
+          "ok": 4,
+          "total": 4,
+          "detail": {
+            "seed": true,
+            "counter": true,
+            "name": true,
+            "key_count": true
+          }
+        },
+        "image": {
+          "tokens": 19479,
+          "wall": 52,
+          "exit": 0,
+          "score": "4/4",
+          "ok": 4,
+          "total": 4,
+          "detail": {
+            "seed": true,
+            "counter": true,
+            "name": true,
+            "key_count": true
+          }
+        }
+      },
+      "pack": {
+        "format": "cdc-optical-skill",
+        "version": 2,
+        "cdc": "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/jsonstore/jsonstore.cdc",
+        "pageFiles": [
+          "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/jsonstore/jsonstore.cdc.png"
+        ],
+        "pages": 1,
+        "width": 504,
+        "scale": 2,
+        "cols": 40,
+        "pageDims": [
+          {
+            "w": 504,
+            "h": 400,
+            "tiles": 1,
+            "downscaled": false
+          }
+        ],
+        "tiles": 1,
+        "tileBudget": 12,
+        "budgetMet": true,
+        "estVisionTokens": 255,
+        "sourceChars": 758,
+        "approxTextTokens": 287,
+        "visionVsTextRatio": 0.89,
+        "provider": {
+          "tile": 512,
+          "base": 85,
+          "perTile": 170,
+          "fitLong": 2048,
+          "shortCap": 768
+        },
+        "providerNote": "assumes fit-2048 then shortest-side-768 resize, 512px tiles, base+perTile billing; pages sized to avoid any resize",
+        "alternatives": [
+          {
+            "scale": 2,
+            "width": 760,
+            "pages": 1,
+            "estVisionTokens": 425
+          }
+        ],
+        "createdAt": "2026-07-11T17:40:24.246Z",
+        "skillName": "jsonstore",
+        "skillMode": "image",
+        "skillModeReason": "forced image",
+        "textEquivalentTokens": 446,
+        "planned": {
+          "scale": 2,
+          "width": 504,
+          "pages": 1,
+          "tiles": 1,
+          "budgetMet": true
+        },
+        "imagePrimary": true,
+        "approxVisionTokens": 255
+      },
+      "auto": {
+        "mode": "image",
+        "tokens": 19479,
+        "wall": 52,
+        "score": "4/4",
+        "ok": 4,
+        "total": 4
+      }
+    },
+    {
+      "target": "todo",
+      "skill": "todo-cdc",
+      "arms": {
+        "mcp": {
+          "tokens": 6345,
+          "wall": 18,
+          "exit": 0,
+          "score": "3/3",
+          "ok": 3,
+          "total": 3,
+          "detail": {
+            "total": true,
+            "open": true,
+            "done": true
+          }
+        },
+        "text": {
+          "tokens": 3945,
+          "wall": 14,
+          "exit": 0,
+          "score": "3/3",
+          "ok": 3,
+          "total": 3,
+          "detail": {
+            "total": true,
+            "open": true,
+            "done": true
+          }
+        },
+        "image": {
+          "tokens": 7067,
+          "wall": 25,
+          "exit": 0,
+          "score": "0/3",
+          "ok": 0,
+          "total": 3,
+          "detail": {
+            "total": false,
+            "open": false,
+            "done": false
+          }
+        }
+      },
+      "pack": {
+        "format": "cdc-optical-skill",
+        "version": 2,
+        "cdc": "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/todo/todo.cdc",
+        "pageFiles": [
+          "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/todo/todo.cdc.png"
+        ],
+        "pages": 1,
+        "width": 504,
+        "scale": 2,
+        "cols": 40,
+        "pageDims": [
+          {
+            "w": 504,
+            "h": 448,
+            "tiles": 1,
+            "downscaled": false
+          }
+        ],
+        "tiles": 1,
+        "tileBudget": 12,
+        "budgetMet": true,
+        "estVisionTokens": 255,
+        "sourceChars": 780,
+        "approxTextTokens": 294,
+        "visionVsTextRatio": 0.87,
+        "provider": {
+          "tile": 512,
+          "base": 85,
+          "perTile": 170,
+          "fitLong": 2048,
+          "shortCap": 768
+        },
+        "providerNote": "assumes fit-2048 then shortest-side-768 resize, 512px tiles, base+perTile billing; pages sized to avoid any resize",
+        "alternatives": [
+          {
+            "scale": 2,
+            "width": 760,
+            "pages": 1,
+            "estVisionTokens": 425
+          }
+        ],
+        "createdAt": "2026-07-11T17:40:25.271Z",
+        "skillName": "todo",
+        "skillMode": "image",
+        "skillModeReason": "forced image",
+        "textEquivalentTokens": 447,
+        "planned": {
+          "scale": 2,
+          "width": 504,
+          "pages": 1,
+          "tiles": 1,
+          "budgetMet": true
+        },
+        "imagePrimary": true,
+        "approxVisionTokens": 255
+      },
+      "auto": {
+        "mode": "image",
+        "tokens": 7067,
+        "wall": 25,
+        "score": "0/3",
+        "ok": 0,
+        "total": 3
+      }
+    },
+    {
+      "target": "mockapi",
+      "skill": "mockapi-cdc",
+      "arms": {
+        "mcp": {
+          "tokens": 23224,
+          "wall": 22,
+          "exit": 0,
+          "score": "5/5",
+          "ok": 5,
+          "total": 5,
+          "detail": {
+            "product_count": true,
+            "order_count": true,
+            "delivered_count": true,
+            "delivered_revenue": true,
+            "category_count": true
+          }
+        },
+        "text": {
+          "tokens": 14465,
+          "wall": 17,
+          "exit": 0,
+          "score": "5/5",
+          "ok": 5,
+          "total": 5,
+          "detail": {
+            "product_count": true,
+            "order_count": true,
+            "delivered_count": true,
+            "delivered_revenue": true,
+            "category_count": true
+          }
+        },
+        "image": {
+          "tokens": 21475,
+          "wall": 40,
+          "exit": 0,
+          "score": "5/5",
+          "ok": 5,
+          "total": 5,
+          "detail": {
+            "product_count": true,
+            "order_count": true,
+            "delivered_count": true,
+            "delivered_revenue": true,
+            "category_count": true
+          }
+        }
+      },
+      "pack": {
+        "format": "cdc-optical-skill",
+        "version": 2,
+        "cdc": "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/mockapi/mockapi.cdc",
+        "pageFiles": [
+          "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/mockapi/mockapi.cdc.png"
+        ],
+        "pages": 1,
+        "width": 504,
+        "scale": 2,
+        "cols": 40,
+        "pageDims": [
+          {
+            "w": 504,
+            "h": 480,
+            "tiles": 1,
+            "downscaled": false
+          }
+        ],
+        "tiles": 1,
+        "tileBudget": 12,
+        "budgetMet": true,
+        "estVisionTokens": 255,
+        "sourceChars": 925,
+        "approxTextTokens": 349,
+        "visionVsTextRatio": 0.73,
+        "provider": {
+          "tile": 512,
+          "base": 85,
+          "perTile": 170,
+          "fitLong": 2048,
+          "shortCap": 768
+        },
+        "providerNote": "assumes fit-2048 then shortest-side-768 resize, 512px tiles, base+perTile billing; pages sized to avoid any resize",
+        "alternatives": [
+          {
+            "scale": 2,
+            "width": 760,
+            "pages": 1,
+            "estVisionTokens": 425
+          }
+        ],
+        "createdAt": "2026-07-11T17:40:26.287Z",
+        "skillName": "mockapi",
+        "skillMode": "image",
+        "skillModeReason": "forced image",
+        "textEquivalentTokens": 655,
+        "planned": {
+          "scale": 2,
+          "width": 504,
+          "pages": 1,
+          "tiles": 1,
+          "budgetMet": true
+        },
+        "imagePrimary": true,
+        "approxVisionTokens": 255
+      },
+      "auto": {
+        "mode": "image",
+        "tokens": 21475,
+        "wall": 40,
+        "score": "5/5",
+        "ok": 5,
+        "total": 5
+      }
+    },
+    {
+      "target": "chromedevtools",
+      "skill": "chromedevtools-cdc",
+      "arms": {
+        "mcp": {
+          "tokens": 14446,
+          "wall": 15,
+          "exit": 0,
+          "score": "3/3",
+          "ok": 3,
+          "total": 3,
+          "detail": {
+            "page_title": true,
+            "has_shop": true,
+            "product_count": true
+          }
+        },
+        "text": {
+          "tokens": 13600,
+          "wall": 61,
+          "exit": 0,
+          "score": "0/3",
+          "ok": 0,
+          "total": 3,
+          "detail": {
+            "page_title": false,
+            "has_shop": false,
+            "product_count": false
+          }
+        },
+        "image": {
+          "tokens": 10077,
+          "wall": 32,
+          "exit": 0,
+          "score": "1/3",
+          "ok": 1,
+          "total": 3,
+          "detail": {
+            "page_title": false,
+            "has_shop": true,
+            "product_count": false
+          }
+        }
+      },
+      "pack": {
+        "format": "cdc-optical-skill",
+        "version": 2,
+        "cdc": "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/chromedevtools/chromedevtools.cdc",
+        "pageFiles": [
+          "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/chromedevtools/chromedevtools.cdc.png"
+        ],
+        "pages": 1,
+        "width": 504,
+        "scale": 2,
+        "cols": 40,
+        "pageDims": [
+          {
+            "w": 504,
+            "h": 2000,
+            "tiles": 4,
+            "downscaled": false
+          }
+        ],
+        "tiles": 4,
+        "tileBudget": 12,
+        "budgetMet": true,
+        "estVisionTokens": 765,
+        "sourceChars": 3612,
+        "approxTextTokens": 1257,
+        "visionVsTextRatio": 0.61,
+        "provider": {
+          "tile": 512,
+          "base": 85,
+          "perTile": 170,
+          "fitLong": 2048,
+          "shortCap": 768
+        },
+        "providerNote": "assumes fit-2048 then shortest-side-768 resize, 512px tiles, base+perTile billing; pages sized to avoid any resize",
+        "alternatives": [
+          {
+            "scale": 2,
+            "width": 760,
+            "pages": 1,
+            "estVisionTokens": 1105
+          }
+        ],
+        "createdAt": "2026-07-11T17:40:30.808Z",
+        "skillName": "chromedevtools",
+        "skillMode": "image",
+        "skillModeReason": "forced image",
+        "textEquivalentTokens": 1840,
+        "planned": {
+          "scale": 2,
+          "width": 504,
+          "pages": 1,
+          "tiles": 4,
+          "budgetMet": true
+        },
+        "imagePrimary": true,
+        "approxVisionTokens": 765
+      },
+      "auto": {
+        "mode": "image",
+        "tokens": 10077,
+        "wall": 32,
+        "score": "1/3",
+        "ok": 1,
+        "total": 3
+      }
+    },
+    {
+      "target": "filesystem_large",
+      "skill": "filesystem-large-cdc",
+      "arms": {
+        "mcp": {
+          "tokens": 9786,
+          "wall": 13,
+          "exit": 0,
+          "score": "3/3",
+          "ok": 3,
+          "total": 3,
+          "detail": {
+            "tree_has_subdir": true,
+            "file_count_min": true,
+            "data_csv_lines": true
+          }
+        },
+        "text": {
+          "tokens": 9766,
+          "wall": 21,
+          "exit": 0,
+          "score": "2/3",
+          "ok": 2,
+          "total": 3,
+          "detail": {
+            "tree_has_subdir": true,
+            "file_count_min": true,
+            "data_csv_lines": false
+          }
+        },
+        "image": {
+          "tokens": 5576,
+          "wall": 11,
+          "exit": 0,
+          "score": "0/3",
+          "ok": 0,
+          "total": 3,
+          "detail": {
+            "tree_has_subdir": false,
+            "file_count_min": false,
+            "data_csv_lines": false
+          }
+        }
+      },
+      "pack": null,
+      "auto": {
+        "mode": "text",
+        "tokens": 9766,
+        "wall": 21,
+        "score": "2/3",
+        "ok": 2,
+        "total": 3
+      }
+    },
+    {
+      "target": "complex",
+      "skill": "complex-cdc",
+      "arms": {
+        "mcp": {
+          "tokens": 22254,
+          "wall": 37,
+          "exit": 0,
+          "score": "7/7",
+          "ok": 7,
+          "total": 7,
+          "detail": {
+            "open_p1_count": true,
+            "breach_count": true,
+            "arr_at_risk": true,
+            "top_account_at_risk": true,
+            "top_account_arr": true,
+            "breach_subjects_sorted": true,
+            "accounts_in_breach_sorted": true
+          }
+        },
+        "text": {
+          "tokens": 14158,
+          "wall": 37,
+          "exit": 0,
+          "score": "7/7",
+          "ok": 7,
+          "total": 7,
+          "detail": {
+            "open_p1_count": true,
+            "breach_count": true,
+            "arr_at_risk": true,
+            "top_account_at_risk": true,
+            "top_account_arr": true,
+            "breach_subjects_sorted": true,
+            "accounts_in_breach_sorted": true
+          }
+        },
+        "image": {
+          "tokens": 17537,
+          "wall": 31,
+          "exit": 0,
+          "score": "7/7",
+          "ok": 7,
+          "total": 7,
+          "detail": {
+            "open_p1_count": true,
+            "breach_count": true,
+            "arr_at_risk": true,
+            "top_account_at_risk": true,
+            "top_account_arr": true,
+            "breach_subjects_sorted": true,
+            "accounts_in_breach_sorted": true
+          }
+        }
+      },
+      "pack": {
+        "format": "cdc-optical-skill",
+        "version": 2,
+        "cdc": "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/complex/complex.cdc",
+        "pageFiles": [
+          "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/complex/complex.cdc.png",
+          "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/complex/complex.page-002.cdc.png"
+        ],
+        "pages": 2,
+        "width": 504,
+        "scale": 2,
+        "cols": 40,
+        "pageDims": [
+          {
+            "w": 504,
+            "h": 2032,
+            "tiles": 4,
+            "downscaled": false
+          },
+          {
+            "w": 504,
+            "h": 144,
+            "tiles": 1,
+            "downscaled": false
+          }
+        ],
+        "tiles": 5,
+        "tileBudget": 12,
+        "budgetMet": true,
+        "estVisionTokens": 1020,
+        "sourceChars": 3924,
+        "approxTextTokens": 1432,
+        "visionVsTextRatio": 0.71,
+        "provider": {
+          "tile": 512,
+          "base": 85,
+          "perTile": 170,
+          "fitLong": 2048,
+          "shortCap": 768
+        },
+        "providerNote": "assumes fit-2048 then shortest-side-768 resize, 512px tiles, base+perTile billing; pages sized to avoid any resize",
+        "alternatives": [
+          {
+            "scale": 2,
+            "width": 760,
+            "pages": 1,
+            "estVisionTokens": 1445
+          }
+        ],
+        "createdAt": "2026-07-11T17:40:34.430Z",
+        "skillName": "complex",
+        "skillMode": "image",
+        "skillModeReason": "forced image",
+        "textEquivalentTokens": 2765,
+        "planned": {
+          "scale": 2,
+          "width": 504,
+          "pages": 2,
+          "tiles": 5,
+          "budgetMet": true
+        },
+        "imagePrimary": true,
+        "approxVisionTokens": 1020
+      },
+      "auto": {
+        "mode": "image",
+        "tokens": 17537,
+        "wall": 31,
+        "score": "7/7",
+        "ok": 7,
+        "total": 7
+      }
+    },
+    {
+      "target": "nova",
+      "skill": "nova-cdc",
+      "arms": {
+        "mcp": {
+          "tokens": 23578,
+          "wall": 24,
+          "exit": 0,
+          "score": "7/7",
+          "ok": 7,
+          "total": 7,
+          "detail": {
+            "open_sev1_count": true,
+            "breach_count": true,
+            "mrr_at_risk": true,
+            "top_account_at_risk": true,
+            "top_account_mrr": true,
+            "breach_titles_sorted": true,
+            "accounts_in_breach_sorted": true
+          }
+        },
+        "text": {
+          "tokens": 7885,
+          "wall": 39,
+          "exit": 0,
+          "score": "7/7",
+          "ok": 7,
+          "total": 7,
+          "detail": {
+            "open_sev1_count": true,
+            "breach_count": true,
+            "mrr_at_risk": true,
+            "top_account_at_risk": true,
+            "top_account_mrr": true,
+            "breach_titles_sorted": true,
+            "accounts_in_breach_sorted": true
+          }
+        },
+        "image": {
+          "tokens": 9998,
+          "wall": 24,
+          "exit": 0,
+          "score": "7/7",
+          "ok": 7,
+          "total": 7,
+          "detail": {
+            "open_sev1_count": true,
+            "breach_count": true,
+            "mrr_at_risk": true,
+            "top_account_at_risk": true,
+            "top_account_mrr": true,
+            "breach_titles_sorted": true,
+            "accounts_in_breach_sorted": true
+          }
+        }
+      },
+      "pack": {
+        "format": "cdc-optical-skill",
+        "version": 2,
+        "cdc": "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/nova/nova.cdc",
+        "pageFiles": [
+          "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/nova/nova.cdc.png"
+        ],
+        "pages": 1,
+        "width": 504,
+        "scale": 2,
+        "cols": 40,
+        "pageDims": [
+          {
+            "w": 504,
+            "h": 1856,
+            "tiles": 4,
+            "downscaled": false
+          }
+        ],
+        "tiles": 4,
+        "tileBudget": 12,
+        "budgetMet": true,
+        "estVisionTokens": 765,
+        "sourceChars": 3135,
+        "approxTextTokens": 1135,
+        "visionVsTextRatio": 0.67,
+        "provider": {
+          "tile": 512,
+          "base": 85,
+          "perTile": 170,
+          "fitLong": 2048,
+          "shortCap": 768
+        },
+        "providerNote": "assumes fit-2048 then shortest-side-768 resize, 512px tiles, base+perTile billing; pages sized to avoid any resize",
+        "alternatives": [
+          {
+            "scale": 2,
+            "width": 760,
+            "pages": 1,
+            "estVisionTokens": 1105
+          }
+        ],
+        "createdAt": "2026-07-11T17:40:35.557Z",
+        "skillName": "nova",
+        "skillMode": "image",
+        "skillModeReason": "forced image",
+        "textEquivalentTokens": 1583,
+        "planned": {
+          "scale": 2,
+          "width": 504,
+          "pages": 1,
+          "tiles": 4,
+          "budgetMet": true
+        },
+        "imagePrimary": true,
+        "approxVisionTokens": 765
+      },
+      "auto": {
+        "mode": "image",
+        "tokens": 9998,
+        "wall": 24,
+        "score": "7/7",
+        "ok": 7,
+        "total": 7
+      }
+    },
+    {
+      "target": "stringops",
+      "skill": "stringops-cdc",
+      "arms": {
+        "mcp": {
+          "tokens": 16161,
+          "wall": 11,
+          "exit": 0,
+          "score": "4/4",
+          "ok": 4,
+          "total": 4,
+          "detail": {
+            "upper": true,
+            "reverse": true,
+            "len": true,
+            "words": true
+          }
+        },
+        "text": {
+          "tokens": 8547,
+          "wall": 11,
+          "exit": 0,
+          "score": "4/4",
+          "ok": 4,
+          "total": 4,
+          "detail": {
+            "upper": true,
+            "reverse": true,
+            "len": true,
+            "words": true
+          }
+        },
+        "image": {
+          "tokens": 15092,
+          "wall": 34,
+          "exit": 0,
+          "score": "4/4",
+          "ok": 4,
+          "total": 4,
+          "detail": {
+            "upper": true,
+            "reverse": true,
+            "len": true,
+            "words": true
+          }
+        }
+      },
+      "pack": {
+        "format": "cdc-optical-skill",
+        "version": 2,
+        "cdc": "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/stringops/stringops.cdc",
+        "pageFiles": [
+          "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/stringops/stringops.cdc.png"
+        ],
+        "pages": 1,
+        "width": 504,
+        "scale": 2,
+        "cols": 40,
+        "pageDims": [
+          {
+            "w": 504,
+            "h": 400,
+            "tiles": 1,
+            "downscaled": false
+          }
+        ],
+        "tiles": 1,
+        "tileBudget": 12,
+        "budgetMet": true,
+        "estVisionTokens": 255,
+        "sourceChars": 740,
+        "approxTextTokens": 287,
+        "visionVsTextRatio": 0.89,
+        "provider": {
+          "tile": 512,
+          "base": 85,
+          "perTile": 170,
+          "fitLong": 2048,
+          "shortCap": 768
+        },
+        "providerNote": "assumes fit-2048 then shortest-side-768 resize, 512px tiles, base+perTile billing; pages sized to avoid any resize",
+        "alternatives": [
+          {
+            "scale": 2,
+            "width": 760,
+            "pages": 1,
+            "estVisionTokens": 425
+          }
+        ],
+        "createdAt": "2026-07-11T17:40:36.562Z",
+        "skillName": "stringops",
+        "skillMode": "image",
+        "skillModeReason": "forced image",
+        "textEquivalentTokens": 438,
+        "planned": {
+          "scale": 2,
+          "width": 504,
+          "pages": 1,
+          "tiles": 1,
+          "budgetMet": true
+        },
+        "imagePrimary": true,
+        "approxVisionTokens": 255
+      },
+      "auto": {
+        "mode": "image",
+        "tokens": 15092,
+        "wall": 34,
+        "score": "4/4",
+        "ok": 4,
+        "total": 4
+      }
+    },
+    {
+      "target": "unitconvert",
+      "skill": "unitconvert-cdc",
+      "arms": {
+        "mcp": {
+          "tokens": 9965,
+          "wall": 16,
+          "exit": 0,
+          "score": "4/4",
+          "ok": 4,
+          "total": 4,
+          "detail": {
+            "c_to_f": true,
+            "f_to_c": true,
+            "km_to_mi": true,
+            "kg_to_lb": true
+          }
+        },
+        "text": {
+          "tokens": 8715,
+          "wall": 13,
+          "exit": 0,
+          "score": "4/4",
+          "ok": 4,
+          "total": 4,
+          "detail": {
+            "c_to_f": true,
+            "f_to_c": true,
+            "km_to_mi": true,
+            "kg_to_lb": true
+          }
+        },
+        "image": {
+          "tokens": 6233,
+          "wall": 15,
+          "exit": 0,
+          "score": "4/4",
+          "ok": 4,
+          "total": 4,
+          "detail": {
+            "c_to_f": true,
+            "f_to_c": true,
+            "km_to_mi": true,
+            "kg_to_lb": true
+          }
+        }
+      },
+      "pack": {
+        "format": "cdc-optical-skill",
+        "version": 2,
+        "cdc": "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/unitconvert/unitconvert.cdc",
+        "pageFiles": [
+          "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/unitconvert/unitconvert.cdc.png"
+        ],
+        "pages": 1,
+        "width": 504,
+        "scale": 2,
+        "cols": 40,
+        "pageDims": [
+          {
+            "w": 504,
+            "h": 480,
+            "tiles": 1,
+            "downscaled": false
+          }
+        ],
+        "tiles": 1,
+        "tileBudget": 12,
+        "budgetMet": true,
+        "estVisionTokens": 255,
+        "sourceChars": 829,
+        "approxTextTokens": 334,
+        "visionVsTextRatio": 0.76,
+        "provider": {
+          "tile": 512,
+          "base": 85,
+          "perTile": 170,
+          "fitLong": 2048,
+          "shortCap": 768
+        },
+        "providerNote": "assumes fit-2048 then shortest-side-768 resize, 512px tiles, base+perTile billing; pages sized to avoid any resize",
+        "alternatives": [
+          {
+            "scale": 2,
+            "width": 760,
+            "pages": 1,
+            "estVisionTokens": 425
+          }
+        ],
+        "createdAt": "2026-07-11T17:40:37.579Z",
+        "skillName": "unitconvert",
+        "skillMode": "image",
+        "skillModeReason": "forced image",
+        "textEquivalentTokens": 499,
+        "planned": {
+          "scale": 2,
+          "width": 504,
+          "pages": 1,
+          "tiles": 1,
+          "budgetMet": true
+        },
+        "imagePrimary": true,
+        "approxVisionTokens": 255
+      },
+      "auto": {
+        "mode": "image",
+        "tokens": 6233,
+        "wall": 15,
+        "score": "4/4",
+        "ok": 4,
+        "total": 4
+      }
+    },
+    {
+      "target": "graph",
+      "skill": "graph-cdc",
+      "arms": {
+        "mcp": {
+          "tokens": 10209,
+          "wall": 12,
+          "exit": 0,
+          "score": "4/4",
+          "ok": 4,
+          "total": 4,
+          "detail": {
+            "node_count": true,
+            "edge_count": true,
+            "degree_A": true,
+            "has_path_A_D": true
+          }
+        },
+        "text": {
+          "tokens": 8708,
+          "wall": 11,
+          "exit": 0,
+          "score": "4/4",
+          "ok": 4,
+          "total": 4,
+          "detail": {
+            "node_count": true,
+            "edge_count": true,
+            "degree_A": true,
+            "has_path_A_D": true
+          }
+        },
+        "image": {
+          "tokens": 6233,
+          "wall": 10,
+          "exit": 0,
+          "score": "4/4",
+          "ok": 4,
+          "total": 4,
+          "detail": {
+            "node_count": true,
+            "edge_count": true,
+            "degree_A": true,
+            "has_path_A_D": true
+          }
+        }
+      },
+      "pack": {
+        "format": "cdc-optical-skill",
+        "version": 2,
+        "cdc": "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/graph/graph.cdc",
+        "pageFiles": [
+          "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/graph/graph.cdc.png"
+        ],
+        "pages": 1,
+        "width": 504,
+        "scale": 2,
+        "cols": 40,
+        "pageDims": [
+          {
+            "w": 504,
+            "h": 432,
+            "tiles": 1,
+            "downscaled": false
+          }
+        ],
+        "tiles": 1,
+        "tileBudget": 12,
+        "budgetMet": true,
+        "estVisionTokens": 255,
+        "sourceChars": 794,
+        "approxTextTokens": 301,
+        "visionVsTextRatio": 0.85,
+        "provider": {
+          "tile": 512,
+          "base": 85,
+          "perTile": 170,
+          "fitLong": 2048,
+          "shortCap": 768
+        },
+        "providerNote": "assumes fit-2048 then shortest-side-768 resize, 512px tiles, base+perTile billing; pages sized to avoid any resize",
+        "alternatives": [
+          {
+            "scale": 2,
+            "width": 760,
+            "pages": 1,
+            "estVisionTokens": 425
+          }
+        ],
+        "createdAt": "2026-07-11T17:40:38.593Z",
+        "skillName": "graph",
+        "skillMode": "image",
+        "skillModeReason": "forced image",
+        "textEquivalentTokens": 441,
+        "planned": {
+          "scale": 2,
+          "width": 504,
+          "pages": 1,
+          "tiles": 1,
+          "budgetMet": true
+        },
+        "imagePrimary": true,
+        "approxVisionTokens": 255
+      },
+      "auto": {
+        "mode": "image",
+        "tokens": 6233,
+        "wall": 10,
+        "score": "4/4",
+        "ok": 4,
+        "total": 4
+      }
+    },
+    {
+      "target": "kv",
+      "skill": "kv-cdc",
+      "arms": {
+        "mcp": {
+          "tokens": 5837,
+          "wall": 11,
+          "exit": 0,
+          "score": "3/3",
+          "ok": 3,
+          "total": 3,
+          "detail": {
+            "key_count": true,
+            "alpha": true,
+            "has_beta": true
+          }
+        },
+        "text": {
+          "tokens": 8549,
+          "wall": 10,
+          "exit": 0,
+          "score": "3/3",
+          "ok": 3,
+          "total": 3,
+          "detail": {
+            "key_count": true,
+            "alpha": true,
+            "has_beta": true
+          }
+        },
+        "image": {
+          "tokens": 7182,
+          "wall": 18,
+          "exit": 0,
+          "score": "3/3",
+          "ok": 3,
+          "total": 3,
+          "detail": {
+            "key_count": true,
+            "alpha": true,
+            "has_beta": true
+          }
+        }
+      },
+      "pack": {
+        "format": "cdc-optical-skill",
+        "version": 2,
+        "cdc": "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/kv/kv.cdc",
+        "pageFiles": [
+          "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/kv/kv.cdc.png"
+        ],
+        "pages": 1,
+        "width": 504,
+        "scale": 2,
+        "cols": 40,
+        "pageDims": [
+          {
+            "w": 504,
+            "h": 416,
+            "tiles": 1,
+            "downscaled": false
+          }
+        ],
+        "tiles": 1,
+        "tileBudget": 12,
+        "budgetMet": true,
+        "estVisionTokens": 255,
+        "sourceChars": 736,
+        "approxTextTokens": 282,
+        "visionVsTextRatio": 0.9,
+        "provider": {
+          "tile": 512,
+          "base": 85,
+          "perTile": 170,
+          "fitLong": 2048,
+          "shortCap": 768
+        },
+        "providerNote": "assumes fit-2048 then shortest-side-768 resize, 512px tiles, base+perTile billing; pages sized to avoid any resize",
+        "alternatives": [
+          {
+            "scale": 2,
+            "width": 760,
+            "pages": 1,
+            "estVisionTokens": 425
+          }
+        ],
+        "createdAt": "2026-07-11T17:40:39.602Z",
+        "skillName": "kv",
+        "skillMode": "image",
+        "skillModeReason": "forced image",
+        "textEquivalentTokens": 441,
+        "planned": {
+          "scale": 2,
+          "width": 504,
+          "pages": 1,
+          "tiles": 1,
+          "budgetMet": true
+        },
+        "imagePrimary": true,
+        "approxVisionTokens": 255
+      },
+      "auto": {
+        "mode": "image",
+        "tokens": 7182,
+        "wall": 18,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3
+      }
+    },
+    {
+      "target": "counter",
+      "skill": "counter-cdc",
+      "arms": {
+        "mcp": {
+          "tokens": 9244,
+          "wall": 11,
+          "exit": 0,
+          "score": "2/2",
+          "ok": 2,
+          "total": 2,
+          "detail": {
+            "hits": true,
+            "misses": true
+          }
+        },
+        "text": {
+          "tokens": 8546,
+          "wall": 12,
+          "exit": 0,
+          "score": "2/2",
+          "ok": 2,
+          "total": 2,
+          "detail": {
+            "hits": true,
+            "misses": true
+          }
+        },
+        "image": {
+          "tokens": 6276,
+          "wall": 12,
+          "exit": 0,
+          "score": "1/2",
+          "ok": 1,
+          "total": 2,
+          "detail": {
+            "hits": false,
+            "misses": true
+          }
+        }
+      },
+      "pack": {
+        "format": "cdc-optical-skill",
+        "version": 2,
+        "cdc": "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/counter/counter.cdc",
+        "pageFiles": [
+          "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/counter/counter.cdc.png"
+        ],
+        "pages": 1,
+        "width": 504,
+        "scale": 2,
+        "cols": 40,
+        "pageDims": [
+          {
+            "w": 504,
+            "h": 416,
+            "tiles": 1,
+            "downscaled": false
+          }
+        ],
+        "tiles": 1,
+        "tileBudget": 12,
+        "budgetMet": true,
+        "estVisionTokens": 255,
+        "sourceChars": 777,
+        "approxTextTokens": 295,
+        "visionVsTextRatio": 0.86,
+        "provider": {
+          "tile": 512,
+          "base": 85,
+          "perTile": 170,
+          "fitLong": 2048,
+          "shortCap": 768
+        },
+        "providerNote": "assumes fit-2048 then shortest-side-768 resize, 512px tiles, base+perTile billing; pages sized to avoid any resize",
+        "alternatives": [
+          {
+            "scale": 2,
+            "width": 760,
+            "pages": 1,
+            "estVisionTokens": 425
+          }
+        ],
+        "createdAt": "2026-07-11T17:40:40.602Z",
+        "skillName": "counter",
+        "skillMode": "image",
+        "skillModeReason": "forced image",
+        "textEquivalentTokens": 441,
+        "planned": {
+          "scale": 2,
+          "width": 504,
+          "pages": 1,
+          "tiles": 1,
+          "budgetMet": true
+        },
+        "imagePrimary": true,
+        "approxVisionTokens": 255
+      },
+      "auto": {
+        "mode": "image",
+        "tokens": 6276,
+        "wall": 12,
+        "score": "1/2",
+        "ok": 1,
+        "total": 2
+      }
+    },
+    {
+      "target": "hash",
+      "skill": "hash-cdc",
+      "arms": {
+        "mcp": {
+          "tokens": 16063,
+          "wall": 21,
+          "exit": 0,
+          "score": "3/3",
+          "ok": 3,
+          "total": 3,
+          "detail": {
+            "md5": true,
+            "b64": true,
+            "decoded": true
+          }
+        },
+        "text": {
+          "tokens": 8548,
+          "wall": 11,
+          "exit": 0,
+          "score": "3/3",
+          "ok": 3,
+          "total": 3,
+          "detail": {
+            "md5": true,
+            "b64": true,
+            "decoded": true
+          }
+        },
+        "image": {
+          "tokens": 5998,
+          "wall": 9,
+          "exit": 0,
+          "score": "3/3",
+          "ok": 3,
+          "total": 3,
+          "detail": {
+            "md5": true,
+            "b64": true,
+            "decoded": true
+          }
+        }
+      },
+      "pack": {
+        "format": "cdc-optical-skill",
+        "version": 2,
+        "cdc": "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/hash/hash.cdc",
+        "pageFiles": [
+          "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/hash/hash.cdc.png"
+        ],
+        "pages": 1,
+        "width": 504,
+        "scale": 2,
+        "cols": 40,
+        "pageDims": [
+          {
+            "w": 504,
+            "h": 400,
+            "tiles": 1,
+            "downscaled": false
+          }
+        ],
+        "tiles": 1,
+        "tileBudget": 12,
+        "budgetMet": true,
+        "estVisionTokens": 255,
+        "sourceChars": 727,
+        "approxTextTokens": 295,
+        "visionVsTextRatio": 0.86,
+        "provider": {
+          "tile": 512,
+          "base": 85,
+          "perTile": 170,
+          "fitLong": 2048,
+          "shortCap": 768
+        },
+        "providerNote": "assumes fit-2048 then shortest-side-768 resize, 512px tiles, base+perTile billing; pages sized to avoid any resize",
+        "alternatives": [
+          {
+            "scale": 2,
+            "width": 760,
+            "pages": 1,
+            "estVisionTokens": 425
+          }
+        ],
+        "createdAt": "2026-07-11T17:40:41.649Z",
+        "skillName": "hash",
+        "skillMode": "image",
+        "skillModeReason": "forced image",
+        "textEquivalentTokens": 454,
+        "planned": {
+          "scale": 2,
+          "width": 504,
+          "pages": 1,
+          "tiles": 1,
+          "budgetMet": true
+        },
+        "imagePrimary": true,
+        "approxVisionTokens": 255
+      },
+      "auto": {
+        "mode": "image",
+        "tokens": 5998,
+        "wall": 9,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3
+      }
+    },
+    {
+      "target": "books",
+      "skill": "books-cdc",
+      "arms": {
+        "mcp": {
+          "tokens": 8013,
+          "wall": 76,
+          "exit": 0,
+          "score": "3/3",
+          "ok": 3,
+          "total": 3,
+          "detail": {
+            "book_count": true,
+            "top_title": true,
+            "scifi_count": true
+          }
+        },
+        "text": {
+          "tokens": 9069,
+          "wall": 14,
+          "exit": 0,
+          "score": "3/3",
+          "ok": 3,
+          "total": 3,
+          "detail": {
+            "book_count": true,
+            "top_title": true,
+            "scifi_count": true
+          }
+        },
+        "image": {
+          "tokens": 5202,
+          "wall": 10,
+          "exit": 0,
+          "score": "3/3",
+          "ok": 3,
+          "total": 3,
+          "detail": {
+            "book_count": true,
+            "top_title": true,
+            "scifi_count": true
+          }
+        }
+      },
+      "pack": {
+        "format": "cdc-optical-skill",
+        "version": 2,
+        "cdc": "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/books/books.cdc",
+        "pageFiles": [
+          "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/books/books.cdc.png"
+        ],
+        "pages": 1,
+        "width": 504,
+        "scale": 2,
+        "cols": 40,
+        "pageDims": [
+          {
+            "w": 504,
+            "h": 464,
+            "tiles": 1,
+            "downscaled": false
+          }
+        ],
+        "tiles": 1,
+        "tileBudget": 12,
+        "budgetMet": true,
+        "estVisionTokens": 255,
+        "sourceChars": 801,
+        "approxTextTokens": 308,
+        "visionVsTextRatio": 0.83,
+        "provider": {
+          "tile": 512,
+          "base": 85,
+          "perTile": 170,
+          "fitLong": 2048,
+          "shortCap": 768
+        },
+        "providerNote": "assumes fit-2048 then shortest-side-768 resize, 512px tiles, base+perTile billing; pages sized to avoid any resize",
+        "alternatives": [
+          {
+            "scale": 2,
+            "width": 760,
+            "pages": 1,
+            "estVisionTokens": 425
+          }
+        ],
+        "createdAt": "2026-07-11T17:40:42.708Z",
+        "skillName": "books",
+        "skillMode": "image",
+        "skillModeReason": "forced image",
+        "textEquivalentTokens": 672,
+        "planned": {
+          "scale": 2,
+          "width": 504,
+          "pages": 1,
+          "tiles": 1,
+          "budgetMet": true
+        },
+        "imagePrimary": true,
+        "approxVisionTokens": 255
+      },
+      "auto": {
+        "mode": "image",
+        "tokens": 5202,
+        "wall": 10,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3
+      }
+    },
+    {
+      "target": "inventory",
+      "skill": "inventory-cdc",
+      "arms": {
+        "mcp": {
+          "tokens": 12723,
+          "wall": 11,
+          "exit": 0,
+          "score": "4/4",
+          "ok": 4,
+          "total": 4,
+          "detail": {
+            "item_count": true,
+            "low_stock": true,
+            "total_value": true,
+            "warehouse_count": true
+          }
+        },
+        "text": {
+          "tokens": 4648,
+          "wall": 11,
+          "exit": 0,
+          "score": "4/4",
+          "ok": 4,
+          "total": 4,
+          "detail": {
+            "item_count": true,
+            "low_stock": true,
+            "total_value": true,
+            "warehouse_count": true
+          }
+        },
+        "image": {
+          "tokens": 5207,
+          "wall": 9,
+          "exit": 0,
+          "score": "4/4",
+          "ok": 4,
+          "total": 4,
+          "detail": {
+            "item_count": true,
+            "low_stock": true,
+            "total_value": true,
+            "warehouse_count": true
+          }
+        }
+      },
+      "pack": {
+        "format": "cdc-optical-skill",
+        "version": 2,
+        "cdc": "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/inventory/inventory.cdc",
+        "pageFiles": [
+          "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/inventory/inventory.cdc.png"
+        ],
+        "pages": 1,
+        "width": 504,
+        "scale": 2,
+        "cols": 40,
+        "pageDims": [
+          {
+            "w": 504,
+            "h": 480,
+            "tiles": 1,
+            "downscaled": false
+          }
+        ],
+        "tiles": 1,
+        "tileBudget": 12,
+        "budgetMet": true,
+        "estVisionTokens": 255,
+        "sourceChars": 827,
+        "approxTextTokens": 315,
+        "visionVsTextRatio": 0.81,
+        "provider": {
+          "tile": 512,
+          "base": 85,
+          "perTile": 170,
+          "fitLong": 2048,
+          "shortCap": 768
+        },
+        "providerNote": "assumes fit-2048 then shortest-side-768 resize, 512px tiles, base+perTile billing; pages sized to avoid any resize",
+        "alternatives": [
+          {
+            "scale": 2,
+            "width": 760,
+            "pages": 1,
+            "estVisionTokens": 425
+          }
+        ],
+        "createdAt": "2026-07-11T17:40:43.728Z",
+        "skillName": "inventory",
+        "skillMode": "image",
+        "skillModeReason": "forced image",
+        "textEquivalentTokens": 464,
+        "planned": {
+          "scale": 2,
+          "width": 504,
+          "pages": 1,
+          "tiles": 1,
+          "budgetMet": true
+        },
+        "imagePrimary": true,
+        "approxVisionTokens": 255
+      },
+      "auto": {
+        "mode": "image",
+        "tokens": 5207,
+        "wall": 9,
+        "score": "4/4",
+        "ok": 4,
+        "total": 4
+      }
+    },
+    {
+      "target": "queue",
+      "skill": "queue-cdc",
+      "arms": {
+        "mcp": {
+          "tokens": 17073,
+          "wall": 11,
+          "exit": 0,
+          "score": "2/2",
+          "ok": 2,
+          "total": 2,
+          "detail": {
+            "size": true,
+            "peek": true
+          }
+        },
+        "text": {
+          "tokens": 8381,
+          "wall": 13,
+          "exit": 0,
+          "score": "2/2",
+          "ok": 2,
+          "total": 2,
+          "detail": {
+            "size": true,
+            "peek": true
+          }
+        },
+        "image": {
+          "tokens": 5847,
+          "wall": 12,
+          "exit": 0,
+          "score": "0/2",
+          "ok": 0,
+          "total": 2,
+          "detail": {
+            "size": false,
+            "peek": false
+          }
+        }
+      },
+      "pack": {
+        "format": "cdc-optical-skill",
+        "version": 2,
+        "cdc": "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/queue/queue.cdc",
+        "pageFiles": [
+          "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/queue/queue.cdc.png"
+        ],
+        "pages": 1,
+        "width": 504,
+        "scale": 2,
+        "cols": 40,
+        "pageDims": [
+          {
+            "w": 504,
+            "h": 400,
+            "tiles": 1,
+            "downscaled": false
+          }
+        ],
+        "tiles": 1,
+        "tileBudget": 12,
+        "budgetMet": true,
+        "estVisionTokens": 255,
+        "sourceChars": 723,
+        "approxTextTokens": 272,
+        "visionVsTextRatio": 0.94,
+        "provider": {
+          "tile": 512,
+          "base": 85,
+          "perTile": 170,
+          "fitLong": 2048,
+          "shortCap": 768
+        },
+        "providerNote": "assumes fit-2048 then shortest-side-768 resize, 512px tiles, base+perTile billing; pages sized to avoid any resize",
+        "alternatives": [
+          {
+            "scale": 2,
+            "width": 760,
+            "pages": 1,
+            "estVisionTokens": 425
+          }
+        ],
+        "createdAt": "2026-07-11T17:40:44.783Z",
+        "skillName": "queue",
+        "skillMode": "image",
+        "skillModeReason": "forced image",
+        "textEquivalentTokens": 399,
+        "planned": {
+          "scale": 2,
+          "width": 504,
+          "pages": 1,
+          "tiles": 1,
+          "budgetMet": true
+        },
+        "imagePrimary": true,
+        "approxVisionTokens": 255
+      },
+      "auto": {
+        "mode": "image",
+        "tokens": 5847,
+        "wall": 12,
+        "score": "0/2",
+        "ok": 0,
+        "total": 2
+      }
+    },
+    {
+      "target": "flags",
+      "skill": "flags-cdc",
+      "arms": {
+        "mcp": {
+          "tokens": 6110,
+          "wall": 10,
+          "exit": 0,
+          "score": "3/3",
+          "ok": 3,
+          "total": 3,
+          "detail": {
+            "enabled_count": true,
+            "dark_mode": true,
+            "beta_ui": true
+          }
+        },
+        "text": {
+          "tokens": 3369,
+          "wall": 14,
+          "exit": 0,
+          "score": "3/3",
+          "ok": 3,
+          "total": 3,
+          "detail": {
+            "enabled_count": true,
+            "dark_mode": true,
+            "beta_ui": true
+          }
+        },
+        "image": {
+          "tokens": 6040,
+          "wall": 10,
+          "exit": 0,
+          "score": "3/3",
+          "ok": 3,
+          "total": 3,
+          "detail": {
+            "enabled_count": true,
+            "dark_mode": true,
+            "beta_ui": true
+          }
+        }
+      },
+      "pack": {
+        "format": "cdc-optical-skill",
+        "version": 2,
+        "cdc": "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/flags/flags.cdc",
+        "pageFiles": [
+          "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/flags/flags.cdc.png"
+        ],
+        "pages": 1,
+        "width": 504,
+        "scale": 2,
+        "cols": 40,
+        "pageDims": [
+          {
+            "w": 504,
+            "h": 448,
+            "tiles": 1,
+            "downscaled": false
+          }
+        ],
+        "tiles": 1,
+        "tileBudget": 12,
+        "budgetMet": true,
+        "estVisionTokens": 255,
+        "sourceChars": 779,
+        "approxTextTokens": 296,
+        "visionVsTextRatio": 0.86,
+        "provider": {
+          "tile": 512,
+          "base": 85,
+          "perTile": 170,
+          "fitLong": 2048,
+          "shortCap": 768
+        },
+        "providerNote": "assumes fit-2048 then shortest-side-768 resize, 512px tiles, base+perTile billing; pages sized to avoid any resize",
+        "alternatives": [
+          {
+            "scale": 2,
+            "width": 760,
+            "pages": 1,
+            "estVisionTokens": 425
+          }
+        ],
+        "createdAt": "2026-07-11T17:40:45.789Z",
+        "skillName": "flags",
+        "skillMode": "image",
+        "skillModeReason": "forced image",
+        "textEquivalentTokens": 446,
+        "planned": {
+          "scale": 2,
+          "width": 504,
+          "pages": 1,
+          "tiles": 1,
+          "budgetMet": true
+        },
+        "imagePrimary": true,
+        "approxVisionTokens": 255
+      },
+      "auto": {
+        "mode": "image",
+        "tokens": 6040,
+        "wall": 10,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3
+      }
+    },
+    {
+      "target": "geo",
+      "skill": "geo-cdc",
+      "arms": {
+        "mcp": {
+          "tokens": 5658,
+          "wall": 12,
+          "exit": 0,
+          "score": "2/2",
+          "ok": 2,
+          "total": 2,
+          "detail": {
+            "city_count": true,
+            "has_paris": true
+          }
+        },
+        "text": {
+          "tokens": 8565,
+          "wall": 10,
+          "exit": 0,
+          "score": "2/2",
+          "ok": 2,
+          "total": 2,
+          "detail": {
+            "city_count": true,
+            "has_paris": true
+          }
+        },
+        "image": {
+          "tokens": 5026,
+          "wall": 9,
+          "exit": 0,
+          "score": "2/2",
+          "ok": 2,
+          "total": 2,
+          "detail": {
+            "city_count": true,
+            "has_paris": true
+          }
+        }
+      },
+      "pack": {
+        "format": "cdc-optical-skill",
+        "version": 2,
+        "cdc": "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/geo/geo.cdc",
+        "pageFiles": [
+          "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/geo/geo.cdc.png"
+        ],
+        "pages": 1,
+        "width": 504,
+        "scale": 2,
+        "cols": 40,
+        "pageDims": [
+          {
+            "w": 504,
+            "h": 448,
+            "tiles": 1,
+            "downscaled": false
+          }
+        ],
+        "tiles": 1,
+        "tileBudget": 12,
+        "budgetMet": true,
+        "estVisionTokens": 255,
+        "sourceChars": 788,
+        "approxTextTokens": 302,
+        "visionVsTextRatio": 0.84,
+        "provider": {
+          "tile": 512,
+          "base": 85,
+          "perTile": 170,
+          "fitLong": 2048,
+          "shortCap": 768
+        },
+        "providerNote": "assumes fit-2048 then shortest-side-768 resize, 512px tiles, base+perTile billing; pages sized to avoid any resize",
+        "alternatives": [
+          {
+            "scale": 2,
+            "width": 760,
+            "pages": 1,
+            "estVisionTokens": 425
+          }
+        ],
+        "createdAt": "2026-07-11T17:40:46.813Z",
+        "skillName": "geo",
+        "skillMode": "image",
+        "skillModeReason": "forced image",
+        "textEquivalentTokens": 460,
+        "planned": {
+          "scale": 2,
+          "width": 504,
+          "pages": 1,
+          "tiles": 1,
+          "budgetMet": true
+        },
+        "imagePrimary": true,
+        "approxVisionTokens": 255
+      },
+      "auto": {
+        "mode": "image",
+        "tokens": 5026,
+        "wall": 9,
+        "score": "2/2",
+        "ok": 2,
+        "total": 2
+      }
+    },
+    {
+      "target": "regex",
+      "skill": "regex-cdc",
+      "arms": {
+        "mcp": {
+          "tokens": 13778,
+          "wall": 14,
+          "exit": 0,
+          "score": "2/3",
+          "ok": 2,
+          "total": 3,
+          "detail": {
+            "ok": true,
+            "count": true,
+            "replaced": false
+          }
+        },
+        "text": {
+          "tokens": 4534,
+          "wall": 13,
+          "exit": 0,
+          "score": "2/3",
+          "ok": 2,
+          "total": 3,
+          "detail": {
+            "ok": true,
+            "count": true,
+            "replaced": false
+          }
+        },
+        "image": {
+          "tokens": 6225,
+          "wall": 14,
+          "exit": 0,
+          "score": "2/3",
+          "ok": 2,
+          "total": 3,
+          "detail": {
+            "ok": true,
+            "count": true,
+            "replaced": false
+          }
+        }
+      },
+      "pack": {
+        "format": "cdc-optical-skill",
+        "version": 2,
+        "cdc": "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/regex/regex.cdc",
+        "pageFiles": [
+          "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/regex/regex.cdc.png"
+        ],
+        "pages": 1,
+        "width": 504,
+        "scale": 2,
+        "cols": 40,
+        "pageDims": [
+          {
+            "w": 504,
+            "h": 400,
+            "tiles": 1,
+            "downscaled": false
+          }
+        ],
+        "tiles": 1,
+        "tileBudget": 12,
+        "budgetMet": true,
+        "estVisionTokens": 255,
+        "sourceChars": 775,
+        "approxTextTokens": 301,
+        "visionVsTextRatio": 0.85,
+        "provider": {
+          "tile": 512,
+          "base": 85,
+          "perTile": 170,
+          "fitLong": 2048,
+          "shortCap": 768
+        },
+        "providerNote": "assumes fit-2048 then shortest-side-768 resize, 512px tiles, base+perTile billing; pages sized to avoid any resize",
+        "alternatives": [
+          {
+            "scale": 2,
+            "width": 760,
+            "pages": 1,
+            "estVisionTokens": 425
+          }
+        ],
+        "createdAt": "2026-07-11T17:40:47.843Z",
+        "skillName": "regex",
+        "skillMode": "image",
+        "skillModeReason": "forced image",
+        "textEquivalentTokens": 506,
+        "planned": {
+          "scale": 2,
+          "width": 504,
+          "pages": 1,
+          "tiles": 1,
+          "budgetMet": true
+        },
+        "imagePrimary": true,
+        "approxVisionTokens": 255
+      },
+      "auto": {
+        "mode": "image",
+        "tokens": 6225,
+        "wall": 14,
+        "score": "2/3",
+        "ok": 2,
+        "total": 3
+      }
+    },
+    {
+      "target": "csvops",
+      "skill": "csvops-cdc",
+      "arms": {
+        "mcp": {
+          "tokens": 10369,
+          "wall": 12,
+          "exit": 0,
+          "score": "2/2",
+          "ok": 2,
+          "total": 2,
+          "detail": {
+            "row_count": true,
+            "sum_col1": true
+          }
+        },
+        "text": {
+          "tokens": 3584,
+          "wall": 12,
+          "exit": 0,
+          "score": "2/2",
+          "ok": 2,
+          "total": 2,
+          "detail": {
+            "row_count": true,
+            "sum_col1": true
+          }
+        },
+        "image": {
+          "tokens": 5025,
+          "wall": 9,
+          "exit": 0,
+          "score": "2/2",
+          "ok": 2,
+          "total": 2,
+          "detail": {
+            "row_count": true,
+            "sum_col1": true
+          }
+        }
+      },
+      "pack": {
+        "format": "cdc-optical-skill",
+        "version": 2,
+        "cdc": "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/csvops/csvops.cdc",
+        "pageFiles": [
+          "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/csvops/csvops.cdc.png"
+        ],
+        "pages": 1,
+        "width": 504,
+        "scale": 2,
+        "cols": 40,
+        "pageDims": [
+          {
+            "w": 504,
+            "h": 464,
+            "tiles": 1,
+            "downscaled": false
+          }
+        ],
+        "tiles": 1,
+        "tileBudget": 12,
+        "budgetMet": true,
+        "estVisionTokens": 255,
+        "sourceChars": 826,
+        "approxTextTokens": 314,
+        "visionVsTextRatio": 0.81,
+        "provider": {
+          "tile": 512,
+          "base": 85,
+          "perTile": 170,
+          "fitLong": 2048,
+          "shortCap": 768
+        },
+        "providerNote": "assumes fit-2048 then shortest-side-768 resize, 512px tiles, base+perTile billing; pages sized to avoid any resize",
+        "alternatives": [
+          {
+            "scale": 2,
+            "width": 760,
+            "pages": 1,
+            "estVisionTokens": 425
+          }
+        ],
+        "createdAt": "2026-07-11T17:40:48.844Z",
+        "skillName": "csvops",
+        "skillMode": "image",
+        "skillModeReason": "forced image",
+        "textEquivalentTokens": 485,
+        "planned": {
+          "scale": 2,
+          "width": 504,
+          "pages": 1,
+          "tiles": 1,
+          "budgetMet": true
+        },
+        "imagePrimary": true,
+        "approxVisionTokens": 255
+      },
+      "auto": {
+        "mode": "image",
+        "tokens": 5025,
+        "wall": 9,
+        "score": "2/2",
+        "ok": 2,
+        "total": 2
+      }
+    },
+    {
+      "target": "cronish",
+      "skill": "cronish-cdc",
+      "arms": {
+        "mcp": {
+          "tokens": 6532,
+          "wall": 9,
+          "exit": 0,
+          "score": "2/2",
+          "ok": 2,
+          "total": 2,
+          "detail": {
+            "job_count": true,
+            "enabled_ids": true
+          }
+        },
+        "text": {
+          "tokens": 4489,
+          "wall": 14,
+          "exit": 0,
+          "score": "2/2",
+          "ok": 2,
+          "total": 2,
+          "detail": {
+            "job_count": true,
+            "enabled_ids": true
+          }
+        },
+        "image": {
+          "tokens": 6090,
+          "wall": 11,
+          "exit": 0,
+          "score": "2/2",
+          "ok": 2,
+          "total": 2,
+          "detail": {
+            "job_count": true,
+            "enabled_ids": true
+          }
+        }
+      },
+      "pack": {
+        "format": "cdc-optical-skill",
+        "version": 2,
+        "cdc": "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/cronish/cronish.cdc",
+        "pageFiles": [
+          "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/cronish/cronish.cdc.png"
+        ],
+        "pages": 1,
+        "width": 504,
+        "scale": 2,
+        "cols": 40,
+        "pageDims": [
+          {
+            "w": 504,
+            "h": 432,
+            "tiles": 1,
+            "downscaled": false
+          }
+        ],
+        "tiles": 1,
+        "tileBudget": 12,
+        "budgetMet": true,
+        "estVisionTokens": 255,
+        "sourceChars": 775,
+        "approxTextTokens": 289,
+        "visionVsTextRatio": 0.88,
+        "provider": {
+          "tile": 512,
+          "base": 85,
+          "perTile": 170,
+          "fitLong": 2048,
+          "shortCap": 768
+        },
+        "providerNote": "assumes fit-2048 then shortest-side-768 resize, 512px tiles, base+perTile billing; pages sized to avoid any resize",
+        "alternatives": [
+          {
+            "scale": 2,
+            "width": 760,
+            "pages": 1,
+            "estVisionTokens": 425
+          }
+        ],
+        "createdAt": "2026-07-11T17:40:49.859Z",
+        "skillName": "cronish",
+        "skillMode": "image",
+        "skillModeReason": "forced image",
+        "textEquivalentTokens": 422,
+        "planned": {
+          "scale": 2,
+          "width": 504,
+          "pages": 1,
+          "tiles": 1,
+          "budgetMet": true
+        },
+        "imagePrimary": true,
+        "approxVisionTokens": 255
+      },
+      "auto": {
+        "mode": "image",
+        "tokens": 6090,
+        "wall": 11,
+        "score": "2/2",
+        "ok": 2,
+        "total": 2
+      }
+    },
+    {
+      "target": "uuidgen",
+      "skill": "uuidgen-cdc",
+      "arms": {
+        "mcp": {
+          "tokens": 16562,
+          "wall": 16,
+          "exit": 0,
+          "score": "2/3",
+          "ok": 2,
+          "total": 3,
+          "detail": {
+            "nil": true,
+            "is_nil_ok": false,
+            "batch_len": true
+          }
+        },
+        "text": {
+          "tokens": 4594,
+          "wall": 13,
+          "exit": 0,
+          "score": "2/3",
+          "ok": 2,
+          "total": 3,
+          "detail": {
+            "nil": true,
+            "is_nil_ok": false,
+            "batch_len": true
+          }
+        },
+        "image": {
+          "tokens": 9641,
+          "wall": 18,
+          "exit": 0,
+          "score": "2/3",
+          "ok": 2,
+          "total": 3,
+          "detail": {
+            "nil": true,
+            "is_nil_ok": false,
+            "batch_len": true
+          }
+        }
+      },
+      "pack": {
+        "format": "cdc-optical-skill",
+        "version": 2,
+        "cdc": "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/uuidgen/uuidgen.cdc",
+        "pageFiles": [
+          "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/uuidgen/uuidgen.cdc.png"
+        ],
+        "pages": 1,
+        "width": 504,
+        "scale": 2,
+        "cols": 40,
+        "pageDims": [
+          {
+            "w": 504,
+            "h": 400,
+            "tiles": 1,
+            "downscaled": false
+          }
+        ],
+        "tiles": 1,
+        "tileBudget": 12,
+        "budgetMet": true,
+        "estVisionTokens": 255,
+        "sourceChars": 740,
+        "approxTextTokens": 283,
+        "visionVsTextRatio": 0.9,
+        "provider": {
+          "tile": 512,
+          "base": 85,
+          "perTile": 170,
+          "fitLong": 2048,
+          "shortCap": 768
+        },
+        "providerNote": "assumes fit-2048 then shortest-side-768 resize, 512px tiles, base+perTile billing; pages sized to avoid any resize",
+        "alternatives": [
+          {
+            "scale": 2,
+            "width": 760,
+            "pages": 1,
+            "estVisionTokens": 425
+          }
+        ],
+        "createdAt": "2026-07-11T17:40:50.898Z",
+        "skillName": "uuidgen",
+        "skillMode": "image",
+        "skillModeReason": "forced image",
+        "textEquivalentTokens": 411,
+        "planned": {
+          "scale": 2,
+          "width": 504,
+          "pages": 1,
+          "tiles": 1,
+          "budgetMet": true
+        },
+        "imagePrimary": true,
+        "approxVisionTokens": 255
+      },
+      "auto": {
+        "mode": "image",
+        "tokens": 9641,
+        "wall": 18,
+        "score": "2/3",
+        "ok": 2,
+        "total": 3
+      }
+    },
+    {
+      "target": "mathstat",
+      "skill": "mathstat-cdc",
+      "arms": {
+        "mcp": {
+          "tokens": 8494,
+          "wall": 21,
+          "exit": 0,
+          "score": "3/3",
+          "ok": 3,
+          "total": 3,
+          "detail": {
+            "sum": true,
+            "mean": true,
+            "median": true
+          }
+        },
+        "text": {
+          "tokens": 8534,
+          "wall": 25,
+          "exit": 0,
+          "score": "3/3",
+          "ok": 3,
+          "total": 3,
+          "detail": {
+            "sum": true,
+            "mean": true,
+            "median": true
+          }
+        },
+        "image": {
+          "tokens": 6067,
+          "wall": 18,
+          "exit": 0,
+          "score": "3/3",
+          "ok": 3,
+          "total": 3,
+          "detail": {
+            "sum": true,
+            "mean": true,
+            "median": true
+          }
+        }
+      },
+      "pack": {
+        "format": "cdc-optical-skill",
+        "version": 2,
+        "cdc": "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/mathstat/mathstat.cdc",
+        "pageFiles": [
+          "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/mathstat/mathstat.cdc.png"
+        ],
+        "pages": 1,
+        "width": 504,
+        "scale": 2,
+        "cols": 40,
+        "pageDims": [
+          {
+            "w": 504,
+            "h": 416,
+            "tiles": 1,
+            "downscaled": false
+          }
+        ],
+        "tiles": 1,
+        "tileBudget": 12,
+        "budgetMet": true,
+        "estVisionTokens": 255,
+        "sourceChars": 790,
+        "approxTextTokens": 313,
+        "visionVsTextRatio": 0.81,
+        "provider": {
+          "tile": 512,
+          "base": 85,
+          "perTile": 170,
+          "fitLong": 2048,
+          "shortCap": 768
+        },
+        "providerNote": "assumes fit-2048 then shortest-side-768 resize, 512px tiles, base+perTile billing; pages sized to avoid any resize",
+        "alternatives": [
+          {
+            "scale": 2,
+            "width": 760,
+            "pages": 1,
+            "estVisionTokens": 425
+          }
+        ],
+        "createdAt": "2026-07-11T17:40:51.923Z",
+        "skillName": "mathstat",
+        "skillMode": "image",
+        "skillModeReason": "forced image",
+        "textEquivalentTokens": 455,
+        "planned": {
+          "scale": 2,
+          "width": 504,
+          "pages": 1,
+          "tiles": 1,
+          "budgetMet": true
+        },
+        "imagePrimary": true,
+        "approxVisionTokens": 255
+      },
+      "auto": {
+        "mode": "image",
+        "tokens": 6067,
+        "wall": 18,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3
+      }
+    },
+    {
+      "target": "dateops",
+      "skill": "dateops-cdc",
+      "arms": {
+        "mcp": {
+          "tokens": 5706,
+          "wall": 10,
+          "exit": 0,
+          "score": "3/3",
+          "ok": 3,
+          "total": 3,
+          "detail": {
+            "add_days": true,
+            "diff_days": true,
+            "weekday": true
+          }
+        },
+        "text": {
+          "tokens": 4566,
+          "wall": 13,
+          "exit": 0,
+          "score": "3/3",
+          "ok": 3,
+          "total": 3,
+          "detail": {
+            "add_days": true,
+            "diff_days": true,
+            "weekday": true
+          }
+        },
+        "image": {
+          "tokens": 6268,
+          "wall": 16,
+          "exit": 0,
+          "score": "3/3",
+          "ok": 3,
+          "total": 3,
+          "detail": {
+            "add_days": true,
+            "diff_days": true,
+            "weekday": true
+          }
+        }
+      },
+      "pack": {
+        "format": "cdc-optical-skill",
+        "version": 2,
+        "cdc": "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/dateops/dateops.cdc",
+        "pageFiles": [
+          "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/dateops/dateops.cdc.png"
+        ],
+        "pages": 1,
+        "width": 504,
+        "scale": 2,
+        "cols": 40,
+        "pageDims": [
+          {
+            "w": 504,
+            "h": 448,
+            "tiles": 1,
+            "downscaled": false
+          }
+        ],
+        "tiles": 1,
+        "tileBudget": 12,
+        "budgetMet": true,
+        "estVisionTokens": 255,
+        "sourceChars": 783,
+        "approxTextTokens": 301,
+        "visionVsTextRatio": 0.85,
+        "provider": {
+          "tile": 512,
+          "base": 85,
+          "perTile": 170,
+          "fitLong": 2048,
+          "shortCap": 768
+        },
+        "providerNote": "assumes fit-2048 then shortest-side-768 resize, 512px tiles, base+perTile billing; pages sized to avoid any resize",
+        "alternatives": [
+          {
+            "scale": 2,
+            "width": 760,
+            "pages": 1,
+            "estVisionTokens": 425
+          }
+        ],
+        "createdAt": "2026-07-11T17:40:52.966Z",
+        "skillName": "dateops",
+        "skillMode": "image",
+        "skillModeReason": "forced image",
+        "textEquivalentTokens": 476,
+        "planned": {
+          "scale": 2,
+          "width": 504,
+          "pages": 1,
+          "tiles": 1,
+          "budgetMet": true
+        },
+        "imagePrimary": true,
+        "approxVisionTokens": 255
+      },
+      "auto": {
+        "mode": "image",
+        "tokens": 6268,
+        "wall": 16,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3
+      }
+    },
+    {
+      "target": "cache",
+      "skill": "cache-cdc",
+      "arms": {
+        "mcp": {
+          "tokens": 15304,
+          "wall": 12,
+          "exit": 0,
+          "score": "3/3",
+          "ok": 3,
+          "total": 3,
+          "detail": {
+            "seed_hit": true,
+            "seed_value": true,
+            "size": true
+          }
+        },
+        "text": {
+          "tokens": 8409,
+          "wall": 11,
+          "exit": 0,
+          "score": "3/3",
+          "ok": 3,
+          "total": 3,
+          "detail": {
+            "seed_hit": true,
+            "seed_value": true,
+            "size": true
+          }
+        },
+        "image": {
+          "tokens": 8873,
+          "wall": 11,
+          "exit": 0,
+          "score": "3/3",
+          "ok": 3,
+          "total": 3,
+          "detail": {
+            "seed_hit": true,
+            "seed_value": true,
+            "size": true
+          }
+        }
+      },
+      "pack": {
+        "format": "cdc-optical-skill",
+        "version": 2,
+        "cdc": "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/cache/cache.cdc",
+        "pageFiles": [
+          "/Users/nesbes/mcp-a;t/implementer/mega40/.cdc-build/image/cache/cache.cdc.png"
+        ],
+        "pages": 1,
+        "width": 504,
+        "scale": 2,
+        "cols": 40,
+        "pageDims": [
+          {
+            "w": 504,
+            "h": 384,
+            "tiles": 1,
+            "downscaled": false
+          }
+        ],
+        "tiles": 1,
+        "tileBudget": 12,
+        "budgetMet": true,
+        "estVisionTokens": 255,
+        "sourceChars": 722,
+        "approxTextTokens": 279,
+        "visionVsTextRatio": 0.91,
+        "provider": {
+          "tile": 512,
+          "base": 85,
+          "perTile": 170,
+          "fitLong": 2048,
+          "shortCap": 768
+        },
+        "providerNote": "assumes fit-2048 then shortest-side-768 resize, 512px tiles, base+perTile billing; pages sized to avoid any resize",
+        "alternatives": [
+          {
+            "scale": 2,
+            "width": 760,
+            "pages": 1,
+            "estVisionTokens": 425
+          }
+        ],
+        "createdAt": "2026-07-11T17:40:54.010Z",
+        "skillName": "cache",
+        "skillMode": "image",
+        "skillModeReason": "forced image",
+        "textEquivalentTokens": 429,
+        "planned": {
+          "scale": 2,
+          "width": 504,
+          "pages": 1,
+          "tiles": 1,
+          "budgetMet": true
+        },
+        "imagePrimary": true,
+        "approxVisionTokens": 255
+      },
+      "auto": {
+        "mode": "image",
+        "tokens": 8873,
+        "wall": 11,
+        "score": "3/3",
+        "ok": 3,
+        "total": 3
+      }
+    }
+  ]
+}

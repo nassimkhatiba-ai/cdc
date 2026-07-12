@@ -1,0 +1,16 @@
+{
+  "skillName": "stringops",
+  "skillMode": "text",
+  "skillModeReason": "tiny surface (5 tools < 20): vision floor not worth it",
+  "estVisionTokens": 255,
+  "textEquivalentTokens": 514,
+  "planned": {
+    "scale": 2,
+    "width": 504,
+    "pages": 1,
+    "tiles": 1,
+    "budgetMet": true
+  },
+  "pages": 0,
+  "imagePrimary": false
+}

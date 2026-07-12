@@ -1,0 +1,477 @@
+{
+  "losers": {
+    "memory": {
+      "mcpTok": 13245,
+      "textTok": 16156,
+      "turns": 2,
+      "shellRuns": 2,
+      "skillSed": 1,
+      "skillOutChars": 1879,
+      "maxToolOutChars": 1879,
+      "bridgeOutChars": 180,
+      "mcpScore": "7/7",
+      "textScore": "7/7",
+      "causes": [
+        "skill_sed x1 dumps 1879B SKILL.md into context",
+        "shellRuns=2 vs mcp native tools (0 shells, 1 read_graph)",
+        "inline node script 1947B (read_graph+aggregate); purity openSession=1 mcp_call_js=3",
+        "example --batch shows empty create_* not read_graph"
+      ]
+    },
+    "jsonstore": {
+      "mcpTok": 5858,
+      "textTok": 4493,
+      "turns": 2,
+      "shellRuns": 2,
+      "skillSed": 1,
+      "skillOutChars": 1105,
+      "maxToolOutChars": 1105,
+      "bridgeOutChars": 296,
+      "mcpScore": "4/4",
+      "textScore": "4/4",
+      "causes": [
+        "skill_sed x1 (~1105B) + batch = 2 shells",
+        "still wins tokens (4493 < 5858); residual is reread turn",
+        "purity openSession=1 despite CLI batch"
+      ]
+    },
+    "todo": {
+      "mcpTok": 7092,
+      "textTok": 7865,
+      "turns": 2,
+      "shellRuns": 1,
+      "skillSed": 0,
+      "skillOutChars": 0,
+      "maxToolOutChars": 505,
+      "bridgeOutChars": 505,
+      "mcpScore": "3/3",
+      "textScore": "3/3",
+      "causes": [
+        "shellRuns=1, skillSed=0 (efficient)",
+        "batch stdout 505B raw tool results to chat",
+        "run.json text 7865 > mcp 7092 (optical-v2 text was 3945; inject variance)",
+        "tiny 4-tool surface: definition tax vs small MCP schema"
+      ]
+    },
+    "flags": {
+      "mcpTok": 6182,
+      "textTok": 2021,
+      "turns": 1,
+      "shellRuns": 1,
+      "skillSed": 0,
+      "skillOutChars": 0,
+      "maxToolOutChars": 85,
+      "bridgeOutChars": 85,
+      "mcpScore": "3/3",
+      "textScore": "3/3",
+      "causes": [
+        "NOT a loss on disk: text 2021 << mcp 6182",
+        "card inject in user turn; shellRuns=1 skillSed=0",
+        "optical-v2 text 3369 also wins; suite 'loser' list is near-ties/misrank"
+      ]
+    },
+    "sequential": {
+      "mcpTok": 10625,
+      "textTok": 8707,
+      "turns": 2,
+      "shellRuns": 2,
+      "skillSed": 1,
+      "skillOutChars": 1235,
+      "maxToolOutChars": 1235,
+      "bridgeOutChars": 280,
+      "mcpScore": "3/3",
+      "textScore": "2/3",
+      "causes": [
+        "skill_sed x1 (~1235B) + batch = 2 shells",
+        "score 2/3 vs mcp 3/3 (sequentialthinking multi-step poorly fit one batch)",
+        "tokens still under mcp (8707 < 10625)"
+      ]
+    },
+    "context7": {
+      "mcpTok": 11281,
+      "textTok": 10961,
+      "turns": 2,
+      "shellRuns": 3,
+      "skillSed": 1,
+      "skillOutChars": 1229,
+      "maxToolOutChars": 1998,
+      "bridgeOutChars": 3711,
+      "mcpScore": "3/3",
+      "textScore": "3/3",
+      "causes": [
+        "shellRuns=3: skill_sed + resolve --batch + query-docs",
+        "multi-hop not fused; intermediates 1713B + 1998B into chat",
+        "near-tie 10961 vs 11281; wall 28s vs 18s"
+      ]
+    },
+    "tradingview": {
+      "mcpTok": 14856,
+      "textTok": 18420,
+      "turns": 2,
+      "shellRuns": 2,
+      "skillSed": 1,
+      "skillOutChars": 5602,
+      "maxToolOutChars": 10139,
+      "bridgeOutChars": 10139,
+      "mcpScore": "5/5",
+      "textScore": "4/5",
+      "causes": [
+        "skill_sed x1 dumps 5602B skill (~1400 tok, 27 full signatures)",
+        "batch top_gainers dumps 10139B raw rows (no in-bridge aggregate)",
+        "text 18420 vs mcp 14856 (+3564); score 4/5 vs 5/5"
+      ]
+    },
+    "filesystem_large": {
+      "mcpTok": 9786,
+      "textTok": 9766,
+      "turns": 3,
+      "shellRuns": 3,
+      "skillSed": 1,
+      "skillOutChars": 1349,
+      "maxToolOutChars": 1349,
+      "bridgeOutChars": 136,
+      "mcpScore": "3/3",
+      "textScore": "2/3",
+      "causes": [
+        "shellRuns=3: skill_sed + q.js recon + compute",
+        "missing layout snapshot forces recon (root unavailable at build)",
+        "near-tie 9766 vs 9786; score 2/3 vs 3/3"
+      ]
+    }
+  },
+  "fixes": [
+    {
+      "rank": 1,
+      "change": "Default product load: inject short skill card (description + tools + bridge path) on first turn; hard-ban sed/cat/head of SKILL.md in compiled Rules (keep LEGACY_SED only for ablation).",
+      "evidence": "skill_sed on 6/8 focus targets (memory 1879B, tradingview 5602B). flags with card inject: 1 shell, 2021 tok vs mcp 6182. SKILL.md string appears in 40/40 text logs.",
+      "expectedSaving": "800-2000 tokens per sed-heavy target (drop extra turn + skill body rebill); largest suite-wide lever.",
+      "risk": "Low if card lists tools; high if inject omitted and ban blocks recovery load."
+    },
+    {
+      "rank": 2,
+      "change": "Compact bridge stdout by default: mcp-call --batch/single summarizes or caps large arrays; Rules require in-process filter for list/search/docs tools; never echo raw payloads. Add --raw for debug.",
+      "evidence": "tradingview maxOut 10139B; context7 docs 1998B; todo raw batch 505B. MCP arm answers after native tools without dumping lists into the transcript.",
+      "expectedSaving": "1-4k tokens on list/docs servers; tradingview alone ~3.5k vs MCP if dump removed.",
+      "risk": "Medium: over-truncation can hide fields; need --raw escape hatch."
+    },
+    {
+      "rank": 3,
+      "change": "For all tiers, document dependent multi-call as ONE openSession (or one node script): simple skills get a short hop template; forbid CLI shell chains for data dependencies.",
+      "evidence": "context7: 3 shells resolve then query with two large intermediates; sequential score 2/3 with single batch; purity openSession without fused script.",
+      "expectedSaving": "1-3k tokens + lower wall on multi-hop; accuracy recovery on sequential-like tools.",
+      "risk": "Medium: agents may overuse openSession on true one-shots (small boilerplate cost)."
+    },
+    {
+      "rank": 4,
+      "change": "Shrink hot-path SKILL preamble in compile-mcp: one real example tool only (no multi empty-arg batch), compress Rules, names-only tool index when nTools>12 or skillTokens>800.",
+      "evidence": "Focus skills avg ~1.8kB; tradingview 5602B full signatures; memory example batches four empty create_* tools; preamble ~1kB before Tools.",
+      "expectedSaving": "150-800 definition tokens per session when skill loaded/injected; more on fat surfaces.",
+      "risk": "Low-medium: thinner examples may increase arg mistakes/retries."
+    },
+    {
+      "rank": 5,
+      "change": "direct-fs: capture layout snapshot at probe when root exists; if snapshot missing, fold recon into the same compute script (max 1 shell).",
+      "evidence": "filesystem_large: 3 shells; recon forced by missing snapshot; near-tie tokens and score 2/3.",
+      "expectedSaving": "1-2k tokens and 1-2 shells on fs / filesystem_large.",
+      "risk": "Low if recon remains fallback; snapshot can go stale if root changes post-build."
+    }
+  ],
+  "router": {
+    "everything": "text",
+    "memory": "text",
+    "filesystem": "text",
+    "sequential": "text",
+    "sqlite": "text",
+    "playwright": "image",
+    "puppeteer": "text",
+    "context7": "text",
+    "git": "text",
+    "time": "text",
+    "fetch": "text",
+    "tradingview": "image",
+    "github": "text",
+    "calc": "text",
+    "weather": "text",
+    "jsonstore": "text",
+    "todo": "text",
+    "mockapi": "text",
+    "chromedevtools": "image",
+    "filesystem_large": "text",
+    "complex": "image",
+    "nova": "image",
+    "stringops": "text",
+    "unitconvert": "text",
+    "graph": "text",
+    "kv": "text",
+    "counter": "text",
+    "hash": "text",
+    "books": "text",
+    "inventory": "text",
+    "queue": "text",
+    "flags": "text",
+    "geo": "text",
+    "regex": "text",
+    "csvops": "text",
+    "cronish": "text",
+    "uuidgen": "text",
+    "mathstat": "text",
+    "dateops": "text",
+    "cache": "text"
+  },
+  "routerDetail": {
+    "memory": {
+      "mode": "text",
+      "reason": "tiny surface (9 tools < 20): vision floor not worth it",
+      "tools": 9,
+      "skillTokens": 760
+    },
+    "filesystem": {
+      "mode": "text",
+      "reason": "direct-fs data skill: optical n/a (snapshot + q.js are the skill body)",
+      "tools": 14,
+      "skillTokens": 462
+    },
+    "everything": {
+      "mode": "text",
+      "reason": "tiny surface (13 tools < 20): vision floor not worth it",
+      "tools": 13,
+      "skillTokens": 757
+    },
+    "sqlite": {
+      "mode": "text",
+      "reason": "tiny surface (4 tools < 20): vision floor not worth it",
+      "tools": 4,
+      "skillTokens": 513
+    },
+    "sequential": {
+      "mode": "text",
+      "reason": "tiny surface (1 tools < 20): vision floor not worth it",
+      "tools": 1,
+      "skillTokens": 560
+    },
+    "playwright": {
+      "mode": "image",
+      "reason": "optical 595+160 ptr+600 prior < 2056 text-equiv \u00d7 0.7",
+      "tools": 24,
+      "skillTokens": 817
+    },
+    "puppeteer": {
+      "mode": "text",
+      "reason": "tiny surface (7 tools < 20): vision floor not worth it",
+      "tools": 7,
+      "skillTokens": 669
+    },
+    "context7": {
+      "mode": "text",
+      "reason": "tiny surface (2 tools < 20): vision floor not worth it",
+      "tools": 2,
+      "skillTokens": 561
+    },
+    "git": {
+      "mode": "text",
+      "reason": "tiny surface (12 tools < 20): vision floor not worth it",
+      "tools": 12,
+      "skillTokens": 804
+    },
+    "time": {
+      "mode": "text",
+      "reason": "tiny surface (2 tools < 20): vision floor not worth it",
+      "tools": 2,
+      "skillTokens": 523
+    },
+    "fetch": {
+      "mode": "text",
+      "reason": "tiny surface (1 tools < 20): vision floor not worth it",
+      "tools": 1,
+      "skillTokens": 510
+    },
+    "tradingview": {
+      "mode": "image",
+      "reason": "optical 765+160 ptr+600 prior < 2629 text-equiv \u00d7 0.7",
+      "tools": 27,
+      "skillTokens": 847
+    },
+    "weather": {
+      "mode": "text",
+      "reason": "tiny surface (3 tools < 20): vision floor not worth it",
+      "tools": 3,
+      "skillTokens": 514
+    },
+    "calc": {
+      "mode": "text",
+      "reason": "tiny surface (4 tools < 20): vision floor not worth it",
+      "tools": 4,
+      "skillTokens": 533
+    },
+    "github": {
+      "mode": "text",
+      "reason": "tiny surface (5 tools < 20): vision floor not worth it",
+      "tools": 5,
+      "skillTokens": 774
+    },
+    "jsonstore": {
+      "mode": "text",
+      "reason": "tiny surface (5 tools < 20): vision floor not worth it",
+      "tools": 5,
+      "skillTokens": 512
+    },
+    "todo": {
+      "mode": "text",
+      "reason": "tiny surface (4 tools < 20): vision floor not worth it",
+      "tools": 4,
+      "skillTokens": 524
+    },
+    "mockapi": {
+      "mode": "text",
+      "reason": "tiny surface (5 tools < 20): vision floor not worth it",
+      "tools": 5,
+      "skillTokens": 759
+    },
+    "complex": {
+      "mode": "image",
+      "reason": "optical 1020+160 ptr+600 prior < 3311 text-equiv \u00d7 0.7",
+      "tools": 47,
+      "skillTokens": 1320
+    },
+    "filesystem_large": {
+      "mode": "text",
+      "reason": "direct-fs data skill: optical n/a (snapshot + q.js are the skill body)",
+      "tools": 14,
+      "skillTokens": 471
+    },
+    "chromedevtools": {
+      "mode": "image",
+      "reason": "optical 765+160 ptr+600 prior < 2529 text-equiv \u00d7 0.7",
+      "tools": 29,
+      "skillTokens": 913
+    },
+    "stringops": {
+      "mode": "text",
+      "reason": "tiny surface (5 tools < 20): vision floor not worth it",
+      "tools": 5,
+      "skillTokens": 514
+    },
+    "unitconvert": {
+      "mode": "text",
+      "reason": "tiny surface (5 tools < 20): vision floor not worth it",
+      "tools": 5,
+      "skillTokens": 575
+    },
+    "nova": {
+      "mode": "image",
+      "reason": "optical 765+160 ptr+600 prior < 2852 text-equiv \u00d7 0.7",
+      "tools": 48,
+      "skillTokens": 1254
+    },
+    "kv": {
+      "mode": "text",
+      "reason": "tiny surface (5 tools < 20): vision floor not worth it",
+      "tools": 5,
+      "skillTokens": 505
+    },
+    "graph": {
+      "mode": "text",
+      "reason": "tiny surface (5 tools < 20): vision floor not worth it",
+      "tools": 5,
+      "skillTokens": 534
+    },
+    "counter": {
+      "mode": "text",
+      "reason": "tiny surface (5 tools < 20): vision floor not worth it",
+      "tools": 5,
+      "skillTokens": 518
+    },
+    "inventory": {
+      "mode": "text",
+      "reason": "tiny surface (5 tools < 20): vision floor not worth it",
+      "tools": 5,
+      "skillTokens": 554
+    },
+    "books": {
+      "mode": "text",
+      "reason": "tiny surface (5 tools < 20): vision floor not worth it",
+      "tools": 5,
+      "skillTokens": 752
+    },
+    "hash": {
+      "mode": "text",
+      "reason": "tiny surface (4 tools < 20): vision floor not worth it",
+      "tools": 4,
+      "skillTokens": 519
+    },
+    "flags": {
+      "mode": "text",
+      "reason": "tiny surface (4 tools < 20): vision floor not worth it",
+      "tools": 4,
+      "skillTokens": 530
+    },
+    "queue": {
+      "mode": "text",
+      "reason": "tiny surface (5 tools < 20): vision floor not worth it",
+      "tools": 5,
+      "skillTokens": 497
+    },
+    "geo": {
+      "mode": "text",
+      "reason": "tiny surface (4 tools < 20): vision floor not worth it",
+      "tools": 4,
+      "skillTokens": 534
+    },
+    "csvops": {
+      "mode": "text",
+      "reason": "tiny surface (4 tools < 20): vision floor not worth it",
+      "tools": 4,
+      "skillTokens": 542
+    },
+    "cronish": {
+      "mode": "text",
+      "reason": "tiny surface (4 tools < 20): vision floor not worth it",
+      "tools": 4,
+      "skillTokens": 521
+    },
+    "regex": {
+      "mode": "text",
+      "reason": "tiny surface (4 tools < 20): vision floor not worth it",
+      "tools": 4,
+      "skillTokens": 527
+    },
+    "mathstat": {
+      "mode": "text",
+      "reason": "tiny surface (5 tools < 20): vision floor not worth it",
+      "tools": 5,
+      "skillTokens": 536
+    },
+    "dateops": {
+      "mode": "text",
+      "reason": "tiny surface (4 tools < 20): vision floor not worth it",
+      "tools": 4,
+      "skillTokens": 535
+    },
+    "uuidgen": {
+      "mode": "text",
+      "reason": "tiny surface (4 tools < 20): vision floor not worth it",
+      "tools": 4,
+      "skillTokens": 509
+    },
+    "cache": {
+      "mode": "text",
+      "reason": "tiny surface (4 tools < 20): vision floor not worth it",
+      "tools": 4,
+      "skillTokens": 501
+    }
+  },
+  "meta": {
+    "tokenSource": "homes/*/out/{mcp,text}.run.json (matches log 'tokens used')",
+    "scoresSource": "results/optical-v2-summary.json",
+    "suiteAvgOptical": {
+      "mcp": 13167,
+      "text": 9158,
+      "image": 9170
+    },
+    "scoredJsonNote": "results/scored.json only has time+nova partial re-run",
+    "routerCmd": "create-cdc-skill.js from-mcp --mode auto --no-install --no-warm",
+    "routerImageCount": 5,
+    "routerTextCount": 35,
+    "probeFailedCount": 0
+  }
+}

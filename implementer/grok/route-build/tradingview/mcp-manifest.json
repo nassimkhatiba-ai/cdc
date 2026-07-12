@@ -1,0 +1,9 @@
+{
+  "name": "tradingview",
+  "mode": "mcp",
+  "command": "implementer/mega40/homes/tradingview/tradingview-mcp.sh",
+  "args": [],
+  "envToken": "CDC_TRADINGVIEW_TOKEN",
+  "tools": 27,
+  "note": "Prefer an installed binary over npx -y to avoid network cold starts."
+}

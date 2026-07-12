@@ -1,0 +1,9 @@
+{
+  "name": "everything",
+  "mode": "mcp",
+  "command": "implementer/mega40/homes/everything/everything-mcp.sh",
+  "args": [],
+  "envToken": "CDC_EVERYTHING_TOKEN",
+  "tools": 13,
+  "note": "Prefer an installed binary over npx -y to avoid network cold starts."
+}

@@ -1,0 +1,44 @@
+{
+  "format": "cdc-optical-skill",
+  "version": 2,
+  "cdc": "cdc/notion/notion.cdc",
+  "pageFiles": [
+    "cdc/notion/notion.cdc.png"
+  ],
+  "pages": 1,
+  "width": 504,
+  "scale": 2,
+  "cols": 40,
+  "pageDims": [
+    {
+      "w": 504,
+      "h": 1536,
+      "tiles": 3,
+      "downscaled": false
+    }
+  ],
+  "tiles": 3,
+  "tileBudget": 12,
+  "budgetMet": true,
+  "estVisionTokens": 595,
+  "sourceChars": 3105,
+  "approxTextTokens": 1208,
+  "visionVsTextRatio": 0.49,
+  "provider": {
+    "tile": 512,
+    "base": 85,
+    "perTile": 170,
+    "fitLong": 2048,
+    "shortCap": 768
+  },
+  "providerNote": "assumes fit-2048 then shortest-side-768 resize, 512px tiles, base+perTile billing; pages sized to avoid any resize",
+  "alternatives": [
+    {
+      "scale": 2,
+      "width": 760,
+      "pages": 1,
+      "estVisionTokens": 1105
+    }
+  ],
+  "createdAt": "2026-07-11T22:29:18.509Z"
+}

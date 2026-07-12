@@ -1,0 +1,194 @@
+{
+  "when": "2026-07-11",
+  "model": "gpt-5.6-sol",
+  "protocol": "matched medium; ARMS=mcp,text; invent-tool fix rebench nova+time v3",
+  "targets": [
+    "calc",
+    "flags",
+    "hash",
+    "github",
+    "complex",
+    "nova",
+    "csvops",
+    "inventory",
+    "fetch",
+    "todo",
+    "weather",
+    "time"
+  ],
+  "n": 12,
+  "mcp": {
+    "avg_tokens": 13348,
+    "avg_wall_s": 17.0,
+    "accuracy": "50/50",
+    "accuracy_pct": 100
+  },
+  "text": {
+    "avg_tokens": 5660,
+    "avg_wall_s": 13.2,
+    "accuracy": "50/50",
+    "accuracy_pct": 100,
+    "pct_under_mcp": 57.6
+  },
+  "ratios": {
+    "mcp_over_text": 2.36,
+    "text_over_mcp": 0.424
+  },
+  "per_target": [
+    {
+      "target": "calc",
+      "mcp_tok": 16381,
+      "text_tok": 2426,
+      "mcp_wall": 17,
+      "text_wall": 11,
+      "mcp_sc": "6/6",
+      "text_sc": "6/6",
+      "under": 85.2
+    },
+    {
+      "target": "flags",
+      "mcp_tok": 6182,
+      "text_tok": 2021,
+      "mcp_wall": 11,
+      "text_wall": 10,
+      "mcp_sc": "3/3",
+      "text_sc": "3/3",
+      "under": 67.3
+    },
+    {
+      "target": "hash",
+      "mcp_tok": 9496,
+      "text_tok": 8281,
+      "mcp_wall": 12,
+      "text_wall": 9,
+      "mcp_sc": "3/3",
+      "text_sc": "3/3",
+      "under": 12.8
+    },
+    {
+      "target": "github",
+      "mcp_tok": 18746,
+      "text_tok": 8287,
+      "mcp_wall": 13,
+      "text_wall": 12,
+      "mcp_sc": "5/5",
+      "text_sc": "5/5",
+      "under": 55.8
+    },
+    {
+      "target": "complex",
+      "mcp_tok": 24334,
+      "text_tok": 4692,
+      "mcp_wall": 33,
+      "text_wall": 20,
+      "mcp_sc": "7/7",
+      "text_sc": "7/7",
+      "under": 80.7
+    },
+    {
+      "target": "nova",
+      "mcp_tok": 22731,
+      "text_tok": 10066,
+      "mcp_wall": 44,
+      "text_wall": 20,
+      "mcp_sc": "7/7",
+      "text_sc": "7/7",
+      "under": 55.7
+    },
+    {
+      "target": "csvops",
+      "mcp_tok": 8791,
+      "text_tok": 2219,
+      "mcp_wall": 10,
+      "text_wall": 8,
+      "mcp_sc": "2/2",
+      "text_sc": "2/2",
+      "under": 74.8
+    },
+    {
+      "target": "inventory",
+      "mcp_tok": 5670,
+      "text_tok": 2409,
+      "mcp_wall": 11,
+      "text_wall": 9,
+      "mcp_sc": "4/4",
+      "text_sc": "4/4",
+      "under": 57.5
+    },
+    {
+      "target": "fetch",
+      "mcp_tok": 15679,
+      "text_tok": 7356,
+      "mcp_wall": 11,
+      "text_wall": 10,
+      "mcp_sc": "3/3",
+      "text_sc": "3/3",
+      "under": 53.1
+    },
+    {
+      "target": "todo",
+      "mcp_tok": 7092,
+      "text_tok": 7865,
+      "mcp_wall": 17,
+      "text_wall": 13,
+      "mcp_sc": "3/3",
+      "text_sc": "3/3",
+      "under": -10.9
+    },
+    {
+      "target": "weather",
+      "mcp_tok": 9234,
+      "text_tok": 7299,
+      "mcp_wall": 10,
+      "text_wall": 11,
+      "mcp_sc": "4/4",
+      "text_sc": "4/4",
+      "under": 21.0
+    },
+    {
+      "target": "time",
+      "mcp_tok": 15835,
+      "text_tok": 4998,
+      "mcp_wall": 15,
+      "text_wall": 26,
+      "mcp_sc": "3/3",
+      "text_sc": "3/3",
+      "under": 68.4
+    }
+  ],
+  "hard": {
+    "complex": {
+      "mcp": 24334,
+      "text": 4692,
+      "mcp_sc": "7/7",
+      "text_sc": "7/7",
+      "under": 80.7
+    },
+    "nova": {
+      "mcp": 22731,
+      "text": 10066,
+      "mcp_sc": "7/7",
+      "text_sc": "7/7",
+      "under": 55.7
+    }
+  },
+  "nova_notes": {
+    "text_score": "7/7",
+    "evaluate_path": true,
+    "used_evaluate_incident_slo": true,
+    "invented_get_incident_account": false,
+    "get_incident_account_listed_in_skill": true,
+    "tokens_text": 10066,
+    "tokens_mcp": 22731,
+    "wall_text": 20,
+    "wall_mcp": 44
+  },
+  "time_notes": {
+    "text_score": "3/3",
+    "tokens_text": 4998,
+    "tokens_mcp": 15835,
+    "wall_text": 26,
+    "wall_mcp": 15
+  },
+  "log": "implementer/mega40/logs/fair-rebench-nova-time-v3.log"
+}

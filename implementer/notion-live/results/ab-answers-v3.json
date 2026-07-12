@@ -1,0 +1,45 @@
+{
+  "when": "2026-07-12",
+  "model": "gpt-5.6-sol",
+  "reasoning": "medium",
+  "product_fix": "text-primary + pageTool write-exclude + anti-recon",
+  "mcp": {
+    "tokens": 19243,
+    "wall_s": 20,
+    "answer": {
+      "stacksnap_titles": [
+        "stacksnap",
+        "stacksnap_FULL_PLAN",
+        "stacksnap_checklist"
+      ],
+      "stacksnap_count": 3,
+      "plan_title": "stacksnap_FULL_PLAN",
+      "plan_heading": "StackSnap Product Plan",
+      "bot_name": "test",
+      "workspace_name": "D0jsG Khatib\u2019s Workspace"
+    }
+  },
+  "cdc": {
+    "tokens": 9819,
+    "wall_s": 33,
+    "answer": {
+      "stacksnap_titles": [
+        "stacksnap",
+        "stacksnap_checklist",
+        "stacksnap_FULL_PLAN"
+      ],
+      "stacksnap_count": 3,
+      "plan_title": "stacksnap_FULL_PLAN",
+      "plan_heading": "StackSnap Product Plan",
+      "bot_name": "test",
+      "workspace_name": "D0jsG Khatib\u2019s Workspace"
+    }
+  },
+  "prior_broken": {
+    "mcp_tokens": 20414,
+    "cdc_tokens": 33614,
+    "mcp_wall": 14,
+    "cdc_wall": 69
+  },
+  "cdc_vs_mcp_tokens_pct": -49.0
+}

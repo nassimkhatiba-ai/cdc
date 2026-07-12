@@ -1,0 +1,9 @@
+{
+  "name": "chromedevtools",
+  "mode": "mcp",
+  "command": "implementer/mega40/homes/chromedevtools/chromedevtools-mcp.sh",
+  "args": [],
+  "envToken": "CDC_CHROMEDEVTOOLS_TOKEN",
+  "tools": 29,
+  "note": "Prefer an installed binary over npx -y to avoid network cold starts."
+}

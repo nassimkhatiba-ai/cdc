@@ -1,37 +1,58 @@
 {
-  "when": "2026-07-11T17:01:32.854Z",
+  "date": "2026-07-12",
   "model": "gpt-5.6-sol",
-  "sums": {
+  "suite": 40,
+  "floorTokens": 3454,
+  "systems": {
     "mcp": {
-      "n": 5,
-      "n_tok": 5,
-      "tokens_sum": 106627,
-      "tokens_avg": 21325,
-      "wall_sum": 131,
-      "wall_avg": 26.2,
-      "accuracy": "31/31",
-      "accuracy_pct": 100
+      "totalTok": 527748,
+      "accuracyPct": 98.33333333333331
     },
-    "text": {
-      "n": 5,
-      "n_tok": 5,
-      "tokens_sum": 71849,
-      "tokens_avg": 14370,
-      "wall_sum": 190,
-      "wall_avg": 38,
-      "accuracy": "31/31",
-      "accuracy_pct": 100
+    "auto": {
+      "totalTok": 361869,
+      "rawGainPct": 45.83951651011831,
+      "aboveFloorGainPct": 74.14945308414056,
+      "accuracyPct": 82.26190476190476
     },
-    "image": {
-      "n": 5,
-      "n_tok": 5,
-      "tokens_sum": 68750,
-      "tokens_avg": 13750,
-      "wall_sum": 178,
-      "wall_avg": 35.6,
-      "accuracy": "31/31",
-      "accuracy_pct": 100
+    "hybrid": {
+      "totalTok": 457450,
+      "rawGainPct": 15.367362553284503,
+      "accuracyPct": 89.42857142857143
     }
   },
-  "n": 5
+  "bands": [
+    {
+      "band": "<8",
+      "n": 30,
+      "mcpAvg": 11099.3,
+      "autoAvg": 7913.266666666666,
+      "hybridAvg": 11099.3,
+      "rawGainPct_auto": 40.26192301535818,
+      "aboveFloorGainPct_auto": 71.44747267861682,
+      "rawGainPct_hybrid": 0,
+      "aboveFloorGainPct_hybrid": 0
+    },
+    {
+      "band": "8-19",
+      "n": 5,
+      "mcpAvg": 16713.6,
+      "autoAvg": 8297.4,
+      "hybridAvg": 8297.4,
+      "rawGainPct_auto": 101.43177380866297,
+      "aboveFloorGainPct_auto": 173.76636247264318,
+      "rawGainPct_hybrid": 101.43177380866297,
+      "aboveFloorGainPct_hybrid": 173.76636247264318
+    },
+    {
+      "band": ">=20",
+      "n": 5,
+      "mcpAvg": 22240.2,
+      "autoAvg": 16596.8,
+      "hybridAvg": 16596.8,
+      "rawGainPct_auto": 34.00294032584594,
+      "aboveFloorGainPct_auto": 42.93909973521623,
+      "rawGainPct_hybrid": 34.00294032584594,
+      "aboveFloorGainPct_hybrid": 42.93909973521623
+    }
+  ]
 }

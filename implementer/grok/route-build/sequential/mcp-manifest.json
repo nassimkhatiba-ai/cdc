@@ -1,0 +1,9 @@
+{
+  "name": "sequential",
+  "mode": "mcp",
+  "command": "implementer/mega40/homes/sequential/sequential-mcp.sh",
+  "args": [],
+  "envToken": "CDC_SEQUENTIAL_TOKEN",
+  "tools": 1,
+  "note": "Prefer an installed binary over npx -y to avoid network cold starts."
+}
