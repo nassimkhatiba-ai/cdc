@@ -121,31 +121,56 @@
   .decide .d.native .to{color:var(--muted)}
   .decide .d.faded{opacity:.5}
 
-  /* footer */
-  footer{padding:110px 0 0; border-top:1px solid var(--line)}
-  .fhead{display:flex; justify-content:space-between; align-items:flex-end; gap:36px; flex-wrap:wrap}
-  .fhead h2{font-size:clamp(24px,2.8vw,34px); font-weight:350; max-width:15ch}
   .status{display:inline-flex; align-items:center; gap:9px; font-family:var(--mono); font-size:12.5px; color:var(--ink);
     border:1px solid var(--line); border-radius:999px; padding:8px 14px; background:var(--panel)}
   .status .dot{width:8px; height:8px; border-radius:50%; background:var(--green)}
   .status .m{color:var(--muted)}
-  .cols{display:grid; grid-template-columns:repeat(4,1fr); gap:28px; margin-top:64px; padding-top:38px; border-top:1px solid var(--line)}
+
+  /* how it works */
+  section.how{padding:120px 0; border-top:1px solid var(--line)}
+  .how h2{font-size:clamp(28px,3.7vw,44px); font-weight:350; max-width:17ch; margin-top:18px}
+  .steps{display:grid; grid-template-columns:repeat(3,1fr); gap:40px; margin-top:74px}
+  @media(max-width:820px){ .steps{grid-template-columns:1fr; gap:44px} }
+  .step{border-top:1.5px solid var(--ink); padding-top:20px}
+  .step .idx{font-family:var(--mono); font-size:12.5px; color:var(--accent); font-weight:600; letter-spacing:.04em}
+  .step h3{font-size:21px; font-weight:500; margin-top:13px; color:var(--ink)}
+  .step p{margin-top:11px; font-size:15px; color:var(--body); max-width:36ch}
+  .step .code{margin-top:15px; font-family:var(--mono); font-size:12.5px; color:var(--body); background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:8px 11px; display:inline-block}
+  .step .code .p{color:var(--accent)}
+
+  /* cta band */
+  section.cta{padding:110px 0; border-top:1px solid var(--line)}
+  .ctabox{border:1px solid var(--line); border-radius:22px; background:var(--panel); padding:60px 44px; text-align:center;
+    box-shadow:0 30px 80px rgba(17,18,20,.06); position:relative; overflow:hidden}
+  .ctabox::after{content:""; position:absolute; inset:0; background:radial-gradient(620px 280px at 50% -35%, rgba(34,195,214,.11), transparent 70%); pointer-events:none}
+  .ctabox > *{position:relative}
+  .ctabox h2{font-size:clamp(28px,3.8vw,46px); font-weight:350; letter-spacing:-.035em}
+  .ctabox p{margin:16px auto 0; color:var(--body); max-width:50ch; font-size:17px}
+  .ctacmd{display:inline-flex; align-items:center; gap:13px; margin:32px auto 0; font-family:var(--mono); font-size:14px;
+    background:var(--ink); color:#f2f2f0; padding:13px 16px; border-radius:11px; cursor:pointer; border:1px solid #222; transition:.15s}
+  .ctacmd:hover{border-color:#3a3a3e}
+  .ctacmd .p{color:var(--accent-soft)}
+  .ctacmd .cp{color:var(--faint); font-size:11px; letter-spacing:.06em; text-transform:uppercase; border-left:1px solid #333; padding-left:12px}
+  .ctabtns{display:flex; gap:11px; justify-content:center; margin-top:24px; flex-wrap:wrap}
+
+  /* footer */
+  footer{padding:76px 0 40px; border-top:1px solid var(--line)}
+  .ftop{display:grid; grid-template-columns:1.3fr 3fr; gap:56px}
+  @media(max-width:860px){ .ftop{grid-template-columns:1fr; gap:44px} }
+  .fbrand .b{display:flex; align-items:center; gap:10px; font-size:19px; font-weight:600; color:var(--ink)}
+  .fbrand .b img{width:26px; height:26px; mix-blend-mode:multiply}
+  .fbrand .desc{margin-top:15px; font-size:14px; color:var(--body); max-width:30ch; line-height:1.55}
+  .fbrand .status{margin-top:18px}
+  .cols{display:grid; grid-template-columns:repeat(4,1fr); gap:28px}
   @media(max-width:760px){ .cols{grid-template-columns:1fr 1fr; gap:38px 24px} }
   .col h4{font-family:var(--mono); font-size:11.5px; font-weight:500; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin:0 0 18px}
   .col a{display:block; color:var(--body); font-size:15px; margin-bottom:13px}
   .col a:hover{color:var(--ink)}
   .col a .ann{color:var(--faint); font-size:11.5px; margin-left:6px; font-family:var(--mono)}
   .fbot{display:flex; justify-content:space-between; align-items:center; gap:20px; flex-wrap:wrap;
-    margin-top:52px; padding-top:24px; border-top:1px solid var(--line); font-family:var(--mono); font-size:12.5px; color:var(--muted)}
-  .fbot .l{display:flex; align-items:center; gap:9px}
-  .fbot .l img{width:19px; height:19px; mix-blend-mode:multiply}
+    margin-top:64px; padding-top:24px; border-top:1px solid var(--line); font-family:var(--mono); font-size:12.5px; color:var(--muted)}
   .fbot .r{display:flex; gap:20px}
   .fbot .r a:hover{color:var(--ink)}
-  /* closing mark — outline, not gradient-fill (distinct from the reference) */
-  .bigmark{font-size:clamp(110px,29vw,440px); font-weight:800; letter-spacing:-.05em; line-height:.74; text-align:center;
-    margin:46px 0 -.14em; user-select:none; pointer-events:none; color:transparent;
-    -webkit-text-stroke:1.4px #e0e0dc; text-stroke:1.4px #e0e0dc}
-  .bigmark .dot{color:var(--accent); -webkit-text-stroke:0}
 </style>
 </head>
 <body>
@@ -235,55 +260,98 @@
   </div>
 </section>
 
+<section class="how">
+  <div class="wrap">
+    <p class="eyebrow">how it works</p>
+    <h2>One install. Then it's automatic.</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="idx">01 — convert</div>
+        <h3>Compile the surface</h3>
+        <p>Point CDC at any MCP server or OpenAPI spec. It compiles the whole tool surface into a ~900-token skill plus a grep-able reference.</p>
+        <div class="code"><span class="p">$</span> cdc from-mcp github</div>
+      </div>
+      <div class="step">
+        <div class="idx">02 — route</div>
+        <h3>Decide by cost</h3>
+        <p>An always-on check runs before every MCP call. Fat schema routes to the skill; a small surface stays native. No config, no choosing.</p>
+        <div class="code">github → <span class="p">cdc</span> · small → native</div>
+      </div>
+      <div class="step">
+        <div class="idx">03 — run</div>
+        <h3>Same tools, less context</h3>
+        <p>The agent greps only the endpoints it needs and calls them. Identical results — the schemas never enter the window.</p>
+        <div class="code">909 tok · <span class="p">2/2 correct</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap">
+    <div class="ctabox">
+      <h2>Stop paying the schema tax.</h2>
+      <p>Install once — works across Claude&nbsp;Code and Codex. Runs locally on your machine, adds zero new dependencies, and is on by default.</p>
+      <div class="ctacmd" id="copycmd" role="button" tabindex="0" title="Copy"><span class="p">$</span> node bin/cdc.js install-plugin <span class="cp" id="cplabel">copy</span></div>
+      <div class="ctabtns">
+        <a class="pill dark" href="https://github.com/nassimkhatiba-ai/cdc">Get started <span class="arrow">↗</span></a>
+        <a class="pill light" href="https://github.com/nassimkhatiba-ai/cdc/blob/main/INSTALL.md">Read the docs</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <footer>
   <div class="wrap">
-    <div class="fhead">
-      <div>
-        <p class="eyebrow" style="margin-bottom:16px">code-call descriptors</p>
-        <h2>You keep the tools. CDC drops the tax.</h2>
+    <div class="ftop">
+      <div class="fbrand">
+        <span class="b"><img src="cdc-logo.png" alt="">cdc</span>
+        <p class="desc">Code-Call Descriptors. Turn bloated MCP servers into short skills — and keep every tool.</p>
+        <span class="status"><span class="dot"></span> benchmarked <span class="m">· gpt-5.6-sol</span></span>
       </div>
-      <span class="status"><span class="dot"></span> benchmarked <span class="m">· gpt-5.6-sol</span></span>
+      <div class="cols">
+        <div class="col">
+          <h4>install</h4>
+          <a href="https://github.com/nassimkhatiba-ai/cdc">both agents <span class="ann">plugin</span></a>
+          <a href="https://github.com/nassimkhatiba-ai/cdc">claude code</a>
+          <a href="https://github.com/nassimkhatiba-ai/cdc">codex</a>
+          <a href="https://github.com/nassimkhatiba-ai/cdc/blob/main/INSTALL.md">guide</a>
+        </div>
+        <div class="col">
+          <h4>skills</h4>
+          <a href="https://github.com/nassimkhatiba-ai/cdc">github-cdc <span class="ann">909 tok</span></a>
+          <a href="https://github.com/nassimkhatiba-ai/cdc">notion-cdc</a>
+          <a href="https://github.com/nassimkhatiba-ai/cdc">router</a>
+          <a href="https://github.com/nassimkhatiba-ai/cdc">skill creator</a>
+        </div>
+        <div class="col">
+          <h4>benchmarks</h4>
+          <a href="index.html#bench">live a/b <span class="ann">−40%</span></a>
+          <a href="index.html#bench">10-mcp suite</a>
+          <a href="https://github.com/nassimkhatiba-ai/cdc/tree/main/implementer">harness</a>
+          <a href="index.html">full site</a>
+        </div>
+        <div class="col">
+          <h4>project</h4>
+          <a href="https://github.com/nassimkhatiba-ai/cdc">github</a>
+          <a href="https://github.com/nassimkhatiba-ai/cdc/blob/main/README.md">readme</a>
+          <a href="https://github.com/nassimkhatiba-ai/cdc/blob/main/PAPER.md">paper</a>
+          <a href="https://github.com/nassimkhatiba-ai/cdc/issues">issues</a>
+        </div>
+      </div>
     </div>
-
-    <div class="cols">
-      <div class="col">
-        <h4>install</h4>
-        <a href="https://github.com/nassimkhatiba-ai/cdc">both agents <span class="ann">plugin</span></a>
-        <a href="https://github.com/nassimkhatiba-ai/cdc">claude code</a>
-        <a href="https://github.com/nassimkhatiba-ai/cdc">codex</a>
-        <a href="https://github.com/nassimkhatiba-ai/cdc/blob/main/INSTALL.md">guide</a>
-      </div>
-      <div class="col">
-        <h4>skills</h4>
-        <a href="https://github.com/nassimkhatiba-ai/cdc">github-cdc <span class="ann">909 tok</span></a>
-        <a href="https://github.com/nassimkhatiba-ai/cdc">notion-cdc</a>
-        <a href="https://github.com/nassimkhatiba-ai/cdc">router</a>
-        <a href="https://github.com/nassimkhatiba-ai/cdc">skill creator</a>
-      </div>
-      <div class="col">
-        <h4>benchmarks</h4>
-        <a href="index.html#bench">live a/b <span class="ann">−40%</span></a>
-        <a href="index.html#bench">10-mcp suite</a>
-        <a href="https://github.com/nassimkhatiba-ai/cdc/tree/main/implementer">harness</a>
-        <a href="index.html">full site</a>
-      </div>
-      <div class="col">
-        <h4>project</h4>
-        <a href="https://github.com/nassimkhatiba-ai/cdc">github</a>
-        <a href="https://github.com/nassimkhatiba-ai/cdc/blob/main/README.md">readme</a>
-        <a href="https://github.com/nassimkhatiba-ai/cdc/blob/main/PAPER.md">paper</a>
-        <a href="https://github.com/nassimkhatiba-ai/cdc/issues">issues</a>
-      </div>
-    </div>
-
     <div class="fbot">
-      <span class="l"><img src="cdc-logo.png" alt="">© 2026 cdc · independent · built for claude &amp; codex</span>
-      <span class="r"><a href="#">privacy</a><a href="#">terms</a><span>v0.1</span></span>
+      <span>© 2026 cdc · independent · MIT · built for claude &amp; codex</span>
+      <span class="r"><a href="#">privacy</a><a href="#">terms</a><a href="https://github.com/nassimkhatiba-ai/cdc">github ↗</a></span>
     </div>
-
-    <div class="bigmark">cdc<span class="dot">.</span></div>
   </div>
 </footer>
+
+<script>
+  var c=document.getElementById('copycmd'), l=document.getElementById('cplabel');
+  function copy(){navigator.clipboard&&navigator.clipboard.writeText('node bin/cdc.js install-plugin').then(function(){l.textContent='copied';setTimeout(function(){l.textContent='copy'},1600)})}
+  c.addEventListener('click',copy); c.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();copy()}});
+</script>
 
 </body>
 </html>
