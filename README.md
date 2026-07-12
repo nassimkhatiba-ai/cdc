@@ -1,317 +1,186 @@
 <p align="center">
-  <img src="assets/logo.svg" width="128" height="128" alt="CDC logo">
-</p>
-
-<h1 align="center">CDC</h1>
-
-<p align="center">
-  <strong>Code-Call Descriptors</strong> &mdash; stop loading MCPs into context.<br>
-  Convert them into <strong>Agent Skills</strong> for Claude Code and Codex instead.
+  <img src="assets/cdc-banner.png" width="820" alt="CDC — MCP brought 40,000 tokens of schemas. CDC left them at the door.">
 </p>
 
 <p align="center">
-  <a href="#quick-start--make-a-cdc-skill-in-claude-code">Quick start</a> &middot;
-  <a href="#what-changes">Skill vs MCP</a> &middot;
-  <a href="#benchmarks">Benchmarks</a> &middot;
-  <a href="PAPER.md">Paper</a>
+  <img alt="Node 18+" src="https://img.shields.io/badge/node-%3E%3D18-111111?style=flat-square">
+  <img alt="License MIT" src="https://img.shields.io/badge/license-MIT-111111?style=flat-square">
+  <img alt="Zero deps" src="https://img.shields.io/badge/deps-0-111111?style=flat-square">
+  <img alt="Claude + Codex" src="https://img.shields.io/badge/works%20with-Claude%20%26%20Codex-111111?style=flat-square">
 </p>
 
 <p align="center">
-  <img alt="Node 18+" src="https://img.shields.io/badge/node-%3E%3D18-brightgreen">
-  <img alt="License MIT" src="https://img.shields.io/badge/license-MIT-blue">
-  <img alt="Zero deps" src="https://img.shields.io/badge/deps-0-lightgrey">
+  <strong>Benchmarked on <code>gpt-5.6-sol</code></strong> · Codex CLI · medium reasoning<br>
+  <sub>~24% fewer tokens on a 10-MCP suite · up to ~53% on fat CLI surfaces · hybrid keeps small MCPs native</sub>
 </p>
 
 ---
 
-## What changes
+## What it is
 
-| | **Load as MCP** | **Load as CDC skill** |
+**Code-Call Descriptors.** Turn MCP servers into short Agent Skills so Claude Code and Codex stop paying full tool schemas every turn.
+
+You still get the tools. The model just doesn't have to *swallow the menu* first.
+
+| | MCP connected | CDC skill |
 |---|---|---|
-| How Claude sees it | connected MCP server | normal Agent Skill folder |
-| Context starts with | every tool schema | ~400&ndash;900 token `SKILL.md` |
-| Finding a tool | already in context | grep `CDC.md` (lazy) |
-| Calling tools | model round-trip per call | one sandboxed script |
-| Data path | payloads &rarr; model | payloads &rarr; sandbox |
-| Cost as data grows | superlinear | **flat** |
+| Context tax | every schema, every session | ~few hundred tokens |
+| How you call | tool round-trips | short script / bridge |
+| Fat surfaces | expensive | **cheap** |
+| Tiny surfaces | already fine | hybrid keeps MCP |
 
-```
-  your MCP server
-        |
-        |  cdc-skill-creator  /  cdc tui
-        v
-  ~/.claude/skills/github-cdc/     <-- Claude loads THIS (a skill)
-        SKILL.md                   <-- tiny preamble
-        CDC.md                     <-- one line per tool
-        mcp-call.js                <-- bridge mode only (not for filesystem MCPs)
-```
-
-
-**You are not "connecting an MCP" in Claude Code.**  
-You install a skill. Claude opens the skill, greps the tool index, writes a script, prints the answer. Schemas and raw JSON never flood the window.
-
-**Critical:** after convert, **disable the original MCP server**. If both stay on, you pay schema tax *and* skill tax and you will not feel the win.
-
+Always-on hybrid router: even if you say *"use MCP github"*, it still checks which path is cheaper. First convert prints a one-time cost line; later sessions stay cheaper.
 
 ---
 
-## Quick start — make a CDC skill in Claude Code
+## Install
 
-**Easiest path:** install the creator skill once, then just ask Claude Code **or Codex**.
+Needs Node 18+ on your PATH.
+
+### Both agents (recommended)
 
 ```bash
 git clone https://github.com/nassimkhatiba-ai/cdc.git && cd cdc
-node bin/cdc.js install-creator --target both
-# -> ~/.claude/skills + ~/.codex/skills
+node bin/cdc.js install-plugin
 ```
 
-Then in Claude Code or Codex (restart Codex after install):
+Skills go to `~/.claude/skills` + `~/.codex/skills`.  
+Always-on: Claude hooks + `~/.codex/AGENTS.md`.  
+Restart Claude Code / Codex after install.
 
-> Convert my GitHub MCP into a CDC skill  
-> (`npx -y @modelcontextprotocol/server-github`)
-
-or:
-
-> Use cdc-skill-creator on this tools.json
-
-Claude runs the bundled converter and installs:
-
-```
-~/.claude/skills/github-cdc/     <-- loads as a SKILL, not an MCP connection
-```
-
-Next message:
-
-> Using the github-cdc skill, how many stars does torvalds/linux have?
-
-### What just happened
-
-```
-  MCP server / tools dump
-           |
-           |  cdc-skill-creator  (Claude Code skill)
-           v
-  ~/.claude/skills/<name>-cdc/
-        SKILL.md      tiny preamble Claude loads first
-        CDC.md        one line per tool (grep lazily)
-        mcp-call.js   optional bridge back to the MCP process
-```
-
-You are **not** connecting an MCP in Claude Code. You installed a skill.
-Schemas and raw JSON never flood the window.
-
-**Then disable the original MCP** in Claude/Codex config. The skill uses a short CLI path (and a warm daemon); keeping the MCP connected hides the token and speed win.
-
-
-<details>
-<summary><b>Alternative: TUI / CLI (no Claude needed)</b></summary>
+### Claude Code only
 
 ```bash
-node bin/cdc.js            # interactive TUI
-# or
-node bin/cdc.js from-mcp --probe npx --arg -y --arg "@modelcontextprotocol/server-github" --name github
-node bin/cdc.js install github
+claude plugin marketplace add nassimkhatiba-ai/cdc
+claude plugin install cdc@cdc
 ```
+
+### Codex only
 
 ```bash
-# tools dump
-node bin/cdc.js from-mcp my-tools.json --name myserver && node bin/cdc.js install myserver
-
-# OpenAPI
-node bin/cdc.js make https://petstore3.swagger.io/api/v3/openapi.json --name petstore
-node bin/cdc.js install petstore
+git clone https://github.com/nassimkhatiba-ai/cdc.git && cd cdc
+node bin/cdc.js install-creator --target codex
 ```
 
-</details>
-
-<details>
-<summary><b>What does a generated skill look like?</b></summary>
-
-The compiler picks a **mode** automatically from the MCP (general rules — not per-demo hacks):
-
-| mode | when | package |
-|---|---|---|
-| **direct-fs** | filesystem-like MCP (e.g. `@modelcontextprotocol/server-filesystem`) | short Node `fs` skill, **no** `mcp-call.js` |
-| **http** | `--http-base` / OpenAPI | short `fetch` skill |
-| **mcp** | everything else | short skill + `mcp-call.js` bridge |
-
-```
-~/.claude/skills/<name>-cdc/
-  SKILL.md            # short pointer (image primary) or full text preamble
-  SKILL.text.md       # full text body when image is primary
-  name.cdc.png        # image skill body (MAIN) — open with vision
-  CDC.md              # one line per tool, grouped by tag
-  stats.json          # compression numbers
-  mcp-call.js         # bridge mode only
-  mcp-manifest.json   # root path (direct-fs) or MCP launch (bridge)
-```
-
-Generated skills are **general**: no example-specific files, paths, or task recipes baked into the template. Root paths come from the probe command args only.
-
-**Optical skills are auto-routed** (`--mode auto`, the default). The packer
-builds a tile-budgeted, content-compressed `.cdc.png` and the router makes it
-primary **only when its estimated vision cost beats the text-equivalent cost**
-(fat multi-hop surfaces, ≥ ~8 tools). Tiny skills stay text and render no
-pages — they never pay the vision floor. Decision + pack metrics are logged
-in `stats.json` / `image-meta.json`.
-
-| | |
-|---|---|
-| force text | `--mode text` (or `CDC_IMAGE_MODE=text`, legacy `CDC_IMAGE=0`) |
-| force image | `--mode image` (or `CDC_IMAGE_MODE=image`, legacy `CDC_IMAGE=1`) |
-| image helps | fat tool surfaces: complex −23% vs text, playwright −50% tokens at equal accuracy |
-| image hurts | tiny surfaces (vision floor ~6–8k), filesystem data skills (never packed) |
-
-Live numbers: [results-optical-v2.md](results-optical-v2.md).
-
-Example <code>CDC.md</code> line:
-
-```
-list_orders(page:integer, per_page:integer, user_id:integer, status:...)
-```
-
-</details>
+More detail: [INSTALL.md](INSTALL.md).
 
 ---
 
-## Benchmarks
+## Use it
 
-Same 5 analytics tasks, same mock store API (2,000 orders). Answers verified equal.
+Say anything like:
 
-### Simulated suite &mdash; interaction pattern cost
+- *Convert my GitHub MCP into a CDC skill*
+- *Use the github MCP* (still cost-checks first)
+- *Using the github-cdc skill, how many stars does torvalds/linux have?*
 
-| | MCP-style | CDC skill | ratio |
-|---|---:|---:|---:|
-| **Billed input tokens** | 7,673,993 | 4,127 | **1,860&times;** |
-| Context footprint | 720,960 | 3,179 | **227&times;** |
-| Model round trips | 75 | 10 | **7.5&times;** |
-| Modeled cost (Sonnet $) | $23.06 | $0.04 | **586&times;** |
+First time a fat MCP has no skill yet, the agent should tell you in chat:
 
-3 of 5 MCP tasks needed **216k&ndash;233k** context &mdash; they don't fit a 200k window. CDC finishes each under **1k**.
+> *First time creating CDC costs ~X% more than MCP once, but next times it will be ~Y% cheaper than MCP native with same accuracy.*
 
-### Live model &mdash; claude-opus-4-6, nothing scripted
+Then it converts.
 
-| | MCP-style | CDC skill |
+- `preferTransport: cdc` → disable the same-name MCP (don't pay both taxes)
+- `preferTransport: mcp` → leave MCP on (small surface already wins)
+
+---
+
+## Before / after
+
+**Before:** connect GitHub MCP → millions of schema tokens in the room → ask for one star count → context is already full of tools you'll never touch.
+
+**After:** install `github-cdc` → ~900 token skill → agent greps `CDC.md`, runs a short script, answers. Schemas stay out of the window.
+
+```
+MCP server  --cdc-->  ~/.claude/skills/github-cdc/
+                        SKILL.md     tiny preamble
+                        CDC.md       one line per tool
+                        mcp-call.js  bridge (when needed)
+```
+
+---
+
+## Numbers - `gpt-5.6-sol` (fresh rebench)
+
+**Model:** `gpt-5.6-sol` · reasoning `medium` · Codex CLI · 2026-07-12  
+**Suite:** 10 real MCPs, 45 score keys, MCP-connected vs text CDC skill
+
+### Suite headline
+
+| | MCP | CDC text |
 |---|---:|---:|
-| Correct answers | 2 / 3 | **3 / 3** |
-| Billed input tokens | 146,291 | **931** (**157&times;**) |
-| Wall time | 329 s | **56 s** (**5.8&times;**) |
+| **Accuracy** | **45/45 (100%)** | **39/45 (87%)** |
+| **Total tokens** | 155,309 | **118,470** |
+| **vs MCP** | - | **-23.7% tokens** |
 
-MCP got <code>total_revenue</code> **wrong** (&minus;$1,045). It paged 356 floats into context and summed them in attention. CDC's 15-line script got the exact value.
+Where **both** arms scored full marks (7 targets: everything, memory, sqlite, context7, fetch, github, calc):
 
-### Cost stays flat as data grows
+| | tokens |
+|---|---:|
+| MCP | 107,078 |
+| CDC | **83,160** (**-22.3%**) |
 
-| orders | MCP billed input | CDC billed input | ratio |
-|---:|---:|---:|---:|
-| 250 | 319,714 | 4,121 | 78&times; |
-| 1,000 | 2,214,159 | 4,122 | 537&times; |
-| 2,000 | 7,673,993 | 4,127 | **1,860&times;** |
-| 4,000 | 28,371,367 | 4,127 | **6,875&times;** |
+### Best Sol wins (full accuracy both sides)
 
-### Compile real APIs
+| target | MCP | CDC | under |
+|--------|----:|----:|------:|
+| everything | 18,500 | **8,624** | **-53%** |
+| calc | 17,410 | **8,230** | **-53%** |
+| github | 19,228 | **9,749** | **-49%** |
+| fetch | 15,931 | **9,017** | **-43%** |
+| memory | 17,609 | **12,805** | **-27%** |
 
-| API | source size | tools / endpoints | skill tokens | compression |
-|---|---:|---:|---:|---:|
-| Petstore | 17 KB | 19 | 438 | 20&times; |
-| Stripe | 7.9 MB | 587 | 420 | **4,682&times;** |
-| GitHub | 12.7 MB | 1,196 | 909 | **3,502&times;** |
+### Small surface (hybrid keeps MCP)
 
-### Three-arm live suite (MCP vs text CDC vs image .cdc)
+| arm | tokens | task |
+|-----|-------:|------|
+| MCP turtle house | ~11.4k | 5/5 structure |
+| lean hybrid (`prefer=mcp`) | ~11.5k | 5/5 structure |
 
-~40 MCP servers, Codex `gpt-5.6-sol`, same tasks, scored keys. Includes hard multi-system servers:
+~parity - that's why the router does **not** force CDC on tiny MCPs.
 
-- **complex** (acme-ops ~47 tools) ��� open P1 SLA breaches + ARR at risk  
-- **nova** (nova-fleet ~48 tools) — open SEV1 SLO breaches + MRR at risk  
+### Definition tax (static - free before any model call)
 
-```bash
-CODEX_MODEL=gpt-5.6-sol PHASE=all PARALLEL=2 node implementer/mega40/run-mega40.js
-```
+| package | MCP schemas | CDC skill | |
+|---------|------------:|----------:|---|
+| stripe | 1.97M | 420 | **~4,700x** |
+| github | 3.18M | 909 | **~3,500x** |
+| notion | 38k | 932 | **~41x** |
+| filesystem | 5.7k | 454 | **~13x** |
 
-Report: [results-mega40.md](results-mega40.md) (written after score phase).
-
-Full tables &rarr; [results.md](results.md) &middot; [results-live.md](results-live.md) &middot; [results-scale.md](results-scale.md)  
-Reproduce &rarr; <code>node benchmark.js</code>
+Honest notes: Sol still burns tokens on some multi-hop CDC paths (git / weather / time convert missed keys this run). MCP hit 100%; CDC is cheaper overall and much cheaper on fat CLI surfaces. Full table + method: [results-readme-sol.md](results-readme-sol.md).
 
 ---
 
-## See your savings
-
-```bash
-node bin/cdc.js --stats --paper
-```
+## How hybrid decides
 
 ```
-==============================================================
-  CDC -- estimated savings vs MCP interaction pattern
-==============================================================
-
-  Definition tax     MCP 1,863   CDC skill  680    2.7x
-  Billed input       MCP 1.6M    CDC skill 16k   104x
-  Est. cost          MCP $5.02   CDC skill $0.07  67x
-
-  You would have saved ~1,635,825 billed input tokens ($4.95).
+paging / fat schema / 40+ tools  -->  CDC skill
+everything else                  -->  native MCP
 ```
+
+Knobs: `CDC_HYBRID_MIN_SCHEMA` (3500), `CDC_HYBRID_MIN_TOOLS` (40), `CDC_HYBRID_FORCE=mcp|cdc`.  
+Opt out: `CDC_ROUTER=off`.
 
 ---
 
 ## CLI
 
-Preferred for most people: the **cdc-skill-creator** Claude Code skill above.
-
 ```bash
-cdc | cdc tui | cdc new                    # interactive skill builder
-cdc from-mcp <tools.json|--probe CMD> --name <name>
-cdc make <openapi-url-or-path> --name <name>
-cdc install <name>                         # -> ~/.claude/skills/<name>-cdc
-cdc --stats [--paper] [--package name]
-cdc list
+node bin/cdc.js install-plugin          # Claude + Codex
+node bin/cdc.js install-creator         # skills only
+node bin/cdc.js from-mcp --probe …      # convert one server
+node bin/cdc.js tui                     # interactive
+npm test                                # smoke + hybrid + codex checks
 ```
 
-Image skill (default main):
+### Rebench yourself
 
 ```bash
-# image primary (default)
-node skills/cdc-skill-creator/scripts/create-cdc-skill.js from-mcp --name X --probe ...
-# text SKILL.md primary (still emits .cdc.png)
-node skills/cdc-skill-creator/scripts/create-cdc-skill.js from-mcp --name X --probe ... --text
+cd implementer/mega40
+CODEX_MODEL=gpt-5.6-sol ARMS=mcp,text \
+  ONLY=everything,memory,sqlite,context7,git,time,fetch,github,calc,weather \
+  PARALLEL=3 PHASE=all node run-mega40.js
 ```
 
----
-
-## Why this works (short)
-
-MCP-as-tool-bus charges three taxes every session:
-
-1. **Definition** &mdash; all schemas enter context before the first question
-2. **Payload** &mdash; raw JSON pages transit the model
-3. **Round-trip** &mdash; each tool call re-reads the growing conversation
-
-A **CDC skill** compiles definitions into a greppable index and moves fetch / filter / aggregate into a sandbox. Context cost becomes **O(answer)**, not **O(data)**. Arithmetic runs on a CPU &mdash; which is why the live run was both cheaper *and* more accurate.
-
-**Image .cdc** packs the skill body into PNG pages for vision loading — on mid/fat tool surfaces this often beats text skill definition tax (see mega40 / concept image-skill benches).
-
-MCP still wins for credential brokering, non-HTTP/stateful tools, and org allowlists. Hybrid is fine: keep MCP as transport behind `mcp-call.js`, but **consume it as a skill**.
-
----
-
-## Go deeper
-
-| | |
-|---|---|
-| **[PAPER.md](PAPER.md)** | Full write-up &mdash; design, related work, all five benchmark layers, limitations |
-| **[results.md](results.md)** | Per-task simulated tables |
-| **[results-live.md](results-live.md)** | Live frontier-model run |
-| **[results-scale.md](results-scale.md)** | Scaling sweep 250 &rarr; 4,000 orders |
-| **[results-mega40.md](results-mega40.md)** | ~40 MCP three-arm live suite (MCP / text / image) |
-| **`cdc/`** | Prebuilt skill packages: github, stripe, petstore, demo, filesystem |
-
-```bash
-npm test                 # smoke tests, no network
-node benchmark.js        # full simulated suite
-```
-
----
-
-<p align="center">
-  <sub>MIT &middot; <a href="https://github.com/nassimkhatiba-ai/cdc">nassimkhatiba-ai/cdc</a></sub>
-</p>
+Zero runtime deps. MIT. Have fun spending fewer tokens on menus.
