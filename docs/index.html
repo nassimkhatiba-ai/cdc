@@ -94,8 +94,29 @@
     backdrop-filter:var(--blur); -webkit-backdrop-filter:var(--blur); box-shadow:var(--glass-sh);
     border-radius:10px; padding:10px 15px; overflow-x:auto}
   .cmd .dollar{color:var(--muted); user-select:none}
-  .trust{margin-top:26px; font-size:13.5px; color:var(--muted); letter-spacing:.01em}
+  .trust{margin-top:24px; font-size:13.5px; color:var(--muted); letter-spacing:.01em}
   .trust b{color:var(--body); font-weight:600}
+  .hero .tag em{font-style:normal; color:var(--ink); font-weight:600}
+
+  /* hero context-window graphic */
+  .cw{margin:38px auto 4px; max-width:600px; text-align:left; padding:22px 22px 18px;
+    background:var(--glass-bg); backdrop-filter:var(--blur); -webkit-backdrop-filter:var(--blur);
+    border:1px solid var(--glass-brd); box-shadow:var(--glass-sh); border-radius:16px}
+  .cw-row + .cw-row{margin-top:15px}
+  .cw-head{display:flex; justify-content:space-between; align-items:baseline; gap:12px; margin-bottom:7px}
+  .cw-name{font-weight:600; color:var(--ink); font-size:14px}
+  .cw-note{font-size:12.5px; color:var(--muted); white-space:nowrap}
+  .cw-bar{display:flex; align-items:stretch; height:44px; border-radius:10px; overflow:hidden; border:1px solid var(--line)}
+  .cw-seg{display:flex; align-items:center; padding:0 14px; font-size:12.5px; font-weight:600;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .cw-seg.schema{flex:1; min-width:0; color:#43434a;
+    background:repeating-linear-gradient(135deg,#e7e7ec 0,#e7e7ec 9px,#dcdce2 9px,#dcdce2 18px)}
+  .cw-seg.skill{flex:0 0 auto; color:#06343a; background:var(--accent-fill); font-variant-numeric:tabular-nums; box-shadow:2px 0 8px rgba(25,182,201,.35)}
+  .cw-free{flex:1; min-width:0; display:flex; align-items:center; padding:0 14px; font-size:12px;
+    color:var(--muted); font-style:italic; background:rgba(255,255,255,.32); overflow:hidden; text-overflow:ellipsis}
+  .cw-cap{margin-top:15px; font-size:14px; color:var(--body); text-align:center}
+  .cw-cap b{color:var(--accent-strong); font-weight:700}
+  @media(max-width:640px){ .cw-note{display:none} .cw-seg,.cw-free{font-size:11.5px; padding:0 10px} }
 
   /* sections */
   section{padding:88px 0; border-bottom:1px solid var(--line)}
@@ -197,11 +218,24 @@
 <header class="hero">
   <div class="wrap">
     <img class="mark" src="cdc-logo.png" alt="CDC logo">
-    <h1>The tools, without the schema tax.</h1>
-    <p class="tag">CDC turns fat MCP servers into <b>~900-token</b> Agent Skills for Claude&nbsp;Code and Codex. You keep every tool — the model just stops swallowing the menu first.</p>
+    <h1>Same tools. Same answers.<br>Half the tokens.</h1>
+    <p class="tag">Connect the GitHub MCP and your agent loads <b>~3.18 million tokens</b> of tool schemas <em>before it answers a single question.</em> CDC shrinks that to a <b>909-token</b> skill — and routes to it automatically.</p>
+
+    <div class="cw" aria-label="Context spent on tool definitions before you ask a question">
+      <div class="cw-row">
+        <div class="cw-head"><span class="cw-name">Native GitHub MCP</span><span class="cw-note">loaded up front, every session</span></div>
+        <div class="cw-bar"><span class="cw-seg schema">1,196 tool schemas&nbsp;·&nbsp;~3,183,737 tokens</span></div>
+      </div>
+      <div class="cw-row">
+        <div class="cw-head"><span class="cw-name">Same tools, with CDC</span><span class="cw-note">grepped on demand</span></div>
+        <div class="cw-bar"><span class="cw-seg skill">909</span><span class="cw-free">context stays free for your actual task</span></div>
+      </div>
+      <div class="cw-cap"><b>3,502× smaller</b> up-front cost — identical capabilities.</div>
+    </div>
+
     <div class="cta">
-      <a class="btn primary" href="#install">Get started</a>
-      <a class="btn ghost" href="#bench">See the benchmark</a>
+      <a class="btn primary" href="#install">Install CDC</a>
+      <a class="btn ghost" href="#bench">See the proof →</a>
     </div>
     <div class="cmd"><span class="dollar">$</span><span class="num">node bin/cdc.js install-plugin</span></div>
     <p class="trust"><b>Claude Code</b> &amp; <b>Codex</b> &nbsp;·&nbsp; Node 18+ &nbsp;·&nbsp; Zero dependencies &nbsp;·&nbsp; MIT</p>
